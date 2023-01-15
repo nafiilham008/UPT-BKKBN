@@ -65,11 +65,11 @@
                                     
                                     <tr>
                                         <td class="fw-bold">{{ __('Created at') }}</td>
-                                        <td>{{ $post->created_at->format('d/m/Y H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y H:i') }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Updated at') }}</td>
-                                        <td>{{ $post->updated_at->format('d/m/Y H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($post->updated_at)->format('j F, Y H:i') }}</td>
                                     </tr>
                                 </table>
                             </div>

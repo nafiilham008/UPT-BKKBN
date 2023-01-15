@@ -35,6 +35,12 @@ class UserController extends Controller
             $users = User::with('roles:id,name');
 
             return Datatables::of($users)
+                ->editColumn('created_at', function($user){
+                    return $user->created_at;
+                })
+                ->editColumn('updated_at', function($user){
+                    return $user->updated_at;
+                })
                 ->addColumn('action', 'users.include.action')
                 ->addColumn('role', function ($row) {
                     return $row->getRoleNames()->toArray() !== [] ? $row->getRoleNames()[0] : '-';

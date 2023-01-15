@@ -33,40 +33,54 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="section">
+                        <div class="card">
+                            <div class="card-body">
 
-                            <table class="table" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Category</th>
-                                        <th>Status</th>
-                                        <th>Uploaded By</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($content as $item)
+                                <table class="table table-striped" id="table1">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $item->title }}</td>
-                                            <td><span class="badge bg-success">{{ $item->categories->label }}</span></td>
-                                            <td><span class="badge bg-info">{{ $item->status == 1 ? 'Tampilkan' : 'Sembunyikan' }}</span></td>
-                                            <td>{{ $item->users->name }}</td>
-                                            <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                                            <td>{{ $item->updated_at->format('d/m/Y H:i') }}</td>
-                                            @include('posts.include.action')
-{{-- 
-                                            <td>
-                                                <span class="badge bg-success">Active</span>
-                                            </td> --}}
+                                            {{-- <th>{{ __('Title') }}</th>
+                                            <th>{{ __('Thumbnail') }}</th>
+                                            <th>{{ __('Category') }}</th>
+                                            <th>{{ __('Status') }}</th>
+                                            <th>{{ __('Uploaded By') }}</th>
+                                            <th>{{ __('Created At') }}</th>
+                                            <th>{{ __('Updated At') }}</th>
+                                            <th>{{ __('Action') }}</th> --}}
+                                            <th>Title</th>
+                                            <th>Thumbnail</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                            <th>Uploaded By</th>
+                                            <th>Created At</th>
+                                            <th>Updated At</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($content as $item)
+                                            <tr>
+                                                <td>{{ $item->title }}</td>
+                                                <td><img class="avatar avatar-xl" src="{{ asset('uploads/images/thumbnail/' . $item->thumbnail) }}"
+                                                        alt="avatar" style="height: 50px; width: 50px;"></td>
+                                                <td><span class="badge bg-success">{{ $item->categories->label }}</span>
+                                                </td>
+                                                <td><span
+                                                        class="badge bg-info">{{ $item->status == 1 ? 'Tampilkan' : 'Sembunyikan' }}</span>
+                                                </td>
+                                                <td>{{ $item->users->name }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y H:i') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('j F, Y H:i') }}</td>
+                                                @include('posts.include.action')
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -75,15 +89,15 @@
 @endsection
 
 @push('css')
-    {{-- <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/fontawesome.css"> --}}
-    <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/datatables.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/simple-datatables/style.css">
+    <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/simple-datatables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/jquery/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-    <script src="{{ asset('mazer') }}/js/pages/datatables.js"></script>
+    <script src="{{ asset('mazer') }}/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="{{ asset('mazer') }}/js/pages/simple-datatables.js"></script>
 @endpush
