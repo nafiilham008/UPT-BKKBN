@@ -51,6 +51,12 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="thumbnail">{{ __('Thumbnail') }}</label>
+                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail">
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description">{{ __('Description') }}</label>
