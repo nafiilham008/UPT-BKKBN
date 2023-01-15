@@ -1,6 +1,6 @@
 $("#summernote").summernote({
     tabsize: 2,
-    height: 800,
+    height: 500,
     maximumImageFileSize: 204800,
     // maximumFileSize: 1048576
     toolbar: [
