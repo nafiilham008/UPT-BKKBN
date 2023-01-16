@@ -71,7 +71,7 @@ php artisan key:generate
 
 6. Set database name and account in ```.env```
 ```shell
-DB_DATABASE=generator
+DB_DATABASE=bkkbn
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -90,9 +90,6 @@ php artisan storage:link
 ```shell
 php artisan serve
 ``` 
-
-## Usage
-Go to ```/generators/create```
 
 Account
 - Email: admin@example.com
