@@ -184,6 +184,30 @@ return [
             ]
         ],
         [
+            'header' => 'Web Setting',
+            'permissions' => [
+                'highlight view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Content Setting',
+                    'icon' => '<i class="bi bi-sliders"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'highlight view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Highlight Content',
+                            'route' => '/highlights',
+                            'permission' => 'highlight view'
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        [
             'header' => 'Main',
             'permissions' => [
                 'test view'

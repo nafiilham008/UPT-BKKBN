@@ -7,6 +7,7 @@ use App\Http\Controllers\{
     ProfileController,
     RoleAndPermissionController
 };
+use App\Http\Controllers\WebSetting\HighlightController;
 
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/', fn () => view('dashboard'));
@@ -18,6 +19,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::resource('roles', RoleAndPermissionController::class);
 
     Route::resource('posts', PostController::class);
+    Route::resource('highlights', HighlightController::class);
+    // Highlights
+    // Route::get('highlights', [App\Http\Controllers\WebSetting\HighlightController::class, 'index'])->name('highlights.index');
+    // Route::get('highlights/{$id}', [App\Http\Controllers\WebSetting\HighlightController::class, 'show'])->name('highlights.show');
 });
 
 Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {

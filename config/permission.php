@@ -191,6 +191,12 @@ return [
             ]
         ],
         [
+            'group' => 'highlight',
+            'access' => [
+                'highlight view'
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',
