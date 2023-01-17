@@ -7,19 +7,29 @@ use App\Http\Controllers\{
     ProfileController,
     RoleAndPermissionController
 };
+use App\Http\Controllers\Front\{
+    HomeController
+};
 use App\Http\Controllers\WebSetting\HighlightController;
 
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
 Route::middleware(['auth', 'web'])->group(function () {
-    Route::get('/', fn () => view('dashboard'));
-    Route::get('/dashboard', fn () => view('dashboard'));
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', fn () => view('dashboard'));
+    
+        Route::get('/profile', ProfileController::class)->name('profile');
+    
+        Route::resource('users', UserController::class);
+        Route::resource('roles', RoleAndPermissionController::class);
+    
+        Route::resource('posts', PostController::class);
+        Route::resource('highlights', HighlightController::class);
+    });
 
-    Route::get('/profile', ProfileController::class)->name('profile');
-
-    Route::resource('users', UserController::class);
-    Route::resource('roles', RoleAndPermissionController::class);
-
-    Route::resource('posts', PostController::class);
-    Route::resource('highlights', HighlightController::class);
+    
+    
+        
     // Highlights
     // Route::get('highlights', [App\Http\Controllers\WebSetting\HighlightController::class, 'index'])->name('highlights.index');
     // Route::get('highlights/{$id}', [App\Http\Controllers\WebSetting\HighlightController::class, 'show'])->name('highlights.show');
