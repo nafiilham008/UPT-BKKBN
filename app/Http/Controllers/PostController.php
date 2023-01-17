@@ -12,7 +12,7 @@ use Intervention\Image\Facades\Image;
 class PostController extends Controller
 {
     /**
-     * Path for user avatar file.
+     * Path for post content file.
      *
      * @var string
      */

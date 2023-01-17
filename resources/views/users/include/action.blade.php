@@ -1,11 +1,14 @@
 <td>
     <a href="{{ route('users.show', $model->id) }}" class="btn btn-outline-success btn-sm">
         <i class="fa fa-eye"></i>
+        <span>Show</span>
     </a>
 
     @can('user edit')
         <a href="{{ route('users.edit', $model->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>
+            <span>Edit</span>
+
         </a>
     @endcan
 
@@ -17,6 +20,8 @@
 
             <button class="btn btn-outline-danger btn-sm">
                 <i class="ace-icon fa fa-trash-alt"></i>
+                <span>Delete</span>
+
             </button>
         </form>
     @endcan

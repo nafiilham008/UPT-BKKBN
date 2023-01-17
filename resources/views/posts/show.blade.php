@@ -34,18 +34,13 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
-                                    {{-- <tr>
+                                    <tr>
                                         <td colspan="2" class="text-center">
                                             <div class="avatar avatar-xl">
-                                                @if ($user->avatar == null)
-                                                    <img src="https://www.gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}&s=500"
-                                                        alt="Avatar">
-                                                @else
-                                                    <img src="{{ asset("uploads/images/avatars/$user->avatar") }}" alt="Avatar">
-                                                @endif
+                                                    <img src="{{ asset('uploads/images/thumbnail/' . $post->thumbnail) }}" alt="Avatar">
                                             </div>
                                         </td>
-                                    </tr> --}}
+                                    </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Title Content') }}</td>
                                         <td>{{ $post->title }}</td>
