@@ -9,8 +9,8 @@
 
     <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
     <!-- css jumbotron -->
-
     @stack('css')
+
 </head>
 
 <body class="overflow-x-hidden">

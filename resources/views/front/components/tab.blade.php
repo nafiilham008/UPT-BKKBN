@@ -20,7 +20,7 @@
                 <div class="block" id="Berita">
                     <div class="bg-white px-10 py-10 shadow-xl rounded-b-xl">
                         @foreach ($postNews as $item)
-                            <div class="grid grid-cols-12 mt-10">
+                            <div class="grid grid-cols-12 mt-5">
                                 <div class="col-span-4">
                                     <img src="{{ asset('uploads/images/thumbnail/' . $item->thumbnail) }}"
                                         class="cover2 rounded-xl" alt="">
@@ -29,7 +29,7 @@
                                     <a href="#" class="text-base text-[#2B5268] font-semibold "
                                         style="font-family: 'Poppins', sans-serif;">{{ $item->title }}</a>
                                     <h1 class="text-sm text-justify text-[#434343] py-3 line-clamp-3"
-                                        style="font-family: 'Poppins', sans-serif;">{!! $item->description !!} <a
+                                        style="font-family: 'Poppins', sans-serif;">{!! strip_tags($item->description, '<p></p>') !!} <a
                                             href="#"
                                             class="text-base text-[#2B5268] ml-1 font-semibold">Selengkapnya...</a>
                                     </h1>
@@ -56,7 +56,7 @@
                 <div class="hidden" id="Artikel">
                     <div class="bg-white px-10 py-10 shadow-xl rounded-b-xl">
                         @foreach ($postArticle as $item)
-                            <div class="grid grid-cols-12 mt-10">
+                            <div class="grid grid-cols-12 mt-5">
                                 <div class="col-span-4">
                                     <img src="{{ asset('uploads/images/thumbnail/' . $item->thumbnail) }}"
                                         class="cover2 rounded-xl" alt="">
@@ -94,7 +94,7 @@
                     <div class="bg-white px-10 py-10 shadow-xl rounded-b-xl">
 
                         @foreach ($postInformation as $item)
-                            <div class="grid grid-cols-12 mt-10">
+                            <div class="grid grid-cols-12 mt-5">
                                 <div class="col-span-4">
                                     <img src="{{ asset('uploads/images/thumbnail/' . $item->thumbnail) }}"
                                         class="cover2 rounded-xl" alt="">

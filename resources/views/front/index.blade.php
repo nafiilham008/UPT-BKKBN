@@ -10,7 +10,7 @@
             Kediklatan BKKBN </h1>
         <div class="grid grid-cols-12 px py-16">
             <div class="col-span-6 flex justify-center">
-                <img src="/bg-1.png" class="cover rounded-xl" alt="">
+                <img src="{{ asset('mazer/images/samples/bg-2.png') }}" class="cover rounded-xl" alt="">
             </div>
             <div class="col-span-6 flex flex-col justify-center">
                 <h1 class="text-base text-justify font-semibold" style="font-family: 'Poppins', sans-serif;">
@@ -21,8 +21,7 @@
                     memperjuangkan terwujudnya keluarga- keluarga yang sejahtera melalui 3 macam usaha pelayanan yaitu
                     mengatur kehamilan atau menjarangkan kehamilan, mengobati kemandulan serta memberi nasihat
                     perkawinan.</h1>
-                <button class="px-4 py-2 bg-[#0183CE] hover:bg-[#006198] rounded-xl mt-7 w-max text-white">Get
-                    Started</button>
+                <button class="px-4 py-2 bg-[#0183CE] hover:bg-[#006198] rounded-xl mt-7 w-max text-white">Baca Selengkapnya</button>
             </div>
         </div>
     </div>
@@ -44,9 +43,13 @@
     </div>
 @endsection
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+@endpush
+
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
 
     <!-- js Tabs -->
     <script type="text/javascript">
