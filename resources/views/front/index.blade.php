@@ -35,6 +35,8 @@
             @include('front.components.tab')
         </div>
         <div class="col-span-4 pr-20">
+            {{-- Information --}}
+            @include('front.components.information')
             <!-- Sosial Media -->
             @include('front.components.social')
             <!-- Location -->

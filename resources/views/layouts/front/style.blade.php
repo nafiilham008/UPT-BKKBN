@@ -2,7 +2,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="{{ asset('css/app.css') }}"></script>
+{{-- <script src="{{ asset('css/app.css') }}"></script> --}}
+
 <style>
     @keyframes bar {
         from {
@@ -76,42 +77,6 @@
         height: 45vw;
         min-height: 500px;
         transition-duration: 500ms;
-    }
-
-    .slide {
-        position: absolute;
-        z-index: 2;
-        width: 100%;
-        height: 45vw;
-        min-height: 500px;
-        background-image: url("/banner.png");
-        background-repeat: no-repeat, repeat;
-        background-position: center;
-        background-size: cover;
-    }
-
-    .slide-2 {
-        position: absolute;
-        z-index: 2;
-        width: 100%;
-        height: 45vw;
-        min-height: 500px;
-        background-image: url("https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?cs=srgb&dl=pexels-marc-mueller-380768.jpg&fm=jpg");
-        background-repeat: no-repeat, repeat;
-        background-position: center;
-        background-size: cover;
-    }
-
-    .slide-3 {
-        position: absolute;
-        z-index: 2;
-        width: 100%;
-        height: 45vw;
-        min-height: 500px;
-        background-image: url("https://images.pexels.com/photos/37347/office-sitting-room-executive-sitting.jpg?cs=srgb&dl=pexels-pixabay-37347.jpg&fm=jpg");
-        background-repeat: no-repeat, repeat;
-        background-position: center;
-        background-size: cover;
     }
 
     .info-area-container {
@@ -332,6 +297,9 @@
         animation-timing-function: linear;
     }
 
+    .text-banner {
+        text-shadow: 2px 2px #000000;
+    }
     .cover {
         object-fit: cover;
         width: 560px;
@@ -342,6 +310,11 @@
         object-fit: cover;
         width: 295px;
         height: 180px;
+    }
+
+    .cover3 {
+        object-fit: cover;
+        height: 600px;
     }
 
     .line-clamp {

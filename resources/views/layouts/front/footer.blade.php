@@ -1,9 +1,9 @@
-<div style="margin-top: 850px;">
+<div style="margin-top: 1050px;">
     <footer class="p-4 bg-[#0672B0] sm:p-6 shadow-xl">
         <div class="flex px-20 items-center">
             <div class="mb-6 md:mb-0">
                 <a href="/" class="flex items-center">
-                    <img src="/logo.png" style="width: 500px;" alt="" />
+                    <img src="https://www.bkkbn.go.id/storage/photos/1/Banner/Logo-BKKBN.png" style="width: 500px;" alt="" />
                 </a>
             </div>
             <div class="grid ml-40 gap-20  sm:grid-cols-3">
