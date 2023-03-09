@@ -16,7 +16,7 @@ class PostController extends Controller
      *
      * @var string
      */
-    protected $thumbnailPath = 'uploads/images/thumbnail/';
+    protected $thumbnailPath = 'uploads/images/content/thumbnail/';
 
     // Construct for permission
     public function __construct()
@@ -36,6 +36,7 @@ class PostController extends Controller
     {
         // Call post model with relation categories and users
         $content = Post::with('categories', 'users')->get();
+
 
         return view('posts.index', compact('content'));
     }
@@ -64,7 +65,7 @@ class PostController extends Controller
         $validated = $request->validate(
             [
                 'title' => 'required|unique:posts',
-                'thumbnail' => 'required|mimes:jpeg,png,jpg|image|max:1024',
+                'thumbnail' => 'required|mimes:jpeg,png,jpg|image|max:2048',
                 'description' => 'required|min:10',
                 'category' => 'required',
                 'status' => 'required',
@@ -110,7 +111,7 @@ class PostController extends Controller
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
             $data = base64_decode($data);
-            $image_name = "/image-content/" . time() . $k . '.png';
+            $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
             $path = public_path() . $image_name;
             file_put_contents($path, $data);
             $img->removeAttribute('src');
@@ -187,11 +188,11 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'thumbnail' => 'mimes:jpeg,png,jpg|image|max:1024',
+            'thumbnail' => 'mimes:jpeg,png,jpg|image|max:2048',
             'description' => 'required|min:10',
             'category' => 'required',
             'status' => 'required',
-        ],[
+        ], [
             'thumbnail.mimes' => 'Required image JPEG, PNG, or JPG'
         ]);
 
@@ -261,7 +262,7 @@ class PostController extends Controller
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
                 $data = base64_decode($data);
-                $image_name = "/image-content/" . time() . $k . '.png';
+                $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
                 $path = public_path() . $image_name;
                 file_put_contents($path, $data);
                 $img->removeAttribute('src');
@@ -281,37 +282,74 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-
-        if ($post->thumbnail != null && file_exists($oldThumbnail = public_path($this->thumbnailPath . $post->thumbnail))) {
-            unlink($oldThumbnail);
-        }
-
-        // Check Image
-        $description = $post->description;
-        $result = strstr($description, 'src="/image-content/');
-
-        $result = explode('src="/image-content/', $result);
-        $img_src = array();
-        foreach ($result as $img) {
-            $img_src[] = explode('"', $img)[0];
-        }
-        $img_src = array_filter($img_src);
-
-        foreach ($img_src as $key => $value) {
-            // Delete image from local
-            $image = public_path('image-content/' . $value);
-            unlink($image);
-        }
-
-        // Delete all data
-        $post->delete();
-
-        if ($post) {
-            //redirect dengan pesan sukses
-            return redirect()->route('posts.index')->with('success', __('The article was deleted successfully.'));
-        } else {
-            //redirect dengan pesan error
+        // Jika highlight true, maka data tidak dapat dihapus
+        if ($post->highlight == 1) {
             return redirect()->route('posts.index')->with('error', __('Failed'));
+        } else {
+            if ($post->thumbnail != null && file_exists($oldThumbnail = public_path($this->thumbnailPath . $post->thumbnail))) {
+                unlink($oldThumbnail);
+            }
+
+            // Check Image
+            $description = $post->description;
+            $result = strstr($description, 'src="/uploads/images/content/image-content/');
+
+            $result = explode('src="/uploads/images/content/image-content/', $result);
+            $img_src = array();
+            foreach ($result as $img) {
+                $img_src[] = explode('"', $img)[0];
+            }
+            $img_src = array_filter($img_src);
+
+            foreach ($img_src as $key => $value) {
+                // Delete image from local
+                $image = public_path('uploads/images/content/image-content/' . $value);
+                unlink($image);
+            }
+
+            // Delete all data
+            $post->delete();
+
+            if ($post) {
+                //redirect dengan pesan sukses
+                return redirect()->route('posts.index')->with('success', __('The article was deleted successfully.'));
+            } else {
+                //redirect dengan pesan error
+                return redirect()->route('posts.index')->with('error', __('Failed'));
+            }
         }
+
+
+        // if ($post->thumbnail != null && file_exists($oldThumbnail = public_path($this->thumbnailPath . $post->thumbnail))) {
+        //     unlink($oldThumbnail);
+        // }
+
+        // // Check Image
+        // $description = $post->description;
+        // $result = strstr($description, 'src="/uploads/images/content/image-content/');
+
+        // $result = explode('src="/uploads/images/content/image-content/', $result);
+        // $img_src = array();
+        // foreach ($result as $img) {
+        //     $img_src[] = explode('"', $img)[0];
+        // }
+        // $img_src = array_filter($img_src);
+
+        // foreach ($img_src as $key => $value) {
+        //     // Delete image from local
+        //     $image = public_path('uploads/images/content/image-content/' . $value);
+        //     unlink($image);
+        // }
+
+        // // Delete all data
+        // $post->delete();
+
+        // if ($post) {
+        //     //redirect dengan pesan sukses
+        //     return redirect()->route('posts.index')->with('success', __('The article was deleted successfully.'));
+        // } else {
+        //     //redirect dengan pesan error
+        //     return redirect()->route('posts.index')->with('error', __('Failed'));
+        // }
     }
 }

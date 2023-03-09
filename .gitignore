@@ -1,9 +1,15 @@
 /node_modules
 /public/hot
 /public/storage
-/public/uploads/images/thumbnail/*
 /public/uploads/images/avatars/*
-/public/image-content/*
+/public/uploads/images/content/thumbnail/*
+/public/uploads/images/content/image-content/*
+/public/uploads/images/profile/history/*
+/public/uploads/images/profile/image-content-history/*
+/public/uploads/images/profile/image-content-jobandfunc/*
+/public/uploads/images/profile/jobandfunction/*
+/public/uploads/images/profile/employee-photo/*
+
 /storage/*.key
 /vendor
 .env

@@ -197,6 +197,33 @@ return [
             ]
         ],
         [
+            'group' => 'historical',
+            'access' => [
+                'historical view',
+                'historical create',
+                'historical edit',
+                'historical delete',
+            ]
+        ],
+        [
+            'group' => 'jobandfunc',
+            'access' => [
+                'jobandfunc view',
+                'jobandfunc create',
+                'jobandfunc edit',
+                'jobandfunc delete',
+            ]
+        ],
+        [
+            'group' => 'employee',
+            'access' => [
+                'employee view',
+                'employee create',
+                'employee edit',
+                'employee delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

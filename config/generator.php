@@ -109,33 +109,6 @@ return [
      * This code below always changes when you use a generator and maybe you must lint or format the code.
      */
     'sidebars' => [
-        // [
-        //     'header' => 'Users',
-        //     'permissions' => [
-        //         'user view',
-        //         'role & permission view'
-        //     ],
-        //     'menus' => [
-        //         [
-        //             'title' => 'Users',
-        //             'icon' => '<i class="bi bi-people-fill"></i>',
-        //             'route' => '/users',
-        //             'permission' => 'user view',
-        //             'permissions' => [],
-        //             'submenus' => []
-        //         ],
-        //         [
-        //             'title' => 'Roles & permissions',
-        //             'icon' => '<i class="bi bi-person-check-fill"></i>',
-        //             'route' => '/roles',
-        //             'permission' => 'role & permission view',
-        //             'permissions' => [],
-        //             'submenus' => []
-        //         ],
-        //     ]
-        // ],
-
-        // TES
         [
             'header' => 'Users',
             'permissions' => [
@@ -168,45 +141,98 @@ return [
             ]
         ],
         [
-            'header' => 'Content',
+            'header' => 'Main Content',
             'permissions' => [
                 'content view',
+                'highlight view',
             ],
             'menus' => [
                 [
-                    'title' => 'Post Content',
+                    'title' => 'Content',
                     'icon' => '<i class="bi bi-file-post-fill"></i>',
-                    'route' => '/posts',
-                    'permission' => 'content view',
-                    'permissions' => [],
-                    'submenus' => []
-                ],
-            ]
-        ],
-        [
-            'header' => 'Web Setting',
-            'permissions' => [
-                'highlight view'
-            ],
-            'menus' => [
-                [
-                    'title' => 'Content Setting',
-                    'icon' => '<i class="bi bi-sliders"></i>',
                     'route' => null,
                     'permission' => null,
                     'permissions' => [
+                        'content view',
                         'highlight view'
                     ],
                     'submenus' => [
                         [
-                            'title' => 'Highlight Content',
+                            'title' => 'Post Content',
+                            'route' => '/posts',
+                            'permission' => 'content view'
+                        ],
+                        [
+                            'title' => 'Banner Setting',
                             'route' => '/highlights',
                             'permission' => 'highlight view'
+                        ]
+                    ]
+                ],
+            ]
+        ],
+        [
+            'header' => 'Main Menu',
+            'permissions' => [
+                'historical view',
+                'jobandfunc view',
+                'employee view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Profile',
+                    'icon' => '<i class="bi bi-buildings-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'historical view',
+                        'jobandfunc view',
+                        'employee view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Historical Content',
+                            'route' => '/historicals',
+                            'permission' => 'historical view'
+                        ],
+                        [
+                            'title' => 'Job & Function Content',
+                            'route' => '/jobandfuncs',
+                            'permission' => 'jobandfunc view'
+                        ],
+                        [
+                            'title' => 'Employee',
+                            'route' => '/employees',
+                            'permission' => 'employee view'
                         ]
                     ]
                 ]
             ]
         ],
+        // [
+        //     'header' => 'Web Setting',
+        //     'permissions' => [
+        //         'highlight view'
+        //     ],
+        //     'menus' => [
+        //         [
+        //             'title' => 'Content Setting',
+        //             'icon' => '<i class="bi bi-sliders"></i>',
+        //             'route' => null,
+        //             'permission' => null,
+        //             'permissions' => [
+        //                 'highlight view'
+        //             ],
+        //             'submenus' => [
+        //                 [
+        //                     'title' => 'Highlight Content',
+        //                     'route' => '/highlights',
+        //                     'permission' => 'highlight view'
+        //                 ]
+        //             ]
+        //         ]
+        //     ]
+        // ],
         [
             'header' => 'Main',
             'permissions' => [

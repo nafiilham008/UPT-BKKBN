@@ -15,7 +15,7 @@
 
                 <x-breadcrumb>
                     <li class="breadcrumb-item">
-                        <a href="/">{{ __('Dashboard') }}</a>
+                        <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('posts.index') }}">{{ __('Posts') }}</a>
@@ -54,7 +54,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
-                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail">
+                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -114,7 +114,6 @@
     {{-- Summernote --}}
     <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/summernote.css">
     <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/summernote/summernote-lite.css">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> --}}
 
     {{-- Select --}}
     <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/choices.js/public/assets/styles/choices.css">

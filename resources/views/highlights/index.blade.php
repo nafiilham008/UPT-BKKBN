@@ -43,7 +43,7 @@
                                             <tr>
                                                 <td>{{ $item->title }}</td>
                                                 <td><img class="avatar avatar-xl"
-                                                        src="{{ asset('uploads/images/thumbnail/' . $item->thumbnail) }}"
+                                                        src="{{ asset('uploads/images/content/thumbnail/' . $item->thumbnail) }}"
                                                         alt="avatar" style="height: 50px; width: 50px;"></td>
                                                 <td><span class="badge bg-success">{{ $item->categories->label }}</span>
                                                 </td>

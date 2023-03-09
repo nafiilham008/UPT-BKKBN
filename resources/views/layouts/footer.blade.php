@@ -15,9 +15,12 @@
         </div>
 
         <script src="{{ asset('mazer') }}/js/app.js"></script>
+        <script src="{{ asset('mazer') }}/js/bootstrap.js"></script>
+        <script src="{{ asset('mazer') }}/extensions/jquery/jquery.min.js"></script>
+        
 
 
         @stack('js')
-    </body>
+        </body>
 
-</html>
+        </html>

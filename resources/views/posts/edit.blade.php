@@ -15,7 +15,7 @@
 
                 <x-breadcrumb>
                     <li class="breadcrumb-item">
-                        <a href="/">{{ __('Dashboard') }}</a>
+                        <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('posts.index') }}">{{ __('Content') }}</a>
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-md-1 text-center">
                                         <div class="avatar avatar-xl">
-                                            <img src="{{ asset('uploads/images/thumbnail/' . $post->thumbnail) }}"
+                                            <img src="{{ asset('uploads/images/content/thumbnail/' . $post->thumbnail) }}"
                                                 alt="avatar">
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
-                                                type="file" id="thumbnail" name="thumbnail">
+                                                type="image" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
                                             @error('thumbnail')
                                                 <span class="text-danger">
                                                     {{ $message }}

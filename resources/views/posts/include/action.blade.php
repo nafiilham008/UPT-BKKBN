@@ -10,7 +10,8 @@
     @endcan
 
     @can('content delete')
-        <form action="{{ route('posts.destroy', $item->id) }}" method="post" class="d-inline"
+        <form action="{{ route('posts.destroy', $item->id) }}" method="post"
+            class="d-inline {{ $item->highlight == 1 ? 'd-none' : '' }}"
             onsubmit="return confirm('Are you sure to delete this record?')">
             @csrf
             @method('delete')

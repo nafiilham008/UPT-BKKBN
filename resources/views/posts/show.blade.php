@@ -15,7 +15,7 @@
 
                 <x-breadcrumb>
                     <li class="breadcrumb-item">
-                        <a href="/">{{ __('Dashboard') }}</a>
+                        <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('posts.index') }}">{{ __('Post') }}</a>
@@ -37,7 +37,7 @@
                                     <tr>
                                         <td colspan="2" class="text-center">
                                             <div class="avatar avatar-xl">
-                                                    <img src="{{ asset('uploads/images/thumbnail/' . $post->thumbnail) }}" alt="Avatar">
+                                                    <img src="{{ asset('uploads/images/content/thumbnail/' . $post->thumbnail) }}" alt="Avatar">
                                             </div>
                                         </td>
                                     </tr>

@@ -16,12 +16,14 @@ $("#summernote").summernote({
         ["misc", ["picture", "link"]],
         ["help", ["help"]],
     ],
-    callbacks: {
-        onMediaDelete : function(target) {
-            var mpath = $(target[0]).attr('src').replace("..", "");
-            $('#summernote').val(mpath);
-            },
-    },
+    fontNames: ["Arial", "Arial Black", "Comic Sans MS", "Courier New",'sans-serif', "Roboto",],
+    fontSizes: ["8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "36"],
+    // callbacks: {
+    //     onMediaDelete : function(target) {
+    //         var mpath = $(target[0]).attr('src').replace("..", "");
+    //         $('#summernote').val(mpath);
+    //         },
+    // },
 });
 $("#hint").summernote({
     height: 100,
