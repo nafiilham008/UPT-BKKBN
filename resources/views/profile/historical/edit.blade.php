@@ -78,7 +78,7 @@
                                             <label for="description">{{ __('Description') }}</label>
                                             {{ csrf_field() }}
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="Insert description" required autofocus></textarea>
+                                                placeholder="Insert description" required autofocus>{!! $history->description !!}</textarea>
                                             @error('description')
                                                 <span class="text-danger">
                                                     {{ $message }}

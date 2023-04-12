@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Yajra\DataTables\Facades\DataTables;
+
 
 
 class EmployeeController extends Controller
@@ -51,6 +54,105 @@ class EmployeeController extends Controller
         return view('profile.employee.create', compact('employee'));
     }
 
+    // public function storeTemporary(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'institution_name' => ['required', 'string', 'max:255'],
+    //         'degree' => ['required', 'string', 'max:255'],
+    //         'graduation_year' => ['required', 'numeric', 'min:1960', 'max:' . date('Y')],
+    //         'major' => ['nullable', 'string', 'max:255'],
+    //         'gpa' => ['nullable', 'numeric', 'between:0.00,4.00'],
+    //         'description' => ['nullable', 'string'],
+    //     ]);
+
+    //     $educationHistory = session('educationHistory', []);
+
+    //     // Pengecekan apakah data sudah ada di session
+    //     $isDuplicate = false;
+    //     foreach ($educationHistory as $education) {
+    //         if (
+    //             $education['institution_name'] == $validatedData['institution_name'] &&
+    //             $education['degree'] == $validatedData['degree'] &&
+    //             $education['graduation_year'] == $validatedData['graduation_year'] &&
+    //             $education['major'] == $validatedData['major'] &&
+    //             $education['gpa'] == $validatedData['gpa'] &&
+    //             $education['description'] == $validatedData['description']
+    //         ) {
+    //             $isDuplicate = true;
+    //             break;
+    //         }
+    //     }
+
+    //     // Jika tidak ada data duplikat, maka data baru akan ditambahkan ke session
+    //     if (!$isDuplicate) {
+    //         $educationHistory[] = [
+    //             'institution_name' => $validatedData['institution_name'],
+    //             'degree' => $validatedData['degree'],
+    //             'graduation_year' => $validatedData['graduation_year'],
+    //             'major' => $validatedData['major'],
+    //             'gpa' => $validatedData['gpa'],
+    //             'description' => $validatedData['description'],
+    //         ];
+    //         session(['educationHistory' => $educationHistory]);
+    //     }
+
+    //     return response()->json([
+    //         'message' => 'Education data saved successfully!',
+    //         'data' => $educationHistory
+    //     ]);
+    // }
+
+    // public function updateTemporary(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'institution_name' => ['required', 'string', 'max:255'],
+    //         'degree' => ['required', 'string', 'max:255'],
+    //         'graduation_year' => ['required', 'numeric', 'min:1960', 'max:' . date('Y')],
+    //         'major' => ['nullable', 'string', 'max:255'],
+    //         'gpa' => ['nullable', 'numeric', 'between:0.00,4.00'],
+    //         'description' => ['nullable', 'string'],
+    //     ]);
+
+    //     $educationHistory = session('educationHistory', []);
+
+    //     $education_id = $request->input('id');
+
+    //     // Cari index riwayat pendidikan yang akan diupdate
+    //     $indexToUpdate = -1;
+    //     for ($i = 0; $i < count($educationHistory); $i++) {
+    //         if ($educationHistory[$i]['id'] == $education_id) {
+    //             $indexToUpdate = $i;
+    //             break;
+    //         }
+    //     }
+
+    //     if ($indexToUpdate < 0) {
+    //         // Jika tidak ditemukan riwayat pendidikan dengan id yang sesuai, kirim response error
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Data riwayat pendidikan tidak ditemukan'
+    //         ], 404);
+    //     }
+
+    //     // Update data riwayat pendidikan
+    //     $educationHistory[$indexToUpdate]['institution_name'] = $validatedData['institution_name'];
+    //     $educationHistory[$indexToUpdate]['degree'] = $validatedData['degree'];
+    //     $educationHistory[$indexToUpdate]['graduation_year'] = $validatedData['graduation_year'];
+    //     $educationHistory[$indexToUpdate]['major'] = $validatedData['major'];
+    //     $educationHistory[$indexToUpdate]['gpa'] = $validatedData['gpa'];
+    //     $educationHistory[$indexToUpdate]['description'] = $validatedData['description'];
+
+    //     // Simpan data riwayat pendidikan yang sudah diupdate ke session
+    //     session(['educationHistory' => $educationHistory]);
+
+    //     // Kirim response success
+    //     return response()->json([
+    //         'success' => true,
+    //         'data' => $educationHistory
+    //     ]);
+    // }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,17 +161,26 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(
-            [
-                'name' => 'required|unique:employees',
-                'position' => 'required',
-                'nip' => 'required',
-                'photo' => 'mimes:jpeg,png,jpg|image|max:2048',
-            ],
-            [
-                'photo.mimes' => 'Required image JPEG, PNG, or JPG'
-            ]
-        );
+        $validated = $request->validate([
+            'name' => 'required|unique:employees',
+            'position' => 'required',
+            'nip' => 'required',
+            'birthdate' => 'nullable|date_format:Y-m-d|before:today',
+            'awards' => 'nullable|string',
+            'photo' => 'mimes:jpeg,png,jpg|image|max:2048',
+        ], [
+            'name.required' => 'Name field is required.',
+            'name.unique' => 'Name has already been taken.',
+            'position.required' => 'Position field is required.',
+            'nip.required' => 'NIP field is required.',
+            'birthdate.date_format' => 'Birthdate must be in the format YYYY-MM-DD.',
+            'birthdate.before' => 'Birthdate must be before today.',
+            'awards.string' => 'Awards must be a string.',
+            'photo.mimes' => 'Photo must be a file of type: jpeg, png, jpg.',
+            'photo.image' => 'The file must be an image.',
+            'photo.max' => 'The photo may not be greater than 2048 kilobytes.'
+        ]);
+
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
@@ -93,10 +204,27 @@ class EmployeeController extends Controller
             'name' => $validated['name'],
             'position' => $validated['position'],
             'nip' => $validated['nip'],
+            'birthdate' => $validated['birthdate'],
+            'awards' => $validated['awards'],
             'photo' => $validated['photo'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
-            'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
+            'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
+
+
+        // Simpan data education history dari session ke database
+        $educationHistory = session('educationHistory', []);
+        foreach ($educationHistory as $edu) {
+            $education = new EducationHistory();
+            $education->employee_id = $employeeCreate->id;
+            $education->institution_name = $edu['institution_name'];
+            $education->degree = $edu['degree'];
+            $education->graduation_year = $edu['graduation_year'];
+            $education->major = $edu['major'];
+            $education->gpa = $edu['gpa'];
+            $education->description = $edu['description'];
+            $education->save();
+        }
 
         if ($employeeCreate) {
             //redirect dengan pesan sukses
@@ -106,6 +234,7 @@ class EmployeeController extends Controller
             return redirect()->route('employees.index')->with('error', __('Failed'));
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -128,9 +257,36 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
+        $educationHistory = EducationHistory::where('employee_id', $id)->orderBy('created_at', 'desc')->get();
 
-        return view('profile.employee.edit', compact('employee'));
+
+        return view('profile.employee.edit', compact('employee', 'educationHistory'));
+    }
+
+    public function getEducationHistory($id)
+    {
+        $educationHistory = EducationHistory::where('employee_id', $id)->get();
+
+        return Datatables::of($educationHistory)
+            ->addColumn('created_at', function ($educationHistory) {
+                return \Carbon\Carbon::parse($educationHistory->created_at)->format('j F Y H:i');
+            })
+            ->addColumn('action', function ($educationHistory) {
+                $employeeId = $educationHistory->employee_id;
+                return '<td>' .
+                    '<button type="button" class="btn btn-outline-primary btn-sm" data-employee-id="' .
+                    $employeeId . '" data-id="' . $educationHistory->id .
+                    '" data-bs-toggle="modal" data-bs-target="#exampleModalScrollableEdit' .
+                    $educationHistory->id .
+                    '" data-bs-backdrop="static"><i class="fa fa-pencil-alt"></i></button>' .
+                    '<button type="button" id="delete-education" class="btn btn-outline-danger btn-sm" data-id="' .
+                    $educationHistory->id .
+                    '"><i class="fa fa-trash-alt"></i></button>' .
+                    '</td>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**
@@ -142,18 +298,27 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $employee = Employee::find($id);
-        $validated = $request->validate(
-            [
-                'name' => 'required',
-                'position' => 'required',
-                'nip' => 'required',
-                'photo' => 'mimes:jpeg,png,jpg|image|max:2048',
-            ],
-            [
-                'photo.mimes' => 'Required image JPEG, PNG, or JPG'
-            ]
-        );
+        $employee = Employee::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|unique:employees,name,' . $id,
+            'position' => 'required',
+            'nip' => 'required',
+            'birthdate' => 'nullable|date_format:Y-m-d|before:today',
+            'awards' => 'nullable|string',
+            'photo' => 'mimes:jpeg,png,jpg|image|max:2048',
+        ], [
+            'name.required' => 'Name field is required.',
+            'name.unique' => 'Name has already been taken.',
+            'position.required' => 'Position field is required.',
+            'nip.required' => 'NIP field is required.',
+            'birthdate.date_format' => 'Birthdate must be in the format YYYY-MM-DD.',
+            'birthdate.before' => 'Birthdate must be before today.',
+            'awards.string' => 'Awards must be a string.',
+            'photo.mimes' => 'Photo must be a file of type: jpeg, png, jpg.',
+            'photo.image' => 'The file must be an image.',
+            'photo.max' => 'The photo may not be greater than 2048 kilobytes.'
+        ]);
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
@@ -185,7 +350,9 @@ class EmployeeController extends Controller
             'name' => $validated['name'],
             'photo' => $validated['photo'],
             'position' => $validated['position'],
+            'birthdate' => $validated['birthdate'],
             'nip' => $validated['nip'],
+            'awards' => $validated['awards'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 

@@ -14,10 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->date('birthdate')->nullable()->after('nip');
-            $table->text('education_history')->nullable()->after('birthdate');
-            $table->text('employment_history')->nullable()->after('education_history');
-            $table->text('awards')->nullable()->after('employment_history');
+            $table->date('birthdate')->nullable()->after('name');
+            $table->text('awards')->nullable()->after('photo');
         });
     }
 
@@ -30,8 +28,6 @@ return new class extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->dropColumn('birthdate');
-            $table->dropColumn('education_history');
-            $table->dropColumn('employment_history');
             $table->dropColumn('awards');
         });
     }

@@ -5,14 +5,14 @@ namespace App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class EducationHistory extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function educationHistories()
+    public function employee()
     {
-        return $this->hasMany(EducationHistory::class);
+        return $this->belongsTo(Employee::class);
     }
 }
