@@ -4,10 +4,7 @@ $("#summernote").summernote({
     maximumImageFileSize: 204800,
     // maximumFileSize: 1048576
     toolbar: [
-        [
-            "style",
-            ["bold", "italic", "underline", "clear", "fontname", "fontsize"],
-        ],
+        ["style", ["bold", "italic", "underline", "clear", "fontname", "fontsize"]],
         ["font", ["strikethrough", "superscript", "subscript"]],
         ["color", ["color"]],
         ["para", ["ul", "ol", "paragraph"]],
@@ -16,8 +13,29 @@ $("#summernote").summernote({
         ["misc", ["picture", "link"]],
         ["help", ["help"]],
     ],
-    fontNames: ["Arial", "Arial Black", "Comic Sans MS", "Courier New",'sans-serif', "Roboto",],
-    fontSizes: ["8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "36"],
+    fontNames: [
+        "Arial",
+        "Arial Black",
+        "Comic Sans MS",
+        "Courier New",
+        "sans-serif",
+        "Roboto",
+    ],
+    fontSizes: [
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "14",
+        "16",
+        "18",
+        "20",
+        "22",
+        "24",
+        "36",
+    ],
+
     // callbacks: {
     //     onMediaDelete : function(target) {
     //         var mpath = $(target[0]).attr('src').replace("..", "");
