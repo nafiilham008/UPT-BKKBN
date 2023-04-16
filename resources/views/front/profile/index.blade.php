@@ -14,19 +14,19 @@
     <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
         <ul class="nav d-flex my-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="#" data-target="sejarah">Sejarah</a>
+                <a class="nav-link active" href="#sejarah" data-target="sejarah">Sejarah</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="tugas-fungsi">Tugas & Fungsi</a>
+                <a class="nav-link" href="#tugas-fungsi" data-target="tugas-fungsi">Tugas & Fungsi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="struktur-organisasi">Struktur Organisasi</a>
+                <a class="nav-link" href="#struktur-organisasi" data-target="struktur-organisasi">Struktur Organisasi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="informasi-pejabat">Informasi Pejabat</a>
+                <a class="nav-link" href="#informasi-pejabat" data-target="informasi-pejabat">Informasi Pejabat</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="informasi-pegawai">Informasi Pegawai</a>
+                <a class="nav-link" href="#informasi-pegawai" data-target="informasi-pegawai">Informasi Pegawai</a>
             </li>
 
         </ul>
@@ -343,372 +343,159 @@
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pejabat">
 
         @foreach ($employee as $item)
-            <h5 class="text-center mb-2">Profil Pimpinan</h5>
+            <h5 class="text-center mb-2">Informasi Pejabat</h5>
             <h1 class="text-center mb-5">{{ $item->position }}</h1>
             <div class="row">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-4">
                     <div class="d-flex justify-content-center">
                         <img class="rounded-4 img-detail-profile"
                             src="{{ asset('uploads/images/profile/employee-photo/' . $item->photo) }}" alt="">
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="d-flex justify-content-start">
+                <div class="col-md-8 col-sm-8">
+                    <div class="d-flex justify-content-start mb-4">
                         <h4>{{ $item->name }}</h4>
                     </div>
-                    <p>NIP:{{ $item->nip }}</p>
-                    <p>Jabatan:{{ $item->position }}</p>
+                    <p><strong>NIP : </strong>{{ $item->nip }}</p>
+                    <p><strong>Jabatan : </strong>{{ $item->position }}</p>
+                    <p><strong>Deskripsi singkat : </strong></p>
+                    <p style="text-align: justify">Lahir pada tanggal {{ date('d F Y', strtotime($item->birthdate)) }}
+                        . Menyelesaikan pendidikan dan memperoleh gelar Sarjana Ilmu
+                        Pemerintahan dari Institut Ilmu Pemerintahan Jakarta pada tahun 1998. Melanjutkan pendidikan di
+                        Universitas Jendral Soedirman dan mendapatkan gelar Magister Ilmu Administrasi pada tahun 2004</p>
+                    <div class="row mb-5">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Riwayat Pendidikan</h5>
+                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
+                                    <p class="card-text">{!! $item->awards !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Riwayat Pekerjaan</h5>
+                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
+                                    <p class="card-text">{!! $item->awards !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Penghargaan/Tanda Jasa</h5>
+                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
+                                    <p class="card-text">{!! $item->awards !!}</p>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
                 </div>
             </div>
+            <hr class="border border-dark border-3 opacity-100 mb-5">
         @endforeach
-
-        {{-- <div class="d-flex align-items-end">
-            <h6 class="me-4">Bagikan</h6>
-            <a href="{{ 'https://www.facebook.com/sharer.php?u=' . route('home.detail', [$history->categories->label, $history->slug_url]) }}"
-                target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="text-decoration-none">
-                <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
-            </a>
-        </div>
-        <hr class="border border-dark border-3 opacity-100"> --}}
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="informasi-pegawai">
-        @foreach ($history as $item)
-            <h2 class="text-center mb-5">{{ $item->title }}</h2>
-            <div class="d-flex justify-content-center">
-                <img class="rounded-4 img-news-detail"
-                    src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="">
+    <div class="container-fluid detail-news fade-in" id="informasi-pegawai">
+        <h2 class="text-center mb-5">Informasi Pegawai</h2>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="card shadow-none border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div
+                            class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
+                            <i class="bi bi-people-fill fs-1 text-white-icon"></i>
+                        </div>
+                        <h5 class="card-title mb-2 mt-4">{{ count($employee) }}</h5>
+                        <p class="card-text fs-5">Total Pegawai</p>
+                    </div>
+                </div>
             </div>
-            <div class="mt-5">
-                {!! str_replace(
-                    ['<img ', '<span '],
-                    ["<img class='img-fluid-summernote' ", "<span class='span-text-summernote' "],
-                    $item->description,
-                ) !!}
+            <div class="col-md-4 col-sm-4">
+                <div class="card shadow-none border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div
+                            class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
+                            <i class="bi bi-people-fill fs-1 text-white-icon"></i>
+                        </div>
+                        <h5 class="card-title mb-2 mt-4">80</h5>
+                        <p class="card-text fs-5">Pegawai Negeri Sipil</p>
+                    </div>
+                </div>
             </div>
-        @endforeach
+            <div class="col-md-4 col-sm-4">
+                <div class="card shadow-none border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div
+                            class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
+                            <i class="bi bi-people-fill fs-1 text-white-icon"></i>
+                        </div>
+                        <h5 class="card-title mb-2 mt-4">80</h5>
+                        <p class="card-text fs-5">Pegawai Non PNS</p>
+                    </div>
+                </div>
+            </div>
 
-        {{-- <div class="d-flex align-items-end">
-            <h6 class="me-4">Bagikan</h6>
-            <a href="{{ 'https://www.facebook.com/sharer.php?u=' . route('home.detail', [$history->categories->label, $history->slug_url]) }}"
-                target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="text-decoration-none">
-                <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
-            </a>
         </div>
-        <hr class="border border-dark border-3 opacity-100"> --}}
+        <table class="table table-bordered mt-5" style="background-color: #F4F4F4;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama Lengkap</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">Jabatan</th>
+                    <th scope="col">Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($employee as $key => $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}. </td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->nip }}</td>
+                        <td>{{ $item->position }}</td>
+                        <td>
+                            <a href="#" data-bs-toggle="modal"
+                                data-bs-target="#detail-employee{{ $item->id }}" data-id="{{ $item->id }}">View
+                                Detail</a>
+                        </td>
+
+
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+    @foreach ($employee as $item)
+        @include('front.profile.include.modal-detail', [
+            'id' => $item->id,
+        ])
+    @endforeach
+
+
+
 @endsection
 
 @push('css')
     <style>
-        #wrapper {
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 80em;
+        .icon-circle-center {
+            width: 80px;
+            height: 80px;
         }
 
-        #container {
-            float: left;
-            padding: 1em;
-            width: 100%;
+        .text-white-icon {
+            color: #ffffff
         }
 
-        ol.organizational-chart,
-        ol.organizational-chart ol,
-        ol.organizational-chart li,
-        ol.organizational-chart li>div {
-            position: relative;
-        }
-
-        ol.organizational-chart,
-        ol.organizational-chart ol {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        ol.organizational-chart {
-            text-align: center;
-        }
-
-        ol.organizational-chart ol {
-            padding-top: 1em;
-        }
-
-        ol.organizational-chart ol:before,
-        ol.organizational-chart ol:after,
-        ol.organizational-chart li:before,
-        ol.organizational-chart li:after,
-        ol.organizational-chart>li>div:before,
-        ol.organizational-chart>li>div:after {
-            background-color: #b7a6aa;
-            content: '';
-            position: absolute;
-        }
-
-        ol.organizational-chart ol>li {
-            padding: 1em 0 0 1em;
-        }
-
-        ol.organizational-chart>li ol:before {
-            height: 1em;
-            left: 50%;
-            top: 0;
-            width: 3px;
-        }
-
-        ol.organizational-chart>li ol:after {
-            height: 3px;
-            left: 3px;
-            top: 1em;
-            width: 50%;
-        }
-
-        ol.organizational-chart>li ol>li:not(:last-of-type):before {
-            height: 3px;
-            left: 0;
-            top: 2em;
-            width: 1em;
-        }
-
-        ol.organizational-chart>li ol>li:not(:last-of-type):after {
-            height: 100%;
-            left: 0;
-            top: 0;
-            width: 3px;
-        }
-
-        ol.organizational-chart>li ol>li:last-of-type:before {
-            height: 3px;
-            left: 0;
-            top: 2em;
-            width: 1em;
-        }
-
-        ol.organizational-chart>li ol>li:last-of-type:after {
-            height: 2em;
-            left: 0;
-            top: 0;
-            width: 3px;
-        }
-
-        ol.organizational-chart li>div {
-            background-color: #fff;
-            border-radius: 3px;
-            min-height: 2em;
-            padding: 0.5em;
-        }
-
-        /*** PRIMARY ***/
-        ol.organizational-chart>li>div {
-            background-color: #a2ed56;
-            margin-right: 1em;
-        }
-
-        ol.organizational-chart>li>div:before {
-            bottom: 2em;
-            height: 3px;
-            right: -1em;
-            width: 1em;
-        }
-
-        ol.organizational-chart>li>div:first-of-type:after {
-            bottom: 0;
-            height: 2em;
-            right: -1em;
-            width: 3px;
-        }
-
-        ol.organizational-chart>li>div+div {
-            margin-top: 1em;
-        }
-
-        ol.organizational-chart>li>div+div:after {
-            height: calc(100% + 1em);
-            right: -1em;
-            top: -1em;
-            width: 3px;
-        }
-
-        /*** SECONDARY ***/
-        ol.organizational-chart>li>ol:before {
-            left: inherit;
-            right: 0;
-        }
-
-        ol.organizational-chart>li>ol:after {
-            left: 0;
-            width: 100%;
-        }
-
-        ol.organizational-chart>li>ol>li>div {
-            background-color: #83e4e2;
-        }
-
-        /*** TERTIARY ***/
-        ol.organizational-chart>li>ol>li>ol>li>div {
-            background-color: #fd6470;
-        }
-
-        /*** QUATERNARY ***/
-        ol.organizational-chart>li>ol>li>ol>li>ol>li>div {
-            background-color: #fca858;
-        }
-
-        /*** QUINARY ***/
-        ol.organizational-chart>li>ol>li>ol>li>ol>li>ol>li>div {
-            background-color: #fddc32;
-        }
-
-        /*** MEDIA QUERIES ***/
-        @media only screen and (min-width: 64em) {
-
-            ol.organizational-chart {
-                margin-left: -1em;
-                margin-right: -1em;
-            }
-
-            /* PRIMARY */
-            ol.organizational-chart>li>div {
-                display: inline-block;
-                float: none;
-                margin: 0 1em 1em 1em;
-                vertical-align: bottom;
-            }
-
-            ol.organizational-chart>li>div:only-of-type {
-                margin-bottom: 0;
-                width: calc((100% / 1) - 2em - 4px);
-            }
-
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(2),
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(2)~div {
-                width: calc((100% / 2) - 2em - 4px);
-            }
-
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(3),
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(3)~div {
-                width: calc((100% / 3) - 2em - 4px);
-            }
-
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(4),
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(4)~div {
-                width: calc((100% / 4) - 2em - 4px);
-            }
-
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(5),
-            ol.organizational-chart>li>div:first-of-type:nth-last-of-type(5)~div {
-                width: calc((100% / 5) - 2em - 4px);
-            }
-
-            ol.organizational-chart>li>div:before,
-            ol.organizational-chart>li>div:after {
-                bottom: -1em !important;
-                top: inherit !important;
-            }
-
-            ol.organizational-chart>li>div:before {
-                height: 1em !important;
-                left: 50% !important;
-                width: 3px !important;
-            }
-
-            ol.organizational-chart>li>div:only-of-type:after {
-                display: none;
-            }
-
-            ol.organizational-chart>li>div:first-of-type:not(:only-of-type):after,
-            ol.organizational-chart>li>div:last-of-type:not(:only-of-type):after {
-                bottom: -1em;
-                height: 3px;
-                width: calc(50% + 1em + 3px);
-            }
-
-            ol.organizational-chart>li>div:first-of-type:not(:only-of-type):after {
-                left: calc(50% + 3px);
-            }
-
-            ol.organizational-chart>li>div:last-of-type:not(:only-of-type):after {
-                left: calc(-1em - 3px);
-            }
-
-            ol.organizational-chart>li>div+div:not(:last-of-type):after {
-                height: 3px;
-                left: -2em;
-                width: calc(100% + 4em);
-            }
-
-            /* SECONDARY */
-            ol.organizational-chart>li>ol {
-                display: flex;
-                flex-wrap: nowrap;
-            }
-
-            ol.organizational-chart>li>ol:before,
-            ol.organizational-chart>li>ol>li:before {
-                height: 1em !important;
-                left: 50% !important;
-                top: 0 !important;
-                width: 3px !important;
-            }
-
-            ol.organizational-chart>li>ol:after {
-                display: none;
-            }
-
-            ol.organizational-chart>li>ol>li {
-                flex-grow: 1;
-                padding-left: 1em;
-                padding-right: 1em;
-                padding-top: 1em;
-            }
-
-            ol.organizational-chart>li>ol>li:only-of-type {
-                padding-top: 0;
-            }
-
-            ol.organizational-chart>li>ol>li:only-of-type:before,
-            ol.organizational-chart>li>ol>li:only-of-type:after {
-                display: none;
-            }
-
-            ol.organizational-chart>li>ol>li:first-of-type:not(:only-of-type):after,
-            ol.organizational-chart>li>ol>li:last-of-type:not(:only-of-type):after {
-                height: 3px;
-                top: 0;
-                width: 50%;
-            }
-
-            ol.organizational-chart>li>ol>li:first-of-type:not(:only-of-type):after {
-                left: 50%;
-            }
-
-            ol.organizational-chart>li>ol>li:last-of-type:not(:only-of-type):after {
-                left: 0;
-            }
-
-            ol.organizational-chart>li>ol>li+li:not(:last-of-type):after {
-                height: 3px;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-
+        .employee-photo {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 @endpush
+
 @push('js')
     <script>
         const navLinks = document.querySelectorAll('.nav-link');
@@ -740,7 +527,53 @@
                 // Menampilkan konten yang sesuai dengan data-target
                 $('.content').hide();
                 $('#' + target).show();
+
+                // Jalankan counter jika #informasi-pegawai aktif
+                if (target === 'informasi-pegawai') {
+                    $('.card-title').each(function() {
+                        $(this).prop('Counter', 0).animate({
+                            Counter: $(this).text()
+                        }, {
+                            duration: 3000,
+                            easing: 'swing',
+                            step: function(now) {
+                                $(this).text(Math.ceil(now));
+                            }
+                        });
+                    });
+                }
             });
+
+            $('a[data-bs-toggle="modal"]').on('click', function() {
+                var employeeId = $(this).data('id');
+                $.ajax({
+                    url: '/profile/employees/' + employeeId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            var employee = data.employee;
+                            $('#detail-employee' + employeeId + ' .employee-photo')
+                                .attr('src',
+                                    '{{ asset('uploads/images/profile/employee-photo/') }}/' +
+                                    employee.photo);
+                            $('#detail-employee' + employeeId + ' .employee-name')
+                                .text(employee.name);
+                            $('#detail-employee' + employeeId + ' .employee-nip')
+                                .text(employee.nip);
+                            $('#detail-employee' + employeeId +
+                                ' .employee-position').text(employee.position);
+                            $('#detail-employee' + employeeId).modal('show');
+                        } else {
+                            alert('Failed to get employee detail!');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('Error getting employee detail!');
+                    }
+                });
+            });
+
         });
     </script>
 @endpush

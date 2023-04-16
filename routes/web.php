@@ -21,6 +21,8 @@ use App\Models\Profile\Historical;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
 Route::get('/profile', [HomeController::class, 'profile'])->name('home.profile');
+Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetail'])->name('employees.educations');
+
 
 Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {

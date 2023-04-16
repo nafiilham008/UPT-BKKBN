@@ -433,19 +433,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             $("#summernote-awards").summernote({
                 tabsize: 2,
                 height: 300,

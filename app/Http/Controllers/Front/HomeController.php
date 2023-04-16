@@ -115,4 +115,15 @@ class HomeController extends Controller
 
         return view('front.profile.index', compact('history', 'jobandfunc', 'employee'));
     }
+
+    public function getEmployeesDetail ($id)
+    {
+        $employee = Employee::findOrFail($id);
+
+        // Return data as JSON
+        return response()->json([
+            'success' => true,
+            'employee' => $employee
+        ]);
+    }
 }
