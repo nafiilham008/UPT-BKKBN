@@ -19,10 +19,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
-            $table->string('slug_url');
+            $table->string('slug_url')->unique();
             $table->longText('description');
-            $table->string('categories_id');
-            $table->boolean('status')->default(0);
+
+            $table->unsignedBigInteger('categories_id');
+            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
