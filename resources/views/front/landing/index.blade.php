@@ -6,16 +6,7 @@
     <!-- Carousel -->
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            @if ($banner->count() == 0)
-                <div class="carousel-item active">
-                    <img src="https://foto.data.kemdikbud.go.id/getImage/20233760/4.jpg" class="d-block w-100" alt="">
-                    <div class="carousel-caption d-flex h-100 justify-content-center">
-                        <a href="#">
-                            <h3 class="text-white font-30 mb-5">Logo BKKBN slide 1</h3>
-                        </a>
-                    </div>
-                </div>
-            @else
+            @if (!empty($banner))
                 @foreach ($banner as $key => $slide)
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                         <img src="{{ asset('uploads/images/content/thumbnail/' . $slide->thumbnail) }}" class="d-block w-100"
@@ -29,7 +20,6 @@
                 @endforeach
             @endif
         </div>
-
         <ol class="carousel-indicators">
             @foreach ($banner as $key => $slide)
                 <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="{{ $key }}"
