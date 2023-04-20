@@ -1,8 +1,8 @@
 <div class="modal fade" id="exampleModalScrollableEdit{{ $id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <form id="form-education-history-edit{{ $id }}" data-id="{{ $id }}" data-employee-id="{{ $employeeId }}"
-            method="POST" enctype="multipart/form-data" data-parsley-validate>
+        <form id="form-education-history-edit{{ $id }}" data-id="{{ $id }}"
+            data-employee-id="{{ $employeeId }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
             @csrf
             @method('PUT')
             <div class="modal-content">
@@ -15,12 +15,11 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <input type="hidden" name="id" value="{{ $education->id }}">
+                        <input type="hidden" name="id" id="id">
                         <div class="col-md-12">
                             <div class="form-group mandatory">
                                 <label for="institution_name" class="form-label">{{ __('Institution Name') }}</label>
                                 <input type="text" name="institution_name" id="institution_name"
-                                    value="{{ $education->institution_name }}"
                                     class="form-control @error('institution_name') is-invalid @enderror"
                                     placeholder="{{ __('Insert Institution Name') }}" data-parsley-required="true"
                                     data-parsley-required-message="Kolom Nama Instituti harus diisi!" autofocus>
@@ -29,7 +28,7 @@
                         <div class="col-md-8">
                             <div class="form-group mandatory">
                                 <label for="degree" class="form-label">{{ __('Degree') }}</label>
-                                <input type="text" name="degree" id="degree" value="{{ $education->degree }}"
+                                <input type="text" name="degree" id="degree"
                                     class="form-control @error('degree') is-invalid @enderror"
                                     placeholder="{{ __('Insert Degree') }}" data-parsley-required="true"
                                     data-parsley-required-message="Kolom Lulusan harus diisi!">
@@ -39,7 +38,6 @@
                             <div class="form-group mandatory">
                                 <label for="graduation_year" class="form-label">{{ __('Graduation Year') }}</label>
                                 <input type="number" name="graduation_year" id="graduation_year"
-                                    value="{{ $education->graduation_year }}"
                                     class="form-control @error('graduation_year') is-invalid @enderror"
                                     placeholder="{{ __('Insert Graduation Year') }}" data-parsley-required="true"
                                     data-parsley-required-message="Kolom Tahun Lulus harus diisi!" min="1960"
@@ -49,7 +47,7 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="major" class="form-label">{{ __('Major Study') }}</label>
-                                <input type="text" name="major" id="major" value="{{ $education->major }}"
+                                <input type="text" name="major" id="major"
                                     class="form-control @error('major') is-invalid @enderror"
                                     placeholder="{{ __('Insert Major') }}">
                             </div>
@@ -58,7 +56,6 @@
                             <div class="form-group">
                                 <label for="gpa" class="form-label">{{ __('GPA') }}</label>
                                 <input type="number" name="gpa" id="gpa" step="0.01"
-                                    value="{{ $education->gpa }}"
                                     class="form-control @error('gpa') is-invalid @enderror"
                                     placeholder="{{ __('Insert GPA') }}" max="4.00">
                                 @error('gpa')
@@ -80,7 +77,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <button type="button" id="update-education{{ $id }}" class="btn btn-primary ml-1"
+                    <button type="button" id="update-education" class="btn btn-primary ml-1"
                         data-id="{{ $id }}" data-employee-id="{{ $employeeId }}"
                         data-bs-dismiss="modal">
                         <i class="bx bx-check d-block d-sm-none"></i>

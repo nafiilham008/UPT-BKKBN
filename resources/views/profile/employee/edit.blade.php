@@ -39,12 +39,12 @@
                                 <div class="row mb-2">
                                     <div class="col-md-6">
                                         <div class="form-group mandatory">
-                                            <label for="title" class="form-label">{{ __('Name') }}</label>
+                                            <label for="name" class="form-label">{{ __('Name') }}</label>
                                             <input type="text" name="name" id="name"
                                                 value="{{ $employee->name }}"
                                                 class="form-control @error('name') is-invalid @enderror"
-                                                placeholder="{{ __('Insert name') }}" data-parsley-required="true"
-                                                data-parsley-required-message="Kolom Nama harus diisi!" autofocus>
+                                                placeholder="e.g. John Doe" data-parsley-required="true"
+                                                data-parsley-required-message="The Name field is required!" autofocus>
                                             @error('name')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -52,7 +52,134 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-1 text-center">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                                            <input type="email" name="email" id="email"
+                                                value="{{ $employee->email }}"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                placeholder="e.g. johndoe@example.com" data-parsley-type="email"
+                                                data-parsley-trigger="blur"
+                                                data-parsley-error-message="Invalid email format!">
+                                            @error('email')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="place_of_birth"
+                                                class="form-label">{{ __('Place of birth') }}</label>
+                                            <input type="text" name="place_of_birth" id="place_of_birth"
+                                                value="{{ $employee->place_of_birth }}"
+                                                class="form-control @error('place_of_birth') is-invalid @enderror"
+                                                placeholder="e.g. New York, USA" data-parsley-trigger="blur"
+                                                value="{{ old('place_of_birth') }}">
+                                            @error('place_of_birth')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="birthdate" class="form-label">{{ __('Birthdate') }}</label>
+                                            <input type="date" name="birthdate" id="birthdate"
+                                                value="{{ $employee->birthdate }}"
+                                                class="form-control @error('birthdate') is-invalid @enderror"
+                                                placeholder="e.g. 1990-01-01" min="1900-01-01" max="{{ date('Y-m-d') }}"
+                                                data-parsley-trigger="blur">
+                                            @error('birthdate')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="position" class="form-label">{{ __('Position') }}</label>
+                                            <input type="text" name="position" id="position"
+                                                value="{{ $employee->position }}"
+                                                class="form-control @error('position') is-invalid @enderror"
+                                                placeholder="e.g. Manager" data-parsley-required="true"
+                                                data-parsley-required-message="The Position field is required!">
+                                            @error('position')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nip" class="form-label">{{ __('NIP') }}</label>
+                                            <input type="text" name="nip" id="nip"
+                                                value="{{ $employee->nip }}"
+                                                class="form-control @error('nip') is-invalid @enderror"
+                                                placeholder="e.g. 1234567890" data-parsley-type="digits"
+                                                data-parsley-maxlength="30" data-parsley-required="true"
+                                                data-parsley-required-message="NIP is required."
+                                                data-parsley-error-message="Please enter a valid NIP (only digits)">
+                                            @error('nip')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="address" class="form-label">{{ __('Address') }}</label>
+                                            <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror"
+                                                placeholder="{{ __('e.g. 123 Main St, Anytown, USA') }}" data-parsley-trigger="blur"
+                                                data-parsley-required="false">{{ $employee->address ?? old('address') }}</textarea>
+                                            @error('address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="type_employee"
+                                                class="form-label">{{ __('Type of Employee') }}</label>
+                                            <select class="form-select" name="type_employee" id="type_employee"
+                                                class="form-control @error('type_employee') is-invalid @enderror"
+                                                data-parsley-required="true"
+                                                data-parsley-required-message="The Type of Employee field is required!">
+                                                <option value="">-- Select Type of Employee --</option>
+                                                <option value="PNS"
+                                                    {{ $employee->type_employee == 'PNS' ? 'selected' : '' }}>PNS</option>
+                                                <option value="Non PNS"
+                                                    {{ $employee->type_employee == 'Non PNS' ? 'selected' : '' }}>Non PNS
+                                                </option>
+                                            </select>
+                                            @error('type_employee')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="phone_number" class="form-label">{{ __('Phone Number') }}</label>
+                                            <input type="text" name="phone_number" id="phone_number"
+                                                value="{{ $employee->phone_number }}"
+                                                class="form-control @error('phone_number') is-invalid @enderror"
+                                                placeholder="e.g. +6281234567890" data-parsley-type="number"
+                                                data-parsley-maxlength="16"
+                                                data-parsley-error-message="Please enter a valid phone number (maximum 16 digits)">
+                                            @error('phone_number')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 text-center"
+                                        style="display: flex; justify-content: center; align-items: center;">
                                         @if (empty($employee->photo))
                                             <div class="avatar avatar-xl">
                                                 <img style="object-fit: cover"
@@ -76,72 +203,13 @@
                                                 data-parsley-error-message="Please upload an image file (JPEG, PNG) with maximum size of 2MB">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mandatory">
-                                            <label for="nip" class="form-label">{{ __('NIP') }}</label>
-                                            <input type="number" name="nip" id="nip"
-                                                value="{{ $employee->nip }}"
-                                                class="form-control @error('nip') is-invalid @enderror"
-                                                placeholder="{{ __('Insert NIP') }}" data-parsley-required="true"
-                                                data-parsley-required-message="Kolom NIP harus diisi!">
-                                            @error('nip')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="position" class="form-label">{{ __('Position') }}</label>
-                                            <input type="text" name="position" id="position"
-                                                value="{{ $employee->position }}"
-                                                class="form-control @error('position') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Position') }}" data-parsley-required="true"
-                                                data-parsley-required-message="Kolom Jabatan harus diisi!">
-                                            @error('position')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="birthdate" class="form-label">{{ __('Birthdate') }}</label>
-                                            <input type="date" name="birthdate" id="birthdate"
-                                                value="{{ $employee->birthdate }}"
-                                                class="form-control @error('birthdate') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Birthdate') }}" min="1900-01-01"
-                                                max="{{ date('Y-m-d') }}">
-                                            @error('birthdate')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="employment_history"
-                                                class="form-label">{{ __('Employment History') }}</label>
-                                            <input type="text" name="employment_history" id="employment_history"
-                                                value="{{ $employee->employment_history }}"
-                                                class="form-control @error('employment_history') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Employment History') }}">
-                                            @error('employment_history')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="awards">{{ __('Awards') }}</label>
                                             {{ csrf_field() }}
                                             <textarea id="summernote-awards" name="awards" class="form-control @error('awards') is-invalid @enderror"
-                                                placeholder="Insert awards" required autofocus>{!! $employee->awards !!}</textarea>
+                                                placeholder="Insert awards">{!! $employee->awards !!}</textarea>
                                             @error('awards')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -149,6 +217,7 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="col-md-12">
                                     <div class="card border">
@@ -193,16 +262,19 @@
                             </form>
 
 
-                            <div id="education-list">
-                                @if (!empty($educationHistory))
-                                    @foreach ($educationHistory as $education)
-                                        @include('profile.employee.include.modal-edu-history-edit', [
-                                            'id' => $education->id,
-                                            'employeeId' => $education->employee_id,
-                                        ])
-                                    @endforeach
-                                @endif
-                            </div>
+                            {{-- <div id="education-list"> --}}
+                            @if (!empty($educationHistory))
+                                @foreach ($educationHistory as $education)
+                                    @include('profile.employee.include.modal-edu-history-edit', [
+                                        'id' => $education->id,
+                                        'employeeId' => $education->employee_id,
+                                    ])
+                                @endforeach
+                            @endif
+                            {{-- </div> --}}
+
+                            {{-- @include('profile.employee.include.modal-edu-history-edit') --}}
+
                             {{-- create --}}
                             @include('profile.employee.include.modal-edu-history')
 
@@ -227,10 +299,8 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.css" />
 
+    <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/choices.js/public/assets/styles/choices.css">
 
-    {{-- <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/simple-datatables/style.css"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/simple-datatables.css"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.css" /> --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -251,12 +321,12 @@
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
 
-    {{-- <script src="{{ asset('mazer') }}/extensions/simple-datatables/umd/simple-datatables.js"></script> --}}
-    {{-- <script src="{{ asset('mazer') }}/js/pages/simple-datatables.js"></script> --}}
-    {{-- <script src="{{ asset('mazer') }}/js/pages/datatables.js"></script> --}}
+    {{-- Select --}}
+    <script src="{{ asset('mazer') }}/extensions/choices.js/public/assets/scripts/choices.js"></script>
+    <script src="{{ asset('mazer') }}/js/pages/form-element-select.js"></script>
+
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script> --}}
+
 
 
 
@@ -317,6 +387,19 @@
             });
 
 
+            $('#nip').on('input', function() {
+                if (this.value.length > 30) {
+                    this.value = this.value.slice(0, 30);
+                }
+            });
+
+            var phoneInput = document.getElementById('phone_number');
+            phoneInput.addEventListener('input', function(event) {
+                if (this.value.length > 15) {
+                    this.value = this.value.slice(0, 15);
+                }
+                this.value = this.value.replace(/[^0-9+-]/g, '');
+            });
 
             // SAVE EDUCATION HISTORY
             $("#save-education").click(function(event) {
@@ -342,8 +425,7 @@
                         // Reload datatable
                         $('#table1').DataTable().ajax.reload();
 
-
-
+                        $("#form-education-history").trigger('reset');
 
                     },
                     error: function(xhr, status, error) {
@@ -361,13 +443,56 @@
                 });
             });
 
+            // GET DATA EDUCATION HISTORY
+            $(document).on("click", ".btn-edit", function() {
+                var employeeId = $(this).data("employee-id");
+                var educationId = $(this).data("id");
+                var url = "/dashboard/employees/" + employeeId + "/educations/" + educationId + "/edit";
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function(response) {
+                        // console.log(response.education);
+
+                        var education = response.education;
+
+                        // Mengisi data education ke dalam form
+                        $("#form-education-history-edit" + educationId + " #id")
+                            .val(education.id);
+                        $("#form-education-history-edit" + educationId + " #institution_name")
+                            .val(education.institution_name);
+                        $("#form-education-history-edit" + educationId + " #degree").val(
+                            education.degree);
+                        $("#form-education-history-edit" + educationId + " #graduation_year")
+                            .val(education.graduation_year);
+                        $("#form-education-history-edit" + educationId + " #major").val(
+                            education.major);
+                        $("#form-education-history-edit" + educationId + " #gpa").val(education
+                            .gpa);
+                        $("#form-education-history-edit" + educationId + " #description").val(
+                            education.description);
+
+                        // Menampilkan modal
+                        $("#exampleModalScrollableEdit" + educationId).modal("show");
+
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+
+
+
             // UPDATE EDUCATION HISTORY
-            $(`#update-education${$(this).data('id')}`).click(function(event) {
+            $(`#update-education`).click(function(event) {
                 event.preventDefault();
                 var employeeId = $(this).data('employee-id');
                 var educationId = $(this).data('id');
-                console.log("id employee " + employeeId);
-                console.log("id education " + educationId);
+                // console.log("id employee " + employeeId);
+                // console.log("id education " + educationId);
 
                 $.ajax({
                     url: '/dashboard/employees/' + employeeId + '/educations/' + educationId,
@@ -376,30 +501,21 @@
                     success: function(response) {
                         // Menutup modal
                         $("#exampleModalScrollableEdit" + educationId).modal("hide");
-                        console.log(response.data);
+                        // console.log(response.data);
 
-                        // Menampilkan notifikasi berhasil
-                        // $('.alert-success').show();
-                        // $('.alert-success').text('Data has been updated successfully!');
-                        // $('.alert').delay(3000).slideUp(300);
                         alert(response.success);
-
 
                         // Reload datatable
                         $('#table1').DataTable().ajax.reload();
-
                     },
                     error: function(xhr, status, error) {
                         // Menampilkan notifikasi gagal
-                        // $('.alert-danger').show();
-                        // $('.alert-danger').text(
-                        //     'Failed to update data. Please try again later.');
-                        // $('.alert').delay(3000).slideUp(300);
-                        alert(response.error);
+                        alert("Terjadi kesalahan: " + error);
                         console.log("Terjadi kesalahan: " + error);
                     }
                 });
             });
+
 
 
             // DELEETE

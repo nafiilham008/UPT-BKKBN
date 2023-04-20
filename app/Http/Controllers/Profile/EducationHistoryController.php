@@ -102,9 +102,16 @@ class EducationHistoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $educationId)
     {
-        //
+        $education = EducationHistory::where('id', $educationId)
+            ->where('employee_id', $id)
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'education' => $education
+        ]);
     }
 
     /**

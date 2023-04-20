@@ -39,11 +39,11 @@
                                 <div class="row mb-2">
                                     <div class="col-md-6">
                                         <div class="form-group mandatory">
-                                            <label for="title" class="form-label">{{ __('Name') }}</label>
+                                            <label for="name" class="form-label">{{ __('Name') }}</label>
                                             <input type="text" name="name" id="name"
                                                 class="form-control @error('name') is-invalid @enderror"
-                                                placeholder="{{ __('Insert name') }}" data-parsley-required="true"
-                                                data-parsley-required-message="Kolom Nama harus diisi!" autofocus>
+                                                placeholder="e.g. John Doe" data-parsley-required="true"
+                                                data-parsley-required-message="The Name field is required!" autofocus>
                                             @error('name')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -52,23 +52,41 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group mandatory">
-                                            <label for="photo" class="form-label">{{ __('Photo') }}</label>
-                                            <input class="form-control" type="file" id="photo" name="photo"
-                                                accept="image/png, image/jpeg" data-parsley-filemaxmegabytes="2"
-                                                data-parsley-trigger="change"
-                                                data-parsley-filemimetypes="image/jpeg,image/png"
-                                                data-parsley-error-message="Please upload an image file (JPEG, PNG) with maximum size of 2MB">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                                            <input type="email" name="email" id="email"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                placeholder="e.g. johndoe@example.com" data-parsley-type="email"
+                                                data-parsley-trigger="blur"
+                                                data-parsley-error-message="Invalid email format!">
+                                            @error('email')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group mandatory">
-                                            <label for="nip" class="form-label">{{ __('NIP') }}</label>
-                                            <input type="number" name="nip" id="nip"
-                                                class="form-control @error('nip') is-invalid @enderror"
-                                                placeholder="{{ __('Insert NIP') }}" data-parsley-required="true"
-                                                data-parsley-required-message="Kolom NIP harus diisi!">
-                                            @error('nip')
+                                        <div class="form-group">
+                                            <label for="place_of_birth"
+                                                class="form-label">{{ __('Place of birth') }}</label>
+                                            <input type="text" name="place_of_birth" id="place_of_birth"
+                                                class="form-control @error('place_of_birth') is-invalid @enderror"
+                                                placeholder="e.g. New York, USA" data-parsley-trigger="blur"
+                                                value="{{ old('place_of_birth') }}">
+                                            @error('place_of_birth')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="birthdate" class="form-label">{{ __('Birthdate') }}</label>
+                                            <input type="date" name="birthdate" id="birthdate"
+                                                class="form-control @error('birthdate') is-invalid @enderror"
+                                                placeholder="e.g. 1990-01-01" min="1900-01-01" max="{{ date('Y-m-d') }}"
+                                                data-parsley-trigger="blur">
+                                            @error('birthdate')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>
@@ -80,8 +98,8 @@
                                             <label for="position" class="form-label">{{ __('Position') }}</label>
                                             <input type="text" name="position" id="position"
                                                 class="form-control @error('position') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Position') }}" data-parsley-required="true"
-                                                data-parsley-required-message="Kolom Jabatan harus diisi!">
+                                                placeholder="e.g. Manager" data-parsley-required="true"
+                                                data-parsley-required-message="The Position field is required!">
                                             @error('position')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -91,12 +109,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="birthdate" class="form-label">{{ __('Birthdate') }}</label>
-                                            <input type="date" name="birthdate" id="birthdate"
-                                                class="form-control @error('birthdate') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Birthdate') }}" min="1900-01-01"
-                                                max="{{ date('Y-m-d') }}">
-                                            @error('birthdate')
+                                            <label for="nip" class="form-label">{{ __('NIP') }}</label>
+                                            <input type="text" name="nip" id="nip"
+                                                class="form-control @error('nip') is-invalid @enderror"
+                                                placeholder="e.g. 1234567890" data-parsley-type="digits"
+                                                data-parsley-maxlength="30" data-parsley-required="false"
+                                                data-parsley-error-message="Please enter a valid NIP (only digits)">
+                                            @error('nip')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>
@@ -105,23 +124,66 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="employment_history"
-                                                class="form-label">{{ __('Employment History') }}</label>
-                                            <input type="text" name="employment_history" id="employment_history"
-                                                class="form-control @error('employment_history') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Employment History') }}">
-                                            @error('employment_history')
+                                            <label for="address" class="form-label">{{ __('Address') }}</label>
+                                            <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror"
+                                                placeholder="{{ __('e.g. 123 Main St, Anytown, USA') }}" data-parsley-trigger="blur"
+                                                data-parsley-required="false">{{ old('address') }}</textarea>
+                                            @error('address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="type_employee"
+                                                class="form-label">{{ __('Type of Employee') }}</label>
+                                            <select class="form-select" name="type_employee" id="type_employee"
+                                                class="form-control @error('type_employee') is-invalid @enderror"
+                                                data-parsley-required="true"
+                                                data-parsley-required-message="The Type of Employee field is required!">
+                                                <option value="">-- Select Type of Employee --</option>
+                                                <option value="PNS"
+                                                    {{ old('type_employee') == 'PNS' ? 'selected' : '' }}>PNS</option>
+                                                <option value="Non PNS"
+                                                    {{ old('type_employee') == 'Non PNS' ? 'selected' : '' }}>Non PNS
+                                                </option>
+                                            </select>
+                                            @error('type_employee')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="phone_number" class="form-label">{{ __('Phone Number') }}</label>
+                                            <input type="tel" name="phone_number" id="phone_number"
+                                                class="form-control @error('phone_number') is-invalid @enderror"
+                                                placeholder="e.g. +6281234567890" pattern="[+][0-9]{12,15}"
+                                                data-parsley-error-message="Please enter a valid phone number (+ followed by 12-14 digits)">
+                                            @error('phone_number')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="photo" class="form-label">{{ __('Photo') }}</label>
+                                            <input class="form-control" type="file" id="photo" name="photo"
+                                                accept="image/png, image/jpeg" data-parsley-filemaxmegabytes="2"
+                                                data-parsley-trigger="change"
+                                                data-parsley-filemimetypes="image/jpeg,image/png"
+                                                data-parsley-error-message="Please upload an image file (JPEG, PNG) with a maximum size of 2MB">
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="awards">{{ __('Awards') }}</label>
                                             <textarea id="summernote-awards" name="awards" class="form-control @error('awards') is-invalid @enderror"
-                                                placeholder="Insert awards" required autofocus></textarea> {{-- {!! $post->awards !!} --}}
+                                                placeholder="Insert awards" autofocus>{{ old('awards') }}</textarea>
                                             @error('awards')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -130,39 +192,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12">
-                                    <div class="card border">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <h5>Education History</h5>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModalScrollable">
-                                                <i class="fas fa-plus mr-2"></i>
-                                            </button>
-                                        </div>
-                                        <x-alert></x-alert>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped" id="table1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Institution Name</th>
-                                                            <th>Degree</th>
-                                                            <th>Graduation Year</th>
-                                                            <th>Major</th>
-                                                            <th>GPA</th>
-                                                            <th>Description</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="text-center" colspan="6">No data found.</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
 
@@ -175,8 +204,6 @@
             </div>
         </section>
 
-        {{-- @include('profile.employee.include.modal-edu-history') --}}
-
 
 
     @endsection
@@ -185,6 +212,9 @@
         {{-- Summernote --}}
         <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/summernote.css">
         <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/summernote/summernote-lite.css">
+
+        <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/choices.js/public/assets/styles/choices.css">
+
 
         <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/simple-datatables/style.css">
         <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/simple-datatables.css">
@@ -202,8 +232,20 @@
     @push('js')
         <script>
             $(document).ready(function() {
-                // Hapus session saat page direload
-                
+                $('#nip').on('input', function() {
+                    if (this.value.length > 30) {
+                        this.value = this.value.slice(0, 30);
+                    }
+                });
+
+                var phoneInput = document.getElementById('phone_number');
+                phoneInput.addEventListener('input', function(event) {
+                    if (this.value.length > 15) {
+                        this.value = this.value.slice(0, 15);
+                    }
+                    this.value = this.value.replace(/[^0-9+-]/g, '');
+                });
+
 
                 // Summernote
                 $("#summernote-awards").summernote({
@@ -248,41 +290,6 @@
                     //         },
                     // },
                 });
-
-
-                // COBA
-                // $(document).ready(function() {
-                //     $('.btn-edit').on('click', function() {
-                //         var id = $(this).closest('tr').data('id');
-                //         $.ajax({
-                //             url: '/education-history/' + id,
-                //             type: 'GET',
-                //             dataType: 'json',
-                //             success: function(data) {
-                //                 $('#edit_id').val(data.id);
-                //                 $('#institution_name').val(data.institution_name);
-                //                 $('#degree').val(data.degree);
-                //                 $('#graduation_year').val(data.graduation_year);
-                //                 $('#major').val(data.major);
-                //                 $('#gpa').val(data.gpa);
-                //                 $('#description').val(data.description);
-                //             }
-                //         });
-                //     });
-                //     $('#edit-form').on('submit', function(e) {
-                //         e.preventDefault();
-                //         var id = $('#edit_id').val();
-                //         var url = '/education-history/' + id;
-                //         $.ajax({
-                //             url: url,
-                //             type: 'POST',
-                //             data: $('#edit-form').serialize(),
-                //             success: function(data) {
-                //                 location.reload();
-                //             }
-                //         });
-                //     });
-                // });
             });
         </script>
 

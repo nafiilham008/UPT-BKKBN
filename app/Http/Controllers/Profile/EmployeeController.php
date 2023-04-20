@@ -163,23 +163,29 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:employees',
-            'position' => 'required',
-            'nip' => 'required',
+            'email' => 'nullable|unique:employees',
+            'place_of_birth' => 'nullable',
             'birthdate' => 'nullable|date_format:Y-m-d|before:today',
+            'position' => 'required',
+            'nip' => 'nullable',
+            'address' => 'nullable',
+            'photo' => 'nullable|mimes:jpeg,png,jpg|image|max:2048',
             'awards' => 'nullable|string',
-            'photo' => 'mimes:jpeg,png,jpg|image|max:2048',
+            'phone_number' => 'nullable',
+            'type_employee' => 'required'
         ], [
             'name.required' => 'Name field is required.',
             'name.unique' => 'Name has already been taken.',
-            'position.required' => 'Position field is required.',
-            'nip.required' => 'NIP field is required.',
+            'email.unique' => 'Email has already been taken.',
             'birthdate.date_format' => 'Birthdate must be in the format YYYY-MM-DD.',
             'birthdate.before' => 'Birthdate must be before today.',
-            'awards.string' => 'Awards must be a string.',
+            'position.required' => 'Position field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png, jpg.',
             'photo.image' => 'The file must be an image.',
-            'photo.max' => 'The photo may not be greater than 2048 kilobytes.'
+            'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
+            'type_employee.required' => 'Type of Employee must be fill.'
         ]);
+
 
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
@@ -202,29 +208,19 @@ class EmployeeController extends Controller
 
         $employeeCreate = Employee::create([
             'name' => $validated['name'],
+            'email' => $validated['email'],
+            'place_of_birth' => $validated['place_of_birth'],
+            'birthdate' => $validated['birthdate'],
             'position' => $validated['position'],
             'nip' => $validated['nip'],
-            'birthdate' => $validated['birthdate'],
-            'awards' => $validated['awards'],
+            'address' => $validated['address'],
             'photo' => $validated['photo'],
+            'awards' => $validated['awards'],
+            'phone_number' => $validated['phone_number'],
+            'type_employee' => $validated['type_employee'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
-
-
-        // Simpan data education history dari session ke database
-        $educationHistory = session('educationHistory', []);
-        foreach ($educationHistory as $edu) {
-            $education = new EducationHistory();
-            $education->employee_id = $employeeCreate->id;
-            $education->institution_name = $edu['institution_name'];
-            $education->degree = $edu['degree'];
-            $education->graduation_year = $edu['graduation_year'];
-            $education->major = $edu['major'];
-            $education->gpa = $edu['gpa'];
-            $education->description = $edu['description'];
-            $education->save();
-        }
 
         if ($employeeCreate) {
             //redirect dengan pesan sukses
@@ -275,11 +271,11 @@ class EmployeeController extends Controller
             ->addColumn('action', function ($educationHistory) {
                 $employeeId = $educationHistory->employee_id;
                 return '<td>' .
-                    '<button type="button" class="btn btn-outline-primary btn-sm" data-employee-id="' .
+                    '<button type="button" class="btn btn-outline-primary btn-sm btn-edit" data-employee-id="' .
                     $employeeId . '" data-id="' . $educationHistory->id .
                     '" data-bs-toggle="modal" data-bs-target="#exampleModalScrollableEdit' .
                     $educationHistory->id .
-                    '" data-bs-backdrop="static"><i class="fa fa-pencil-alt"></i></button>' .
+                    '" data-bs-backdrop="static"><i class="fa fa-pencil-alt"></i></button>'.
                     '<button type="button" id="delete-education" class="btn btn-outline-danger btn-sm" data-id="' .
                     $educationHistory->id .
                     '"><i class="fa fa-trash-alt"></i></button>' .
@@ -302,22 +298,27 @@ class EmployeeController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|unique:employees,name,' . $id,
-            'position' => 'required',
-            'nip' => 'required',
+            'email' => 'nullable|unique:employees,email,' . $id,
+            'place_of_birth' => 'nullable',
             'birthdate' => 'nullable|date_format:Y-m-d|before:today',
-            'awards' => 'nullable|string',
-            'photo' => 'mimes:jpeg,png,jpg|image|max:2048',
+            'position' => 'required',
+            'nip' => 'nullable',
+            'address' => 'nullable',
+            'photo' => 'nullable|mimes:jpeg,png,jpg|image|max:2048',
+            'awards' => 'nullable',
+            'phone_number' => 'nullable',
+            'type_employee' => 'required'
         ], [
             'name.required' => 'Name field is required.',
             'name.unique' => 'Name has already been taken.',
-            'position.required' => 'Position field is required.',
-            'nip.required' => 'NIP field is required.',
+            'email.unique' => 'Email has already been taken.',
             'birthdate.date_format' => 'Birthdate must be in the format YYYY-MM-DD.',
             'birthdate.before' => 'Birthdate must be before today.',
-            'awards.string' => 'Awards must be a string.',
+            'position.required' => 'Position field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png, jpg.',
             'photo.image' => 'The file must be an image.',
-            'photo.max' => 'The photo may not be greater than 2048 kilobytes.'
+            'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
+            'type_employee.required' => 'Type of Employee must be fill.'
         ]);
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
@@ -349,10 +350,15 @@ class EmployeeController extends Controller
         $employee->update([
             'name' => $validated['name'],
             'photo' => $validated['photo'],
-            'position' => $validated['position'],
+            'email' => $validated['email'],
+            'place_of_birth' => $validated['place_of_birth'],
             'birthdate' => $validated['birthdate'],
+            'position' => $validated['position'],
             'nip' => $validated['nip'],
+            'address' => $validated['address'],
             'awards' => $validated['awards'],
+            'phone_number' => $validated['phone_number'],
+            'type_employee' => $validated['type_employee'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
@@ -373,7 +379,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
         if ($employee->photo != null && file_exists($oldphoto = public_path($this->imagePath . $employee->photo))) {
             unlink($oldphoto);
         }

@@ -46,7 +46,8 @@ Route::middleware(['auth', 'web'])->group(function () {
         
         Route::post('/employees/{id}/educations/delete', [EducationHistoryController::class, 'destroy'])->name('educations.destroy');
         Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('educations.store');
-
+        
+        Route::get('/employees/{employeeId}/educations/{educationId}/edit', [EducationHistoryController::class, 'edit'])->name('educations.edit');
         Route::put('/employees/{id}/educations/{education_id}', [EducationHistoryController::class, 'update'])->name('employees.educations.update');
 
 
