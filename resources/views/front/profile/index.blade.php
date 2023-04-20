@@ -47,20 +47,7 @@
             </div>
         @endforeach
 
-        <div class="d-flex align-items-end">
-            <h6 class="me-4">Bagikan</h6>
-            <a href="{{ 'https://www.facebook.com/sharer.php?u=' . route('home.profile') }}" target="_blank"
-                class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="text-decoration-none">
-                <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
-            </a>
-        </div>
-        <hr class="border border-dark border-3 opacity-100">
+        
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="tugas-fungsi">
         @foreach ($jobandfunc as $item)
@@ -75,270 +62,11 @@
         @endforeach
 
 
-        <div class="d-flex align-items-end">
-            <h6 class="me-4">Bagikan</h6>
-            <a href="{{ 'https://www.facebook.com/sharer.php?u=' . route('home.profile') }}" target="_blank"
-                class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="text-decoration-none">
-                <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
-            </a>
-        </div>
-        <hr class="border border-dark border-3 opacity-100">
+       
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="struktur-organisasi">
         <h2 class="text-center mb-5">Struktur Organisasi</h2>
-        {{-- @foreach ($employee as $item)
-
-        @endforeach --}}
-
-
-        <div id="wrapper">
-            <div id="container">
-
-                <ol class="organizational-chart">
-                    <li>
-                        <div>
-                            <h1>Primary</h1>
-                        </div>
-                        <div>
-                            <h1>Primary</h1>
-                        </div>
-                        <div>
-                            <h1>Primary</h1>
-                        </div>
-                        <ol>
-                            <li>
-                                <div>
-                                    <h2>Secondary</h2>
-                                </div>
-                                <ol>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                        <ol>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                                <ol>
-                                                    <li>
-                                                        <div>
-                                                            <h5>Quinary</h5>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div>
-                                                            <h5>Quinary</h5>
-                                                        </div>
-                                                        <ol>
-                                                            <li>
-                                                                <div>
-                                                                    <h6>Senary</h6>
-                                                                </div>
-                                                            </li>
-                                                        </ol>
-                                                    </li>
-                                                </ol>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </li>
-                            <li>
-                                <div>
-                                    <h2>Secondary</h2>
-                                </div>
-                                <ol>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                        <ol>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                </ol>
-                            </li>
-                            <li>
-                                <div>
-                                    <h2>Secondary</h2>
-                                </div>
-                                <ol>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                        <ol>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                                <ol>
-                                                    <li>
-                                                        <div>
-                                                            <h5>Quinary</h5>
-                                                        </div>
-                                                        <ol>
-                                                            <li>
-                                                                <div>
-                                                                    <h6>Senary</h6>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div>
-                                                                    <h6>Senary</h6>
-                                                                </div>
-                                                            </li>
-                                                        </ol>
-                                                    </li>
-                                                    <li>
-                                                        <div>
-                                                            <h5>Quinary</h5>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </li>
-                            <li>
-                                <div>
-                                    <h2>Secondary</h2>
-                                </div>
-                                <ol>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                        <ol>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <h4>Quaternary</h4>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h3>Tertiary</h3>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </li>
-                        </ol>
-                    </li>
-                </ol>
-
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {{-- <div class="d-flex justify-content-center">
-            <img class="rounded-4 img-news-detail"
-                src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="">
-        </div> --}}
-
-        {{-- <div class="d-flex align-items-end">
-            <h6 class="me-4">Bagikan</h6>
-            <a href="{{ 'https://www.facebook.com/sharer.php?u=' . route('home.detail', [$history->categories->label, $history->slug_url]) }}"
-                target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="me-2 text-decoration-none">
-                <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
-            </a>
-            <a href="#" target="_blank" class="text-decoration-none">
-                <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
-            </a>
-        </div>
-        <hr class="border border-dark border-3 opacity-100"> --}}
+        <img class="img-structure mx-auto d-block" src="{{ asset('img/struktur.svg') }}" alt="">
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pejabat">
 
@@ -398,7 +126,7 @@
             <hr class="border border-dark border-3 opacity-100 mb-5">
         @endforeach
     </div>
-    <div class="container-fluid detail-news fade-in" id="informasi-pegawai">
+    <div class="container-fluid detail-news fade-in d-none" id="informasi-pegawai">
         <h2 class="text-center mb-5">Informasi Pegawai</h2>
         <div class="row">
             <div class="col-md-4 col-sm-4">
@@ -492,6 +220,11 @@
         .employee-photo {
             max-width: 100%;
             height: auto;
+        }
+
+        .img-structure {
+            width: 100%;
+            object-fit: contain;
         }
     </style>
 @endpush
