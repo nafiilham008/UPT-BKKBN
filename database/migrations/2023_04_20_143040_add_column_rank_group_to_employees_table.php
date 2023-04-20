@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->string('type_employee')->after('nip');
+            $table->string('rank_group')->nullable()->after('type_employee');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropColumn('type_employee');
+            $table->dropColumn('rank_group');
         });
     }
 };

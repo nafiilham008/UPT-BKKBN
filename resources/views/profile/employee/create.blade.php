@@ -124,15 +124,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="address" class="form-label">{{ __('Address') }}</label>
-                                            <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror"
-                                                placeholder="{{ __('e.g. 123 Main St, Anytown, USA') }}" data-parsley-trigger="blur"
-                                                data-parsley-required="false">{{ old('address') }}</textarea>
-                                            @error('address')
+                                            <label for="rank_group" class="form-label">{{ __('Rank/Group') }}</label>
+                                            <input type="text" name="rank_group" id="rank_group"
+                                                class="form-control @error('rank_group') is-invalid @enderror"
+                                                placeholder="e.g. Pembina TK.I/IVb">
+                                            @error('rank_group')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="type_employee"
@@ -142,19 +143,30 @@
                                                 data-parsley-required="true"
                                                 data-parsley-required-message="The Type of Employee field is required!">
                                                 <option value="">-- Select Type of Employee --</option>
-                                                <option value="PNS"
-                                                    {{ old('type_employee') == 'PNS' ? 'selected' : '' }}>PNS</option>
-                                                <option value="Non PNS"
-                                                    {{ old('type_employee') == 'Non PNS' ? 'selected' : '' }}>Non PNS
-                                                </option>
+                                                @foreach ($type_employee as $type)
+                                                    <option value="{{ $type['id'] }}"
+                                                        {{ old('type_employee') == $type['id'] ? 'selected' : '' }}>
+                                                        {{ $type['label'] }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             @error('type_employee')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="address" class="form-label">{{ __('Address') }}</label>
+                                            <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror"
+                                                placeholder="{{ __('e.g. 123 Main St, Anytown, USA') }}" data-parsley-trigger="blur"
+                                                data-parsley-required="false">{{ old('address') }}</textarea>
+                                            @error('address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phone_number" class="form-label">{{ __('Phone Number') }}</label>
@@ -215,9 +227,6 @@
 
         <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/choices.js/public/assets/styles/choices.css">
 
-
-        <link rel="stylesheet" href="{{ asset('mazer') }}/extensions/simple-datatables/style.css">
-        <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/simple-datatables.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
             integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />

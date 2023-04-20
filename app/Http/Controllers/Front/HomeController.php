@@ -113,7 +113,34 @@ class HomeController extends Controller
         $jobandfunc = Jobandfunc::all();
         $employee = Employee::all();
 
-        return view('front.profile.index', compact('history', 'jobandfunc', 'employee'));
+        $structural = $this->getTypeStructural();
+        $widyaiswara = $this->getTypeWidyaiswara();
+        $functional = $this->getTypeFunctional();
+        $executor = $this->getTypeExecutor();
+        $ppnpn = $this->getTypePpnpn();
+
+
+        return view('front.profile.index', compact('history', 'jobandfunc', 'employee', 'structural', 'widyaiswara', 'functional', 'executor', 'ppnpn'));
+    }
+
+    public function getTypeStructural () {
+        return Employee::where('type_employee', 1)->get();
+    }
+
+    public function getTypeWidyaiswara () {
+        return Employee::where('type_employee', 2)->get();
+    }
+
+    public function getTypeFunctional () {
+        return Employee::where('type_employee', 3)->get();
+    }
+
+    public function getTypeExecutor () {
+        return Employee::where('type_employee', 4)->get();
+    }
+
+    public function getTypePpnpn () {
+        return Employee::where('type_employee', 5)->get();
     }
 
     public function getEmployeesDetail ($id)

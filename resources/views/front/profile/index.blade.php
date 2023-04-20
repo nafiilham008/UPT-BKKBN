@@ -47,7 +47,7 @@
             </div>
         @endforeach
 
-        
+
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="tugas-fungsi">
         @foreach ($jobandfunc as $item)
@@ -62,7 +62,7 @@
         @endforeach
 
 
-       
+
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="struktur-organisasi">
         <h2 class="text-center mb-5">Struktur Organisasi</h2>
@@ -70,8 +70,8 @@
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pejabat">
 
-        @foreach ($employee as $item)
-            <h5 class="text-center mb-2">Informasi Pejabat</h5>
+        <h5 class="text-center mb-2">Informasi Pejabat</h5>
+        @foreach ($structural as $item)
             <h1 class="text-center mb-5">{{ $item->position }}</h1>
             <div class="row">
                 <div class="col-md-4 col-sm-4">
@@ -86,11 +86,10 @@
                     </div>
                     <p><strong>NIP : </strong>{{ $item->nip }}</p>
                     <p><strong>Jabatan : </strong>{{ $item->position }}</p>
-                    <p><strong>Deskripsi singkat : </strong></p>
-                    <p style="text-align: justify">Lahir pada tanggal {{ date('d F Y', strtotime($item->birthdate)) }}
-                        . Menyelesaikan pendidikan dan memperoleh gelar Sarjana Ilmu
+                    {{-- <p><strong>Deskripsi singkat : </strong></p>
+                    <p style="text-align: justify">Lahir pada tanggal {{ date('d F Y', strtotime($item->birthdate)) }}. Menyelesaikan pendidikan dan memperoleh gelar Sarjana Ilmu
                         Pemerintahan dari Institut Ilmu Pemerintahan Jakarta pada tahun 1998. Melanjutkan pendidikan di
-                        Universitas Jendral Soedirman dan mendapatkan gelar Magister Ilmu Administrasi pada tahun 2004</p>
+                        Universitas Jendral Soedirman dan mendapatkan gelar Magister Ilmu Administrasi pada tahun 2004</p> --}}
                     <div class="row mb-5">
                         <div class="col-md-6 col-sm-6">
                             <div class="card">
@@ -123,13 +122,13 @@
                     </div>
                 </div>
             </div>
-            <hr class="border border-dark border-3 opacity-100 mb-5">
+            <hr class="border border-dark border-3 opacity-100 mb-5 mt-5">
         @endforeach
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pegawai">
         <h2 class="text-center mb-5">Informasi Pegawai</h2>
         <div class="row">
-            <div class="col-md-4 col-sm-4">
+            <div class="col-md-2 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -141,30 +140,67 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4">
+            <div class="col-md-2 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
                             class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
                             <i class="bi bi-people-fill fs-1 text-white-icon"></i>
                         </div>
-                        <h5 class="card-title mb-2 mt-4">80</h5>
-                        <p class="card-text fs-5">Pegawai Negeri Sipil</p>
+                        <h5 class="card-title mb-2 mt-4">{{ count($structural) }}</h5>
+                        <p class="card-text fs-5">Pejabat Struktural</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4">
+            <div class="col-md-2 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
                             class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
                             <i class="bi bi-people-fill fs-1 text-white-icon"></i>
                         </div>
-                        <h5 class="card-title mb-2 mt-4">80</h5>
-                        <p class="card-text fs-5">Pegawai Non PNS</p>
+                        <h5 class="card-title mb-2 mt-4">{{ count($functional) }}</h5>
+                        <p class="card-text fs-5">Pejabat Fungsional</p>
                     </div>
                 </div>
             </div>
+            <div class="col-md-2 col-sm-2">
+                <div class="card shadow-none border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div
+                            class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
+                            <i class="bi bi-people-fill fs-1 text-white-icon"></i>
+                        </div>
+                        <h5 class="card-title mb-2 mt-4">{{ count($executor) }}</h5>
+                        <p class="card-text fs-5">Pejabat Pelaksana</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <div class="card shadow-none border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div
+                            class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
+                            <i class="bi bi-people-fill fs-1 text-white-icon"></i>
+                        </div>
+                        <h5 class="card-title mb-2 mt-4">{{ count($widyaiswara) }}</h5>
+                        <p class="card-text fs-5">Widyaiswara</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <div class="card shadow-none border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div
+                            class="rounded-circle bg-primary-bkkbn mx-auto align-items-center mb-3 icon-circle-center d-flex justify-content-center align-items-center">
+                            <i class="bi bi-people-fill fs-1 text-white-icon"></i>
+                        </div>
+                        <h5 class="card-title mb-2 mt-4">{{ count($ppnpn) }}</h5>
+                        <p class="card-text fs-5">PPNPN</p>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
         <table class="table table-bordered mt-5" style="background-color: #F4F4F4;">
