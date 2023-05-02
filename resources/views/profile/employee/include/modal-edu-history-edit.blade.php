@@ -77,7 +77,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <button type="button" id="update-education" class="btn btn-primary ml-1"
+                    <button type="button" id="update-education{{ $id }}" class="btn btn-primary ml-1"
                         data-id="{{ $id }}" data-employee-id="{{ $employeeId }}"
                         data-bs-dismiss="modal">
                         <i class="bx bx-check d-block d-sm-none"></i>

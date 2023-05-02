@@ -579,7 +579,7 @@
 
 
             // UPDATE EDUCATION HISTORY
-            $("#update-education").click(function(event) {
+            $(document).on("click", "[id^='update-education']", function(event) {
                 event.preventDefault();
                 var employeeId = $(this).data('employee-id');
                 var educationId = $(this).data('id');
@@ -722,7 +722,7 @@
             });
 
             // Update
-            $("#update-employee-history").click(function(event) {
+            $(document).on("click", "[id^='update-employee-history']", function(event) {
                 event.preventDefault();
                 var employeeId = $(this).data('employee-id');
                 var employeeHistoryId = $(this).data('id');
@@ -748,6 +748,7 @@
                     }
                 });
             });
+
 
 
             // Delete

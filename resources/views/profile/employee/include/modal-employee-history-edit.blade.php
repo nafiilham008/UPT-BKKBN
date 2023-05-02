@@ -86,7 +86,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <button type="button" id="update-employee-history" data-id="{{ $id }}"
+                    <button type="button" id="update-employee-history{{ $id }}" data-id="{{ $id }}"
                         data-employee-id="{{ $employeeId }}" class="btn btn-primary ml-1" data-bs-dismiss="modal">
                         <i class="bx bx-check d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Save</span>
