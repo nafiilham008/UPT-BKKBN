@@ -263,6 +263,38 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12">
+                                    <div class="card border">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h5>Employee History</h5>
+                                            <button type="button" id="add-employee-history" class="btn btn-primary"
+                                                data-bs-toggle="modal" data-bs-target="#modalEmployeeHistory"
+                                                data-id="{{ $employee->id }}">
+                                                <i class="fas fa-plus mr-2"></i>
+                                            </button>
+                                        </div>
+                                        <x-alert></x-alert>
+                                        <div class="card-body">
+                                            <div class="table-responsive p-1">
+                                                <table class="table table-striped" id="table2" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            {{-- <th>{{ __('No') }}</th> --}}
+                                                            <th>{{ __('Company Name') }}</th>
+                                                            <th>{{ __('Start Date') }}</th>
+                                                            <th>{{ __('End Date') }}</th>
+                                                            <th>{{ __('Position') }}</th>
+                                                            <th>{{ __('Created At') }}</th>
+                                                            <th>{{ __('Action') }}</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
 
@@ -273,7 +305,9 @@
                             </form>
 
 
-                            {{-- <div id="education-list"> --}}
+                            {{-- create --}}
+                            @include('profile.employee.include.modal-edu-history')
+                            {{-- edit --}}
                             @if (!empty($educationHistory))
                                 @foreach ($educationHistory as $education)
                                     @include('profile.employee.include.modal-edu-history-edit', [
@@ -282,14 +316,19 @@
                                     ])
                                 @endforeach
                             @endif
-                            {{-- </div> --}}
 
-                            {{-- @include('profile.employee.include.modal-edu-history-edit') --}}
 
                             {{-- create --}}
-                            @include('profile.employee.include.modal-edu-history')
-
-
+                            @include('profile.employee.include.modal-employee-history')
+                            {{-- edit --}}
+                            @if (!empty($employeeHistory))
+                                @foreach ($employeeHistory as $employee_history)
+                                    @include('profile.employee.include.modal-employee-history-edit', [
+                                        'id' => $employee_history->id,
+                                        'employeeId' => $employee_history->employee_id,
+                                    ])
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -384,9 +423,56 @@
                     }
                 ],
                 order: [
-                    [6,
+                    [2,
                         'desc'
                     ] // mengurutkan berdasarkan kolom ke-2 (graduation_year) secara descending
+                ],
+                drawCallback: function(settings) {
+                    // menghilangkan notifikasi
+                    $('.alert').hide();
+                }
+            });
+
+            $('#table2').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('employees.history', $employee->id) }}",
+                columns: [{
+                        data: 'company_name',
+                        name: 'company_name',
+                        defaultContent: '-'
+                    },
+                    {
+                        data: 'start_year',
+                        name: 'start_year',
+                        defaultContent: '-'
+                    },
+                    {
+                        data: 'end_year',
+                        name: 'end_year',
+                        defaultContent: '-'
+                    },
+                    {
+                        data: 'position',
+                        name: 'position',
+                        defaultContent: '-'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        defaultContent: '-'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                order: [
+                    [4,
+                        'desc'
+                    ]
                 ],
                 drawCallback: function(settings) {
                     // menghilangkan notifikasi
@@ -442,10 +528,10 @@
                             // $('.alert-danger').text(xhr.responseJSON.error);
                             // $('.alert-danger').show();
                             // $('.alert-danger').delay(3000).slideUp(300);
-                            alert(response.error);
+                            alert(error);
                         }
                         console.log("Terjadi kesalahan: " + error);
-                        alert(response.error);
+                        alert(error);
                     }
 
                 });
@@ -492,10 +578,8 @@
             });
 
 
-
-
             // UPDATE EDUCATION HISTORY
-            $(`#update-education`).click(function(event) {
+            $("#update-education").click(function(event) {
                 event.preventDefault();
                 var employeeId = $(this).data('employee-id');
                 var educationId = $(this).data('id');
@@ -527,7 +611,7 @@
 
 
             // DELEETE
-            $(document).on('click', '#delete-education', function(e) {
+            $(document).on("click", "#delete-education", function(e) {
                 e.preventDefault();
                 var educationId = $(this).data('id');
                 var token = $('meta[name="csrf-token"]').attr('content');
@@ -548,7 +632,7 @@
 
                         },
                         error: function(xhr) {
-                            alert(response.error);
+                            alert(error);
 
                         }
                     });
@@ -556,6 +640,144 @@
             });
 
 
+
+            // Employee History
+            // Create
+            $("#save-employee-history").click(function(event) {
+                event.preventDefault();
+                var employeeId = $(this).data('id');
+
+                $.ajax({
+                    url: '{{ route('employees.history.store', ':employeeId') }}'.replace(
+                        ':employeeId',
+                        employeeId),
+                    type: 'POST',
+                    data: $("#form-employee-history").serialize(),
+                    success: function(response) {
+
+                        console.log(response.data);
+                        // Menutup modal
+                        $("#modalEmployeeHistory").modal("hide");
+
+                        // Menampilkan notifikasi berhasil
+                        if (response.success) {
+                            console.log(response.success);
+
+                            alert(response.success);
+                        }
+
+                        // Reload datatable
+                        $('#table2').DataTable().ajax.reload();
+
+                        $("#form-employee-history").trigger('reset');
+
+                    },
+                    error: function(xhr, status, error) {
+                        // Menampilkan notifikasi berhasil
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            alert(error);
+                        }
+                        console.log("Terjadi kesalahan: " + error);
+                        alert(error);
+                    }
+
+                });
+            });
+
+            // GET DATA EMPLOYEE HISTORY
+            $(document).on("click", ".btn-edit-employee-history", function() {
+                var employeeId = $(this).data("employee-id");
+                var employeeHistoryId = $(this).data("id");
+                var url = "/dashboard/employees/" + employeeId + "/history/" + employeeHistoryId + "/edit";
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function(response) {
+                        // console.log(response.education);
+
+                        var employee_history = response.employee_history;
+
+                        // Mengisi data employee_history ke dalam form
+
+                        $("#form-employee-history-edit" + employeeHistoryId + " #company_name")
+                            .val(employee_history.company_name);
+                        $("#form-employee-history-edit" + employeeHistoryId + " #start_year")
+                            .val(
+                                employee_history.start_year);
+                        $("#form-employee-history-edit" + employeeHistoryId + " #end_year")
+                            .val(employee_history.end_year);
+                        $("#form-employee-history-edit" + employeeHistoryId + " #position").val(
+                            employee_history.position);
+                        $("#form-employee-history-edit" + employeeHistoryId + " #job_desc").val(
+                            employee_history.job_desc);
+
+                        // Menampilkan modal
+                        $("#modalEmployeeHistory" + employeeHistoryId).modal("show");
+
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+            // Update
+            $("#update-employee-history").click(function(event) {
+                event.preventDefault();
+                var employeeId = $(this).data('employee-id');
+                var employeeHistoryId = $(this).data('id');
+
+                $.ajax({
+                    url: '/dashboard/employees/' + employeeId + '/history/' + employeeHistoryId,
+                    type: 'PUT',
+                    data: $("#form-employee-history-edit" + employeeHistoryId).serialize(),
+                    success: function(response) {
+                        // Menutup modal
+                        $("#modalEmployeeHistoryEdit" + employeeHistoryId).modal("hide");
+                        // console.log(response.data);
+
+                        alert(response.success);
+
+                        // Reload datatable
+                        $('#table2').DataTable().ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Menampilkan notifikasi gagal
+                        alert("Terjadi kesalahan: " + error);
+                        console.log("Terjadi kesalahan: " + error);
+                    }
+                });
+            });
+
+
+            // Delete
+            $(document).on("click", "#delete-employee-history", function(e) {
+                e.preventDefault();
+                var employeeHistoryId = $(this).data('id');
+                var token = $('meta[name="csrf-token"]').attr('content');
+                var url = "{{ route('employees.history.destroy', ':id') }}";
+                url = url.replace(':id', employeeHistoryId);
+
+                if (confirm('Are you sure you want to delete this data?')) {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            'id': employeeHistoryId,
+                            '_token': token
+                        },
+                        success: function(response) {
+                            alert(response.success);
+                            $('#table2').DataTable().ajax.reload();
+
+                        },
+                        error: function(xhr) {
+                            alert(error);
+
+                        }
+                    });
+                }
+            });
 
             $("#summernote-awards").summernote({
                 tabsize: 2,

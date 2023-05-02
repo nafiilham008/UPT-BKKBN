@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
+use App\Models\Profile\EmployeeHistory;
 use App\Utilities\Constant;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -164,11 +165,12 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         $educationHistory = EducationHistory::where('employee_id', $id)->orderBy('created_at', 'desc')->get();
+        $employeeHistory = EmployeeHistory::where('employee_id', $id)->orderBy('created_at', 'desc')->get();
 
         $type_employee = Constant::TYPE_OF_EMPLOYEE;
 
 
-        return view('profile.employee.edit', compact('employee', 'educationHistory', 'type_employee'));
+        return view('profile.employee.edit', compact('employee', 'educationHistory', 'type_employee', 'employeeHistory'));
     }
 
     public function getEducationHistory($id)
@@ -189,6 +191,31 @@ class EmployeeController extends Controller
                     '" data-bs-backdrop="static"><i class="fa fa-pencil-alt"></i></button>'.
                     '<button type="button" id="delete-education" class="btn btn-outline-danger btn-sm" data-id="' .
                     $educationHistory->id .
+                    '"><i class="fa fa-trash-alt"></i></button>' .
+                    '</td>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function getEmployeeHistory($id)
+    {
+        $employeeHistory = EmployeeHistory::where('employee_id', $id)->get();
+
+        return Datatables::of($employeeHistory)
+            ->addColumn('created_at', function ($employeeHistory) {
+                return \Carbon\Carbon::parse($employeeHistory->created_at)->format('j F Y H:i');
+            })
+            ->addColumn('action', function ($employeeHistory) {
+                $employeeId = $employeeHistory->employee_id;
+                return '<td>' .
+                    '<button type="button" class="btn btn-outline-primary btn-sm btn-edit-employee-history" data-employee-id="' .
+                    $employeeId . '" data-id="' . $employeeHistory->id .
+                    '" data-bs-toggle="modal" data-bs-target="#modalEmployeeHistoryEdit' .
+                    $employeeHistory->id .
+                    '" data-bs-backdrop="static"><i class="fa fa-pencil-alt"></i></button>'.
+                    '<button type="button" id="delete-employee-history" class="btn btn-outline-danger btn-sm" data-id="' .
+                    $employeeHistory->id .
                     '"><i class="fa fa-trash-alt"></i></button>' .
                     '</td>';
             })

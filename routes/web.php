@@ -11,6 +11,7 @@ use App\Http\Controllers\{
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Profile\EducationHistoryController;
 use App\Http\Controllers\Profile\EmployeeController;
+use App\Http\Controllers\Profile\EmployeeHistoryController;
 use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
 use App\Http\Controllers\Profile\StructureController;
@@ -40,15 +41,22 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('jobandfuncs', JobandfuncController::class);
         Route::resource('employees', EmployeeController::class);
 
-        // get datatable employeeHistory
+        // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('employees.educations');
-        // Route::get('/employees/{id}/education-history', [EmployeeController::class, 'getEducationHistoryForModal'])->name('employees.education-history');
-        
         Route::post('/employees/{id}/educations/delete', [EducationHistoryController::class, 'destroy'])->name('educations.destroy');
-        Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('educations.store');
-        
+        Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('educations.store');        
         Route::get('/employees/{employeeId}/educations/{educationId}/edit', [EducationHistoryController::class, 'edit'])->name('educations.edit');
         Route::put('/employees/{id}/educations/{education_id}', [EducationHistoryController::class, 'update'])->name('employees.educations.update');
+        
+        // Employee History
+        Route::get('/employees/{id}/history', [EmployeeController::class, 'getEmployeeHistory'])->name('employees.history');
+        Route::post('/employees/{id}/history', [EmployeeHistoryController::class, 'store'])->name('employees.history.store');    
+        Route::get('/employees/{employeeId}/history/{educationId}/edit', [EmployeeHistoryController::class, 'edit'])->name('employees.history.edit');
+        Route::put('/employees/{id}/history/{education_id}', [EmployeeHistoryController::class, 'update'])->name('employees.educations.update');
+        Route::post('/employees/{id}/history/delete', [EmployeeHistoryController::class, 'destroy'])->name('employees.history.destroy');
+
+
+
 
 
         // Route::put('/education-history/update', [EmployeeController::class, 'updateTemporary'])->name('education-history.update');

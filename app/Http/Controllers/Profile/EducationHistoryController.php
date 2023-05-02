@@ -171,9 +171,13 @@ class EducationHistoryController extends Controller
      */
     public function destroy(Request $request)
     {
-        $education = EducationHistory::findOrFail($request->id);
-        $education->delete();
-
-        return response()->json(['success' => 'Education data deleted successfully.']);
+        try {
+            $education = EducationHistory::findOrFail($request->id);
+            $education->delete();
+            return response()->json(['success' => 'Education data deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+    
 }
