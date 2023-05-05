@@ -125,7 +125,7 @@ class JobandfuncController extends Controller
      */
     public function show($id)
     {
-        $jobandfunc = Jobandfunc::find($id);
+        $jobandfunc = Jobandfunc::findOrFail($id);
 
         return view('profile.jobandfunc.show', compact('jobandfunc'));
     }
@@ -138,7 +138,7 @@ class JobandfuncController extends Controller
      */
     public function edit($id)
     {
-        $jobandfunc = Jobandfunc::find($id);
+        $jobandfunc = Jobandfunc::findOrFail($id);
 
         return view('profile.jobandfunc.edit', compact('jobandfunc'));
     }
@@ -152,7 +152,7 @@ class JobandfuncController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jobandfunc = Jobandfunc::find($id);
+        $jobandfunc = Jobandfunc::findOrFail($id);
 
         $validated = $request->validate(
             [
@@ -219,7 +219,7 @@ class JobandfuncController extends Controller
      */
     public function destroy($id)
     {
-        $jobandfunc = Jobandfunc::find($id);
+        $jobandfunc = Jobandfunc::findOrFail($id);
         
         // Check Image
         $description = $jobandfunc->description;

@@ -146,7 +146,7 @@ class HistoricalController extends Controller
      */
     public function show($id)
     {
-        $history = Historical::find($id);
+        $history = Historical::findOrFail($id);
 
         return view('profile.historical.show', compact('history'));
     }
@@ -159,7 +159,7 @@ class HistoricalController extends Controller
      */
     public function edit($id)
     {
-        $history = Historical::find($id);
+        $history = Historical::findOrFail($id);
 
         return view('profile.historical.edit', compact('history'));
     }
@@ -173,7 +173,7 @@ class HistoricalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $history = Historical::find($id);
+        $history = Historical::findOrFail($id);
         $validated = $request->validate(
             [
                 'title' => 'required',
@@ -268,7 +268,7 @@ class HistoricalController extends Controller
      */
     public function destroy($id)
     {
-        $history = Historical::find($id);
+        $history = Historical::findOrFail($id);
         if ($history->thumbnail != null && file_exists($oldThumbnail = public_path($this->imagePath . $history->thumbnail))) {
             unlink($oldThumbnail);
         }

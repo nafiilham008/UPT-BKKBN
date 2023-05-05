@@ -150,7 +150,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
 
         return view('profile.employee.show', compact('employee'));
     }

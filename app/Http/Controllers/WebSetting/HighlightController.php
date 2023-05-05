@@ -90,7 +90,7 @@ class HighlightController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Post::find($id);
+        $data = Post::findOrFail($id);
 
         $data->update([
             'highlight' => $request->highlight,
