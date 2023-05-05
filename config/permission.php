@@ -224,6 +224,15 @@ return [
             ]
         ],
         [
+            'group' => 'calendar',
+            'access' => [
+                'calendar view',
+                'calendar create',
+                'calendar edit',
+                'calendar delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

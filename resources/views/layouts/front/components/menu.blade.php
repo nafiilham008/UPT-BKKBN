@@ -14,7 +14,7 @@
                 <a class="nav-link {{ Route::currentRouteName() == 'home.profile' ? 'active' : '' }}" aria-current="page" href="{{ route('home.profile') }}">Profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Kediklatan</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.training' ? 'active' : '' }}" href="{{ route('home.training') }}">Kediklatan</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Dokumentasi</a>

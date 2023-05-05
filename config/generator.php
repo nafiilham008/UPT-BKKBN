@@ -176,7 +176,8 @@ return [
             'permissions' => [
                 'historical view',
                 'jobandfunc view',
-                'employee view'
+                'employee view',
+                'calendar view'
             ],
             'menus' => [
                 [
@@ -205,6 +206,22 @@ return [
                             'route' => '/employees',
                             'permission' => 'employee view'
                         ]
+                    ]
+                ],
+                [
+                    'title' => 'Training',
+                    'icon' => '<i class="bi bi-buildings-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'calendar view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Calendar Training',
+                            'route' => '/calendars',
+                            'permission' => 'calendar view'
+                        ],
                     ]
                 ]
             ]

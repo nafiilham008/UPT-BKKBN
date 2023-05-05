@@ -153,4 +153,15 @@ class HomeController extends Controller
             'employee' => $employee
         ]);
     }
+    // End Profile Menu
+
+    // Training Menu
+    public function training()
+    {
+       
+
+        return view('front.training.index');
+    }
+
+    // End Training
 }

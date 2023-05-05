@@ -14,15 +14,16 @@ use App\Http\Controllers\Profile\EmployeeController;
 use App\Http\Controllers\Profile\EmployeeHistoryController;
 use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
-use App\Http\Controllers\Profile\StructureController;
+use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\WebSetting\HighlightController;
-use App\Models\Profile\EducationHistory;
-use App\Models\Profile\Historical;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
 Route::get('/profile', [HomeController::class, 'profile'])->name('home.profile');
 Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetail'])->name('employees.educations');
+
+
+Route::get('/training', [HomeController::class, 'training'])->name('home.training');
 
 
 Route::middleware(['auth', 'web'])->group(function () {
@@ -55,15 +56,9 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::put('/employees/{id}/history/{education_id}', [EmployeeHistoryController::class, 'update'])->name('employees.educations.update');
         Route::post('/employees/{id}/history/delete', [EmployeeHistoryController::class, 'destroy'])->name('employees.history.destroy');
 
+        Route::resource('calendars', CalendarController::class);
+        
 
-
-
-
-        // Route::put('/education-history/update', [EmployeeController::class, 'updateTemporary'])->name('education-history.update');
-        // Route::get('/education-history/clear', function () {
-        //     session()->forget('educationHistory');
-        //     return redirect()->back();
-        // })->name('education-history.clear');
     });
 
 
