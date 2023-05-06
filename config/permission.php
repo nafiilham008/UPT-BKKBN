@@ -233,6 +233,15 @@ return [
             ]
         ],
         [
+            'group' => 'profiletraining',
+            'access' => [
+                'profiletraining view',
+                'profiletraining create',
+                'profiletraining edit',
+                'profiletraining delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

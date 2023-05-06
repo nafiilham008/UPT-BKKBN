@@ -214,13 +214,19 @@ return [
                     'route' => null,
                     'permission' => null,
                     'permissions' => [
-                        'calendar view'
+                        'calendar view',
+                        'profiletraining view'
                     ],
                     'submenus' => [
                         [
                             'title' => 'Calendar Training',
                             'route' => '/calendars',
                             'permission' => 'calendar view'
+                        ],
+                        [
+                            'title' => 'Profile Training',
+                            'route' => '/profiletrainings',
+                            'permission' => 'profiletraining view'
                         ],
                     ]
                 ]

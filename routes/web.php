@@ -15,6 +15,7 @@ use App\Http\Controllers\Profile\EmployeeHistoryController;
 use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
 use App\Http\Controllers\Training\CalendarController;
+use App\Http\Controllers\Training\ProfileTraining;
 use App\Http\Controllers\WebSetting\HighlightController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::post('/employees/{id}/history/delete', [EmployeeHistoryController::class, 'destroy'])->name('employees.history.destroy');
 
         Route::resource('calendars', CalendarController::class);
+        Route::resource('profiletrainings', ProfileTraining::class);
         
 
     });
