@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Profile\Employee;
 use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
+use App\Models\Training\Calendar;
 use App\Utilities\Constant;
 use Illuminate\Http\Request;
 
@@ -158,9 +159,9 @@ class HomeController extends Controller
     // Training Menu
     public function training()
     {
-       
+       $calendar = Calendar::all();
 
-        return view('front.training.index');
+        return view('front.training.index', compact('calendar'));
     }
 
     // End Training
