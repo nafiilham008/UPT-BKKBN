@@ -33,7 +33,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="tabl table-hover table-striped">
                                     <tr>
                                         <td class="fw-bold">{{ __('Type') }}</td>
                                         <td>{{ $profileTraining->type }}</td>
