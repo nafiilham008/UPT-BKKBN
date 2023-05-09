@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
 use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
@@ -124,27 +125,33 @@ class HomeController extends Controller
         return view('front.profile.index', compact('history', 'jobandfunc', 'employee', 'structural', 'widyaiswara', 'functional', 'executor', 'ppnpn'));
     }
 
-    public function getTypeStructural () {
-        return Employee::where('type_employee', 1)->get();
+    public function getTypeStructural()
+    {
+        return Employee::where('type_employee', 1)->with('educationHistories', 'employeeHistories')->get();
     }
 
-    public function getTypeWidyaiswara () {
-        return Employee::where('type_employee', 2)->get();
+    public function getTypeWidyaiswara()
+    {
+        return Employee::where('type_employee', 2)->with('educationHistories', 'employeeHistories')->get();
     }
 
-    public function getTypeFunctional () {
-        return Employee::where('type_employee', 3)->get();
+
+    public function getTypeFunctional()
+    {
+        return Employee::where('type_employee', 3)->with('educationHistories', 'employeeHistories')->get();
     }
 
-    public function getTypeExecutor () {
-        return Employee::where('type_employee', 4)->get();
+    public function getTypeExecutor()
+    {
+        return Employee::where('type_employee', 4)->with('educationHistories', 'employeeHistories')->get();
     }
 
-    public function getTypePpnpn () {
-        return Employee::where('type_employee', 5)->get();
+    public function getTypePpnpn()
+    {
+        return Employee::where('type_employee', 5)->with('educationHistories', 'employeeHistories')->get();
     }
 
-    public function getEmployeesDetail ($id)
+    public function getEmployeesDetail($id)
     {
         $employee = Employee::findOrFail($id);
 
@@ -159,9 +166,13 @@ class HomeController extends Controller
     // Training Menu
     public function training()
     {
-       $calendar = Calendar::all();
+        $calendar = Calendar::all();
 
-        return view('front.training.index', compact('calendar'));
+        $profileInstructor = $this->getTypeWidyaiswara();
+
+
+
+        return view('front.training.index', compact('calendar', 'profileInstructor'));
     }
 
     // End Training

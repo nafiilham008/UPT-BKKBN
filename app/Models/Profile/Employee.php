@@ -13,11 +13,12 @@ class Employee extends Model
 
     public function educationHistories()
     {
-        return $this->hasMany(EducationHistory::class);
+        return $this->hasMany(EducationHistory::class, 'employee_id', 'id');
     }
+
 
     public function employeeHistories()
     {
-        return $this->hasMany(EmployeeHistory::class);
+        return $this->hasMany(EmployeeHistory::class, 'employee_id', 'id');
     }
 }

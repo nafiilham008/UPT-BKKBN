@@ -31,7 +31,7 @@
 
         </ul>
     </div>
-    <div class="container-fluid detail-news fade-in" id="kalender-pelatihan">
+    <div class="container-fluid detail-news fade-in d-none" id="kalender-pelatihan">
         <h2 class="text-center mb-5">Kalender Pendidikan</h2>
 
 
@@ -71,8 +71,119 @@
     <div class="container-fluid detail-news fade-in d-none" id="profile-pelatihan">
         a
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="profil-pengajar">
-        dwada
+    <div class="container-fluid detail-news fade-in" id="profil-pengajar">
+        <h4 class="text-center mb-3">Profil Pengajar</h4>
+        @foreach ($profileInstructor as $item)
+            <div class="row">
+                <div class="col-md-4 col-sm-4 mt-2">
+                    <div class="d-flex justify-content-center">
+                        <img class="rounded-4 img-detail-profile"
+                            src="{{ asset('uploads/images/profile/employee-photo/' . $item->photo) }}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <div class="d-flex justify-content-start mb-4">
+                        <h4>{{ $item->name }}</h4>
+                    </div>
+                    <p><strong>NIP : </strong>{{ $item->nip }}</p>
+                    <p><strong>Jabatan : </strong>{{ $item->position }}</p>
+                    <p><strong>Deskripsi singkat : </strong></p>
+                    <p style="text-align: justify">
+                        @if ($item->place_of_birth)
+                            Lahir di {{ $item->place_of_birth }},
+                        @else
+                            Lahir pada tanggal
+                        @endif
+
+                        @php
+                            $latestEducation = $item->educationHistories->sortByDesc('graduation_year')->first();
+                        @endphp
+
+                        @if ($latestEducation)
+                            {{ \Carbon\Carbon::parse($item->birthdate)->locale('id')->isoFormat('D MMMM YYYY') }}.
+                            Menyelesaikan pendidikan dan memperoleh gelar {{ $latestEducation->degree }}
+                            {{ $latestEducation->major }}
+                            dari {{ $latestEducation->institution_name }} pada tahun
+                            {{ $latestEducation->graduation_year }}.
+                            Jabatan saat ini adalah {{ $item->position }}.
+                        @elseif ($item->employeeHistories->isEmpty() && $item->educationHistories->isEmpty())
+                            {{ \Carbon\Carbon::parse($item->birthdate)->locale('id')->isoFormat('D MMMM YYYY') }}.
+                        @endif
+                    </p>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Riwayat Pendidikan</h5>
+                                    <table class="education-table">
+                                        <tbody>
+                                            @if ($item->educationHistories->isEmpty())
+                                                <tr>
+                                                    <td colspan="4">Data belum tersedia</td>
+                                                </tr>
+                                            @else
+                                                @foreach ($item->educationHistories as $education)
+                                                    <tr>
+                                                        <td class="bullet-point"></td> <!-- Empty cell for bullet point -->
+                                                        <td><strong>{{ $education->institution_name }}</strong></td>
+                                                        <td>{{ $education->degree }}</td>
+                                                        <td><em>{{ $education->graduation_year }}</em></td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Riwayat Pekerjaan</h5>
+                                    <table class="education-table">
+                                        <tbody>
+                                            @if ($item->employeeHistories->isEmpty())
+                                                <tr>
+                                                    <td colspan="4">Data belum tersedia</td>
+                                                </tr>
+                                            @else
+                                                @foreach ($item->employeeHistories as $employee)
+                                                    <tr>
+                                                        <td></td> <!-- Empty cell for bullet point -->
+                                                        <td><strong>{{ $employee->company_name }}</strong></td>
+                                                        <td>{{ $employee->position }}</td>
+                                                        <td><em>{{ $employee->end_year }}</em></td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Penghargaan/Tanda Jasa</h5>
+                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
+                                    @empty($item->awards)
+                                        <p class="card-text">Data belum tersedia</p>
+                                    @else
+                                        <p class="card-text">{!! $item->awards !!}</p>
+                                    @endempty
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="kerjasama">
         kerjasama
@@ -90,6 +201,20 @@
 
         .rounded-custom {
             border-radius: 1rem !important;
+        }
+
+        .education-table {
+            border-collapse: collapse;
+        }
+
+        .education-table td {
+            padding: 0.5rem;
+        }
+
+        .education-table td.bullet-point::before {
+            content: "\2022";
+            /* Bullet point character */
+            margin-right: 0.5rem;
         }
     </style>
 @endpush
