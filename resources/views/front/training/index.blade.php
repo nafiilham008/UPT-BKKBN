@@ -32,7 +32,7 @@
         </ul>
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="kalender-pelatihan">
-        <h2 class="text-center mb-5">Kalender Pendidikan</h2>
+        <h2 class="text-center bold-text mb-5">Kalender Pendidikan</h2>
 
 
         <div class="row">
@@ -71,8 +71,8 @@
     <div class="container-fluid detail-news fade-in d-none" id="profile-pelatihan">
         a
     </div>
-    <div class="container-fluid detail-news fade-in" id="profil-pengajar">
-        <h4 class="text-center mb-3">Profil Pengajar</h4>
+    <div class="container-fluid detail-news fade-in d-none" id="profil-pengajar">
+        <h2 class="text-center bold-text mb-3">Profil Pengajar</h2>
         @foreach ($profileInstructor as $item)
             <div class="row">
                 <div class="col-md-4 col-sm-4 mt-2">
@@ -185,9 +185,22 @@
             </div>
         @endforeach
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="kerjasama">
-        kerjasama
+    <div class="container-fluid detail-news fade-in" id="kerjasama">
+        <h2 class="text-center mb-4 bold-text">Kerja Sama</h2>
+        <p class="text-center paragraph-text">Kami Selaku Lembaga Badan Kependudukan dan Keluarga Berencana Nasional</p>
+        <p class="text-center paragraph-text">Bekerjasama Dengan Beberapa Universitas dan Lembaga Pemerintahan</p>
+
+        <div class="logo-container mt-5">
+            @foreach ($collaboration as $item)
+                <img src="{{ asset('uploads/images/training/collaboration-logo/' . $item->logo) }}"
+                    alt="Logo {{ $item->institution_name }}">
+            @endforeach
+        </div>
     </div>
+
+
+
+
     <div class="container-fluid detail-news fade-in d-none" id="alumni">
 
     </div>
@@ -215,6 +228,39 @@
             content: "\2022";
             /* Bullet point character */
             margin-right: 0.5rem;
+        }
+
+        .bold-text {
+            font-weight: bold;
+        }
+
+        .paragraph-text {
+            font-size: 16px;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .logo-container img {
+            width: 250px;
+            max-height: 250px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 2rem;
+            object-fit: cover;
+        }
+
+        @media (max-width: 767px) {
+            .logo-container {
+                justify-content: flex-start;
+            }
         }
     </style>
 @endpush

@@ -9,6 +9,7 @@ use App\Models\Profile\Employee;
 use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
 use App\Models\Training\Calendar;
+use App\Models\Training\Collaboration;
 use App\Utilities\Constant;
 use Illuminate\Http\Request;
 
@@ -167,12 +168,11 @@ class HomeController extends Controller
     public function training()
     {
         $calendar = Calendar::all();
-
         $profileInstructor = $this->getTypeWidyaiswara();
+        $collaboration = Collaboration::all();
 
 
-
-        return view('front.training.index', compact('calendar', 'profileInstructor'));
+        return view('front.training.index', compact('calendar', 'profileInstructor', 'collaboration'));
     }
 
     // End Training

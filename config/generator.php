@@ -215,7 +215,8 @@ return [
                     'permission' => null,
                     'permissions' => [
                         'calendar view',
-                        'profiletraining view'
+                        'profiletraining view',
+                        'collaboration view'
                     ],
                     'submenus' => [
                         [
@@ -227,6 +228,11 @@ return [
                             'title' => 'Profile Training',
                             'route' => '/profiletrainings',
                             'permission' => 'profiletraining view'
+                        ],
+                        [
+                            'title' => 'Coolaboration',
+                            'route' => '/collaborations',
+                            'permission' => 'collaboration view'
                         ],
                     ]
                 ]

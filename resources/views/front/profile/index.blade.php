@@ -33,7 +33,7 @@
     </div>
     <div class="container-fluid detail-news fade-in" id="sejarah">
         @foreach ($history as $item)
-            <h2 class="text-center mb-5">{{ $item->title }}</h2>
+            <h2 class="text-center mb-5 bold-text">{{ $item->title }}</h2>
             <div class="d-flex justify-content-center">
                 <img class="rounded-4 img-news-detail"
                     src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="">
@@ -51,7 +51,7 @@
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="tugas-fungsi">
         @foreach ($jobandfunc as $item)
-            <h2 class="text-center mb-5">{{ $item->title }}</h2>
+            <h2 class="text-center mb-5 bold-text">{{ $item->title }}</h2>
             <div class="mt-5">
                 {!! str_replace(
                     ['<img ', '<span '],
@@ -65,12 +65,12 @@
 
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="struktur-organisasi">
-        <h2 class="text-center mb-5">Struktur Organisasi</h2>
+        <h2 class="text-center bold-text mb-5">Struktur Organisasi</h2>
         <img class="img-structure mx-auto d-block" src="{{ asset('img/struktur.svg') }}" alt="">
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pejabat">
 
-        <h5 class="text-center mb-2">Informasi Pejabat</h5>
+        <h2 class="text-center mb-2 bold-text">Informasi Pejabat</h2>
         @foreach ($structural as $item)
             <h1 class="text-center mb-5">{{ $item->position }}</h1>
             <div class="row">
@@ -186,7 +186,7 @@
         @endforeach
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pegawai">
-        <h2 class="text-center mb-5">Informasi Pegawai</h2>
+        <h2 class="text-center mb-5 bold-text">Informasi Pegawai</h2>
         <div class="row">
             <div class="col-md-2 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
@@ -335,6 +335,10 @@
             content: "\2022";
             /* Bullet point character */
             margin-right: 0.5rem;
+        }
+
+        .bold-text {
+            font-weight: bold;
         }
     </style>
 @endpush

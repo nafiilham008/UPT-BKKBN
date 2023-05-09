@@ -242,6 +242,15 @@ return [
             ]
         ],
         [
+            'group' => 'collaboration',
+            'access' => [
+                'collaboration view',
+                'collaboration create',
+                'collaboration edit',
+                'collaboration delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

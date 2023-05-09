@@ -6,8 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Training\ProfileTraining as ModelProfileTraining;
 use Illuminate\Http\Request;
 
-class ProfileTraining extends Controller
+class ProfileTrainingController extends Controller
 {
+
+    // Construct for permission
+    public function __construct()
+    {
+        $this->middleware('permission:profiletraining view')->only('index', 'show');
+        $this->middleware('permission:profiletraining create')->only('create', 'store');
+        $this->middleware('permission:profiletraining edit')->only('edit', 'update');
+        $this->middleware('permission:profiletraining delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

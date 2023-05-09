@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Add Training Calendar'))
+@section('title', __('Add Collaboration'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Training Calendar') }}</h3>
+                    <h3>{{ __('Collaboration') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Add Training Calendar.') }}
+                        {{ __('Add collaboration.') }}
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('calendars.index') }}">{{ __('Training Calendar') }}</a>
+                        <a href="{{ route('collaborations.index') }}">{{ __('Collaboration') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -33,36 +33,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('calendars.store') }}" method="POST" enctype="multipart/form-data"
+                        <form action="{{ route('collaborations.store') }}" method="POST" enctype="multipart/form-data"
                             data-parsley-validate>
                             @csrf
                             @method('POST')
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <div class="form-group mandatory">
-                                        <label for="title" class="form-label">{{ __('Title') }}</label>
-                                        <input type="text" name="title" id="title"
-                                            class="form-control @error('title') is-invalid @enderror"
-                                            placeholder="e.g. Sosialisasi Stunting" data-parsley-required="true"
-                                            data-parsley-required-message="The Title field is required!" autofocus>
-                                        @error('title')
-                                            <span class="text-danger">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
+                                    <div class="form-group">
+                                        <label for="logo" class="form-label">{{ __('Logo') }}</label>
+                                        <input class="form-control" type="file" id="logo" name="logo"
+                                            accept="image/png, image/jpeg" data-parsley-filemaxmegabytes="2"
+                                            data-parsley-trigger="change" data-parsley-filemimetypes="image/jpeg,image/png"
+                                            data-parsley-error-message="Please upload an image file (JPEG, PNG) with a maximum size of 2MB">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group mandatory">
-                                        <label for="title" class="form-label">{{ __('Link Calendar (drive)') }}</label>
-                                        <input type="text" name="link" id="link"
-                                            class="form-control @error('link') is-invalid @enderror"
-                                            placeholder="e.g. https://drive.google.com/...."
-                                            pattern="^https:\/\/drive\.google\.com\/.*$" data-parsley-required="true"
-                                            data-parsley-required-message="The Link Calendar (drive) field is required!"
-                                            data-parsley-pattern-message="The Link Calendar (drive) field should be a valid Google Drive link!"
-                                            value="{{ old('link') }}" autofocus>
-                                        @error('title')
+                                        <label for="type" class="form-label">{{ __('Institution Name') }}</label>
+                                        <input type="text" name="institution_name" id="institution_name"
+                                            class="form-control @error('institution_name') is-invalid @enderror"
+                                            placeholder="e.g. XYZ University" data-parsley-required="true"
+                                            data-parsley-required-message="The Institution Name field is required!"
+                                            autofocus>
+                                        @error('institution_name')
                                             <span class="text-danger">
                                                 {{ $message }}
                                             </span>
@@ -71,11 +64,11 @@
                                 </div>
 
                             </div>
-
                             <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
 
                             <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -83,12 +76,9 @@
         </div>
     </section>
 
-
-
 @endsection
 
 @push('css')
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
