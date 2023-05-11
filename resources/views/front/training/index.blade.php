@@ -185,7 +185,7 @@
             </div>
         @endforeach
     </div>
-    <div class="container-fluid detail-news fade-in" id="kerjasama">
+    <div class="container-fluid detail-news fade-in d-none" id="kerjasama">
         <h2 class="text-center mb-4 bold-text">Kerja Sama</h2>
         <p class="text-center paragraph-text">Kami Selaku Lembaga Badan Kependudukan dan Keluarga Berencana Nasional</p>
         <p class="text-center paragraph-text">Bekerjasama Dengan Beberapa Universitas dan Lembaga Pemerintahan</p>
@@ -197,10 +197,6 @@
             @endforeach
         </div>
     </div>
-
-
-
-
     <div class="container-fluid detail-news fade-in d-none" id="alumni">
 
     </div>

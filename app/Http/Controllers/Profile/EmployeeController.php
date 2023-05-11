@@ -70,15 +70,16 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:employees',
-            'email' => 'nullable|unique:employees',
+            'name' => 'required|unique:employees,name',
+            'email' => 'nullable|unique:employees,email',
             'place_of_birth' => 'nullable',
             'birthdate' => 'nullable|date_format:Y-m-d|before:today',
             'position' => 'required',
             'nip' => 'nullable',
             'address' => 'nullable',
             'photo' => 'nullable|mimes:jpeg,png,jpg|image|max:2048',
-            'awards' => 'nullable|string',
+            'awards' => 'nullable|array', 
+            'awards.*' => 'nullable|string', 
             'phone_number' => 'nullable',
             'type_employee' => 'required',
             'rank_group' => 'nullable'
@@ -92,8 +93,11 @@ class EmployeeController extends Controller
             'photo.mimes' => 'Photo must be a file of type: jpeg, png, jpg.',
             'photo.image' => 'The file must be an image.',
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
-            'type_employee.required' => 'Type of Employee must be fill.'
+            'awards.array' => 'Awards must be an array.',
+            'awards.*.string' => 'Each award must be a string.',
+            'type_employee.required' => 'Type of Employee must be filled.'
         ]);
+        
 
 
 
@@ -124,13 +128,14 @@ class EmployeeController extends Controller
             'nip' => $validated['nip'],
             'address' => $validated['address'],
             'photo' => $validated['photo'],
-            'awards' => $validated['awards'],
+            'awards' => json_encode($validated['awards']), 
             'phone_number' => $validated['phone_number'],
             'type_employee' => $validated['type_employee'],
             'rank_group' => $validated['rank_group'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
+        
 
         if ($employeeCreate) {
             //redirect dengan pesan sukses
@@ -169,8 +174,9 @@ class EmployeeController extends Controller
 
         $type_employee = Constant::TYPE_OF_EMPLOYEE;
 
+        $awards = json_decode($employee->awards, true);
 
-        return view('profile.employee.edit', compact('employee', 'educationHistory', 'type_employee', 'employeeHistory'));
+        return view('profile.employee.edit', compact('employee', 'educationHistory', 'type_employee', 'employeeHistory', 'awards'));
     }
 
     public function getEducationHistory($id)
@@ -243,7 +249,8 @@ class EmployeeController extends Controller
             'nip' => 'nullable',
             'address' => 'nullable',
             'photo' => 'nullable|mimes:jpeg,png,jpg|image|max:2048',
-            'awards' => 'nullable',
+            'awards' => 'nullable|array', 
+            'awards.*' => 'nullable|string', 
             'phone_number' => 'nullable',
             'type_employee' => 'required',
             'rank_group' => 'nullable'
@@ -295,7 +302,7 @@ class EmployeeController extends Controller
             'position' => $validated['position'],
             'nip' => $validated['nip'],
             'address' => $validated['address'],
-            'awards' => $validated['awards'],
+            'awards' => json_encode($validated['awards']), 
             'phone_number' => $validated['phone_number'],
             'type_employee' => $validated['type_employee'],
             'rank_group' => $validated['rank_group'],

@@ -193,16 +193,34 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="awards">{{ __('Awards') }}</label>
-                                            <textarea id="summernote-awards" name="awards" class="form-control @error('awards') is-invalid @enderror"
-                                                placeholder="Insert awards" autofocus>{{ old('awards') }}</textarea>
-                                            @error('awards')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
+                                            <label>{{ __('Awards') }}</label>
+                                            <div id="awards-container">
+                                                @if (old('awards'))
+                                                    @foreach(old('awards') as $index => $award)
+                                                        <div class="awards-input">
+                                                            <div class="input-group mb-2">
+                                                                <input name="awards[]" type="text" class="form-control" placeholder="Insert award" value="{{ $award }}">
+                                                                @if($index > 0)
+                                                                    <button type="button" class="btn btn-danger remove-award">Remove</button>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <div class="awards-input">
+                                                        <div class="input-group mb-2">
+                                                            <input name="awards[]" type="text" class="form-control" placeholder="Insert award">
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <button type="button" id="add-award" class="btn btn-success mt-2">Add Award</button>
                                         </div>
                                     </div>
+                                    
+
+
+
                                 </div>
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
@@ -256,48 +274,20 @@
                 });
 
 
-                // Summernote
-                $("#summernote-awards").summernote({
-                    tabsize: 2,
-                    height: 300,
-                    maximumImageFileSize: 204800,
-                    // maximumFileSize: 1048576
-                    toolbar: [
-                        ["style", ["bold", "italic", "underline", "clear", "fontname", "fontsize"]],
-                        ["font", ["strikethrough", "superscript", "subscript"]],
-                        ["color", ["color"]],
-                        ["para", ["ul", "ol", "paragraph"]],
-                        ["help", ["help"]],
-                    ],
-                    fontNames: [
-                        "Arial",
-                        "Arial Black",
-                        "Comic Sans MS",
-                        "Courier New",
-                        "sans-serif",
-                        "Roboto",
-                    ],
-                    fontSizes: [
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "14",
-                        "16",
-                        "18",
-                        "20",
-                        "22",
-                        "24",
-                        "36",
-                    ],
+                // Function to add new award input
+                $('#add-award').click(function() {
+                    var inputField = '<div class="awards-input">';
+                    inputField += '<div class="input-group mb-2">';
+                    inputField +=
+                        '<input name="awards[]" type="text" class="form-control" placeholder="Insert award">';
+                    inputField += '<button type="button" class="btn btn-danger remove-award">Remove</button>';
+                    inputField += '</div></div>';
+                    $('#awards-container').append(inputField);
+                });
 
-                    // callbacks: {
-                    //     onMediaDelete : function(target) {
-                    //         var mpath = $(target[0]).attr('src').replace("..", "");
-                    //         $('#summernote').val(mpath);
-                    //         },
-                    // },
+                // Function to remove an award input
+                $('#awards-container').on('click', '.remove-award', function() {
+                    $(this).closest('.awards-input').remove();
                 });
             });
         </script>
