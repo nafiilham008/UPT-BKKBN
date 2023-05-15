@@ -197,7 +197,8 @@
             @endforeach
         </div>
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="alumni">
+    <div class="container-fluid detail-news fade-in" id="alumni">
+        <h2 class="text-center mb-4 bold-text">Alumni</h2>
 
     </div>
 @endsection

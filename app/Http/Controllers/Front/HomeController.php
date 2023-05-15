@@ -126,6 +126,11 @@ class HomeController extends Controller
         return view('front.profile.index', compact('history', 'jobandfunc', 'employee', 'structural', 'widyaiswara', 'functional', 'executor', 'ppnpn'));
     }
 
+    public function detailHistory()
+    {
+        $history = Historical::all()->first();
+        return view('front.landing.detail-history', compact('history'));
+    }
     public function getTypeStructural()
     {
         return Employee::where('type_employee', 1)->with('educationHistories', 'employeeHistories')->get();
