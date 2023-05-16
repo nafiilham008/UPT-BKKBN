@@ -1,7 +1,7 @@
 <div class="container-fluid d-flex justify-content-arround">
     <!-- <div class="d-flex justify-content-arround"> -->
     <a class="navbar-brand" href="{{ route('home.index') }}">
-        <img src="{{asset('img/logo/logo_upt.png')}}">
+        <img src="{{ asset('img/logo/logo_upt.png') }}">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
         aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,13 +11,19 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.profile' ? 'active' : '' }}" aria-current="page" href="{{ route('home.profile') }}">Profil</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.profile' ? 'active' : '' }}"
+                    aria-current="page" href="{{ route('home.profile') }}"
+                    onclick="handleLinkClick(event, '{{ route('home.profile') }}')">Profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.training' ? 'active' : '' }}" href="{{ route('home.training') }}">Kediklatan</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.training' ? 'active' : '' }}"
+                    href="{{ route('home.training') }}"
+                    onclick="handleLinkClick(event, '{{ route('home.training') }}')">Kediklatan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Dokumentasi</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.documentation' ? 'active' : '' }}"
+                    href="{{ route('home.documentation') }}"
+                    onclick="handleLinkClick(event, '{{ route('home.documentation') }}')">Dokumentasi</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Informasi</a>

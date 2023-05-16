@@ -91,6 +91,13 @@
             });
         });
     </script>
+    <script>
+        function handleLinkClick(event, url) {
+            event.preventDefault(); // Mencegah perilaku default dari tautan
+
+            window.location.href = url;
+        }
+    </script>
 
     @stack('js')
 
