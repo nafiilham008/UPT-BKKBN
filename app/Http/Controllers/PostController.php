@@ -119,12 +119,15 @@ class PostController extends Controller
 
             $description = $dom->saveHTML();
 
+            $slug = str_replace('/', '-', $validated['title']); // Mengganti karakter '/' dengan '-'
+            $slug = str_replace(' ', '-', $slug);
+
 
             $postCreate = Post::create([
                 'title' => $validated['title'],
                 'thumbnail' => $validated['thumbnail'],
                 'user_id' => auth()->user()->id,
-                'slug_url' => str_replace(' ', '-', $validated['title']),
+                'slug_url' => $slug,
                 'description' => $description,
                 'categories_id' => $validated['category'],
                 'status' => $validated['status'],
@@ -246,7 +249,7 @@ class PostController extends Controller
         $gallery = Gallery::where('post_id', $post->id)->first();
         $gallery->title = $post->title;
         $gallery->save();
-        
+
 
 
         if ($post) {
