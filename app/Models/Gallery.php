@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Gallery extends Model
 {
     use HasFactory;
 
@@ -13,11 +13,11 @@ class Category extends Model
 
     public function posts()
     {
-        return $this->belongsTo(Post::class, 'id', 'categories_id');
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 
-    public function galleries()
+    public function categories()
     {
-        return $this->belongsTo(Gallery::class, 'categories_id');
+        return $this->hasOne(Category::class, 'id');
     }
 }

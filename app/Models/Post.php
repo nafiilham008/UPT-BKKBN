@@ -21,4 +21,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function galleries()
+    {
+        return $this->hasOne(Gallery::class, 'post_id', 'id');
+    }
 }

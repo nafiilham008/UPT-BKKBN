@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
 use App\Models\Post;
 use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
@@ -181,4 +182,14 @@ class HomeController extends Controller
     }
 
     // End Training
+
+    // Documentation
+
+    public function documentation()
+    {
+        $gallery = Gallery::with('posts')->with('categories')->get();
+        return view('front.documentation.index', compact('gallery'));
+    }
+    
+    // End Documentation
 }

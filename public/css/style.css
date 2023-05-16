@@ -720,6 +720,14 @@ label.mandatory::before {
     color: red;
 }
 
+.bold-text {
+    font-weight: bold;
+}
+
+.paragraph-text {
+    font-size: 16px;
+}
+
 
 
 

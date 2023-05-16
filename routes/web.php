@@ -28,6 +28,9 @@ Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetai
 
 Route::get('/training', [HomeController::class, 'training'])->name('home.training');
 
+Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
+
+
 
 Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {
