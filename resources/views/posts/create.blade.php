@@ -54,17 +54,24 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
-                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
+                                            <input class="form-control @error('thumbnail') is-invalid @enderror"
+                                                type="file" id="thumbnail" name="thumbnail"
+                                                accept="image/png, image/jpeg" required>
+                                            @error('thumbnail')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description">{{ __('Description') }}</label>
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="Insert description" required autofocus></textarea> {{-- {!! $post->description !!} --}}
+                                                placeholder="Insert description" required autofocus>{{ old('description') }}</textarea>
                                             @error('description')
-                                                <span class="text-danger">
-                                                    {{ $message }}
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>

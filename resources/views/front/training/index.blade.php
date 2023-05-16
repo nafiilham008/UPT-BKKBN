@@ -5,8 +5,8 @@
 @section('content')
     <div class="background-image-profile d-flex align-items-center justify-content-center">
         <div class="profile-text">
-            <h3>Profil Perusahaan</h3>
-            <p>Profil Perusahaan UPT Balai Diklat KKB Banyumas</p>
+            <h3>Kediklatan</h3>
+            <p>Menyajikan seluruh informasi terkait Kediklatan UPT Balai Diklat KKB Banyumas</p>
         </div>
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan.jpg') }}" alt="Background Image">
@@ -14,24 +14,24 @@
     <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
         <ul class="nav d-flex my-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="#kalender-pelatihan" data-target="kalender-pelatihan">Kalender Pelatihan</a>
+                <a class="nav-link active" href="#" data-target="kalender-pelatihan">Kalender Pelatihan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#profile-pelatihan" data-target="profil-pelatihan">Profil Pelatihan</a>
+                <a class="nav-link" href="#" data-target="profil-pelatihan">Profil Pelatihan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#profil-pengajar" data-target="profil-pengajar">Profil Pengajar</a>
+                <a class="nav-link" href="#" data-target="profil-pengajar">Profil Pengajar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#kerjasama" data-target="kerjasama">Kerjasama</a>
+                <a class="nav-link" href="#" data-target="kerjasama">Kerjasama</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="#alumni" data-target="alumni">Alumni</a>
-            </li>
+            </li> --}}
 
         </ul>
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="kalender-pelatihan">
+    <div class="container-fluid detail-news fade-in" id="kalender-pelatihan">
         <h2 class="text-center bold-text mb-5">Kalender Pendidikan</h2>
 
 
@@ -197,10 +197,10 @@
             @endforeach
         </div>
     </div>
-    <div class="container-fluid detail-news fade-in" id="alumni">
+    {{-- <div class="container-fluid detail-news fade-in" id="alumni">
         <h2 class="text-center mb-4 bold-text">Alumni</h2>
 
-    </div>
+    </div> --}}
 @endsection
 
 @push('css')

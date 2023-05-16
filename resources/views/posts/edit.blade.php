@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
-                                                type="image" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
+                                                type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
                                             @error('thumbnail')
                                                 <span class="text-danger">
                                                     {{ $message }}
