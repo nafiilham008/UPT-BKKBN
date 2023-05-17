@@ -100,14 +100,16 @@ class HistoricalController extends Controller
             // Dom list for value summernote
             $description = $validated['description'];
             $dom = new \DomDocument();
-            $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(true);
+            $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_clear_errors();
             $images = $dom->getElementsByTagName('img');
 
             foreach ($images as $k => $img) {
                 $data = $img->getAttribute('src');
 
                 list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
+                list(, $data) = explode(',', $data);
                 $data = base64_decode($data);
                 $image_name = "/uploads/images/profile/image-content-history/" . time() . $k . '.png';
                 $path = public_path() . $image_name;
@@ -116,7 +118,10 @@ class HistoricalController extends Controller
                 $img->setAttribute('src', $image_name);
             }
 
-            $description = $dom->saveHTML();
+            $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.html';
+            $dom->saveHTMLFile($tempFilePath);
+            $description = file_get_contents($tempFilePath);
+            unlink($tempFilePath);
 
 
             $historyCreate = Historical::create([
@@ -235,18 +240,18 @@ class HistoricalController extends Controller
     public function summernoteUpdate($description)
     {
         $dom = new \DomDocument();
-
-        $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
         foreach ($images as $k => $img) {
             $data = $img->getAttribute('src');
-            $count = Str::length($data);
-            // check image before
-            if ($count > 100) {
+
+            // Check if the image is from a URL or base64 data
+            if (Str::startsWith($data, 'data:image')) {
                 list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
+                list(, $data) = explode(',', $data);
                 $data = base64_decode($data);
                 $image_name = "/uploads/images/profile/image-content-history/" . time() . $k . '.png';
                 $path = public_path() . $image_name;
@@ -256,8 +261,12 @@ class HistoricalController extends Controller
             }
         }
 
-        $description = $dom->saveHTML();
-        return $description;
+        $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.html';
+        $dom->saveHTMLFile($tempFilePath);
+        $updatedDescription = file_get_contents($tempFilePath);
+        unlink($tempFilePath);
+
+        return $updatedDescription;
     }
 
     /**
