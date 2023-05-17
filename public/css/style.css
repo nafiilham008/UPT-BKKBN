@@ -259,7 +259,7 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     /* Ganti angka 3 dengan jumlah baris yang Anda inginkan */
     line-height: 1.5;
     /* Sesuaikan dengan line-height yang diinginkan */

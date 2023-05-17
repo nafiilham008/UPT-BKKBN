@@ -70,12 +70,23 @@ class PostController extends Controller
                     'description' => 'required|min:10',
                     'category' => 'required',
                     'status' => 'required',
+                    'created_at' => 'nullable|date',
                 ],
                 [
-                    'description.min' => 'Required min 10 characters',
-                    'thumbnail.mimes' => 'Required image JPEG, PNG, or JPG'
+                    'title.required' => 'The title field is required.',
+                    'title.unique' => 'The title has already been taken.',
+                    'thumbnail.required' => 'The thumbnail field is required.',
+                    'thumbnail.mimes' => 'The thumbnail must be a JPEG, PNG, or JPG image.',
+                    'thumbnail.image' => 'The thumbnail must be an image.',
+                    'thumbnail.max' => 'The thumbnail may not be greater than 2048 kilobytes.',
+                    'description.required' => 'The description field is required.',
+                    'description.min' => 'The description must be at least 10 characters.',
+                    'category.required' => 'The category field is required.',
+                    'status.required' => 'The status field is required.',
+                    'created_at.date' => 'The publication date must be a valid date.',
                 ]
             );
+
             // dd($validated['thumbnail']);
 
 
@@ -144,9 +155,17 @@ class PostController extends Controller
             $description = file_get_contents($tempFilePath);
             unlink($tempFilePath);
 
-
+            // Title
             $slug = str_replace('/', '-', $validated['title']); // Mengganti karakter '/' dengan '-'
             $slug = str_replace(' ', '-', $slug);
+
+            // Created_at
+            if (!empty($validated['created_at'])) {
+                $publicationDate = $validated['created_at'];
+            } else {
+                $publicationDate = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
+            }
+
 
 
             $postCreate = Post::create([
@@ -157,7 +176,7 @@ class PostController extends Controller
                 'description' => $description,
                 'categories_id' => $validated['category'],
                 'status' => $validated['status'],
-                'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
+                'created_at' => $publicationDate,
                 'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
 
             ]);
@@ -223,14 +242,26 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'thumbnail' => 'mimes:jpeg,png,jpg|image|max:2048',
+            'title' => 'required|unique:posts,title,' . $post->id,
+            'thumbnail' => 'nullable|mimes:jpeg,png,jpg|image|max:2048',
             'description' => 'required|min:10',
             'category' => 'required',
             'status' => 'required',
+            'created_at' => 'nullable|date',
         ], [
-            'thumbnail.mimes' => 'Required image JPEG, PNG, or JPG'
+            'title.required' => 'The title field is required.',
+            'title.unique' => 'The title has already been taken.',
+            'thumbnail.mimes' => 'The thumbnail must be a JPEG, PNG, or JPG image.',
+            'thumbnail.image' => 'The thumbnail must be an image.',
+            'thumbnail.max' => 'The thumbnail may not be greater than 2048 kilobytes.',
+            'description.required' => 'The description field is required.',
+            'description.min' => 'The description must be at least 10 characters.',
+            'category.required' => 'The category field is required.',
+            'status.required' => 'The status field is required.',
+            'created_at.date' => 'The publication date must be a valid date.',
         ]);
+
+
 
         if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
 
@@ -261,6 +292,9 @@ class PostController extends Controller
         // Call func summernoteUpdate with params desc
         $description = $this->summernoteUpdate($validated['description']);
 
+
+
+
         $post->update([
             'title' => $validated['title'],
             'thumbnail' => $validated['thumbnail'],
@@ -269,6 +303,7 @@ class PostController extends Controller
             'description' => $description,
             'categories_id' => $validated['category'],
             'status' => $validated['status'],
+            'created_at' => $validated['created_at'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 

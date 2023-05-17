@@ -38,7 +38,7 @@
 
                                 {{-- @include('posts.include.form') --}}
                                 <div class="row mb-2">
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="title">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
@@ -51,7 +51,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
@@ -64,6 +64,20 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="title">{{ __('Publication Date') }}</label>
+                                            <input type="datetime-local" name="created_at" id="created_at"
+                                                class="form-control @error('created_at') is-invalid @enderror"
+                                                placeholder="{{ __('Insert Publication Date') }}" autofocus>
+                                            @error('created_at')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description">{{ __('Description') }}</label>

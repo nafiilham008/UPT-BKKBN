@@ -39,13 +39,14 @@
 
                                 {{-- @include('posts.include.form') --}}
                                 <div class="row mb-2">
-                                    <div class="col-md-7">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="title">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
                                                 class="form-control @error('title') is-invalid @enderror"
                                                 placeholder="{{ __('Insert Title') }}"
-                                                value="{{ isset($post) ? $post->title : old('title') }}" required autofocus>
+                                                value="{{ isset($post) ? $post->title : old('title') }}" required
+                                                autofocus>
                                             @error('title')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -59,12 +60,26 @@
                                                 alt="avatar">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-7">
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
-                                                type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
+                                                type="file" id="thumbnail" name="thumbnail"
+                                                accept="image/png, image/jpeg">
                                             @error('thumbnail')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="title">{{ __('Publication Date') }}</label>
+                                            <input type="datetime-local" name="created_at" id="created_at" value="{{ $post->created_at }}"
+                                                class="form-control @error('created_at') is-invalid @enderror"
+                                                placeholder="{{ __('Insert Publication Date') }}" autofocus>
+                                            @error('created_at')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>
@@ -76,7 +91,7 @@
                                             <label for="description">{{ __('Description') }}</label>
                                             {{ csrf_field() }}
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="Insert description" required autofocus>{!! $post->description !!}</textarea> 
+                                                placeholder="Insert description" required autofocus>{!! $post->description !!}</textarea>
                                             @error('description')
                                                 <span class="text-danger">
                                                     {{ $message }}
