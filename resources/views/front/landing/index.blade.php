@@ -51,7 +51,8 @@
                 <div class="col-sm-6 col-lg-6 d-flex align-items-center fade-in">
                     <h6 class="img-desc">{!! strip_tags($item->description) !!}
                     </h6>
-                    <a href="{{ route('home.detail.history') }}" class="btn btn-md rounded-4 mt-3 btn-detail">Baca Selengkapnya</a>
+                    <a href="{{ route('home.detail.history') }}" class="btn btn-md rounded-4 mt-3 btn-detail">Baca
+                        Selengkapnya</a>
 
                 </div>
             </div>
@@ -239,6 +240,22 @@
             document.getElementById(tabID).classList.add("block");
         }
     </script>
+    <script>
+        function applyLineClamp() {
+            var element = document.getElementById('description');
+            var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
+            var maxHeight = lineHeight * 3; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
 
-    
+            var text = element.innerText;
+            var truncatedText = text;
+
+            while (element.scrollHeight > maxHeight) {
+                truncatedText = truncatedText.slice(0, -1);
+                element.innerText = truncatedText + '...';
+            }
+        }
+
+        // Panggil fungsi applyLineClamp setelah konten selesai dimuat
+        window.addEventListener('DOMContentLoaded', applyLineClamp);
+    </script>
 @endpush

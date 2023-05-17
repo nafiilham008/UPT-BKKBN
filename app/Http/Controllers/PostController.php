@@ -98,17 +98,39 @@ class PostController extends Controller
             }
 
 
-            // Dom list for value summernote
+            // // Dom list for value summernote
+            // $description = $validated['description'];
+            // $dom = new \DomDocument();
+            // $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            // $images = $dom->getElementsByTagName('img');
+
+            // foreach ($images as $k => $img) {
+            //     $data = $img->getAttribute('src');
+
+            //     list($type, $data) = explode(';', $data);
+            //     list(, $data)      = explode(',', $data);
+            //     $data = base64_decode($data);
+            //     $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
+            //     $path = public_path() . $image_name;
+            //     file_put_contents($path, $data);
+            //     $img->removeAttribute('src');
+            //     $img->setAttribute('src', $image_name);
+            // }
+
+            // $description = $dom->saveHTML();
+
             $description = $validated['description'];
             $dom = new \DomDocument();
-            $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(true);
+            $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_clear_errors();
             $images = $dom->getElementsByTagName('img');
 
             foreach ($images as $k => $img) {
                 $data = $img->getAttribute('src');
 
                 list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
+                list(, $data) = explode(',', $data);
                 $data = base64_decode($data);
                 $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
                 $path = public_path() . $image_name;
@@ -117,7 +139,11 @@ class PostController extends Controller
                 $img->setAttribute('src', $image_name);
             }
 
-            $description = $dom->saveHTML();
+            $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.html';
+            $dom->saveHTMLFile($tempFilePath);
+            $description = file_get_contents($tempFilePath);
+            unlink($tempFilePath);
+
 
             $slug = str_replace('/', '-', $validated['title']); // Mengganti karakter '/' dengan '-'
             $slug = str_replace(' ', '-', $slug);
@@ -264,18 +290,18 @@ class PostController extends Controller
     public function summernoteUpdate($description)
     {
         $dom = new \DomDocument();
-
-        $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
         foreach ($images as $k => $img) {
             $data = $img->getAttribute('src');
-            $count = Str::length($data);
-            // check image before
-            if ($count > 100) {
+
+            // Check if the image is from a URL or base64 data
+            if (Str::startsWith($data, 'data:image')) {
                 list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
+                list(, $data) = explode(',', $data);
                 $data = base64_decode($data);
                 $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
                 $path = public_path() . $image_name;
@@ -285,9 +311,42 @@ class PostController extends Controller
             }
         }
 
-        $description = $dom->saveHTML();
-        return $description;
+        $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.html';
+        $dom->saveHTMLFile($tempFilePath);
+        $updatedDescription = file_get_contents($tempFilePath);
+        unlink($tempFilePath);
+
+        return $updatedDescription;
     }
+
+
+    // public function summernoteUpdate($description)
+    // {
+    //     $dom = new \DomDocument();
+
+    //     $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    //     $images = $dom->getElementsByTagName('img');
+
+    //     foreach ($images as $k => $img) {
+    //         $data = $img->getAttribute('src');
+    //         $count = Str::length($data);
+    //         // check image before
+    //         if ($count > 100) {
+    //             list($type, $data) = explode(';', $data);
+    //             list(, $data)      = explode(',', $data);
+    //             $data = base64_decode($data);
+    //             $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
+    //             $path = public_path() . $image_name;
+    //             file_put_contents($path, $data);
+    //             $img->removeAttribute('src');
+    //             $img->setAttribute('src', $image_name);
+    //         }
+    //     }
+
+    //     $description = $dom->saveHTML();
+    //     return $description;
+    // }
 
     /**
      * Remove the specified resource from storage.

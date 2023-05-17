@@ -6,7 +6,16 @@
         </div>
         <div class="col-sm-7 col-lg-7">
             <h6 class="tab-title">{{ $item->title }}</h6>
-            <p class="tab-desc">{!! strip_tags($item->description) !!}</p>
+            <div class="tab-desc">
+                @php
+                    $description = preg_replace('/<img[^>]+>/i', '', $item->description);
+                    $paragraphs = explode('<p>', $description);
+                    $filteredParagraphs = array_filter($paragraphs);
+                    $mergedParagraph = implode(' ', $filteredParagraphs);
+                @endphp
+
+                <p>{!! $mergedParagraph !!}</p>
+            </div>
             <div>
                 <a href="{{ route('home.detail', [$item->categories->label, $item->slug_url]) }}">Baca
                     Selengkapnya</a>
