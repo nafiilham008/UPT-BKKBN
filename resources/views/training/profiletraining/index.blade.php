@@ -49,7 +49,7 @@
                                     <tbody>
                                         @foreach ($profileTraining as $item)
                                             <tr>
-                                                <td>{{ $item->type }}</td>
+                                                <td><span class="badge bg-success">{{ $item->type }}</span></td>
                                                 <td>{{ $item->model }}</td>
                                                 <td>{{ $item->training_name }}</td>
                                                 @include('training.profiletraining.include.action')

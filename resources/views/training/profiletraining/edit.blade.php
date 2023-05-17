@@ -38,28 +38,35 @@
                             @method('PUT')
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <div class="form-group mandatory">
-                                        <label for="type" class="form-label">{{ __('Type') }}</label>
-                                        <input type="text" name="type" id="type"
-                                            class="form-control @error('type') is-invalid @enderror"
-                                            placeholder="e.g. Workshop" data-parsley-required="true"
-                                            data-parsley-required-message="The Type field is required!"
-                                            value="{{ $profileTraining->type }}" autofocus>
+                                    <fieldset class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
+                                        <label for="type" class="form-label">{{ __('Type Training') }}</label>
+                                        <select class="form-select" id="type" name="type">
+                                            <option value="">-- Select Type of Training --</option>
+                                            <option value="Pelatihan Dasar"
+                                                @if (old('type', $profileTraining->type) === 'Pelatihan Dasar') selected @endif>
+                                                Pelatihan Dasar</option>
+                                            <option value="Pelatihan Teknis"
+                                                @if (old('type', $profileTraining->type) === 'Pelatihan Teknis') selected @endif>
+                                                Pelatihan Teknis</option>
+                                            <option value="Pelatihan Manajerial"
+                                                @if (old('type', $profileTraining->type) === 'Pelatihan Manajerial') selected @endif>
+                                                Pelatihan Manajerial</option>
+                                        </select>
                                         @error('type')
                                             <span class="text-danger">
                                                 {{ $message }}
                                             </span>
                                         @enderror
-                                    </div>
+                                    </fieldset>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mandatory">
                                         <label for="model" class="form-label">{{ __('Model') }}</label>
                                         <input type="text" name="model" id="model"
+                                            value="{{ $profileTraining->model }}"
                                             class="form-control @error('model') is-invalid @enderror"
-                                            placeholder="e.g. Training Model" data-parsley-required="true"
-                                            data-parsley-required-message="The Model field is required!"
-                                            value="{{ $profileTraining->model }}">
+                                            placeholder="e.g. Online Class" data-parsley-required="true"
+                                            data-parsley-required-message="The Model field is required!">
                                         @error('model')
                                             <span class="text-danger">
                                                 {{ $message }}
@@ -71,10 +78,10 @@
                                     <div class="form-group mandatory">
                                         <label for="training_name" class="form-label">{{ __('Training Name') }}</label>
                                         <input type="text" name="training_name" id="training_name"
+                                            value="{{ $profileTraining->training_name }}"
                                             class="form-control @error('training_name') is-invalid @enderror"
-                                            placeholder="e.g. Training Name" data-parsley-required="true"
-                                            data-parsley-required-message="The Training Name field is required!"
-                                            value="{{ $profileTraining->training_name }}">
+                                            placeholder="e.g. Pelatihan dasar" data-parsley-required="true"
+                                            data-parsley-required-message="The Training Name field is required!">
                                         @error('training_name')
                                             <span class="text-danger">
                                                 {{ $message }}
@@ -82,55 +89,25 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mandatory">
-                                        <label for="participant_requirement"
-                                            class="form-label">{{ __('Participant
-                                                                                                                                Requirement') }}</label>
-                                        <textarea name="participant_requirement" id="participant_requirement" rows="3"
-                                            class="form-control @error('participant_requirement') is-invalid @enderror"
-                                            placeholder="{{ __('Enter the participant requirement') }}" data-parsley-required="true"
-                                            data-parsley-required-message="{{ __('The Participant Requirement field is required!') }}">{{ $profileTraining->participant_requirement }}</textarea>
-                                        @error('participant_requirement')
-                                            <span class="text-danger">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="instructor_requirement"
-                                            class="form-label">{{ __('Instructor
-                                                                                                                                Requirement') }}</label>
-                                        <textarea name="instructor_requirement" id="instructor_requirement" rows="3"
-                                            class="form-control @error('instructor_requirement') is-invalid @enderror"
-                                            placeholder="{{ __('Enter the instructor requirement') }}">{{ $profileTraining->instructor_requirement }}</textarea>
-                                        @error('instructor_requirement')
-                                            <span class="text-danger">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group mandatory">
                                         <label for="description" class="form-label">{{ __('Description') }}</label>
-
                                         <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
                                             placeholder="e.g. Training Description" data-parsley-required="true"
-                                            data-parsley-required-message="The Description field is required!">{{ $profileTraining->description }}</textarea>
+                                            data-parsley-required-message="The Description field is required!">{{ old('description', $profileTraining->description) }}</textarea>
                                         @error('description')
                                             <span class="text-danger">
                                                 {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
+
                                     <div class="form-group mandatory">
                                         <label for="training_goal" class="form-label">{{ __('Training Goal') }}</label>
                                         <textarea name="training_goal" id="training_goal" class="form-control @error('training_goal') is-invalid @enderror"
                                             placeholder="e.g. Training Goal" data-parsley-required="true"
-                                            data-parsley-required-message="The Training Goal field is required!">{{ $profileTraining->training_goal }}</textarea>
+                                            data-parsley-required-message="The Training Goal field is required!">{{ old('training_goal', $profileTraining->training_goal) }}</textarea>
                                         @error('training_goal')
                                             <span class="text-danger">
                                                 {{ $message }}
@@ -138,8 +115,8 @@
                                         @enderror
                                     </div>
                                     <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
-                                    <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
 
+                                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                                 </div>
                             </div>
                         </form>

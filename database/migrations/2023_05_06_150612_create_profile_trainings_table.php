@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('type');
             $table->string('model');
             $table->string('training_name');
-            $table->string('participant_requirement');
-            $table->string('instructor_requirement')->nullable();
             $table->string('description');
             $table->string('training_goal');
             $table->timestamps();

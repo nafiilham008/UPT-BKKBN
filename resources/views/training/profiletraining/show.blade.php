@@ -36,7 +36,7 @@
                                 <table class="table table-hover table-striped">
                                     <tr>
                                         <td class="fw-bold">{{ __('Type') }}</td>
-                                        <td>{{ $profileTraining->type }}</td>
+                                        <td><span class="badge bg-success">{{ $profileTraining->type }}</span></td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Model') }}</td>
@@ -44,15 +44,7 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Training Name') }}</td>
-                                        <td><span class="badge bg-success">{{ $profileTraining->training_name }}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">{{ __('Participant Requirement') }}</td>
-                                        <td>{{ $profileTraining->participant_requirement }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">{{ __('Instructor Requirement') }}</td>
-                                        <td>{{ $profileTraining->instructor_requirement }}</td>
+                                        <td>{{ $profileTraining->training_name }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Description') }}</td>

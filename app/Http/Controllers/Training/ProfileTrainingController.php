@@ -51,26 +51,21 @@ class ProfileTrainingController extends Controller
             'type' => 'required',
             'model' => 'required',
             'training_name' => 'required',
-            'participant_requirement' => 'required',
-            'instructor_requirement' => 'nullable',
             'description' => 'required',
             'training_goal' => 'required',
         ], [
             'type.required' => 'The Type field is required.',
             'model.required' => 'The Model field is required.',
             'training_name.required' => 'The Training Name field is required.',
-            'participant_requirement.required' => 'The Participant Requirement field is required.',
-            'instructor_requirement.required' => 'The Instructor Requirement field is required.',
             'description.required' => 'The Description field is required.',
             'training_goal.required' => 'The Training Goal field is required.',
         ]);
+        
 
         $profileTraining = ModelProfileTraining::create([
             'type' => $validated['type'],
             'model' => $validated['model'],
             'training_name' => $validated['training_name'],
-            'participant_requirement' => $validated['participant_requirement'],
-            'instructor_requirement' => $validated['instructor_requirement'],
             'description' => $validated['description'],
             'training_goal' => $validated['training_goal'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
@@ -124,16 +119,12 @@ class ProfileTrainingController extends Controller
             'type' => 'required',
             'model' => 'required',
             'training_name' => 'required',
-            'participant_requirement' => 'required',
-            'instructor_requirement' => 'nullable',
             'description' => 'required',
             'training_goal' => 'required',
         ], [
             'type.required' => 'The Type field is required.',
             'model.required' => 'The Model field is required.',
             'training_name.required' => 'The Training Name field is required.',
-            'participant_requirement.required' => 'The Participant Requirement field is required.',
-            'instructor_requirement.required' => 'The Instructor Requirement field is required.',
             'description.required' => 'The Description field is required.',
             'training_goal.required' => 'The Training Goal field is required.',
         ]);
@@ -143,8 +134,6 @@ class ProfileTrainingController extends Controller
         $profileTraining->type = $validated['type'];
         $profileTraining->model = $validated['model'];
         $profileTraining->training_name = $validated['training_name'];
-        $profileTraining->participant_requirement = $validated['participant_requirement'];
-        $profileTraining->instructor_requirement = $validated['instructor_requirement'];
         $profileTraining->description = $validated['description'];
         $profileTraining->training_goal = $validated['training_goal'];
         $profileTraining->updated_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
