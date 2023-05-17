@@ -41,7 +41,7 @@
                                 <div class="row mb-2">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="title">{{ __('Title') }}</label>
+                                            <label for="title" class="form-label">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
                                                 class="form-control @error('title') is-invalid @enderror"
                                                 placeholder="{{ __('Insert Title') }}"
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label for="thumbnail">{{ __('Thumbnail') }}</label>
+                                            <label for="thumbnail" class="form-label">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
                                                 type="file" id="thumbnail" name="thumbnail"
                                                 accept="image/png, image/jpeg">
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="title">{{ __('Publication Date') }}</label>
+                                            <label for="title" class="form-label">{{ __('Publication Date') }}</label>
                                             <input type="datetime-local" name="created_at" id="created_at" value="{{ $post->created_at }}"
                                                 class="form-control @error('created_at') is-invalid @enderror"
                                                 placeholder="{{ __('Insert Publication Date') }}" autofocus>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="description">{{ __('Description') }}</label>
+                                            <label for="description" class="form-label">{{ __('Description') }}</label>
                                             {{ csrf_field() }}
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
                                                 placeholder="Insert description" required autofocus>{!! $post->description !!}</textarea>
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset class="form-group">
-                                            <label for="category">{{ __('Category') }}</label>
+                                            <label for="category" class="form-label">{{ __('Category') }}</label>
                                             <select class="form-select {{ $errors->has('category') ? ' has-error' : '' }}"
                                                 id="category" name="category">
                                                 @foreach ($data as $item)
@@ -119,7 +119,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
-                                            <label for="status">{{ __('Status') }}</label>
+                                            <label for="status" class="form-label">{{ __('Status') }}</label>
                                             <select class="form-select" id="status" name="status">
                                                 <option value="1" {{ $post->status == 1 ? 'selected' : '' }}>
                                                     Tampilkan</option>
