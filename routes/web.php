@@ -9,6 +9,7 @@ use App\Http\Controllers\{
     RoleAndPermissionController
 };
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Information\ScholarshipController;
 use App\Http\Controllers\Profile\EducationHistoryController;
 use App\Http\Controllers\Profile\EmployeeController;
 use App\Http\Controllers\Profile\EmployeeHistoryController;
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('historicals', HistoricalController::class);
         Route::resource('jobandfuncs', JobandfuncController::class);
         Route::resource('employees', EmployeeController::class);
+        Route::resource('scholarships', ScholarshipController::class);
 
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('employees.educations');

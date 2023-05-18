@@ -251,6 +251,15 @@ return [
             ]
         ],
         [
+            'group' => 'scholarship',
+            'access' => [
+                'scholarship view',
+                'scholarship create',
+                'scholarship edit',
+                'scholarship delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

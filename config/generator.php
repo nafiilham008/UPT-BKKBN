@@ -235,7 +235,33 @@ return [
                             'permission' => 'collaboration view'
                         ],
                     ]
-                ]
+                    ],
+                    [
+                        'title' => 'Information',
+                        'icon' => '<i class="bi bi-buildings-fill"></i>',
+                        'route' => null,
+                        'permission' => null,
+                        'permissions' => [
+                            'scholarship view',
+                        ],
+                        'submenus' => [
+                            [
+                                'title' => 'Scholarship',
+                                'route' => '/scholarships',
+                                'permission' => 'scholarship view'
+                            ],
+                            // [
+                            //     'title' => 'Profile Training',
+                            //     'route' => '/profiletrainings',
+                            //     'permission' => 'profiletraining view'
+                            // ],
+                            // [
+                            //     'title' => 'Coolaboration',
+                            //     'route' => '/collaborations',
+                            //     'permission' => 'collaboration view'
+                            // ],
+                        ]
+                    ]
             ]
         ],
         // [
