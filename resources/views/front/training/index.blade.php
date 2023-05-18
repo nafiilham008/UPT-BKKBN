@@ -105,25 +105,6 @@
                                     </div>
                                 </div>
 
-
-                                {{-- @foreach ($calendar as $item)
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-heading{{ $item->id }}">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false"
-                                            aria-controls="flush-collapse{{ $item->id }}">
-                                            {{ $item->title }}
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-heading{{ $item->id }}"
-                                        data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <a href="{{ $item->link }}" target="_blank">{{ $item->link }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach --}}
                             </div>
                         @endforeach
 
