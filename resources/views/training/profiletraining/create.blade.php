@@ -93,7 +93,7 @@
                                     <div class="form-group mandatory">
                                         <label for="description" class="form-label">{{ __('Description') }}</label>
                                         <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
-                                            placeholder="e.g. Training Description" data-parsley-required="true"
+                                            rows="5" placeholder="e.g. Training Description" data-parsley-required="true"
                                             data-parsley-required-message="The Description field is required!"></textarea>
                                         @error('description')
                                             <span class="text-danger">
@@ -104,7 +104,7 @@
                                     <div class="form-group mandatory">
                                         <label for="training_goal" class="form-label">{{ __('Training Goal') }}</label>
                                         <textarea name="training_goal" id="training_goal" class="form-control @error('training_goal') is-invalid @enderror"
-                                            placeholder="e.g. Training Goal" data-parsley-required="true"
+                                            rows="5" placeholder="e.g. Training Goal" data-parsley-required="true"
                                             data-parsley-required-message="The Training Goal field is required!"></textarea>
                                         @error('training_goal')
                                             <span class="text-danger">

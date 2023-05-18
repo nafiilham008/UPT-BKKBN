@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('model');
             $table->string('training_name');
-            $table->string('description');
-            $table->string('training_goal');
+            $table->text('description');
+            $table->text('training_goal');
             $table->timestamps();
         });   
     }

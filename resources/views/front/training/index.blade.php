@@ -31,7 +31,7 @@
 
         </ul>
     </div>
-    <div class="container-fluid detail-news fade-in" id="kalender-pelatihan">
+    <div class="container-fluid detail-news fade-in d-none" id="kalender-pelatihan">
         <h2 class="text-center bold-text mb-5">Kalender Pendidikan</h2>
 
 
@@ -68,8 +68,69 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="profile-pelatihan">
-        a
+    <div class="container-fluid detail-news fade-in " id="profile-pelatihan">
+        <h2 class="text-center bold-text mb-5">Profil Pelatihan</h2>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card rounded-custom">
+                    <div class="card-body">
+                        <p>
+                            Beberapa daftar pelatihan yang tersedia adalah sebagai berikut:
+                        </p>
+                        @foreach ($training as $item)
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-heading{{ $item->id }}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false"
+                                            aria-controls="flush-collapse{{ $item->id }}">
+                                            {{ $item->training_name }}
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading{{ $item->id }}"
+                                        data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="training-info">
+                                                <label>Tipe pelatihan</label> : {{ $item->type }}<br>
+                                                <label>Model pelatihan</label> : {{ $item->model }}<br>
+                                                <label>Deskripsi :</label>
+                                                <p>{{ $item->description }}</p>
+                                                <label>Tujuan pelatihan :</label>
+                                                <p>{{ $item->training_goal }}</p>
+                                            </div>
+                                            {{-- <a href="" target="_blank"></a> --}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {{-- @foreach ($calendar as $item)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-heading{{ $item->id }}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false"
+                                            aria-controls="flush-collapse{{ $item->id }}">
+                                            {{ $item->title }}
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading{{ $item->id }}"
+                                        data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <a href="{{ $item->link }}" target="_blank">{{ $item->link }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach --}}
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="profil-pengajar">
         <h2 class="text-center bold-text mb-3">Profil Pengajar</h2>
@@ -252,6 +313,20 @@
             margin-bottom: 20px;
             border-radius: 2rem;
             object-fit: cover;
+        }
+
+        .training-info {
+            padding-left: 20px;
+        }
+
+        .training-info p {
+            text-align: justify;
+        }
+
+        .training-info label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
         }
 
         @media (max-width: 767px) {
