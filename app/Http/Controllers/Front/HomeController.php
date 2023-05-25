@@ -190,7 +190,7 @@ class HomeController extends Controller
     public function documentation()
     {
         try {
-            $gallery = Gallery::with('posts')->with('categories')->get();
+            $gallery = Gallery::with('posts')->get();
             return view('front.documentation.index', compact('gallery'));
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -198,4 +198,18 @@ class HomeController extends Controller
     }
     
     // End Documentation
+
+    // Information
+
+    public function information()
+    {
+        try {
+            $gallery = Gallery::with('posts')->get();
+            return view('front.information.index', compact('gallery'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    
+    // End Information
 }

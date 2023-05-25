@@ -16,8 +16,4 @@ class Category extends Model
         return $this->belongsTo(Post::class, 'id', 'categories_id');
     }
 
-    public function galleries()
-    {
-        return $this->belongsTo(Gallery::class, 'categories_id');
-    }
 }
