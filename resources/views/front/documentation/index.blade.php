@@ -35,46 +35,48 @@
         <h2 class="text-center bold-text mb-5">Galeri</h2>
 
         <div class="gallery-image">
-            @foreach ($gallery as $image)
-                @php
-                    $image->fresh(); // Memperbarui objek $image dari database
-                    
-                @endphp
-                <div class="img-box">
-                    <img class="img-rounded-custom-detail"
-                        src="{{ asset('uploads/images/content/thumbnail/' . $image->posts->thumbnail) }}"
-                        alt="{{ $image->title }}" />
-                    <div class="transparent-box">
-                        <div class="caption-doc">
-                            <p>{{ $image->title }}</p>
-                            <p class="opacity-low">{{ $image->categories->label }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                @php
-                    $description = $image->posts->description;
-                    $dom = new DOMDocument();
-                    libxml_use_internal_errors(true);
-                    $dom->loadHTML($description);
-                    libxml_use_internal_errors(false);
-                    $imgElements = $dom->getElementsByTagName('img');
-                @endphp
-
-                @if ($imgElements->length > 0)
-                    @foreach ($imgElements as $img)
-                        <div class="img-box">
-                            <img class="img-rounded-custom-detail" src="{{ $img->getAttribute('src') }}" alt="" />
-                            <div class="transparent-box">
-                                <div class="caption-doc">
-                                    <p>Detail {{ $image->categories->label }} {{ $image->title }}</p>
-                                    <p class="opacity-low">Deskripsi</p>
-                                </div>
+            @if (count($gallery) > 0)
+                @foreach ($gallery as $image)
+                    @php
+                        $image->fresh(); // Memperbarui objek $image dari database
+                    @endphp
+                    <div class="img-box">
+                        <img class="img-rounded-custom-detail"
+                            src="{{ asset('uploads/images/content/thumbnail/' . $image->posts->thumbnail) }}"
+                            alt="{{ $image->title }}" />
+                        <div class="transparent-box">
+                            <div class="caption-doc">
+                                <p>{{ $image->title }}</p>
+                                <p class="opacity-low">{{ $image->categories->label }}</p>
                             </div>
                         </div>
-                    @endforeach
-                @endif
-            @endforeach
+                    </div>
+
+                    @php
+                        $description = $image->posts->description;
+                        $dom = new DOMDocument();
+                        libxml_use_internal_errors(true);
+                        $dom->loadHTML($description);
+                        libxml_use_internal_errors(false);
+                        $imgElements = $dom->getElementsByTagName('img');
+                    @endphp
+
+                    @if ($imgElements->length > 0)
+                        @foreach ($imgElements as $img)
+                            <div class="img-box">
+                                <img class="img-rounded-custom-detail" src="{{ $img->getAttribute('src') }}"
+                                    alt="" />
+                                <div class="transparent-box">
+                                    <div class="caption-doc">
+                                        <p>Detail {{ $image->categories->label }} {{ $image->title }}</p>
+                                        <p class="opacity-low">Deskripsi</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                @endforeach
+            @endif
         </div>
 
 

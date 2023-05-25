@@ -219,23 +219,27 @@
                                         <div class="form-group">
                                             <label>{{ __('Awards') }}</label>
                                             <div id="awards-container">
-                                                @foreach ($awards as $index => $award)
-                                                    <div class="awards-input">
-                                                        <div class="input-group mb-2">
-                                                            <input name="awards[]" type="text" class="form-control"
-                                                                placeholder="Insert award" value="{{ $award }}">
-                                                            @if ($index > 0)
-                                                                <button type="button"
-                                                                    class="btn btn-danger remove-award">Remove</button>
-                                                            @endif
+                                                @if (!empty($awards))
+                                                    @foreach ($awards as $index => $award)
+                                                        <div class="awards-input">
+                                                            <div class="input-group mb-2">
+                                                                <input name="awards[]" type="text"
+                                                                    class="form-control" placeholder="Insert award"
+                                                                    value="{{ $award }}">
+                                                                @if ($index > 0)
+                                                                    <button type="button"
+                                                                        class="btn btn-danger remove-award">Remove</button>
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                @endif
                                             </div>
                                             <button type="button" id="add-award" class="btn btn-success mt-2">Add
                                                 Award</button>
                                         </div>
                                     </div>
+
 
 
 

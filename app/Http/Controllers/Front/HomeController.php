@@ -189,8 +189,12 @@ class HomeController extends Controller
 
     public function documentation()
     {
-        $gallery = Gallery::with('posts')->with('categories')->get();
-        return view('front.documentation.index', compact('gallery'));
+        try {
+            $gallery = Gallery::with('posts')->with('categories')->get();
+            return view('front.documentation.index', compact('gallery'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
     
     // End Documentation

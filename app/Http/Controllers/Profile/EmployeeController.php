@@ -302,12 +302,18 @@ class EmployeeController extends Controller
             'position' => $validated['position'],
             'nip' => $validated['nip'],
             'address' => $validated['address'],
-            'awards' => json_encode($validated['awards']), 
             'phone_number' => $validated['phone_number'],
             'type_employee' => $validated['type_employee'],
             'rank_group' => $validated['rank_group'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
+        
+        if (isset($validated['awards'])) {
+            $employee->awards = json_encode($validated['awards']);
+        }
+        
+        $employee->save();
+        
 
         if ($employee) {
             //redirect dengan pesan sukses
