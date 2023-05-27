@@ -243,12 +243,24 @@ return [
                         'permission' => null,
                         'permissions' => [
                             'scholarship view',
+                            'course view',
+                            'announcement view'
                         ],
                         'submenus' => [
                             [
                                 'title' => 'Scholarship',
                                 'route' => '/scholarships',
                                 'permission' => 'scholarship view'
+                            ],
+                            [
+                                'title' => 'Other Course',
+                                'route' => '/courses',
+                                'permission' => 'course view'
+                            ],
+                            [
+                                'title' => 'Announcement',
+                                'route' => '/announcements',
+                                'permission' => 'announcement view'
                             ],
                             // [
                             //     'title' => 'Profile Training',

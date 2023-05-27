@@ -1,117 +1,91 @@
 @extends('layouts.front.app')
 
-@section('title', __('Kediklatan'))
+@section('title', __('Information'))
 
 @section('content')
     <div class="background-image-profile d-flex align-items-center justify-content-center">
         <div class="profile-text">
-            <h3>Kediklatan</h3>
-            <p>Menyajikan seluruh informasi terkait Kediklatan UPT Balai Diklat KKB Banyumas</p>
+            <h3>Informasi</h3>
+            <p>Kumpulan informasi terkait Beasiswa dan Short/Long Course UPT Balai Diklat KKB Banyumas</p>
         </div>
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan.jpg') }}" alt="Background Image">
     </div>
-    <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
+    <div class="container-fluid d-flex justify-content-center bg-menu-doc mt-custom">
         <ul class="nav d-flex my-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="#" data-target="kalender-pelatihan">Kalender Pelatihan</a>
+                <a class="nav-link active" href="#" data-target="beasiswa">Beasiswa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="profil-pelatihan">Profil Pelatihan</a>
+                <a class="nav-link" href="#" data-target="kursus">Kursus</a>
             </li>
+            {{-- 
             <li class="nav-item">
                 <a class="nav-link" href="#" data-target="profil-pengajar">Profil Pengajar</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-target="kerjasama">Kerjasama</a>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item">
                 <a class="nav-link" href="#alumni" data-target="alumni">Alumni</a>
             </li> --}}
 
         </ul>
     </div>
-    <div class="container-fluid detail-news fade-in " id="kalender-pelatihan">
-        <h2 class="text-center bold-text mb-5">Kalender Pendidikan</h2>
+    <div class="container-fluid detail-news fade-in" id="beasiswa">
+        <h2 class="text-center bold-text mb-5">Beasiswa</h2>
 
-
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="card rounded-custom">
-                    <div class="card-body">
-                        <p>
-                            Beberapa daftar kelas yang tersedia adalah sebagai berikut:
-                        </p>
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            @foreach ($calendar as $item)
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-heading{{ $item->id }}">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false"
-                                            aria-controls="flush-collapse{{ $item->id }}">
-                                            {{ $item->title }}
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-heading{{ $item->id }}"
-                                        data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <a href="{{ $item->link }}" target="_blank">{{ $item->link }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+        <div class="gallery-image">
+            @if (count($gallery) > 0)
+                @foreach ($gallery as $image)
+                    @php
+                        $image->fresh(); // Memperbarui objek $image dari database
+                    @endphp
+                    <div class="img-box">
+                        <img class="img-rounded-custom-detail"
+                            src="{{ asset('uploads/images/content/thumbnail/' . $image->posts->thumbnail) }}"
+                            alt="{{ $image->title }}" />
+                        <div class="transparent-box">
+                            <div class="caption-doc">
+                                <p>{{ $image->title }}</p>
+                                <p class="opacity-low">{{ $image->posts->categories->label }}</p>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid detail-news fade-in d-none" id="profil-pelatihan">
-        <h2 class="text-center bold-text mb-5">Profil Pelatihan</h2>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="card rounded-custom">
-                    <div class="card-body">
-                        <p>
-                            Beberapa daftar pelatihan yang tersedia adalah sebagai berikut:
-                        </p>
-                        @foreach ($training as $item)
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-heading{{ $item->id }}">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false"
-                                            aria-controls="flush-collapse{{ $item->id }}">
-                                            {{ $item->training_name }}
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-heading{{ $item->id }}"
-                                        data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="training-info">
-                                                <label>Tipe pelatihan</label> : {{ $item->type }}<br>
-                                                <label>Model pelatihan</label> : {{ $item->model }}<br>
-                                                <label>Deskripsi :</label>
-                                                <p>{{ $item->description }}</p>
-                                                <label>Tujuan pelatihan :</label>
-                                                <p>{{ $item->training_goal }}</p>
-                                            </div>
-                                            {{-- <a href="" target="_blank"></a> --}}
-                                        </div>
+                    @php
+                        $description = $image->posts->description;
+                        $dom = new DOMDocument();
+                        libxml_use_internal_errors(true);
+                        $dom->loadHTML($description);
+                        libxml_use_internal_errors(false);
+                        $imgElements = $dom->getElementsByTagName('img');
+                    @endphp
+
+                    @if ($imgElements->length > 0)
+                        @foreach ($imgElements as $img)
+                            <div class="img-box">
+                                <img class="img-rounded-custom-detail" src="{{ $img->getAttribute('src') }}"
+                                    alt="" />
+                                <div class="transparent-box">
+                                    <div class="caption-doc">
+                                        <p>Detail {{ $image->posts->categories->label }}</p>
+                                        <p class="opacity-low"> {{ $image->title }}</p>
                                     </div>
                                 </div>
-
                             </div>
                         @endforeach
-
-                    </div>
-                </div>
-            </div>
+                    @endif
+                @endforeach
+            @endif
         </div>
+
+
+
+    </div>
+
+    {{-- <div class="container-fluid detail-news fade-in d-none" id="profile-pelatihan">
+        a
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="profil-pengajar">
         <h2 class="text-center bold-text mb-3">Profil Pengajar</h2>
@@ -211,7 +185,6 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Penghargaan/Tanda Jasa</h5>
-                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
                                     @empty($item->awards)
                                         <p class="card-text">Data belum tersedia</p>
                                     @else
@@ -234,11 +207,11 @@
 
         <div class="logo-container mt-5">
             @foreach ($collaboration as $item)
-                <img src="{{ asset('uploads/images/training/collaboration-logo/' . $item->logo) }}"
+                <img class="img-rounded-custom-detail" src="{{ asset('uploads/images/training/collaboration-logo/' . $item->logo) }}"
                     alt="Logo {{ $item->institution_name }}">
             @endforeach
         </div>
-    </div>
+    </div> --}}
     {{-- <div class="container-fluid detail-news fade-in" id="alumni">
         <h2 class="text-center mb-4 bold-text">Alumni</h2>
 
@@ -247,73 +220,117 @@
 
 @push('css')
     <style>
-        .text-white-accordion {
-            color: #ffffff
+        .bg-menu-doc {
+            background-color: #0672B0;
+            max-width: 300px;
+            height: 50px;
+            margin: 0 auto;
+            border-radius: 1rem;
         }
 
-        .rounded-custom {
-            border-radius: 1rem !important;
+        .bg-menu-doc .nav {
+            flex-wrap: nowrap;
+            overflow-x: auto;
         }
 
-        .education-table {
-            border-collapse: collapse;
+        .bg-menu-doc .nav-link {
+            color: #f4f4f4c5;
         }
 
-        .education-table td {
-            padding: 0.5rem;
+        .bg-menu-doc .nav-link.active {
+            color: #fff;
         }
 
-        .education-table td.bullet-point::before {
-            content: "\2022";
-            /* Bullet point character */
-            margin-right: 0.5rem;
-        }
-
-        .bold-text {
-            font-weight: bold;
-        }
-
-        .paragraph-text {
-            font-size: 16px;
-        }
-
-        .logo-container {
+        /* Gallery */
+        .gallery-image {
+            padding: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: flex-start;
-            margin-top: 20px;
         }
 
-        .logo-container img {
+        .img-box {
+            box-sizing: content-box;
+            margin: 10px;
+            height: 200px;
             width: 250px;
-            max-height: 250px;
-            margin-left: 20px;
-            margin-right: 20px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border-radius: 2rem;
-            object-fit: cover;
-        }
-
-        .training-info {
-            padding-left: 20px;
-        }
-
-        .training-info p {
-            text-align: justify;
-        }
-
-        .training-info label {
-            font-weight: bold;
+            overflow: hidden;
             display: inline-block;
-            width: 150px;
+            position: relative;
+            border-radius: 1.5rem;
+
         }
+
+        .img-box img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transform: scale(1.0);
+            transition: transform 0.4s ease;
+        }
+
+        .transparent-box {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .caption-doc {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1;
+            color: white;
+        }
+
+        .img-box:hover img {
+            transform: scale(1.1);
+        }
+
+        .img-box:hover .transparent-box {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 1.5rem !important;
+        }
+
+        .img-box:hover .caption-doc {
+            transform: translateY(-20px);
+            opacity: 1;
+        }
+
+        .caption-doc>p:nth-child(2) {
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .opacity-low {
+            opacity: 0.5;
+        }
+
+
+
+        /* End */
 
         @media (max-width: 767px) {
-            .logo-container {
-                justify-content: flex-start;
+            .bg-menu-doc {
+                max-width: 300px;
+                height: 150px;
+                margin: 0 auto;
             }
+
+            .bg-menu-doc .nav {
+                flex-wrap: wrap;
+            }
+
+            .bg-menu-doc .nav-item {
+                flex-basis: 50%;
+            }
+
         }
     </style>
 @endpush

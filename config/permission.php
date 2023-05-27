@@ -260,6 +260,24 @@ return [
             ]
         ],
         [
+            'group' => 'course',
+            'access' => [
+                'course view',
+                'course create',
+                'course edit',
+                'course delete',
+            ]
+        ],
+        [
+            'group' => 'announcement',
+            'access' => [
+                'announcement view',
+                'announcement create',
+                'announcement edit',
+                'announcement delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

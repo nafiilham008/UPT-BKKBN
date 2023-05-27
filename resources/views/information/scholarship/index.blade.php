@@ -43,7 +43,7 @@
                                             <th>Title</th>
                                             <th>Photo</th>
                                             <th>Link</th>
-                                            <th>created At</th>
+                                            <th>Created At</th>
                                             <th>Updated At</th>
                                             <th>Action</th>
                                         </tr>

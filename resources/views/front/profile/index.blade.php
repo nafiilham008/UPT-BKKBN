@@ -14,23 +14,23 @@
     <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
         <ul class="nav d-flex my-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="#sejarah" data-target="sejarah">Sejarah</a>
+                <a class="nav-link active clickable-link" data-target="sejarah">Sejarah</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#tugas-fungsi" data-target="tugas-fungsi">Tugas & Fungsi</a>
+                <a class="nav-link clickable-link" data-target="tugas-fungsi">Tugas & Fungsi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#struktur-organisasi" data-target="struktur-organisasi">Struktur Organisasi</a>
+                <a class="nav-link clickable-link" data-target="struktur-organisasi">Struktur Organisasi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#informasi-pejabat" data-target="informasi-pejabat">Informasi Pejabat</a>
+                <a class="nav-link clickable-link" data-target="informasi-pejabat">Informasi Pejabat</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#informasi-pegawai" data-target="informasi-pegawai">Informasi Pegawai</a>
+                <a class="nav-link clickable-link" data-target="informasi-pegawai">Informasi Pegawai</a>
             </li>
-
         </ul>
     </div>
+
     <div class="container-fluid detail-news fade-in" id="sejarah">
         @foreach ($history as $item)
             <h2 class="text-center mb-5 bold-text">{{ $item->title }}</h2>
@@ -304,6 +304,10 @@
 
 @push('css')
     <style>
+        .clickable-link {
+            cursor: pointer;
+        }
+
         .icon-circle-center {
             width: 80px;
             height: 80px;
@@ -359,6 +363,8 @@
                 });
             });
         });
+    </script>
+    <script>
         $(document).ready(function() {
             // Mengambil data-target dari link yang diklik
             $(".nav-link").click(function(event) {

@@ -9,6 +9,8 @@ use App\Http\Controllers\{
     RoleAndPermissionController
 };
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Information\AnnouncementController;
+use App\Http\Controllers\Information\OtherCourseController;
 use App\Http\Controllers\Information\ScholarshipController;
 use App\Http\Controllers\Profile\EducationHistoryController;
 use App\Http\Controllers\Profile\EmployeeController;
@@ -31,6 +33,9 @@ Route::get('/training', [HomeController::class, 'training'])->name('home.trainin
 
 Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
 
+Route::get('/information', [HomeController::class, 'information'])->name('home.information');
+
+
 
 
 Route::middleware(['auth', 'web'])->group(function () {
@@ -49,6 +54,8 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('jobandfuncs', JobandfuncController::class);
         Route::resource('employees', EmployeeController::class);
         Route::resource('scholarships', ScholarshipController::class);
+        Route::resource('courses', OtherCourseController::class);
+        Route::resource('announcements', AnnouncementController::class);
 
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('employees.educations');

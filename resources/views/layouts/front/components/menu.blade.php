@@ -26,7 +26,9 @@
                     onclick="handleLinkClick(event, '{{ route('home.documentation') }}')">Dokumentasi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Informasi</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.information' ? 'active' : '' }}"
+                    href="{{ route('home.information') }}"
+                    onclick="handleLinkClick(event, '{{ route('home.information') }}')">Informasi</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Unduh</a>
