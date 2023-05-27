@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Information;
+namespace App\Http\Controllers\Download;
 
 use App\Http\Controllers\Controller;
-use App\Models\AnnouncementDocument;
+use App\Models\Download\PublicInformation;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
-
-class AnnouncementController extends Controller
+class   PublicInformationController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('permission:announcement view')->only('index', 'show');
-        $this->middleware('permission:announcement create')->only('create', 'store');
-        $this->middleware('permission:announcement edit')->only('edit', 'update');
-        $this->middleware('permission:announcement delete')->only('destroy');
+        $this->middleware('permission:public-information view')->only('index', 'show');
+        $this->middleware('permission:public-information create')->only('create', 'store');
+        $this->middleware('permission:public-information edit')->only('edit', 'update');
+        $this->middleware('permission:public-information delete')->only('destroy');
     }
 
     /**
@@ -26,9 +24,9 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcement = AnnouncementDocument::all();
+        $publicInformation = PublicInformation::all();
 
-        return view('information.announcement.index', compact('announcement'));
+        return view('download.public-information.index', compact('publicInformation'));
     }
 
     /**
@@ -38,7 +36,8 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        return view('information.announcement.create');
+        return view('download.public-information.create');
+        
     }
 
     /**
@@ -57,19 +56,19 @@ class AnnouncementController extends Controller
             'link.required' => 'Link field is required.',
         ]);
 
-        $announcement = AnnouncementDocument::create([
+        $publicInformation = PublicInformation::create([
             'title' => $validated['title'],
             'link' => $validated['link'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
 
-        if ($announcement) {
+        if ($publicInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('announcements.index')->with('success', __('The announcement was posted successfully.'));
+            return redirect()->route('public-informations.index')->with('success', __('The public information was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('announcements.index')->with('error', __('Failed'));
+            return redirect()->route('public-informations.index')->with('error', __('Failed'));
         }
     }
 
@@ -81,9 +80,9 @@ class AnnouncementController extends Controller
      */
     public function show($id)
     {
-        $announcement = AnnouncementDocument::findOrFail($id);
+        $publicInformation = PublicInformation::findOrFail($id);
 
-        return view('information.announcement.show', compact('announcement'));
+        return view('download.public-information.show', compact('publicInformation'));
     }
 
     /**
@@ -94,9 +93,9 @@ class AnnouncementController extends Controller
      */
     public function edit($id)
     {
-        $announcement = AnnouncementDocument::findOrFail($id);
+        $publicInformation = PublicInformation::findOrFail($id);
 
-        return view('information.announcement.edit', compact('announcement'));
+        return view('download.public-information.edit', compact('publicInformation'));
     }
 
     /**
@@ -108,7 +107,7 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $announcement = AnnouncementDocument::findOrFail($id);
+        $publicInformation = PublicInformation::findOrFail($id);
 
         $validated = $request->validate([
             'title' => 'required',
@@ -119,19 +118,18 @@ class AnnouncementController extends Controller
         ]);
 
         
-
-        $announcement->update([
+        $publicInformation->update([
             'title' => $validated['title'],
             'link' => $validated['link'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
-        if ($announcement) {
+        if ($publicInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('announcements.index')->with('success', __('The announcement was updated successfully.'));
+            return redirect()->route('public-informations.index')->with('success', __('The public information was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('announcements.index')->with('error', __('Failed'));
+            return redirect()->route('public-informations.index')->with('error', __('Failed'));
         }
     }
 
@@ -143,18 +141,18 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        $announcement = AnnouncementDocument::findOrFail($id);
+        $publicInformation = PublicInformation::findOrFail($id);
 
 
         // Delete all data
-        $announcement->delete();
+        $publicInformation->delete();
 
-        if ($announcement) {
+        if ($publicInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('announcements.index')->with('success', __('The announcement was deleted successfully.'));
+            return redirect()->route('public-informations.index')->with('success', __('The public information was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('announcements.index')->with('error', __('Failed'));
+            return redirect()->route('public-informations.index')->with('error', __('Failed'));
         }
     }
 }

@@ -235,45 +235,61 @@ return [
                             'permission' => 'collaboration view'
                         ],
                     ]
+                ],
+                [
+                    'title' => 'Information',
+                    'icon' => '<i class="bi bi-buildings-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'scholarship view',
+                        'course view',
+                        'announcement view'
                     ],
-                    [
-                        'title' => 'Information',
-                        'icon' => '<i class="bi bi-buildings-fill"></i>',
-                        'route' => null,
-                        'permission' => null,
-                        'permissions' => [
-                            'scholarship view',
-                            'course view',
-                            'announcement view'
+                    'submenus' => [
+                        [
+                            'title' => 'Scholarship',
+                            'route' => '/scholarships',
+                            'permission' => 'scholarship view'
                         ],
-                        'submenus' => [
-                            [
-                                'title' => 'Scholarship',
-                                'route' => '/scholarships',
-                                'permission' => 'scholarship view'
-                            ],
-                            [
-                                'title' => 'Other Course',
-                                'route' => '/courses',
-                                'permission' => 'course view'
-                            ],
-                            [
-                                'title' => 'Announcement',
-                                'route' => '/announcements',
-                                'permission' => 'announcement view'
-                            ],
-                            // [
-                            //     'title' => 'Profile Training',
-                            //     'route' => '/profiletrainings',
-                            //     'permission' => 'profiletraining view'
-                            // ],
-                            // [
-                            //     'title' => 'Coolaboration',
-                            //     'route' => '/collaborations',
-                            //     'permission' => 'collaboration view'
-                            // ],
+                        [
+                            'title' => 'Other Course',
+                            'route' => '/courses',
+                            'permission' => 'course view'
+                        ],
+                        [
+                            'title' => 'Announcement',
+                            'route' => '/announcements',
+                            'permission' => 'announcement view'
                         ]
                     ]
+                ],
+                [
+                    'title' => 'Download',
+                    'icon' => '<i class="bi bi-buildings-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'public-information view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Public Information',
+                            'route' => '/public-informations',
+                            'permission' => 'public-information view'
+                        ],
+                        // [
+                        //     'title' => 'Other Course',
+                        //     'route' => '/courses',
+                        //     'permission' => 'course view'
+                        // ],
+                        // [
+                        //     'title' => 'Announcement',
+                        //     'route' => '/announcements',
+                        //     'permission' => 'announcement view'
+                        // ]
+                    ]
+                ]
             ]
         ],
         // [

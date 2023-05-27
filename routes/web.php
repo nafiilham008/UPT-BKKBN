@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     RemoveMediaController,
     RoleAndPermissionController
 };
+use App\Http\Controllers\Download\PublicInformationController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Information\AnnouncementController;
 use App\Http\Controllers\Information\OtherCourseController;
@@ -56,6 +57,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('scholarships', ScholarshipController::class);
         Route::resource('courses', OtherCourseController::class);
         Route::resource('announcements', AnnouncementController::class);
+        Route::resource('public-informations', PublicInformationController::class);
 
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('employees.educations');

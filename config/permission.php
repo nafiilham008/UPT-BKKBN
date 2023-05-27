@@ -278,6 +278,15 @@ return [
             ]
         ],
         [
+            'group' => 'public-information',
+            'access' => [
+                'public-information view',
+                'public-information create',
+                'public-information edit',
+                'public-information delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',
