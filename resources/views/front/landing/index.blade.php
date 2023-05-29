@@ -67,7 +67,7 @@
             <a href="" class="btn btn-overlay">Lihat Selengkapnya</a>
         </div>
         <div class="overlay-divider-landing"></div>
-        <img class="img-fluid-training-info" src="{{ asset('img/dummy/img-kediklatan.jpg') }}" alt="Background Image">
+        <img class="img-fluid-training-info" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
     <!-- Tabs -->

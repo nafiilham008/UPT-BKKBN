@@ -9,7 +9,7 @@
             <p>Menyajikan seluruh informasi terkait Kediklatan UPT Balai Diklat KKB Banyumas</p>
         </div>
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
-        <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan.jpg') }}" alt="Background Image">
+        <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
     <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
         <ul class="nav d-flex my-auto">
