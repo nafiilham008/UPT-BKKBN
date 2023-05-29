@@ -15,7 +15,7 @@
             <img class="rounded-5 img-news-detail" src="{{ asset('uploads/images/content/thumbnail/' . $post->thumbnail) }}"
                 alt="">
         </div>
-        <div class="mt-5">
+        <div class="mt-4">
             <h6>Penulis: {{ $post->users->name }}</h6>
             {!! str_replace(
                 ['<img ', '<span '],
@@ -27,13 +27,13 @@
         <div class="d-flex align-items-end">
             <h6 class="me-4">Bagikan</h6>
             <a href="{{ 'https://www.facebook.com/sharer.php?u=' . route('home.detail', [$post->categories->label, $post->slug_url]) }}"
-                target="_blank" class="me-2 text-decoration-none">
+                target="_blank" class="me-2 text-decoration-share">
                 <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
             </a>
-            <a href="https://api.whatsapp.com/send?text={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}" target="_blank" class="me-2 text-decoration-none">
+            <a href="https://api.whatsapp.com/send?text={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}" target="_blank" class="me-2 text-decoration-share">
                 <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
             </a>
-            <a href="https://t.me/share/url?url={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}" target="_blank" class="text-decoration-none">
+            <a href="https://t.me/share/url?url={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}" target="_blank" class="text-decoration-share">
                 <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
             </a>
         </div>
@@ -49,7 +49,7 @@
                             <img src="{{ asset('uploads/images/content/thumbnail/' . $item->thumbnail) }}"
                                 class="img-fluid-detail img-rounded-custom-detail m-2 " alt="{{ $item->thumbnail }}" />
                             <div class="caption">
-                                <a
+                                <a class="font-other-news-tablet"
                                     href="{{ route('home.detail', [$item->categories->label, $item->slug_url]) }}">{{ $item->title }}</a>
                             </div>
                         </div>

@@ -43,13 +43,13 @@
     <div class="container-fluid fade-in">
         @foreach ($history as $item)
             <div class="row py-5 px-7">
-                <h1 class="font-title text-center mb-5">{{ $item->title }}</h1>
-                <div class="col-sm-6 col-lg-6 fade-in">
+                <h1 class="font-title text-center mb-3">{{ $item->title }}</h1>
+                <div class="col-sm-6 col-lg-6 fade-in d-flex justify-content-center mt-2">
                     <img class="img-fluid img-rounded-custom"
                         src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="">
                 </div>
-                <div class="col-sm-6 col-lg-6 d-flex align-items-center fade-in">
-                    <h6 class="img-desc">{!! strip_tags($item->description) !!}
+                <div class="col-sm-6 col-lg-6 mt-4 fade-in">
+                    <h6 class="img-desc">{!! $item->description !!}
                     </h6>
                     <a href="{{ route('home.detail.history') }}" class="btn btn-md rounded-4 mt-3 btn-detail">Baca
                         Selengkapnya</a>
@@ -61,18 +61,18 @@
     </div>
 
     <div class="background-image-overlay d-flex align-items-center justify-content-center">
-        <div class="overlay-divider"></div>
+        <div class="overlay-divider-landing"></div>
         <div class="overlay-text">
             <h1>Informasi Kediklatan Terbaru</h1>
             <a href="" class="btn btn-overlay">Lihat Selengkapnya</a>
         </div>
-        <div class="overlay-divider"></div>
-        <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan.jpg') }}" alt="Background Image">
+        <div class="overlay-divider-landing"></div>
+        <img class="img-fluid-training-info" src="{{ asset('img/dummy/img-kediklatan.jpg') }}" alt="Background Image">
     </div>
 
     <!-- Tabs -->
     <div class="container-fluid fade-in">
-        <div class="row px-7 py-5">
+        <div class="row px-7 py-3">
             <div class="col-sm-8 col-lg-8">
                 <div class="card rounded-4 fade-in">
 
@@ -134,14 +134,16 @@
                     <div class="card-header rounded-top-4 d-flex align-items-center">
                         <h4 class="fs-custom2">LAYANAN INFORMASI</h4>
                     </div>
-                    <div class="card-body">
-                        <a href="#" class=" text-decoration-none text-dark btn btn-outline-light btn-banner "
+                    <div class="card-body text-center">
+                        <a href="#" class="text-decoration-none text-dark btn btn-outline-light btn-banner"
                             style="background-image: url('{{ asset('img/banner-tombol-dump/kediklatan.png') }}');">
                         </a>
-                        <a href="#" class=" text-decoration-none text-dark btn btn-outline-light btn-banner "
+                        <a href="#" class="text-decoration-none text-dark btn btn-outline-light btn-banner"
                             style="background-image: url('{{ asset('img/banner-tombol-dump/pengumuman.png') }}');">
                         </a>
                     </div>
+
+
                 </div>
                 <div class="card rounded-4 mt-4 fade-in">
                     <div class="card-header card-header-custom rounded-top-4 d-flex align-items-center">
@@ -162,7 +164,7 @@
                         </div>
                     </div>
                     <div class="card-body card-body-custom">
-                        <blockquote class="instagram-media rounded-4"
+                        <blockquote class="instagram-media rounded-4 width-custom-social"
                             data-instgrm-permalink="https://www.instagram.com/balai_diklat_kkb_banyumas"
                             data-instgrm-version="12">
                         </blockquote>
@@ -194,20 +196,20 @@
 @endsection
 
 @push('js')
-    <script>
-        // $(document).ready(function() {
-        //     $(document).on('click', '#pagination-news li a', function(e) {
-        //         e.preventDefault();
-        //         var url = $(this).attr('href');
-        //         $.ajax({
-        //             url: url,
-        //             success: function(response) {
-        //                 $('#Berita').html(response);
-        //             }
-        //         });
-        //     });
-        // });
-    </script>
+    {{-- <script>
+        $(document).ready(function() {
+            $(document).on('click', '#pagination-news li a', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $.ajax({
+                    url: url,
+                    success: function(response) {
+                        $('#Berita').html(response);
+                    }
+                });
+            });
+        });
+    </script> --}}
 @endpush
 
 @push('css')

@@ -43,7 +43,9 @@
                                             <label for="title" class="form-label">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
                                                 class="form-control @error('title') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Title') }}" required autofocus>
+                                                placeholder="{{ __('Insert Title') }}" required autofocus
+                                                data-parsley-trigger="change" data-parsley-required="true"
+                                                data-parsley-required-message="{{ __('Please enter a title') }}">
                                             @error('title')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -51,12 +53,17 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="thumbnail" class="form-label">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
                                                 type="file" id="thumbnail" name="thumbnail"
-                                                accept="image/png, image/jpeg" required>
+                                                accept="image/png, image/jpeg" required data-parsley-trigger="change"
+                                                data-parsley-filemaxmegabytes="2"
+                                                data-parsley-required-message="{{ __('Please select a thumbnail') }}"
+                                                data-parsley-filemime-message="{{ __('Please select a valid image file (PNG or JPEG)') }}"
+                                                data-parsley-filemaxmegabytes-message="{{ __('Please select a file up to 2MB') }}">
                                             @error('thumbnail')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -64,12 +71,14 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="title" class="form-label">{{ __('Publication Date') }}</label>
+                                            <label for="created_at" class="form-label">{{ __('Publication Date') }}</label>
                                             <input type="datetime-local" name="created_at" id="created_at"
                                                 class="form-control @error('created_at') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Publication Date') }}" autofocus>
+                                                placeholder="{{ __('Insert Publication Date') }}" autofocus
+                                                data-parsley-trigger="change" data-parsley-required="false">
                                             @error('created_at')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -78,11 +87,13 @@
                                         </div>
                                     </div>
 
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description" class="form-label">{{ __('Description') }}</label>
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="Insert description" required autofocus>{{ old('description') }}</textarea>
+                                                placeholder="Insert description" required autofocus data-parsley-trigger="change" data-parsley-required="true"
+                                                data-parsley-required-message="{{ __('Please enter a description') }}"></textarea>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -90,11 +101,12 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <fieldset class="form-group">
                                             <label for="category" class="form-label">{{ __('Category') }}</label>
-                                            <select class="form-select {{ $errors->has('category') ? ' has-error' : '' }}"
-                                                id="category" name="category">
+                                            <select class="form-select" id="category" name="category"
+                                                data-parsley-trigger="change" data-parsley-required="true">
                                                 @foreach ($data as $item)
                                                     <option value="{{ $item->id }}">{{ $item->label }}</option>
                                                 @endforeach
@@ -106,10 +118,12 @@
                                             @enderror
                                         </fieldset>
                                     </div>
+
                                     <div class="col-md-6">
                                         <fieldset class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
                                             <label for="status" class="form-label">{{ __('Status') }}</label>
-                                            <select class="form-select" id="status" name="status">
+                                            <select class="form-select" id="status" name="status"
+                                                data-parsley-trigger="change" data-parsley-required="true">
                                                 <option value="1" @if (old('status') == 1) selected @endif>
                                                     Tampilkan</option>
                                                 <option value="0" @if (old('status') == 0) selected @endif>
@@ -122,6 +136,7 @@
                                             @enderror
                                         </fieldset>
                                     </div>
+
                                 </div>
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
@@ -159,4 +174,7 @@
     {{-- Select --}}
     <script src="{{ asset('mazer') }}/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/form-element-select.js"></script>
+
+    <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
+    <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
 @endpush
