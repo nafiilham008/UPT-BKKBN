@@ -85,8 +85,8 @@
                                                 placeholder="e.g. https://example.com"
                                                 data-parsley-required="{{ $course->link ? 'false' : 'true' }}"
                                                 data-parsley-required-message="The Link field is required!"
-                                                data-parsley-pattern="^(https?://|www\.)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
-                                                data-parsley-pattern-message="Please enter a valid URL starting with 'www.', 'http://', or 'https://'">
+                                                data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
+                                                data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
                                             @error('link')
                                                 <span class="text-danger">
                                                     {{ $message }}
