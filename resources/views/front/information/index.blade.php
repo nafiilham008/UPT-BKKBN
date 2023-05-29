@@ -32,53 +32,34 @@
 
         </ul>
     </div>
-    <div class="container-fluid detail-news fade-in" id="beasiswa">
+    <div class="container-fluid detail-news" id="beasiswa">
         <h2 class="text-center bold-text mb-5">Beasiswa</h2>
 
         <div class="gallery-image">
-            @if (count($gallery) > 0)
-                @foreach ($gallery as $image)
-                    @php
-                        $image->fresh(); // Memperbarui objek $image dari database
-                    @endphp
+            @if (!empty($information))
+                @foreach ($information as $item)
                     <div class="img-box">
-                        <img class="img-rounded-custom-detail"
-                            src="{{ asset('uploads/images/content/thumbnail/' . $image->posts->thumbnail) }}"
-                            alt="{{ $image->title }}" />
-                        <div class="transparent-box">
-                            <div class="caption-doc">
-                                <p>{{ $image->title }}</p>
-                                <p class="opacity-low">{{ $image->posts->categories->label }}</p>
-                            </div>
-                        </div>
+                        <a href="#" data-bs-toggle="modal" data-target="#detail-scholarship{{ $item->id }}"
+                            data-id="{{ $item->id }}">
+                            <img class="img-banner-scholarship"
+                                src="{{ asset('uploads/images/information/scholarship/' . $item->photo) }}"
+                                alt="" />
+                        </a>
                     </div>
-
-                    @php
-                        $description = $image->posts->description;
-                        $dom = new DOMDocument();
-                        libxml_use_internal_errors(true);
-                        $dom->loadHTML($description);
-                        libxml_use_internal_errors(false);
-                        $imgElements = $dom->getElementsByTagName('img');
-                    @endphp
-
-                    @if ($imgElements->length > 0)
-                        @foreach ($imgElements as $img)
-                            <div class="img-box">
-                                <img class="img-rounded-custom-detail" src="{{ $img->getAttribute('src') }}"
-                                    alt="" />
-                                <div class="transparent-box">
-                                    <div class="caption-doc">
-                                        <p>Detail {{ $image->posts->categories->label }}</p>
-                                        <p class="opacity-low"> {{ $image->title }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#detail-scholarship{{ $item->id }}"
+                        data-id="{{ $item->id }}">View
+                        Detail</a>
                 @endforeach
+            @else
+                <p>Beasiswa belum tersedia.</p>
             @endif
         </div>
+
+        @foreach ($information as $item)
+            @include('front.information.include.modal-scholarship', [
+                'id' => $item->id,
+            ])
+        @endforeach
 
 
 
@@ -249,70 +230,73 @@
             justify-content: center;
         }
 
-        .img-box {
-            box-sizing: content-box;
-            margin: 10px;
-            height: 200px;
-            width: 250px;
-            overflow: hidden;
-            display: inline-block;
-            position: relative;
-            border-radius: 1.5rem;
-
-        }
-
-        .img-box img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
+        .gallery-image img {
+            height: 250px;
+            width: 350px;
             transform: scale(1.0);
             transition: transform 0.4s ease;
         }
 
-        .transparent-box {
-            height: 100%;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0);
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: background-color 0.3s ease;
+        .img-box {
+            box-sizing: content-box;
+            margin: 10px;
+            height: 400px;
+            width: 300px;
+            overflow: hidden;
+            display: inline-block;
+            color: white;
+            position: relative;
+            background-color: white;
         }
 
-        .caption-doc {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            z-index: 1;
-            color: white;
-        }
 
         .img-box:hover img {
-            transform: scale(1.1);
+            border: 3px solid #0672B0;
         }
 
         .img-box:hover .transparent-box {
             background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 1.5rem !important;
         }
 
-        .img-box:hover .caption-doc {
+        .img-box:hover .caption-scholarship {
             transform: translateY(-20px);
-            opacity: 1;
+            opacity: 1.0;
         }
 
-        .caption-doc>p:nth-child(2) {
-            font-size: 0.8em;
-            margin-top: 5px;
+        .img-box:hover {
+            cursor: pointer;
         }
+
 
         .opacity-low {
             opacity: 0.5;
         }
 
+        .img-banner-scholarship {
+            height: 400px !important;
+            width: 300px !important;
+            object-fit: cover;
+        }
 
+        .img-box a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .scholarship-photo {
+            max-height: 800px;
+        }
+
+        .btn-detail-scholarship {
+            background: linear-gradient(to right, #0672B0, #5197d4);
+            color: #FFFFFF;
+        }
+
+        .btn-detail-scholarship:hover {
+            background: linear-gradient(to right, #5197d4, #0672B0);
+            cursor: pointer;
+            color: #FFFFFF;
+        }
 
         /* End */
 
@@ -367,5 +351,39 @@
                 $('.content').hide();
             });
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('a[data-bs-toggle="modal"]').on('click', function() {
+                var scholarshipId = $(this).data('id');
+                $.ajax({
+                    url: '/information/scholarship/' + scholarshipId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            var scholarship = data.scholarship;
+                            $('#detail-scholarship' + scholarshipId + ' .scholarship-photo')
+                                .attr('src',
+                                    '{{ asset('uploads/images/information/scholarship/') }}/' +
+                                    scholarship.photo);
+                            $('#detail-scholarship' + scholarshipId +
+                                    ' .scholarship-description')
+                                .text(scholarship.description);
+                            $('#detail-scholarship' + scholarshipId +
+                                    ' .scholarship-title')
+                                .text(scholarship.title);
+                            $('#detail-scholarship' + scholarshipId).modal('show');
+                        } else {
+                            alert('Failed to get scholarship detail!');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('Error getting scholarship detail!');
+                    }
+                });
+            });
+
+        });
     </script>
 @endpush

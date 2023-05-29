@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
+use App\Models\Information\Scholarship;
 use App\Models\Post;
 use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
@@ -204,11 +205,22 @@ class HomeController extends Controller
     public function information()
     {
         try {
-            $gallery = Gallery::with('posts')->get();
-            return view('front.information.index', compact('gallery'));
+            $information = Scholarship::all();
+            return view('front.information.index', compact('information'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
+    }
+
+    public function getScholarshipDetail($id)
+    {
+        $scholarship = Scholarship::findOrFail($id);
+
+        // Return data as JSON
+        return response()->json([
+            'success' => true,
+            'scholarship' => $scholarship
+        ]);
     }
     
     // End Information

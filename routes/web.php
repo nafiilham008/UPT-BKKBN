@@ -35,6 +35,8 @@ Route::get('/training', [HomeController::class, 'training'])->name('home.trainin
 Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
 
 Route::get('/information', [HomeController::class, 'information'])->name('home.information');
+Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
+
 
 
 
