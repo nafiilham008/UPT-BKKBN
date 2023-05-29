@@ -156,8 +156,8 @@ class PostController extends Controller
             unlink($tempFilePath);
 
             // Title
-            $slug = str_replace('/', '-', $validated['title']); // Mengganti karakter '/' dengan '-'
-            $slug = str_replace(' ', '-', $slug);
+            $slug = str_replace([' ', '/'], '-', $validated['title']);
+            
 
             // Created_at
             if (!empty($validated['created_at'])) {
@@ -292,6 +292,7 @@ class PostController extends Controller
         // Call func summernoteUpdate with params desc
         $description = $this->summernoteUpdate($validated['description']);
 
+        $slug = str_replace([' ', '/'], '-', $validated['title']);
 
 
 
@@ -299,7 +300,7 @@ class PostController extends Controller
             'title' => $validated['title'],
             'thumbnail' => $validated['thumbnail'],
             'user_id' => auth()->user()->id,
-            'slug_url' => str_replace(' ', '-', $validated['title']),
+            'slug_url' => $slug,
             'description' => $description,
             'categories_id' => $validated['category'],
             'status' => $validated['status'],
