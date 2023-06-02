@@ -278,12 +278,12 @@ return [
             ]
         ],
         [
-            'group' => 'public-information',
+            'group' => 'material',
             'access' => [
-                'public-information view',
-                'public-information create',
-                'public-information edit',
-                'public-information delete',
+                'material view',
+                'material create',
+                'material edit',
+                'material delete',
             ]
         ],
         [

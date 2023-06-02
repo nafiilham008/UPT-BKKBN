@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Download\Material;
 use App\Models\Gallery;
 use App\Models\Information\Scholarship;
+use App\Models\OtherCourse;
 use App\Models\Post;
 use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
@@ -206,7 +208,9 @@ class HomeController extends Controller
     {
         try {
             $information = Scholarship::all();
-            return view('front.information.index', compact('information'));
+
+            $otherCourse = $this->getOtherCourse();
+            return view('front.information.index', compact('information', 'otherCourse'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -222,6 +226,28 @@ class HomeController extends Controller
             'scholarship' => $scholarship
         ]);
     }
+
+    public function getOtherCourse ()
+    {
+        $otherCourse = OtherCourse::all();
+        
+        return $otherCourse;
+    }
     
     // End Information
+
+    // Download
+
+    public function download()
+    {
+        try {
+            $download = Material::all();
+
+            return view('front.download.material.index', compact('download'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    // End Download
 }

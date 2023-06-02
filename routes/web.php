@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     RemoveMediaController,
     RoleAndPermissionController
 };
+use App\Http\Controllers\Download\MaterialController;
 use App\Http\Controllers\Download\PublicInformationController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Information\AnnouncementController;
@@ -37,6 +38,9 @@ Route::get('/documentation', [HomeController::class, 'documentation'])->name('ho
 Route::get('/information', [HomeController::class, 'information'])->name('home.information');
 Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
 
+Route::get('/material', [HomeController::class, 'download'])->name('home.material');
+
+
 
 
 
@@ -60,6 +64,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('courses', OtherCourseController::class);
         Route::resource('announcements', AnnouncementController::class);
         Route::resource('public-informations', PublicInformationController::class);
+        Route::resource('materials', MaterialController::class);
 
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('employees.educations');

@@ -270,13 +270,13 @@ return [
                     'route' => null,
                     'permission' => null,
                     'permissions' => [
-                        'public-information view'
+                        'material view'
                     ],
                     'submenus' => [
                         [
-                            'title' => 'Public Information',
-                            'route' => '/public-informations',
-                            'permission' => 'public-information view'
+                            'title' => 'Training Material',
+                            'route' => '/materials',
+                            'permission' => 'material view'
                         ],
                         // [
                         //     'title' => 'Other Course',
