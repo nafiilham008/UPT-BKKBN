@@ -161,6 +161,10 @@
             opacity: 0.5;
         }
 
+        a {
+            text-decoration: none;
+        }
+
 
 
         /* End */

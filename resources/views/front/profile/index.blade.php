@@ -344,6 +344,10 @@
         .bold-text {
             font-weight: bold;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 @endpush
 
