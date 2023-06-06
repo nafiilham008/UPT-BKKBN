@@ -287,6 +287,24 @@ return [
             ]
         ],
         [
+            'group' => 'public-information',
+            'access' => [
+                'public-information view',
+                'public-information create',
+                'public-information edit',
+                'public-information delete',
+            ]
+        ],
+        [
+            'group' => 'work-accountability',
+            'access' => [
+                'work-accountability view',
+                'work-accountability create',
+                'work-accountability edit',
+                'work-accountability delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',

@@ -256,12 +256,12 @@ return [
                             'title' => 'Other Course',
                             'route' => '/courses',
                             'permission' => 'course view'
-                        ],
-                        [
-                            'title' => 'Announcement',
-                            'route' => '/announcements',
-                            'permission' => 'announcement view'
                         ]
+                        // [
+                        //     'title' => 'Announcement',
+                        //     'route' => '/announcements',
+                        //     'permission' => 'announcement view'
+                        // ]
                     ]
                 ],
                 [
@@ -288,6 +288,28 @@ return [
                         //     'route' => '/announcements',
                         //     'permission' => 'announcement view'
                         // ]
+                    ]
+                ],
+                [
+                    'title' => 'Public Service',
+                    'icon' => '<i class="bi bi-buildings-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'public-information view'
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Public Information',
+                            'route' => '/public-informations',
+                            'permission' => 'public-information view'
+                        ],
+                        [
+                            'title' => 'Work Accountability',
+                            'route' => '/work-accountabilities',
+                            'permission' => 'work-accountability view'
+                        ]
+
                     ]
                 ]
             ]
@@ -316,29 +338,29 @@ return [
         //         ]
         //     ]
         // ],
-        [
-            'header' => 'Main',
-            'permissions' => [
-                'test view'
-            ],
-            'menus' => [
-                [
-                    'title' => 'Main Data',
-                    'icon' => '<i class="bi bi-collection-fill"></i>',
-                    'route' => null,
-                    'permission' => null,
-                    'permissions' => [
-                        'test view'
-                    ],
-                    'submenus' => [
-                        [
-                            'title' => 'Tests',
-                            'route' => '/tests',
-                            'permission' => 'test view'
-                        ]
-                    ]
-                ]
-            ]
-        ],
+        // [
+        //     'header' => 'Main',
+        //     'permissions' => [
+        //         'test view'
+        //     ],
+        //     'menus' => [
+        //         [
+        //             'title' => 'Main Data',
+        //             'icon' => '<i class="bi bi-collection-fill"></i>',
+        //             'route' => null,
+        //             'permission' => null,
+        //             'permissions' => [
+        //                 'test view'
+        //             ],
+        //             'submenus' => [
+        //                 [
+        //                     'title' => 'Tests',
+        //                     'route' => '/tests',
+        //                     'permission' => 'test view'
+        //                 ]
+        //             ]
+        //         ]
+        //     ]
+        // ],
     ],
 ];

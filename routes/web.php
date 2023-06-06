@@ -19,6 +19,7 @@ use App\Http\Controllers\Profile\EmployeeController;
 use App\Http\Controllers\Profile\EmployeeHistoryController;
 use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
+use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
@@ -39,6 +40,9 @@ Route::get('/information', [HomeController::class, 'information'])->name('home.i
 Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
 
 Route::get('/material', [HomeController::class, 'download'])->name('home.material');
+
+Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
+
 
 
 
@@ -83,6 +87,8 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('calendars', CalendarController::class);
         Route::resource('profiletrainings', ProfileTrainingController::class);
         Route::resource('collaborations', CollaborationController::class);
+        Route::resource('public-informations', PublicInformationController::class);
+        Route::resource('work-accountabilities', WorkAccountabilityController::class);
         
 
     });
