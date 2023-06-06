@@ -36,19 +36,33 @@
                                 <table class="table table-hover table-striped">
                                     <tr>
                                         <td class="fw-bold">{{ __('Title') }}</td>
-                                        <td><span class="badge bg-success">{{ $publicInformation->title }}</span></td>
+                                        <td>{{ $publicInformation->title }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Link') }}</td>
                                         <td>{{ $publicInformation->link }}</td>
                                     </tr>
                                     <tr>
+                                        <td class="fw-bold">{{ __('Type') }}</td>
+                                        <td>
+                                            <span class="badge bg-success">
+                                                @foreach ($typePublicInformation as $itemType)
+                                                    @if ($itemType['id'] == $publicInformation->type)
+                                                        {{ $itemType['label'] }}
+                                                    @endif
+                                                @endforeach
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td class="fw-bold">{{ __('Created at') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($publicInformation->created_at)->format('j F, Y H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($publicInformation->created_at)->format('j F, Y H:i') }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Updated at') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($publicInformation->updated_at)->format('j F, Y H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($publicInformation->updated_at)->format('j F, Y H:i') }}
+                                        </td>
                                     </tr>
                                 </table>
                             </div>

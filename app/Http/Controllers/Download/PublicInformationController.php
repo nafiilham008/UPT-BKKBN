@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Download;
 
 use App\Http\Controllers\Controller;
 use App\Models\Download\PublicInformation;
+use App\Utilities\Constant;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class   PublicInformationController extends Controller
@@ -24,9 +26,14 @@ class   PublicInformationController extends Controller
      */
     public function index()
     {
+
+        $typePublicInformation = Constant::TYPE_OF_PUBLIC_INFORMATION;
+
+        // dd($typePublicInformation);
+
         $publicInformation = PublicInformation::all();
 
-        return view('download.public-information.index', compact('publicInformation'));
+        return view('public-service.public-information.index', compact('publicInformation', 'typePublicInformation'));
     }
 
     /**
@@ -36,8 +43,9 @@ class   PublicInformationController extends Controller
      */
     public function create()
     {
-        return view('download.public-information.create');
-        
+        $typePublicInformation = Constant::TYPE_OF_PUBLIC_INFORMATION;
+
+        return view('public-service.public-information.create', compact('typePublicInformation'));
     }
 
     /**
@@ -51,14 +59,17 @@ class   PublicInformationController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'link' => 'required',
+            'type_public_information' => 'required'
         ], [
             'title.required' => 'Title field is required.',
             'link.required' => 'Link field is required.',
+            'type_public_information.required' => 'Type Public Information field is required.',
         ]);
 
         $publicInformation = PublicInformation::create([
             'title' => $validated['title'],
             'link' => $validated['link'],
+            'type' => $validated['type_public_information'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
@@ -82,7 +93,10 @@ class   PublicInformationController extends Controller
     {
         $publicInformation = PublicInformation::findOrFail($id);
 
-        return view('download.public-information.show', compact('publicInformation'));
+        $typePublicInformation = Constant::TYPE_OF_PUBLIC_INFORMATION;
+
+
+        return view('public-service.public-information.show', compact('publicInformation', 'typePublicInformation'));
     }
 
     /**
@@ -95,7 +109,10 @@ class   PublicInformationController extends Controller
     {
         $publicInformation = PublicInformation::findOrFail($id);
 
-        return view('download.public-information.edit', compact('publicInformation'));
+        $typePublicInformation = Constant::TYPE_OF_PUBLIC_INFORMATION;
+
+
+        return view('public-service.public-information.edit', compact('publicInformation', 'typePublicInformation'));
     }
 
     /**
@@ -112,15 +129,18 @@ class   PublicInformationController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'link' => 'required',
+            'type_public_information' => 'required'
         ], [
             'title.required' => 'Title field is required.',
             'link.required' => 'Link field is required.',
+            'type_public_information.required' => 'Type Public Information field is required.',
         ]);
 
         
         $publicInformation->update([
             'title' => $validated['title'],
             'link' => $validated['link'],
+            'type' => $validated['type_public_information'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 

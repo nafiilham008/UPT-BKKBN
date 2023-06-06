@@ -36,7 +36,9 @@
                     onclick="handleLinkClick(event, '{{ route('home.material') }}')">Unduh</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pelayanan Publik</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.public.information' ? 'active' : '' }}"
+                    href="{{ route('home.public.information') }}"
+                    onclick="handleLinkClick(event, '{{ route('home.public.information') }}')">Pelayanan Publik</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link">Tautan</a>

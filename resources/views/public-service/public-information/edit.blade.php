@@ -53,6 +53,28 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="type_public_information"
+                                                class="form-label">{{ __('Type of Public Information') }}</label>
+                                            <select class="form-select" name="type_public_information"
+                                                id="type_public_information"
+                                                class="form-control @error('type_public_information') is-invalid @enderror"
+                                                data-parsley-required="true"
+                                                data-parsley-required-message="The Type of Public Information field is required!">
+                                                <option value="">-- Select Type of Public Information --</option>
+                                                @foreach ($typePublicInformation as $type)
+                                                    <option value="{{ $type['id'] }}"
+                                                        {{ (old('typePublicInformation') ?? $publicInformation->type) == $type['id'] ? 'selected' : '' }}>
+                                                        {{ $type['label'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('type_public_information')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="link" class="form-label">{{ __('Link') }}</label>

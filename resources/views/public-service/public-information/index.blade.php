@@ -41,7 +41,7 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
-                                            <th>Link</th>
+                                            <th>Type</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
                                             <th>Action</th>
@@ -50,18 +50,29 @@
                                     <tbody>
                                         @foreach ($publicInformation as $item)
                                             <tr>
-                                                <td><span class="badge bg-success">{{ $item->title }}</span></td>
-                                                <td>{{ $item->link }}</td>
+                                                <td>{{ $item->title }}</td>
+                                                <td>
+                                                    <span class="badge bg-success">
+                                                        @foreach ($typePublicInformation as $itemType)
+                                                            @if ($itemType['id'] == $item->type)
+                                                                {{ $itemType['label'] }}
+                                                            @endif
+                                                        @endforeach
+                                                    </span>
+                                                </td>
                                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y H:i') }}
                                                 </td>
                                                 <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('j F, Y H:i') }}
                                                 </td>
-                                                @include('download.public-information.include.action')
-
+                                                @include('public-service.public-information.include.action')
                                             </tr>
                                         @endforeach
                                     </tbody>
+
                                 </table>
+                                {{-- @foreach ($typePublicInformation as $itemType)
+                                    <td>{{ $itemType['label'] }}</td>
+                                @endforeach --}}
                             </div>
                         </div>
 
