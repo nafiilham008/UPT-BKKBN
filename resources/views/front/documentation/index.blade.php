@@ -11,7 +11,7 @@
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
-    
+
     <div class="container-fluid detail-news fade-in" id="galeri-foto">
         <h2 class="text-center bold-text mb-5">Galeri Foto</h2>
 
@@ -64,7 +64,7 @@
 
     </div>
 
-    
+
 @endsection
 
 @push('css')
@@ -189,5 +189,4 @@
 @endpush
 
 @push('js')
-    
 @endpush

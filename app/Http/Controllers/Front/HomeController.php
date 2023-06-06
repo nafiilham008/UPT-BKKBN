@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Download\Material;
+use App\Models\Download\PublicInformation;
 use App\Models\Gallery;
 use App\Models\Information\Scholarship;
 use App\Models\OtherCourse;
@@ -12,6 +13,7 @@ use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
 use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
+use App\Models\PublicService\WorkAccountability;
 use App\Models\Training\Calendar;
 use App\Models\Training\Collaboration;
 use App\Models\Training\ProfileTraining;
@@ -250,4 +252,23 @@ class HomeController extends Controller
     }
 
     // End Download
+
+    // publicService
+
+    public function publicService()
+    {
+        try {
+
+            $typePublicInformation = Constant::TYPE_OF_PUBLIC_INFORMATION;
+            $publicService = PublicInformation::all();
+
+            $workAccountability = WorkAccountability::all();
+
+            return view('front.public-service.index', compact('publicService', 'typePublicInformation', 'workAccountability'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    // End publicService
 }

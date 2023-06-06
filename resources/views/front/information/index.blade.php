@@ -76,7 +76,7 @@
                                         aria-labelledby="flush-heading{{ $item->id }}"
                                         data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
-                                            <a href="{{ $item->link }}" target="_blank">{{ $item->link }}</a>
+                                            Lihat selengkapnya <a href="{{ $item->link }}" target="_blank">Disini</a>
                                         </div>
                                     </div>
                                 </div>
