@@ -3,7 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="{{ url('/') }}">
+                    <a href="{{ route('dashboard') }}">
                         <img src="{{ asset('mazer') }}/images/logo/logo.svg" alt="Logo">
                     </a>
                 </div>

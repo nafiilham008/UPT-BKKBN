@@ -25,11 +25,11 @@
                     href="{{ route('home.documentation') }}"
                     onclick="handleLinkClick(event, '{{ route('home.documentation') }}')">Dokumentasi</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home.information' ? 'active' : '' }}"
                     href="{{ route('home.information') }}"
                     onclick="handleLinkClick(event, '{{ route('home.information') }}')">Informasi</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home.material' ? 'active' : '' }}"
                     href="{{ route('home.material') }}"
@@ -38,7 +38,7 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home.public.information' ? 'active' : '' }}"
                     href="{{ route('home.public.information') }}"
-                    onclick="handleLinkClick(event, '{{ route('home.public.information') }}')">Pelayanan Publik</a>
+                    onclick="handleLinkClick(event, '{{ route('home.public.information') }}')">Informasi Publik</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link">Tautan</a>

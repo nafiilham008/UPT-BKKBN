@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    DashboardController,
     PostController,
     UserController,
     ProfileController,
@@ -12,6 +13,7 @@ use App\Http\Controllers\Download\MaterialController;
 use App\Http\Controllers\Download\PublicInformationController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Information\AnnouncementController;
+use App\Http\Controllers\Information\ButtonBanner;
 use App\Http\Controllers\Information\OtherCourseController;
 use App\Http\Controllers\Information\ScholarshipController;
 use App\Http\Controllers\Profile\EducationHistoryController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\Profile\EmployeeController;
 use App\Http\Controllers\Profile\EmployeeHistoryController;
 use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
+use App\Http\Controllers\PublicService\ServiceInformationController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
@@ -36,7 +39,8 @@ Route::get('/training', [HomeController::class, 'training'])->name('home.trainin
 
 Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
 
-Route::get('/information', [HomeController::class, 'information'])->name('home.information');
+Route::get('/scholarship', [HomeController::class, 'scholarship'])->name('home.scholarship');
+Route::get('/other-course', [HomeController::class, 'otherCourse'])->name('home.other.course');
 Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
 
 Route::get('/material', [HomeController::class, 'download'])->name('home.material');
@@ -51,7 +55,8 @@ Route::get('/public-information', [HomeController::class, 'publicService'])->nam
 
 Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {
-        Route::get('/', fn () => view('dashboard'));
+        // Route::get('/', fn () => view('dashboard'));
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/profile', ProfileController::class)->name('profile');
 
@@ -89,6 +94,9 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('collaborations', CollaborationController::class);
         Route::resource('public-informations', PublicInformationController::class);
         Route::resource('work-accountabilities', WorkAccountabilityController::class);
+        Route::resource('button-banners', ButtonBanner::class);
+        Route::resource('service-informations', ServiceInformationController::class);
+
         
 
     });

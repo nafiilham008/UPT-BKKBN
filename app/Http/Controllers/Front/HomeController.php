@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Download\Material;
 use App\Models\Download\PublicInformation;
 use App\Models\Gallery;
+use App\Models\Information\ButtonBanner;
 use App\Models\Information\Scholarship;
 use App\Models\OtherCourse;
 use App\Models\Post;
@@ -13,11 +14,14 @@ use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
 use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
+use App\Models\PublicService\ServiceInformation;
 use App\Models\PublicService\WorkAccountability;
 use App\Models\Training\Calendar;
 use App\Models\Training\Collaboration;
 use App\Models\Training\ProfileTraining;
+use App\Models\visitor;
 use App\Utilities\Constant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -34,8 +38,57 @@ class HomeController extends Controller
 
         $constant = Constant::CATEGORY;
 
-        return view('front.landing.index', compact('banner', 'postNews', 'postArticle', 'postInformation', 'constant', 'history'));
+        $buttonBanner = ButtonBanner::all();
+        
+
+
+        return view('front.landing.index', compact('banner', 'postNews', 'postArticle', 'postInformation', 'constant', 'history', 'buttonBanner'));
     }
+
+    public function trackVisitor()
+    {
+        $date = Carbon::now()->toDateString();
+        $dayOfWeek = Carbon::now()->dayOfWeek;
+        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
+        $startOfYear = Carbon::now()->startOfYear()->toDateString();
+
+        // Cek apakah session pengunjung telah diset
+        if (!session()->has('visitor')) {
+            $visitor = Visitor::firstOrNew(['date' => $date]);
+            $visitor->day_count++;
+            $visitor->save();
+
+            // Set session pengunjung
+            session(['visitor' => $visitor->id]);
+        } else {
+            $visitorId = session('visitor');
+            $visitor = Visitor::find($visitorId);
+
+            // Cek apakah pengunjung telah tercatat pada hari yang sama
+            if ($visitor && $visitor->date === $date) {
+                // Jika pengunjung sudah tercatat pada hari yang sama, tidak ada penambahan
+                return;
+            } else {
+                // Jika pengunjung baru atau hari berbeda, tambahkan pengunjung baru
+                $newVisitor = Visitor::create(['date' => $date]);
+                $newVisitor->day_count++;
+
+                // Update session pengunjung
+                session(['visitor' => $newVisitor->id]);
+            }
+        }
+
+        // Reset week_count jika hari saat ini adalah hari Senin
+        if ($dayOfWeek === Carbon::MONDAY) {
+            Visitor::where('date', '>=', $startOfWeek)->update(['week_count' => 0]);
+        }
+
+        Visitor::where('date', '>=', $startOfWeek)->increment('week_count');
+        Visitor::where('date', '>=', $startOfMonth)->increment('month_count');
+        Visitor::where('date', '>=', $startOfYear)->increment('year_count');
+    }
+
 
     public function getPostNews()
     {
@@ -201,18 +254,28 @@ class HomeController extends Controller
             return $th->getMessage();
         }
     }
-    
+
     // End Documentation
 
     // Information
 
-    public function information()
+    public function scholarship()
     {
         try {
-            $information = Scholarship::all();
+            $scholarship = Scholarship::all();
 
+            return view('front.scholarship.index', compact('scholarship'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function otherCourse()
+    {
+        try {
             $otherCourse = $this->getOtherCourse();
-            return view('front.information.index', compact('information', 'otherCourse'));
+
+            return view('front.other-course.index', compact('otherCourse'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -229,13 +292,13 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getOtherCourse ()
+    public function getOtherCourse()
     {
         $otherCourse = OtherCourse::all();
-        
+
         return $otherCourse;
     }
-    
+
     // End Information
 
     // Download
@@ -263,8 +326,9 @@ class HomeController extends Controller
             $publicService = PublicInformation::all();
 
             $workAccountability = WorkAccountability::all();
+            $serviceInformation = ServiceInformation::all();
 
-            return view('front.public-service.index', compact('publicService', 'typePublicInformation', 'workAccountability'));
+            return view('front.public-service.index', compact('publicService', 'typePublicInformation', 'workAccountability', 'serviceInformation'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
