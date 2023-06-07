@@ -227,16 +227,6 @@ return [
                             'route' => '/materials',
                             'permission' => 'material view'
                         ],
-                        // [
-                        //     'title' => 'Other Course',
-                        //     'route' => '/courses',
-                        //     'permission' => 'course view'
-                        // ],
-                        // [
-                        //     'title' => 'Announcement',
-                        //     'route' => '/announcements',
-                        //     'permission' => 'announcement view'
-                        // ]
                     ]
                 ],
                 [

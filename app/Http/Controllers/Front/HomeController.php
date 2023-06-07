@@ -39,10 +39,12 @@ class HomeController extends Controller
         $constant = Constant::CATEGORY;
 
         $buttonBanner = ButtonBanner::all();
+
+        $trackVisitor = $this->trackVisitor();
         
 
 
-        return view('front.landing.index', compact('banner', 'postNews', 'postArticle', 'postInformation', 'constant', 'history', 'buttonBanner'));
+        return view('front.landing.index', compact('banner', 'postNews', 'postArticle', 'postInformation', 'constant', 'history', 'buttonBanner', 'trackVisitor'));
     }
 
     public function trackVisitor()

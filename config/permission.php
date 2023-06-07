@@ -322,11 +322,11 @@ return [
                 'service-information delete',
             ]
         ],
-        [
-            'group' => 'tests',
-            'access' => [
-                'test view',
-            ]
-        ],
+        // [
+        //     'group' => 'tests',
+        //     'access' => [
+        //         'test view',
+        //     ]
+        // ],
     ],
 ];
