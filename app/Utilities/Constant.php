@@ -12,10 +12,6 @@ class Constant
         'Artikel' => [
             'id' => 2,
             'label' => 'Artikel',
-        ],
-        'Informasi' => [
-            'id' => 3,
-            'label' => 'Informasi',
         ]
     ];
 
