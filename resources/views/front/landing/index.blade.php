@@ -63,7 +63,7 @@
     <div class="background-image-overlay d-flex align-items-center justify-content-center">
         <div class="overlay-divider-landing"></div>
         <div class="overlay-text">
-            <h1>Informasi Kediklatan Terbaru</h1>
+            <h1>Informasi Diklat</h1>
             <a href="" class="btn btn-overlay">Lihat Selengkapnya</a>
         </div>
         <div class="overlay-divider-landing"></div>
@@ -109,24 +109,6 @@
                         </div>
                     </div>
 
-
-
-
-                    {{-- <nav aria-label="content">
-                        <ul class="pagination d-flex justify-content-center">
-                            <li class="page-item disabled">
-                                <span class="page-link">Previous</span>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item" aria-current="page">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav> --}}
                 </div>
             </div>
             <div class="col-sm-4 col-lg-4">
@@ -135,12 +117,12 @@
                         <h4 class="fs-custom2">LAYANAN INFORMASI</h4>
                     </div>
                     <div class="card-body text-center">
-                        <a href="#" class="text-decoration-none text-dark btn btn-outline-light btn-banner"
-                            style="background-image: url('{{ asset('img/banner-tombol-dump/kediklatan.png') }}');">
-                        </a>
-                        <a href="#" class="text-decoration-none text-dark btn btn-outline-light btn-banner"
-                            style="background-image: url('{{ asset('img/banner-tombol-dump/pengumuman.png') }}');">
-                        </a>
+                        @foreach ($buttonBanner as $item)
+                            <a href="{{ $item->link }}"
+                                class="text-decoration-none text-dark btn btn-outline-light btn-banner"
+                                style="background-image: url('{{ asset('uploads/images/information/button-banner/' . $item->photo) }}');">
+                            </a>
+                        @endforeach
                     </div>
 
 

@@ -3,13 +3,13 @@
         <i class="fa fa-eye"></i>
     </a>
 
-    @can('employee edit')
+    @can('course edit')
         <a href="{{ route('courses.edit', $item->id) }}" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-pencil-alt"></i>
         </a>
     @endcan
 
-    @can('employee delete')
+    @can('course delete')
         <form action="{{ route('courses.destroy', $item->id) }}" method="post"
             class="d-inline"
             onsubmit="return confirm('Are you sure to delete this record?')">
