@@ -11,7 +11,9 @@
 /public/uploads/images/profile/employee-photo/*
 /public/uploads/images/training/collaboration-logo/*
 /public/uploads/images/information/scholarship/*
+/public/uploads/images/information/button-banner/*
 /public/uploads/images/information/other-course/*
+/public/uploads/images/public-service/service-information/*
 
 /storage/*.key
 /vendor
