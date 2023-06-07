@@ -305,6 +305,24 @@ return [
             ]
         ],
         [
+            'group' => 'button-banner',
+            'access' => [
+                'button-banner view',
+                'button-banner create',
+                'button-banner edit',
+                'button-banner delete',
+            ]
+        ],
+        [
+            'group' => 'service-information',
+            'access' => [
+                'service-information view',
+                'service-information create',
+                'service-information edit',
+                'service-information delete',
+            ]
+        ],
+        [
             'group' => 'tests',
             'access' => [
                 'test view',
