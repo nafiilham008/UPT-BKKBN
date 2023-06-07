@@ -20,7 +20,7 @@
                 <a class="nav-link" href="#" data-target="akuntabilitas-kerja">Akuntabilitas kerja</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-target="standar-layanan">Standar Layanan</a>
+                <a class="nav-link" href="#" data-target="maklumat-pelayanan">Maklumat Pelayanan</a>
             </li>
 
         </ul>
@@ -73,7 +73,8 @@
                                                                         <td>{{ $iterationCount }}. </td>
                                                                         <td>{{ $itemPublicInformation->title }}</td>
                                                                         <td>
-                                                                            <a href="{{ $itemPublicInformation->link }}" target="_blank">Lihat
+                                                                            <a href="{{ $itemPublicInformation->link }}"
+                                                                                target="_blank">Lihat
                                                                                 Detail</a>
                                                                         </td>
                                                                     </tr>
@@ -126,6 +127,15 @@
         </table>
     </div>
 
+    <div class="container-fluid detail-news fade-in d-none" id="maklumat-pelayanan">
+        <h2 class="text-center bold-text mb-5">Maklumat Pelayanan</h2>
+        @foreach ($serviceInformation as $item)
+            <div class="center-img-service">
+                <img src="{{ asset('uploads/images/public-service/service-information/' . $item->photo) }}" alt="">
+            </div>
+        @endforeach
+    </div>
+
 @endsection
 
 @push('css')
@@ -149,6 +159,19 @@
 
         .bg-menu-doc .nav-link.active {
             color: #fff;
+        }
+
+        .center-img-service {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .center-img-service img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 500px !important;
         }
 
         @media (max-width: 767px) {
