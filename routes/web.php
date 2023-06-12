@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     DashboardController,
+    KediklatanController,
     PostController,
     UserController,
     ProfileController,
@@ -46,6 +47,8 @@ Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholars
 Route::get('/material', [HomeController::class, 'download'])->name('home.material');
 
 Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
+
+Route::get('/kediklatan', [HomeController::class, 'kediklatan'])->name('home.kediklatan');
 
 
 
@@ -96,6 +99,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('work-accountabilities', WorkAccountabilityController::class);
         Route::resource('button-banners', ButtonBanner::class);
         Route::resource('service-informations', ServiceInformationController::class);
+        Route::resource('kediklatans', KediklatanController::class);
 
         
 

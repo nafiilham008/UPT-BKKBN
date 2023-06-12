@@ -322,6 +322,15 @@ return [
                 'service-information delete',
             ]
         ],
+        [
+            'group' => 'kediklatan',
+            'access' => [
+                'kediklatan view',
+                'kediklatan create',
+                'kediklatan edit',
+                'kediklatan delete',
+            ]
+        ],
         // [
         //     'group' => 'tests',
         //     'access' => [
