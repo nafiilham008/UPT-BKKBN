@@ -8,6 +8,7 @@ use App\Models\Download\PublicInformation;
 use App\Models\Gallery;
 use App\Models\Information\ButtonBanner;
 use App\Models\Information\Scholarship;
+use App\Models\Kediklatan;
 use App\Models\OtherCourse;
 use App\Models\Post;
 use App\Models\Profile\EducationHistory;
@@ -265,7 +266,7 @@ class HomeController extends Controller
     {
         try {
             $scholarship = Scholarship::all();
-
+            
             return view('front.scholarship.index', compact('scholarship'));
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -337,4 +338,22 @@ class HomeController extends Controller
     }
 
     // End publicService
+
+    // Kediklatan Landingpage
+
+    public function kediklatan()
+    {
+        try {
+            $kediklatan = Kediklatan::all();
+
+            $getImage = Kediklatan::whereNotNull('photo')->first();
+
+            
+            return view('front.kediklatan.index', compact('kediklatan', 'getImage'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    // end Kediklatan Landingpage
 }
