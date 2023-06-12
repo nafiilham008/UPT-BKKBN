@@ -64,7 +64,7 @@
         <div class="overlay-divider-landing"></div>
         <div class="overlay-text">
             <h1>Informasi Diklat</h1>
-            <a href="" class="btn btn-overlay">Lihat Selengkapnya</a>
+            <a href="{{ route('home.kediklatan') }}" class="btn btn-overlay">Lihat Selengkapnya</a>
         </div>
         <div class="overlay-divider-landing"></div>
         <img class="img-fluid-training-info" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">

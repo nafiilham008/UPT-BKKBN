@@ -18,20 +18,17 @@
         <h2 class="text-center bold-text mb-5">Beasiswa</h2>
 
         <div class="gallery-image">
-            @if (!empty($scholarship))
-                @foreach ($scholarship as $item)
-                    <div class="img-box">
-                        <a href="#" data-bs-toggle="modal" data-target="#detail-scholarship{{ $item->id }}"
-                            data-id="{{ $item->id }}">
-                            <img class="img-banner-scholarship"
-                                src="{{ asset('uploads/images/information/scholarship/' . $item->photo) }}"
-                                alt="" />
-                        </a>
-                    </div>
-                @endforeach
-            @else
+            @forelse ($scholarship as $item)
+                <div class="img-box">
+                    <a href="#" data-bs-toggle="modal" data-target="#detail-scholarship{{ $item->id }}"
+                        data-id="{{ $item->id }}">
+                        <img class="img-banner-scholarship"
+                            src="{{ asset('uploads/images/information/scholarship/' . $item->photo) }}" alt="" />
+                    </a>
+                </div>
+            @empty
                 <p>Beasiswa belum tersedia.</p>
-            @endif
+            @endforelse
         </div>
 
         @foreach ($scholarship as $item)
@@ -39,6 +36,7 @@
                 'id' => $item->id,
             ])
         @endforeach
+
 
     </div>
 

@@ -41,7 +41,7 @@
                     onclick="handleLinkClick(event, '{{ route('home.public.information') }}')">Informasi Publik</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">Tautan</a>
+                <a href="#" class="nav-link">Tautan</a>
             </li>
         </ul>
         <form class="d-flex" role="search">

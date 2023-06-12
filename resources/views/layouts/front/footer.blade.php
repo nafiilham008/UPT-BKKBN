@@ -17,25 +17,25 @@
             </div>
             <div class="col-lg-3 col-sm-3">
                 @php
-                    use App\Models\Visitor;
+                    use App\Models\visitor;
                     use Carbon\Carbon;
                     
-                    $todayVisitor = Visitor::where('date', Carbon::now()->toDateString())->sum('day_count');
-                    $thisWeekVisitor = Visitor::where(
+                    $todayVisitor = visitor::where('date', Carbon::now()->toDateString())->sum('day_count');
+                    $thisWeekVisitor = visitor::where(
                         'date',
                         '>=',
                         Carbon::now()
                             ->startOfWeek()
                             ->toDateString(),
                     )->sum('week_count');
-                    $thisMonthVisitor = Visitor::where(
+                    $thisMonthVisitor = visitor::where(
                         'date',
                         '>=',
                         Carbon::now()
                             ->startOfMonth()
                             ->toDateString(),
                     )->sum('month_count');
-                    $thisYearVisitor = Visitor::where(
+                    $thisYearVisitor = visitor::where(
                         'date',
                         '>=',
                         Carbon::now()
