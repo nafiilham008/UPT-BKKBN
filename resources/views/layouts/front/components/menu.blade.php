@@ -41,12 +41,23 @@
                     onclick="handleLinkClick(event, '{{ route('home.public.information') }}')">Informasi Publik</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Tautan</a>
+                <a class="nav-link {{ Route::currentRouteName() == 'home.tautan' ? 'active' : '' }}"
+                    href="{{ route('home.tautan') }}"
+                    onclick="handleLinkClick(event, '{{ route('home.tautan') }}')">Tautan</a>
             </li>
         </ul>
-        <form class="d-flex" role="search">
+        <div class="search-container" id="expand">
+            <input class="form-control me-2 font-14" type="search" placeholder="Search" aria-label="Search"
+                id="searchInput" oninput="handleSearchInput(event)">
+            <div id="searchResults" class="search-results d-none"></div>
+        </div>
+        {{-- <form class="d-flex" role="search">
+        </form> --}}
+
+
+        {{-- <form class="d-flex" role="search">
             <input class="form-control me-2 font-14" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success font-14" type="submit"><i class="bi bi-search"></i></button>
-        </form>
+        </form> --}}
     </div>
 </div>

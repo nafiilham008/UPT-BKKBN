@@ -9,6 +9,7 @@ use App\Models\Gallery;
 use App\Models\Information\ButtonBanner;
 use App\Models\Information\Scholarship;
 use App\Models\Kediklatan;
+use App\Models\Link\Link;
 use App\Models\OtherCourse;
 use App\Models\Post;
 use App\Models\Profile\EducationHistory;
@@ -42,7 +43,7 @@ class HomeController extends Controller
         $buttonBanner = ButtonBanner::all();
 
         $trackVisitor = $this->trackVisitor();
-        
+
 
 
         return view('front.landing.index', compact('banner', 'postNews', 'postArticle', 'postInformation', 'constant', 'history', 'buttonBanner', 'trackVisitor'));
@@ -266,7 +267,7 @@ class HomeController extends Controller
     {
         try {
             $scholarship = Scholarship::all();
-            
+
             return view('front.scholarship.index', compact('scholarship'));
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -348,7 +349,7 @@ class HomeController extends Controller
 
             $getImage = Kediklatan::whereNotNull('photo')->first();
 
-            
+
             return view('front.kediklatan.index', compact('kediklatan', 'getImage'));
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -356,4 +357,34 @@ class HomeController extends Controller
     }
 
     // end Kediklatan Landingpage
+
+    // Link Landingpage
+
+    public function tautan()
+    {
+        try {
+            $link = Link::all();
+
+
+            return view('front.link.index', compact('link'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    // end Link Landingpage
+
+    // Search Landingpage
+    public function search(Request $request)
+    {
+        $keyword = $request->query('keyword');
+
+        $results = Post::with('categories', 'users')
+        ->where('status', 1)->where('title', 'like', '%' . $keyword . '%')->get();
+
+        return response()->json($results);
+    }
+    // end Search Landingpage
+
+
 }

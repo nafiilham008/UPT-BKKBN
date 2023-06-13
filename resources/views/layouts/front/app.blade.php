@@ -53,6 +53,48 @@
             }
         }
     </style>
+    <style>
+        .search-container {
+            position: relative;
+            display: inline-block;
+            /* width: 100%; */
+            /* Atur lebar sesuai kebutuhan Anda */
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            /* Munculkan hasil pencarian di bawah input */
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            max-height: 200px;
+            /* Atur tinggi maksimal sesuai kebutuhan Anda */
+            overflow-y: auto;
+            /* Aktifkan scroll jika hasil pencarian melebihi tinggi maksimal */
+        }
+
+        .search-result {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .search-result:hover {
+            background-color: #f5f5f5;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .expanded {
+            width: 400px !important;
+            /* z-index: 9999; */
+        }
+    </style>
 
     @stack('css')
 
@@ -96,6 +138,65 @@
             event.preventDefault(); // Mencegah perilaku default dari tautan
 
             window.location.href = url;
+        }
+    </script>
+    <script>
+        function expandSearchInput() {
+            const searchInput = document.getElementById('expand');
+            searchInput.classList.add('expanded');
+        }
+
+        function shrinkSearchInput() {
+            const searchInput = document.getElementById('expand');
+            searchInput.classList.remove('expanded');
+        }
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('focus', expandSearchInput);
+            searchInput.addEventListener('blur', shrinkSearchInput);
+        });
+
+
+        // Handle
+        function handleSearchInput(event) {
+            const searchInput = event.target.value;
+            const searchResults = document.getElementById('searchResults');
+
+            if (searchInput.trim().length > 0) {
+                // Lakukan permintaan AJAX ke endpoint pencarian
+                // Misalnya, '/search'
+                fetch(`/search?keyword=${encodeURIComponent(searchInput)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Hapus semua hasil pencarian sebelumnya
+                        while (searchResults.firstChild) {
+                            searchResults.firstChild.remove();
+                        }
+
+                        // Tampilkan hasil pencarian
+                        data.forEach(result => {
+                            const resultItem = document.createElement('div');
+                            resultItem.classList.add('search-result');
+                            resultItem.textContent = result.title;
+                            resultItem.addEventListener('click', () => {
+                                window.location.href =
+                                    `/${result.categories.label}/detail/${result.slug_url}`;
+                            });
+                            searchResults.appendChild(resultItem);
+                        });
+
+                        searchResults.classList.remove('d-none');
+                    });
+            } else {
+                // Jika input pencarian kosong, hapus semua hasil pencarian
+                while (searchResults.firstChild) {
+                    searchResults.firstChild.remove();
+                }
+
+                searchResults.classList.add('d-none');
+            }
         }
     </script>
 

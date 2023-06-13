@@ -71,10 +71,10 @@
     </div>
 
     <!-- Tabs -->
-    <div class="container-fluid fade-in">
+    <div class="container-fluid">
         <div class="row px-7 py-3">
             <div class="col-sm-8 col-lg-8">
-                <div class="card rounded-4 fade-in">
+                <div class="card rounded-4">
 
                     <div class="card-header rounded-top-4">
                         <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
@@ -227,15 +227,18 @@
     <script>
         function applyLineClamp() {
             var element = document.getElementById('description');
-            var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
-            var maxHeight = lineHeight * 3; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
 
-            var text = element.innerText;
-            var truncatedText = text;
+            if (element) {
+                var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
+                var maxHeight = lineHeight * 3; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
 
-            while (element.scrollHeight > maxHeight) {
-                truncatedText = truncatedText.slice(0, -1);
-                element.innerText = truncatedText + '...';
+                var text = element.innerText;
+                var truncatedText = text;
+
+                while (element.scrollHeight > maxHeight) {
+                    truncatedText = truncatedText.slice(0, -1);
+                    element.innerText = truncatedText + '...';
+                }
             }
         }
 
