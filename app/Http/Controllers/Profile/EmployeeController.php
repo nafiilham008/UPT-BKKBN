@@ -139,10 +139,10 @@ class EmployeeController extends Controller
 
         if ($employeeCreate) {
             //redirect dengan pesan sukses
-            return redirect()->route('employees.index')->with('success', __('The employee was posted successfully.'));
+            return redirect()->route('dashboard.employees.index')->with('success', __('The employee was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('employees.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.employees.index')->with('error', __('Failed'));
         }
     }
 
@@ -317,10 +317,10 @@ class EmployeeController extends Controller
 
         if ($employee) {
             //redirect dengan pesan sukses
-            return redirect()->route('employees.index')->with('success', __('The employee was updated successfully.'));
+            return redirect()->route('dashboard.employees.index')->with('success', __('The employee was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('employees.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.employees.index')->with('error', __('Failed'));
         }
     }
 
@@ -342,10 +342,10 @@ class EmployeeController extends Controller
 
         if ($employee) {
             //redirect dengan pesan sukses
-            return redirect()->route('employees.index')->with('success', __('The employee was deleted successfully.'));
+            return redirect()->route('dashboard.employees.index')->with('success', __('The employee was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('employees.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.employees.index')->with('error', __('Failed'));
         }
     }
 }

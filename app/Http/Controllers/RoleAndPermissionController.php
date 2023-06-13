@@ -63,7 +63,7 @@ class RoleAndPermissionController extends Controller
         $role->givePermissionTo($request->permissions);
 
         return redirect()
-            ->route('roles.index')
+            ->route('dashboard.roles.index')
             ->with('success', __('The role was created successfully.'));
     }
 
@@ -109,7 +109,7 @@ class RoleAndPermissionController extends Controller
         $role->syncPermissions($request->permissions);
 
         return redirect()
-            ->route('roles.index')
+            ->route('dashboard.roles.index')
             ->with('success', __('The role was updated successfully.'));
     }
 
@@ -128,11 +128,11 @@ class RoleAndPermissionController extends Controller
             $role->delete();
 
             return redirect()
-                ->route('roles.index')
+                ->route('dashboard.roles.index')
                 ->with('success', __('The role was deleted successfully.'));
         } else {
             return redirect()
-                ->route('roles.index')
+                ->route('dashboard.roles.index')
                 ->with('error', __('Can`t delete role.'));
         }
 

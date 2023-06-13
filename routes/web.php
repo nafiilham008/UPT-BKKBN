@@ -68,44 +68,44 @@ Route::middleware(['auth', 'web'])->group(function () {
 
         Route::get('/profile', ProfileController::class)->name('profile');
 
-        Route::resource('users', UserController::class);
-        Route::resource('roles', RoleAndPermissionController::class);
+        Route::resource('users', UserController::class)->names('dashboard.users');
+        Route::resource('roles', RoleAndPermissionController::class)->names('dashboard.roles');
 
-        Route::resource('posts', PostController::class);
-        Route::resource('highlights', HighlightController::class);
+        Route::resource('posts', PostController::class)->names('dashboard.posts');
+        Route::resource('highlights', HighlightController::class)->names('dashboard.highlights');
 
-        Route::resource('historicals', HistoricalController::class);
-        Route::resource('jobandfuncs', JobandfuncController::class);
-        Route::resource('employees', EmployeeController::class);
-        Route::resource('scholarships', ScholarshipController::class);
-        Route::resource('courses', OtherCourseController::class);
-        Route::resource('announcements', AnnouncementController::class);
-        Route::resource('public-informations', PublicInformationController::class);
-        Route::resource('materials', MaterialController::class);
+        Route::resource('historicals', HistoricalController::class)->names('dashboard.historicals');
+        Route::resource('jobandfuncs', JobandfuncController::class)->names('dashboard.jobandfuncs');
+        Route::resource('employees', EmployeeController::class)->names('dashboard.employees');
+        Route::resource('scholarships', ScholarshipController::class)->names('dashboard.scholarships');
+        Route::resource('courses', OtherCourseController::class)->names('dashboard.courses');
+        Route::resource('announcements', AnnouncementController::class)->names('dashboard.announcements');
+        Route::resource('public-informations', PublicInformationController::class)->names('dashboard.public-informations');
+        Route::resource('materials', MaterialController::class)->names('dashboard.materials');
 
         // Education History
-        Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('employees.educations');
-        Route::post('/employees/{id}/educations/delete', [EducationHistoryController::class, 'destroy'])->name('educations.destroy');
-        Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('educations.store');        
-        Route::get('/employees/{employeeId}/educations/{educationId}/edit', [EducationHistoryController::class, 'edit'])->name('educations.edit');
-        Route::put('/employees/{id}/educations/{education_id}', [EducationHistoryController::class, 'update'])->name('employees.educations.update');
+        Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('dashboard.employees.educations');
+        Route::post('/employees/{id}/educations/delete', [EducationHistoryController::class, 'destroy'])->name('dashboard.educations.destroy');
+        Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('dashboard.educations.store');        
+        Route::get('/employees/{employeeId}/educations/{educationId}/edit', [EducationHistoryController::class, 'edit'])->name('dashboard.educations.edit');
+        Route::put('/employees/{id}/educations/{education_id}', [EducationHistoryController::class, 'update'])->name('dashboard.employees.educations.update');
         
         // Employee History
-        Route::get('/employees/{id}/history', [EmployeeController::class, 'getEmployeeHistory'])->name('employees.history');
-        Route::post('/employees/{id}/history', [EmployeeHistoryController::class, 'store'])->name('employees.history.store');    
-        Route::get('/employees/{employeeId}/history/{educationId}/edit', [EmployeeHistoryController::class, 'edit'])->name('employees.history.edit');
-        Route::put('/employees/{id}/history/{education_id}', [EmployeeHistoryController::class, 'update'])->name('employees.educations.update');
-        Route::post('/employees/{id}/history/delete', [EmployeeHistoryController::class, 'destroy'])->name('employees.history.destroy');
+        Route::get('/employees/{id}/history', [EmployeeController::class, 'getEmployeeHistory'])->name('dashboard.employees.history');
+        Route::post('/employees/{id}/history', [EmployeeHistoryController::class, 'store'])->name('dashboard.employees.history.store');    
+        Route::get('/employees/{employeeId}/history/{educationId}/edit', [EmployeeHistoryController::class, 'edit'])->name('dashboard.employees.history.edit');
+        Route::put('/employees/{id}/history/{education_id}', [EmployeeHistoryController::class, 'update'])->name('dashboard.employees.educations.update');
+        Route::post('/employees/{id}/history/delete', [EmployeeHistoryController::class, 'destroy'])->name('dashboard.employees.history.destroy');
 
-        Route::resource('calendars', CalendarController::class);
-        Route::resource('profiletrainings', ProfileTrainingController::class);
-        Route::resource('collaborations', CollaborationController::class);
-        Route::resource('public-informations', PublicInformationController::class);
-        Route::resource('work-accountabilities', WorkAccountabilityController::class);
-        Route::resource('button-banners', ButtonBanner::class);
-        Route::resource('service-informations', ServiceInformationController::class);
-        Route::resource('kediklatans', KediklatanController::class);
-        Route::resource('links', LinkController::class);
+        Route::resource('calendars', CalendarController::class)->names('dashboard.calendars');
+        Route::resource('profiletrainings', ProfileTrainingController::class)->names('dashboard.profiletrainings');
+        Route::resource('collaborations', CollaborationController::class)->names('dashboard.collaborations');
+        // Route::resource('public-informations', PublicInformationController::class)->names('dashboard.posts');
+        Route::resource('work-accountabilities', WorkAccountabilityController::class)->names('dashboard.work-accountabilities');
+        Route::resource('button-banners', ButtonBanner::class)->names('dashboard.button-banners');
+        Route::resource('service-informations', ServiceInformationController::class)->names('dashboard.service-informations');
+        Route::resource('kediklatans', KediklatanController::class)->names('dashboard.kediklatans');
+        Route::resource('links', LinkController::class)->names('dashboard.links');
 
         
 

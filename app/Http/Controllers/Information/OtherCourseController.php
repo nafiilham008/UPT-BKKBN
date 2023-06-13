@@ -91,10 +91,10 @@ class OtherCourseController extends Controller
 
         if ($course) {
             //redirect dengan pesan sukses
-            return redirect()->route('courses.index')->with('success', __('The course was posted successfully.'));
+            return redirect()->route('dashboard.courses.index')->with('success', __('The course was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('courses.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.courses.index')->with('error', __('Failed'));
         }
     }
 
@@ -181,10 +181,10 @@ class OtherCourseController extends Controller
 
         if ($course) {
             //redirect dengan pesan sukses
-            return redirect()->route('courses.index')->with('success', __('The course was updated successfully.'));
+            return redirect()->route('dashboard.courses.index')->with('success', __('The course was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('courses.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.courses.index')->with('error', __('Failed'));
         }
     }
 
@@ -207,10 +207,10 @@ class OtherCourseController extends Controller
 
         if ($course) {
             //redirect dengan pesan sukses
-            return redirect()->route('courses.index')->with('success', __('The course was deleted successfully.'));
+            return redirect()->route('dashboard.courses.index')->with('success', __('The course was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('courses.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.courses.index')->with('error', __('Failed'));
         }
     }
 }

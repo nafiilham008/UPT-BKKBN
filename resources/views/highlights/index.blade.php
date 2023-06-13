@@ -55,7 +55,7 @@
                                                         class="badge {{ $item->highlight == 1 ? 'bg-info' : 'bg-danger' }}">{{ $item->highlight == 1 ? 'Aktif' : 'Tidak Aktif' }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('highlights.show', $item->id) }}"
+                                                    <a href="{{ route('dashboard.highlights.show', $item->id) }}"
                                                         class="btn btn-outline-success btn-sm">
                                                         <i class="fa fa-eye"></i>
                                                     </a>

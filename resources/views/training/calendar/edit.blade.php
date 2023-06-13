@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('calendars.index') }}">{{ __('Training Calendar') }}</a>
+                        <a href="{{ route('dashboard.calendars.index') }}">{{ __('Training Calendar') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('calendars.update', $calendar->id) }}" method="POST"
+                        <form action="{{ route('dashboard.calendars.update', $calendar->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -72,7 +72,7 @@
 
                             </div>
 
-                            <a href="{{ route('calendars.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
+                            <a href="{{ route('dashboard.calendars.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
 
                             <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                         </form>

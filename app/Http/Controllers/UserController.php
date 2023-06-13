@@ -100,7 +100,7 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         return redirect()
-            ->route('users.index')
+            ->route('dashboard.users.index')
             ->with('success', __('The user was created successfully.'));
     }
 
@@ -181,7 +181,7 @@ class UserController extends Controller
         $user->syncRoles($request->role);
 
         return redirect()
-            ->route('users.index')
+            ->route('dashboard.users.index')
             ->with('success', __('The user was updated successfully.'));
     }
 
@@ -200,7 +200,7 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()
-            ->route('users.index')
+            ->route('dashboard.users.index')
             ->with('success', __('The user was deleted successfully.'));
     }
 }

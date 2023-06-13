@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('button-banners.index') }}">{{ __('Button Banner') }}</a>
+                        <a href="{{ route('dashboard.button-banners.index') }}">{{ __('Button Banner') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('button-banners.update', $buttonBanner->id) }}" method="POST"
+                            <form action="{{ route('dashboard.button-banners.update', $buttonBanner->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -100,7 +100,7 @@
 
 
 
-                                <a href="{{ route('button-banners.index') }}"
+                                <a href="{{ route('dashboard.button-banners.index') }}"
                                     class="btn btn-secondary">{{ __('Back') }}</a>
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

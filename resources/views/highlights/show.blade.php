@@ -18,7 +18,7 @@
                         <a href="/">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('highlights.index') }}">{{ __('Highlight') }}</a>
+                        <a href="{{ route('dashboard.highlights.index') }}">{{ __('Highlight') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Detail') }}
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="{{ route('highlights.update', $post->id) }}" method="POST"
+                        <form action="{{ route('dashboard.highlights.update', $post->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

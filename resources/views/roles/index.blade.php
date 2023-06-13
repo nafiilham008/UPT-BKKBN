@@ -24,7 +24,7 @@
 
             @can('role & permission create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('roles.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.roles.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Create a new role') }}
                     </a>
@@ -67,7 +67,7 @@
         $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('roles.index') }}",
+            ajax: "{{ route('dashboard.roles.index') }}",
             columns: [{
                     data: 'name',
                     name: 'name'

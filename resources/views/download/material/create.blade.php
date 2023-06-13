@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('materials.index') }}">{{ __('Material') }}</a>
+                        <a href="{{ route('dashboard.materials.index') }}">{{ __('Material') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('materials.store') }}" method="POST" enctype="multipart/form-data"
+                            <form action="{{ route('dashboard.materials.store') }}" method="POST" enctype="multipart/form-data"
                                 data-parsley-validate>
                                 @csrf
                                 @method('POST')

@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('service-informations.index') }}">{{ __('Service Information') }}</a>
+                        <a href="{{ route('dashboard.service-informations.index') }}">{{ __('Service Information') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('service-informations.store') }}" method="POST"
+                            <form action="{{ route('dashboard.service-informations.store') }}" method="POST"
                                 enctype="multipart/form-data" data-parsley-validate>
                                 @csrf
                                 @method('POST')

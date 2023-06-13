@@ -42,7 +42,7 @@ class ServiceInformationController extends Controller
 
 
         if ($serviceInformation->count() == 1) {
-            return redirect()->route('service-informations.index')->with('error', 'Service Information already exists.');
+            return redirect()->route('dashboard.service-informations.index')->with('error', 'Service Information already exists.');
         } else {
             return view('public-service.service-information.create');
         }
@@ -93,10 +93,10 @@ class ServiceInformationController extends Controller
 
         if ($serviceInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('service-informations.index')->with('success', __('The button service information was posted successfully.'));
+            return redirect()->route('dashboard.service-informations.index')->with('success', __('The button service information was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('service-informations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.service-informations.index')->with('error', __('Failed'));
         }
     }
 
@@ -180,10 +180,10 @@ class ServiceInformationController extends Controller
 
         if ($serviceInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('service-informations.index')->with('success', __('The button banner was updated successfully.'));
+            return redirect()->route('dashboard.service-informations.index')->with('success', __('The button banner was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('service-informations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.service-informations.index')->with('error', __('Failed'));
         }
     }
 
@@ -206,10 +206,10 @@ class ServiceInformationController extends Controller
 
         if ($serviceInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('service-informations.index')->with('success', __('The button banner was deleted successfully.'));
+            return redirect()->route('dashboard.service-informations.index')->with('success', __('The button banner was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('service-informations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.service-informations.index')->with('error', __('Failed'));
         }
     }
 }

@@ -50,7 +50,7 @@ class HistoricalController extends Controller
         $history = Historical::all();
 
         if ($history->count() == 1) {
-            return redirect()->route('historicals.index')->with('error', __('History already exists'));
+            return redirect()->route('dashboard.historicals.index')->with('error', __('History already exists'));
         } else {
             return view('profile.historical.create', compact('history'));
         }
@@ -66,7 +66,7 @@ class HistoricalController extends Controller
     {
         $history = Historical::all();
         if ($history->count() == 1) {
-            return redirect()->route('historicals.index')->with('error', __('History already exists'));
+            return redirect()->route('dashboard.historicals.index')->with('error', __('History already exists'));
         } else {
             $validated = $request->validate(
                 [
@@ -135,10 +135,10 @@ class HistoricalController extends Controller
 
             if ($historyCreate) {
                 //redirect dengan pesan sukses
-                return redirect()->route('historicals.index')->with('success', __('The History was posted successfully.'));
+                return redirect()->route('dashboard.historicals.index')->with('success', __('The History was posted successfully.'));
             } else {
                 //redirect dengan pesan error
-                return redirect()->route('historicals.index')->with('error', __('Failed'));
+                return redirect()->route('dashboard.historicals.index')->with('error', __('Failed'));
             }
         }
     }
@@ -230,10 +230,10 @@ class HistoricalController extends Controller
 
         if ($history) {
             //redirect dengan pesan sukses
-            return redirect()->route('historicals.index')->with('success', __('The history was updated successfully.'));
+            return redirect()->route('dashboard.historicals.index')->with('success', __('The history was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('historicals.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.historicals.index')->with('error', __('Failed'));
         }
     }
 
@@ -305,10 +305,10 @@ class HistoricalController extends Controller
 
         if ($history) {
             //redirect dengan pesan sukses
-            return redirect()->route('historicals.index')->with('success', __('The History was deleted successfully.'));
+            return redirect()->route('dashboard.historicals.index')->with('success', __('The History was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('historicals.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.historicals.index')->with('error', __('Failed'));
         }
 
         // if ($history->thumbnail != null && file_exists($oldThumbnail = public_path($this->imagePath . $history->thumbnail))) {
@@ -337,10 +337,10 @@ class HistoricalController extends Controller
 
         // if ($history) {
         //     //redirect dengan pesan sukses
-        //     return redirect()->route('historicals.index')->with('success', __('The history was deleted successfully.'));
+        //     return redirect()->route('dashboard.historicals.index')->with('success', __('The history was deleted successfully.'));
         // } else {
         //     //redirect dengan pesan error
-        //     return redirect()->route('historicals.index')->with('error', __('Failed'));
+        //     return redirect()->route('dashboard.historicals.index')->with('error', __('Failed'));
         // }
     }
 }

@@ -63,10 +63,10 @@ class MaterialController extends Controller
 
         if ($material) {
             //redirect dengan pesan sukses
-            return redirect()->route('materials.index')->with('success', __('The material was posted successfully.'));
+            return redirect()->route('dashboard.materials.index')->with('success', __('The material was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('materials.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.materials.index')->with('error', __('Failed'));
         }
     }
 
@@ -124,10 +124,10 @@ class MaterialController extends Controller
 
         if ($material) {
             //redirect dengan pesan sukses
-            return redirect()->route('materials.index')->with('success', __('The material was updated successfully.'));
+            return redirect()->route('dashboard.materials.index')->with('success', __('The material was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('materials.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.materials.index')->with('error', __('Failed'));
         }
     }
 
@@ -147,10 +147,10 @@ class MaterialController extends Controller
 
         if ($material) {
             //redirect dengan pesan sukses
-            return redirect()->route('materials.index')->with('success', __('The material was deleted successfully.'));
+            return redirect()->route('dashboard.materials.index')->with('success', __('The material was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('materials.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.materials.index')->with('error', __('Failed'));
         }
     }
 }

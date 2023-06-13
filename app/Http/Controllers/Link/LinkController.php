@@ -93,10 +93,10 @@ class LinkController extends Controller
 
         if ($link) {
             //redirect dengan pesan sukses
-            return redirect()->route('links.index')->with('success', __('The link was posted successfully.'));
+            return redirect()->route('dashboard.links.index')->with('success', __('The link was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('links.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.links.index')->with('error', __('Failed'));
         }
     }
 
@@ -186,10 +186,10 @@ class LinkController extends Controller
 
         if ($link) {
             //redirect dengan pesan sukses
-            return redirect()->route('links.index')->with('success', __('The link was updated successfully.'));
+            return redirect()->route('dashboard.links.index')->with('success', __('The link was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('links.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.links.index')->with('error', __('Failed'));
         }
     }
 
@@ -212,10 +212,10 @@ class LinkController extends Controller
 
         if ($link) {
             //redirect dengan pesan sukses
-            return redirect()->route('links.index')->with('success', __('The link was deleted successfully.'));
+            return redirect()->route('dashboard.links.index')->with('success', __('The link was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('links.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.links.index')->with('error', __('Failed'));
         }
     }
 }

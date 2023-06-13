@@ -24,7 +24,7 @@
 
             @can('button-banner create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('button-banners.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.button-banners.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add button banner') }}
                     </a>

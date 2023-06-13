@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('links.index') }}">{{ __('Link') }}</a>
+                        <a href="{{ route('dashboard.links.index') }}">{{ __('Link') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('links.update', $link->id) }}" method="POST"
+                            <form action="{{ route('dashboard.links.update', $link->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -113,7 +113,7 @@
 
 
 
-                                <a href="{{ route('links.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
+                                <a href="{{ route('dashboard.links.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                             </form>

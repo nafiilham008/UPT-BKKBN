@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('employees.index') }}">{{ __('Employee') }}</a>
+                        <a href="{{ route('dashboard.employees.index') }}">{{ __('Employee') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('employees.update', $employee->id) }}" method="POST"
+                            <form action="{{ route('dashboard.employees.update', $employee->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -312,7 +312,7 @@
 
 
 
-                                <a href="{{ route('employees.index') }}"
+                                <a href="{{ route('dashboard.employees.index') }}"
                                     class="btn btn-secondary">{{ __('Back') }}</a>
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
@@ -396,7 +396,7 @@
             $('#table1').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('employees.educations', $employee->id) }}",
+                ajax: "{{ route('dashboard.employees.educations', $employee->id) }}",
                 columns: [{
                         data: 'institution_name',
                         name: 'institution_name'
@@ -450,7 +450,7 @@
             $('#table2').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('employees.history', $employee->id) }}",
+                ajax: "{{ route('dashboard.employees.history', $employee->id) }}",
                 columns: [{
                         data: 'company_name',
                         name: 'company_name',
@@ -662,7 +662,7 @@
                 var employeeId = $(this).data('id');
 
                 $.ajax({
-                    url: '{{ route('employees.history.store', ':employeeId') }}'.replace(
+                    url: '{{ route('dashboard.employees.history.store', ':employeeId') }}'.replace(
                         ':employeeId',
                         employeeId),
                     type: 'POST',
@@ -770,7 +770,7 @@
                 e.preventDefault();
                 var employeeHistoryId = $(this).data('id');
                 var token = $('meta[name="csrf-token"]').attr('content');
-                var url = "{{ route('employees.history.destroy', ':id') }}";
+                var url = "{{ route('dashboard.employees.history.destroy', ':id') }}";
                 url = url.replace(':id', employeeHistoryId);
 
                 if (confirm('Are you sure you want to delete this data?')) {

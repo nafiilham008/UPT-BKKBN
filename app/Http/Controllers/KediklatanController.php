@@ -113,10 +113,10 @@ class KediklatanController extends Controller
 
         if ($kediklatan) {
             //redirect dengan pesan sukses
-            return redirect()->route('kediklatans.index')->with('success', __('The training was posted successfully.'));
+            return redirect()->route('dashboard.kediklatans.index')->with('success', __('The training was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('kediklatans.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.kediklatans.index')->with('error', __('Failed'));
         }
     }
 
@@ -223,10 +223,10 @@ class KediklatanController extends Controller
 
         if ($kediklatan) {
             //redirect dengan pesan sukses
-            return redirect()->route('kediklatans.index')->with('success', __('The training was updated successfully.'));
+            return redirect()->route('dashboard.kediklatans.index')->with('success', __('The training was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('kediklatans.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.kediklatans.index')->with('error', __('Failed'));
         }
     }
 
@@ -246,10 +246,10 @@ class KediklatanController extends Controller
 
         if ($kediklatan) {
             //redirect dengan pesan sukses
-            return redirect()->route('kediklatans.index')->with('success', __('The training was deleted successfully.'));
+            return redirect()->route('dashboard.kediklatans.index')->with('success', __('The training was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('kediklatans.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.kediklatans.index')->with('error', __('Failed'));
         }
     }
 }

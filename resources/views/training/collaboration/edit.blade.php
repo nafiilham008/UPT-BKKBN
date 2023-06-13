@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('collaborations.index') }}">{{ __('Collaboration') }}</a>
+                        <a href="{{ route('dashboard.collaborations.index') }}">{{ __('Collaboration') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('collaborations.update', $collaboration->id) }}" method="POST"
+                        <form action="{{ route('dashboard.collaborations.update', $collaboration->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

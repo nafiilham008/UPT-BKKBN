@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('kediklatans.index') }}">{{ __('Training') }}</a>
+                        <a href="{{ route('dashboard.kediklatans.index') }}">{{ __('Training') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('kediklatans.update', $kediklatan->id) }}" method="POST"
+                            <form action="{{ route('dashboard.kediklatans.update', $kediklatan->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ route('kediklatans.index') }}"
+                                <a href="{{ route('dashboard.kediklatans.index') }}"
                                     class="btn btn-secondary">{{ __('Back') }}</a>
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('posts.index') }}">{{ __('Posts') }}</a>
+                        <a href="{{ route('dashboard.posts.index') }}">{{ __('Posts') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.posts.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
 

@@ -63,8 +63,9 @@
                                 @canany($permissions)
                                     @if (empty($menu['submenus']))
                                         @can($menu['permission'])
-                                            <li class="sidebar-item{{ is_active_menu($menu['route']) ? ' active' : '' }}">
-                                                <a href="{{ route(str($menu['route'])->remove('/')->plural() . '.index') }}"
+                                            <li
+                                                class="sidebar-item{{ request()->is('dashboard' . $menu['route'] . '*') ? ' active' : '' }}">
+                                                <a href="{{ route('dashboard.' .str($menu['route'])->remove('/')->plural() .'.index') }}"
                                                     class="sidebar-link">
                                                     {!! $menu['icon'] !!}
                                                     <span>{{ __($menu['title']) }}</span>
@@ -81,9 +82,10 @@
                                                 @canany($menu['permissions'])
                                                     @foreach ($menu['submenus'] as $submenu)
                                                         @can($submenu['permission'])
-                                                            <li class="submenu-item{{ is_active_menu($submenu['route']) }}">
+                                                            <li
+                                                                class="submenu-item{{ request()->is('dashboard' . $submenu['route'] . '*') ? ' active' : '' }}">
                                                                 <a
-                                                                    href="{{ route(str($submenu['route'])->remove('/')->plural() . '.index') }}">
+                                                                    href="{{ route('dashboard.' .str($submenu['route'])->remove('/')->plural() .'.index') }}">
                                                                     {{ __($submenu['title']) }}
                                                                 </a>
                                                             </li>

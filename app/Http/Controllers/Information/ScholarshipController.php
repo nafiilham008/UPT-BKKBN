@@ -97,10 +97,10 @@ class ScholarshipController extends Controller
 
         if ($scholarship) {
             //redirect dengan pesan sukses
-            return redirect()->route('scholarships.index')->with('success', __('The scholarship was posted successfully.'));
+            return redirect()->route('dashboard.scholarships.index')->with('success', __('The scholarship was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('scholarships.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.scholarships.index')->with('error', __('Failed'));
         }
     }
 
@@ -192,10 +192,10 @@ class ScholarshipController extends Controller
 
         if ($scholarship) {
             //redirect dengan pesan sukses
-            return redirect()->route('scholarships.index')->with('success', __('The scholarship was updated successfully.'));
+            return redirect()->route('dashboard.scholarships.index')->with('success', __('The scholarship was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('scholarships.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.scholarships.index')->with('error', __('Failed'));
         }
     }
 
@@ -218,10 +218,10 @@ class ScholarshipController extends Controller
 
         if ($scholarship) {
             //redirect dengan pesan sukses
-            return redirect()->route('scholarships.index')->with('success', __('The scholarship was deleted successfully.'));
+            return redirect()->route('dashboard.scholarships.index')->with('success', __('The scholarship was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('scholarships.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.scholarships.index')->with('error', __('Failed'));
         }
         
     }

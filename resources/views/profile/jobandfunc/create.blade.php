@@ -18,7 +18,7 @@
                         <a href="/">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('jobandfuncs.index') }}">{{ __('Job and Function') }}</a>
+                        <a href="{{ route('dashboard.jobandfuncs.index') }}">{{ __('Job and Function') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('jobandfuncs.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.jobandfuncs.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 <div class="row mb-2">

@@ -24,7 +24,7 @@
 
             @can('service-information create')
                 <div class="d-flex justify-content-end {{ $serviceInformation->count() == 1 ? 'd-none' : '' }}">
-                    <a href="{{ route('service-informations.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.service-informations.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add service information') }}
                     </a>

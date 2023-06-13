@@ -67,10 +67,10 @@ class WorkAccountabilityController extends Controller
 
         if ($workAccountability) {
             //redirect dengan pesan sukses
-            return redirect()->route('work-accountabilities.index')->with('success', __('The work accountability was posted successfully.'));
+            return redirect()->route('dashboard.work-accountabilities.index')->with('success', __('The work accountability was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('work-accountabilities.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.work-accountabilities.index')->with('error', __('Failed'));
         }
     }
 
@@ -132,10 +132,10 @@ class WorkAccountabilityController extends Controller
 
         if ($workAccountability) {
             //redirect dengan pesan sukses
-            return redirect()->route('work-accountabilities.index')->with('success', __('The work accountability was updated successfully.'));
+            return redirect()->route('dashboard.work-accountabilities.index')->with('success', __('The work accountability was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('work-accountabilities.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.work-accountabilities.index')->with('error', __('Failed'));
         }
     }
 
@@ -155,10 +155,10 @@ class WorkAccountabilityController extends Controller
 
         if ($workAccountability) {
             //redirect dengan pesan sukses
-            return redirect()->route('work-accountabilities.index')->with('success', __('The work accountability was deleted successfully.'));
+            return redirect()->route('dashboard.work-accountabilities.index')->with('success', __('The work accountability was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('work-accountabilities.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.work-accountabilities.index')->with('error', __('Failed'));
         }
     }
 }

@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('work-accountabilities.index') }}">{{ __('Work Accountability') }}</a>
+                        <a href="{{ route('dashboard.work-accountabilities.index') }}">{{ __('Work Accountability') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('work-accountabilities.store') }}" method="POST"
+                            <form action="{{ route('dashboard.work-accountabilities.store') }}" method="POST"
                                 enctype="multipart/form-data" data-parsley-validate>
                                 @csrf
                                 @method('POST')

@@ -65,10 +65,10 @@ class CalendarController extends Controller
 
         if ($calendar) {
             //redirect dengan pesan sukses
-            return redirect()->route('calendars.index')->with('success', __('The Training Calendar was posted successfully.'));
+            return redirect()->route('dashboard.calendars.index')->with('success', __('The Training Calendar was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('calendars.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.calendars.index')->with('error', __('Failed'));
         }
     }
 
@@ -125,10 +125,10 @@ class CalendarController extends Controller
         $updateCalendar = $calendar->save();
         if ($updateCalendar) {
             //redirect dengan pesan sukses
-            return redirect()->route('calendars.index')->with('success', __('The Training Calendar was updated successfully.'));
+            return redirect()->route('dashboard.calendars.index')->with('success', __('The Training Calendar was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('calendars.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.calendars.index')->with('error', __('Failed'));
         }
     }
 
@@ -148,10 +148,10 @@ class CalendarController extends Controller
 
         if ($calendar) {
             //redirect dengan pesan sukses
-            return redirect()->route('calendars.index')->with('success', __('The Training Calendar was deleted successfully.'));
+            return redirect()->route('dashboard.calendars.index')->with('success', __('The Training Calendar was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('calendars.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.calendars.index')->with('error', __('Failed'));
         }
     }
 }

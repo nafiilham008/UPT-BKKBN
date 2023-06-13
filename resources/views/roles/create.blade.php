@@ -18,7 +18,7 @@
                         <a href="/">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
+                        <a href="{{ route('dashboard.roles.index') }}">{{ __('Roles') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Create') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('roles.store') }}" method="POST">
+                            <form action="{{ route('dashboard.roles.store') }}" method="POST">
                                 @csrf
                                 @method('POST')
 

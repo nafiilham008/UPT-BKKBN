@@ -24,7 +24,7 @@
 
             @can('kediklatan create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('kediklatans.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.kediklatans.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add training') }}
                     </a>

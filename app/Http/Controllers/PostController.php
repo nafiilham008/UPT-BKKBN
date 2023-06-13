@@ -191,10 +191,10 @@ class PostController extends Controller
 
             if ($postCreate) {
                 //redirect dengan pesan sukses
-                return redirect()->route('posts.index')->with('success', __('The article was posted successfully.'));
+                return redirect()->route('dashboard.posts.index')->with('success', __('The article was posted successfully.'));
             } else {
                 //redirect dengan pesan error
-                return redirect()->route('posts.index')->with('error', __('Failed'));
+                return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
             }
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -316,10 +316,10 @@ class PostController extends Controller
 
         if ($post) {
             //redirect dengan pesan sukses
-            return redirect()->route('posts.index')->with('success', __('The article was updated successfully.'));
+            return redirect()->route('dashboard.posts.index')->with('success', __('The article was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('posts.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
         }
     }
 
@@ -394,7 +394,7 @@ class PostController extends Controller
     {
         // Jika highlight true, maka data tidak dapat dihapus
         if ($post->highlight == 1) {
-            return redirect()->route('posts.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
         } else {
             if ($post->thumbnail != null && file_exists($oldThumbnail = public_path($this->thumbnailPath . $post->thumbnail))) {
                 unlink($oldThumbnail);
@@ -422,10 +422,10 @@ class PostController extends Controller
 
             if ($post) {
                 //redirect dengan pesan sukses
-                return redirect()->route('posts.index')->with('success', __('The article was deleted successfully.'));
+                return redirect()->route('dashboard.posts.index')->with('success', __('The article was deleted successfully.'));
             } else {
                 //redirect dengan pesan error
-                return redirect()->route('posts.index')->with('error', __('Failed'));
+                return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
             }
         }
 
@@ -456,10 +456,10 @@ class PostController extends Controller
 
         // if ($post) {
         //     //redirect dengan pesan sukses
-        //     return redirect()->route('posts.index')->with('success', __('The article was deleted successfully.'));
+        //     return redirect()->route('dashboard.posts.index')->with('success', __('The article was deleted successfully.'));
         // } else {
         //     //redirect dengan pesan error
-        //     return redirect()->route('posts.index')->with('error', __('Failed'));
+        //     return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
         // }
     }
 }

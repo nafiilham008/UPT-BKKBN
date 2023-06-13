@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('announcements.index') }}">{{ __('Announcement') }}</a>
+                        <a href="{{ route('dashboard.announcements.index') }}">{{ __('Announcement') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Detail') }}

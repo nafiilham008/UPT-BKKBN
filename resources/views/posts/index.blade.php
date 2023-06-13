@@ -24,7 +24,7 @@
 
             @can('content create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('posts.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.posts.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Create a new posts') }}
                     </a>

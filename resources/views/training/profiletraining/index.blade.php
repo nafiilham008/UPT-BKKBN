@@ -24,7 +24,7 @@
 
             @can('calendar create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('profiletrainings.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.profiletrainings.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add Profile Training') }}
                     </a>

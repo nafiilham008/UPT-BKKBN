@@ -24,7 +24,7 @@
 
             @can('user create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.users.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Create a new user') }}
                     </a>
@@ -71,7 +71,7 @@
         $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('users.index') }}",
+            ajax: "{{ route('dashboard.users.index') }}",
             columns: [
                 // {
                 //     data: 'DT_RowIndex',

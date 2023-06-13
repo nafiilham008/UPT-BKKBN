@@ -66,10 +66,10 @@ class AnnouncementController extends Controller
 
         if ($announcement) {
             //redirect dengan pesan sukses
-            return redirect()->route('announcements.index')->with('success', __('The announcement was posted successfully.'));
+            return redirect()->route('dashboard.announcements.index')->with('success', __('The announcement was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('announcements.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.announcements.index')->with('error', __('Failed'));
         }
     }
 
@@ -128,10 +128,10 @@ class AnnouncementController extends Controller
 
         if ($announcement) {
             //redirect dengan pesan sukses
-            return redirect()->route('announcements.index')->with('success', __('The announcement was updated successfully.'));
+            return redirect()->route('dashboard.announcements.index')->with('success', __('The announcement was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('announcements.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.announcements.index')->with('error', __('Failed'));
         }
     }
 
@@ -151,10 +151,10 @@ class AnnouncementController extends Controller
 
         if ($announcement) {
             //redirect dengan pesan sukses
-            return redirect()->route('announcements.index')->with('success', __('The announcement was deleted successfully.'));
+            return redirect()->route('dashboard.announcements.index')->with('success', __('The announcement was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('announcements.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.announcements.index')->with('error', __('Failed'));
         }
     }
 }

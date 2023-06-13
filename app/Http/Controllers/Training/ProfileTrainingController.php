@@ -74,10 +74,10 @@ class ProfileTrainingController extends Controller
 
         if ($profileTraining) {
             // Redirect with success message
-            return redirect()->route('profiletrainings.index')->with('success', __('The Profile Training was created successfully.'));
+            return redirect()->route('dashboard.profiletrainings.index')->with('success', __('The Profile Training was created successfully.'));
         } else {
             // Redirect with error message
-            return redirect()->route('profiletrainings.index')->with('error', __('Failed to create Profile Training.'));
+            return redirect()->route('dashboard.profiletrainings.index')->with('error', __('Failed to create Profile Training.'));
         }
     }
 
@@ -142,10 +142,10 @@ class ProfileTrainingController extends Controller
 
         if ($updateProfileTraining) {
             // Redirect with success message
-            return redirect()->route('profiletrainings.index')->with('success', 'The Profile Training was updated successfully.');
+            return redirect()->route('dashboard.profiletrainings.index')->with('success', 'The Profile Training was updated successfully.');
             } else {
             // Redirect with error message
-            return redirect()->route('profiletrainings.index')->with('error', 'Failed to update the Profile Training.');
+            return redirect()->route('dashboard.profiletrainings.index')->with('error', 'Failed to update the Profile Training.');
             }
     }
 
@@ -164,10 +164,10 @@ class ProfileTrainingController extends Controller
 
         if ($profileTraining) {
             //redirect dengan pesan sukses
-            return redirect()->route('calendars.index')->with('success', __('The Profile Training was deleted successfully.'));
+            return redirect()->route('dashboard.calendars.index')->with('success', __('The Profile Training was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('calendars.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.calendars.index')->with('error', __('Failed'));
         }
     }
 }

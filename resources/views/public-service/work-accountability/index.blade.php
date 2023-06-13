@@ -24,7 +24,7 @@
 
             @can('work-accountability create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('work-accountabilities.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.work-accountabilities.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add work accountability') }}
                     </a>

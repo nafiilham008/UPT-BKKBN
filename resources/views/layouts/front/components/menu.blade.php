@@ -11,17 +11,17 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.profile' ? 'active' : '' }}"
+                <a class="nav-link {{ request()->is('profile*') ? 'active' : '' }}"
                     aria-current="page" href="{{ route('home.profile') }}"
                     onclick="handleLinkClick(event, '{{ route('home.profile') }}')">Profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.training' ? 'active' : '' }}"
+                <a class="nav-link {{ request()->is('training*') ? 'active' : '' }}"
                     href="{{ route('home.training') }}"
                     onclick="handleLinkClick(event, '{{ route('home.training') }}')">Kediklatan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.documentation' ? 'active' : '' }}"
+                <a class="nav-link {{ request()->is('documentation*') ? 'active' : '' }}"
                     href="{{ route('home.documentation') }}"
                     onclick="handleLinkClick(event, '{{ route('home.documentation') }}')">Dokumentasi</a>
             </li>
@@ -31,17 +31,17 @@
                     onclick="handleLinkClick(event, '{{ route('home.information') }}')">Informasi</a>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.material' ? 'active' : '' }}"
+                <a class="nav-link {{ request()->is('material*') ? 'active' : '' }}"
                     href="{{ route('home.material') }}"
                     onclick="handleLinkClick(event, '{{ route('home.material') }}')">Unduh</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.public.information' ? 'active' : '' }}"
+                <a class="nav-link {{ request()->is('public-information*') ? 'active' : '' }}"
                     href="{{ route('home.public.information') }}"
                     onclick="handleLinkClick(event, '{{ route('home.public.information') }}')">Informasi Publik</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home.tautan' ? 'active' : '' }}"
+                <a class="nav-link {{ request()->is('tautan*') ? 'active' : '' }}"
                     href="{{ route('home.tautan') }}"
                     onclick="handleLinkClick(event, '{{ route('home.tautan') }}')">Tautan</a>
             </li>

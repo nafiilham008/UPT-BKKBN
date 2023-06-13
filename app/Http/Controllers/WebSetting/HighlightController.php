@@ -99,10 +99,10 @@ class HighlightController extends Controller
 
         if ($data) {
             //redirect dengan pesan sukses
-            return redirect()->route('highlights.index')->with('success', __('The article was updated successfully.'));
+            return redirect()->route('dashboard.highlights.index')->with('success', __('The article was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('highlights.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.highlights.index')->with('error', __('Failed'));
         }
     }
 

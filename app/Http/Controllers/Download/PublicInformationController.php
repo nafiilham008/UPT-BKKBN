@@ -76,10 +76,10 @@ class   PublicInformationController extends Controller
 
         if ($publicInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('public-informations.index')->with('success', __('The public information was posted successfully.'));
+            return redirect()->route('dashboard.public-informations.index')->with('success', __('The public information was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('public-informations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.public-informations.index')->with('error', __('Failed'));
         }
     }
 
@@ -146,10 +146,10 @@ class   PublicInformationController extends Controller
 
         if ($publicInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('public-informations.index')->with('success', __('The public information was updated successfully.'));
+            return redirect()->route('dashboard.public-informations.index')->with('success', __('The public information was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('public-informations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.public-informations.index')->with('error', __('Failed'));
         }
     }
 
@@ -169,10 +169,10 @@ class   PublicInformationController extends Controller
 
         if ($publicInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('public-informations.index')->with('success', __('The public information was deleted successfully.'));
+            return redirect()->route('dashboard.public-informations.index')->with('success', __('The public information was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('public-informations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.public-informations.index')->with('error', __('Failed'));
         }
     }
 }

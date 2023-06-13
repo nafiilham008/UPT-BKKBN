@@ -91,10 +91,10 @@ class ButtonBanner extends Controller
 
         if ($buttonBanner) {
             //redirect dengan pesan sukses
-            return redirect()->route('button-banners.index')->with('success', __('The button banner was posted successfully.'));
+            return redirect()->route('dashboard.button-banners.index')->with('success', __('The button banner was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('button-banners.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.button-banners.index')->with('error', __('Failed'));
         }
     }
 
@@ -181,10 +181,10 @@ class ButtonBanner extends Controller
 
         if ($buttonBanner) {
             //redirect dengan pesan sukses
-            return redirect()->route('button-banners.index')->with('success', __('The button banner was updated successfully.'));
+            return redirect()->route('dashboard.button-banners.index')->with('success', __('The button banner was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('button-banners.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.button-banners.index')->with('error', __('Failed'));
         }
     }
 
@@ -207,10 +207,10 @@ class ButtonBanner extends Controller
 
         if ($buttonBanner) {
             //redirect dengan pesan sukses
-            return redirect()->route('button-banners.index')->with('success', __('The button banner was deleted successfully.'));
+            return redirect()->route('dashboard.button-banners.index')->with('success', __('The button banner was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('button-banners.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.button-banners.index')->with('error', __('Failed'));
         }
     }
 }

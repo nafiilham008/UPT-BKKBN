@@ -89,10 +89,10 @@ class CollaborationController extends Controller
 
         if ($collaboration) {
             //redirect dengan pesan sukses
-            return redirect()->route('collaborations.index')->with('success', __('The collaboration was posted successfully.'));
+            return redirect()->route('dashboard.collaborations.index')->with('success', __('The collaboration was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('collaborations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.collaborations.index')->with('error', __('Failed'));
         }
         
     }
@@ -178,10 +178,10 @@ class CollaborationController extends Controller
 
         if ($collaboration) {
             //redirect dengan pesan sukses
-            return redirect()->route('collaborations.index')->with('success', __('The collaboration was updated successfully.'));
+            return redirect()->route('dashboard.collaborations.index')->with('success', __('The collaboration was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('collaborations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.collaborations.index')->with('error', __('Failed'));
         }
     }
 
@@ -203,10 +203,10 @@ class CollaborationController extends Controller
 
         if ($collaboration) {
             //redirect dengan pesan sukses
-            return redirect()->route('collaborations.index')->with('success', __('The collaboration was deleted successfully.'));
+            return redirect()->route('dashboard.collaborations.index')->with('success', __('The collaboration was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('collaborations.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.collaborations.index')->with('error', __('Failed'));
         }
     }
 }

@@ -24,7 +24,7 @@
 
             @can('public-information create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('public-informations.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.public-informations.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add public information') }}
                     </a>

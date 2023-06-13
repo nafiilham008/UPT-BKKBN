@@ -24,7 +24,7 @@
 
             @can('collaboration create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('collaborations.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.collaborations.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add Collaboration') }}
                     </a>

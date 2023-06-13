@@ -48,7 +48,7 @@ class JobandfuncController extends Controller
         $jobandfunc = Jobandfunc::all();
 
         if ($jobandfunc->count() == 1) {
-            return redirect()->route('jobandfuncs.index')->with('error', __('Job and function already exists'));
+            return redirect()->route('dashboard.jobandfuncs.index')->with('error', __('Job and function already exists'));
         } else {
             return view('profile.jobandfunc.create', compact('jobandfunc'));
         }
@@ -64,7 +64,7 @@ class JobandfuncController extends Controller
     {
         $jobandfunc = Jobandfunc::all();
         if ($jobandfunc->count() == 1) {
-            return redirect()->route('jobandfuncs.index')->with('error', __('Job and function already exists'));
+            return redirect()->route('dashboard.jobandfuncs.index')->with('error', __('Job and function already exists'));
         } else {
             $validated = $request->validate(
                 [
@@ -114,10 +114,10 @@ class JobandfuncController extends Controller
 
             if ($jobandfuncCreate) {
                 //redirect dengan pesan sukses
-                return redirect()->route('jobandfuncs.index')->with('success', __('The Job and function was posted successfully.'));
+                return redirect()->route('dashboard.jobandfuncs.index')->with('success', __('The Job and function was posted successfully.'));
             } else {
                 //redirect dengan pesan error
-                return redirect()->route('jobandfuncs.index')->with('error', __('Failed'));
+                return redirect()->route('dashboard.jobandfuncs.index')->with('error', __('Failed'));
             }
         }
     }
@@ -181,10 +181,10 @@ class JobandfuncController extends Controller
 
         if ($jobandfunc) {
             //redirect dengan pesan sukses
-            return redirect()->route('jobandfuncs.index')->with('success', __('The Job and function was updated successfully.'));
+            return redirect()->route('dashboard.jobandfuncs.index')->with('success', __('The Job and function was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('jobandfuncs.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.jobandfuncs.index')->with('error', __('Failed'));
         }
     }
 
@@ -252,10 +252,10 @@ class JobandfuncController extends Controller
 
         if ($jobandfunc) {
             //redirect dengan pesan sukses
-            return redirect()->route('jobandfuncs.index')->with('success', __('The History was deleted successfully.'));
+            return redirect()->route('dashboard.jobandfuncs.index')->with('success', __('The History was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('jobandfuncs.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.jobandfuncs.index')->with('error', __('Failed'));
         }
     }
 }

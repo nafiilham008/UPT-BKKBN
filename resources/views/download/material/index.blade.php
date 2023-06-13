@@ -24,7 +24,7 @@
 
             @can('material create')
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('materials.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('dashboard.materials.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
                         {{ __('Add Material') }}
                     </a>
