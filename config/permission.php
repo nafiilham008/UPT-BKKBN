@@ -331,6 +331,15 @@ return [
                 'kediklatan delete',
             ]
         ],
+        [
+            'group' => 'link',
+            'access' => [
+                'link view',
+                'link create',
+                'link edit',
+                'link delete',
+            ]
+        ],
         // [
         //     'group' => 'tests',
         //     'access' => [
