@@ -275,7 +275,13 @@ return [
                         ]
 
                     ]
-                ]
+                ],
+                [
+                    'title' => 'Link',
+                    'icon' => '<i class="bi bi-file-post-fill"></i>',
+                    'route' => '/links',
+                    'permission' => 'link view',
+                ],
             ]
         ],
         [

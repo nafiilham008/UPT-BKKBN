@@ -17,6 +17,7 @@ use App\Http\Controllers\Information\AnnouncementController;
 use App\Http\Controllers\Information\ButtonBanner;
 use App\Http\Controllers\Information\OtherCourseController;
 use App\Http\Controllers\Information\ScholarshipController;
+use App\Http\Controllers\Link\LinkController;
 use App\Http\Controllers\Profile\EducationHistoryController;
 use App\Http\Controllers\Profile\EmployeeController;
 use App\Http\Controllers\Profile\EmployeeHistoryController;
@@ -49,6 +50,10 @@ Route::get('/material', [HomeController::class, 'download'])->name('home.materia
 Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
 
 Route::get('/kediklatan', [HomeController::class, 'kediklatan'])->name('home.kediklatan');
+
+Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
+
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 
 
@@ -100,6 +105,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('button-banners', ButtonBanner::class);
         Route::resource('service-informations', ServiceInformationController::class);
         Route::resource('kediklatans', KediklatanController::class);
+        Route::resource('links', LinkController::class);
 
         
 
