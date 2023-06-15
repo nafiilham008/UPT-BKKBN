@@ -32,7 +32,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.posts.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.posts.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
 
@@ -43,8 +44,8 @@
                                             <label for="title" class="form-label">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
                                                 class="form-control @error('title') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Title') }}" required autofocus
-                                                data-parsley-trigger="change" data-parsley-required="true"
+                                                placeholder="{{ __('Insert Title') }}" data-parsley-trigger="change"
+                                                data-parsley-required="true"
                                                 data-parsley-required-message="{{ __('Please enter a title') }}">
                                             @error('title')
                                                 <span class="text-danger">
@@ -62,8 +63,7 @@
                                                 accept="image/png, image/jpeg" required data-parsley-trigger="change"
                                                 data-parsley-filemaxmegabytes="2"
                                                 data-parsley-required-message="{{ __('Please select a thumbnail') }}"
-                                                data-parsley-filemime-message="{{ __('Please select a valid image file (PNG or JPEG)') }}"
-                                                data-parsley-filemaxmegabytes-message="{{ __('Please select a file up to 2MB') }}">
+                                                data-parsley-error-message="{{ __('Please upload an image file (JPEG, PNG) with a maximum size of 2MB') }}">
                                             @error('thumbnail')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -77,7 +77,7 @@
                                             <label for="created_at" class="form-label">{{ __('Publication Date') }}</label>
                                             <input type="datetime-local" name="created_at" id="created_at"
                                                 class="form-control @error('created_at') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Publication Date') }}" autofocus
+                                                placeholder="{{ __('Insert Publication Date') }}"
                                                 data-parsley-trigger="change" data-parsley-required="false">
                                             @error('created_at')
                                                 <span class="text-danger">
@@ -177,4 +177,9 @@
 
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 @endpush

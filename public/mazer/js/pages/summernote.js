@@ -4,7 +4,7 @@ $("#summernote").summernote({
     maximumImageFileSize: 2097152,
     // maximumFileSize: 1048576
     toolbar: [
-        ["style", ["bold", "italic", "underline", "clear", "fontname", "fontsize"]],
+        ["style", ["bold", "italic", "underline", "clear", "fontsize"]],
         ["font", ["strikethrough", "superscript", "subscript"]],
         ["color", ["color"]],
         ["para", ["ul", "ol", "paragraph"]],
@@ -12,14 +12,6 @@ $("#summernote").summernote({
 
         ["misc", ["picture", "link"]],
         ["help", ["help"]],
-    ],
-    fontNames: [
-        "Arial",
-        "Arial Black",
-        "Comic Sans MS",
-        "Courier New",
-        "sans-serif",
-        "Roboto",
     ],
     fontSizes: [
         "8",
@@ -59,3 +51,12 @@ $("#hint").summernote({
         },
     },
 });
+
+// fontNames: [
+    //     "Arial",
+    //     "Arial Black",
+    //     "Comic Sans MS",
+    //     "Courier New",
+    //     "sans-serif",
+    //     "Roboto",
+    // ],

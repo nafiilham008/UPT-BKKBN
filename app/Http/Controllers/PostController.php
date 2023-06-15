@@ -36,7 +36,8 @@ class PostController extends Controller
     public function index()
     {
         // Call post model with relation categories and users
-        $content = Post::with('categories', 'users')->get();
+        $content = Post::with('categories', 'users')->orderBy('created_at', 'desc')->get();
+
 
 
         return view('posts.index', compact('content'));
@@ -62,145 +63,116 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $validated = $request->validate(
-                [
-                    'title' => 'required|unique:posts',
-                    'thumbnail' => 'required|mimes:jpeg,png,jpg|image|max:2048',
-                    'description' => 'required|min:10',
-                    'category' => 'required',
-                    'status' => 'required',
-                    'created_at' => 'nullable|date',
-                ],
-                [
-                    'title.required' => 'The title field is required.',
-                    'title.unique' => 'The title has already been taken.',
-                    'thumbnail.required' => 'The thumbnail field is required.',
-                    'thumbnail.mimes' => 'The thumbnail must be a JPEG, PNG, or JPG image.',
-                    'thumbnail.image' => 'The thumbnail must be an image.',
-                    'thumbnail.max' => 'The thumbnail may not be greater than 2048 kilobytes.',
-                    'description.required' => 'The description field is required.',
-                    'description.min' => 'The description must be at least 10 characters.',
-                    'category.required' => 'The category field is required.',
-                    'status.required' => 'The status field is required.',
-                    'created_at.date' => 'The publication date must be a valid date.',
-                ]
-            );
-
-            // dd($validated['thumbnail']);
+        $validated = $request->validate(
+            [
+                'title' => 'required|unique:posts',
+                'thumbnail' => 'required|mimes:jpeg,png,jpg|image|max:2048',
+                'description' => 'required|min:10',
+                'category' => 'required',
+                'status' => 'required',
+                'created_at' => 'nullable|date',
+            ],
+            [
+                'title.required' => 'The title field is required.',
+                'title.unique' => 'The title has already been taken.',
+                'thumbnail.required' => 'The thumbnail field is required.',
+                'thumbnail.mimes' => 'The thumbnail must be a JPEG, PNG, or JPG image.',
+                'thumbnail.image' => 'The thumbnail must be an image.',
+                'thumbnail.max' => 'The thumbnail may not be greater than 2048 kilobytes.',
+                'description.required' => 'The description field is required.',
+                'description.min' => 'The description must be at least 10 characters.',
+                'category.required' => 'The category field is required.',
+                'status.required' => 'The status field is required.',
+                'created_at.date' => 'The publication date must be a valid date.',
+            ]
+        );
 
 
-            if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
+        if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
 
-                $filename = $request->file('thumbnail')->hashName();
+            $filename = $request->file('thumbnail')->hashName();
 
-                if (!file_exists($folder = public_path($this->thumbnailPath))) {
-                    mkdir($folder, 0777, true);
-                }
-                // dd($folder, $filename);
-
-                Image::make($request->file('thumbnail')->getRealPath())->resize(500, 500, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->save($this->thumbnailPath . $filename);
-
-
-                $validated['thumbnail'] = $filename;
+            if (!file_exists($folder = public_path($this->thumbnailPath))) {
+                mkdir($folder, 0777, true);
             }
+            // dd($folder, $filename);
+
+            Image::make($request->file('thumbnail')->getRealPath())->resize(500, 500, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($this->thumbnailPath . $filename);
 
 
-            // // Dom list for value summernote
-            // $description = $validated['description'];
-            // $dom = new \DomDocument();
-            // $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            // $images = $dom->getElementsByTagName('img');
-
-            // foreach ($images as $k => $img) {
-            //     $data = $img->getAttribute('src');
-
-            //     list($type, $data) = explode(';', $data);
-            //     list(, $data)      = explode(',', $data);
-            //     $data = base64_decode($data);
-            //     $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
-            //     $path = public_path() . $image_name;
-            //     file_put_contents($path, $data);
-            //     $img->removeAttribute('src');
-            //     $img->setAttribute('src', $image_name);
-            // }
-
-            // $description = $dom->saveHTML();
-
-            $description = $validated['description'];
-            $dom = new \DomDocument();
-            libxml_use_internal_errors(true);
-            $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            libxml_clear_errors();
-            $images = $dom->getElementsByTagName('img');
-
-            foreach ($images as $k => $img) {
-                $data = $img->getAttribute('src');
-
-                list($type, $data) = explode(';', $data);
-                list(, $data) = explode(',', $data);
-                $data = base64_decode($data);
-                $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
-                $path = public_path() . $image_name;
-                file_put_contents($path, $data);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $image_name);
-            }
-
-            $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.html';
-            $dom->saveHTMLFile($tempFilePath);
-            $description = file_get_contents($tempFilePath);
-            unlink($tempFilePath);
-
-            // Title
-            $slug = str_replace([' ', '/'], '-', $validated['title']);
-            
-
-            // Created_at
-            if (!empty($validated['created_at'])) {
-                $publicationDate = $validated['created_at'];
-            } else {
-                $publicationDate = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
-            }
-
-
-
-            $postCreate = Post::create([
-                'title' => $validated['title'],
-                'thumbnail' => $validated['thumbnail'],
-                'user_id' => auth()->user()->id,
-                'slug_url' => $slug,
-                'description' => $description,
-                'categories_id' => $validated['category'],
-                'status' => $validated['status'],
-                'created_at' => $publicationDate,
-                'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
-
-            ]);
-
-            // dd($postCreate->id);
-            $gallery = new Gallery();
-            $gallery->post_id = $postCreate->id;
-            $gallery->title = $postCreate->title;
-            $gallery->save();
-
-
-
-            if ($postCreate) {
-                //redirect dengan pesan sukses
-                return redirect()->route('dashboard.posts.index')->with('success', __('The article was posted successfully.'));
-            } else {
-                //redirect dengan pesan error
-                return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
-            }
-        } catch (\Throwable $th) {
-            return $th->getMessage();
+            $validated['thumbnail'] = $filename;
         }
-        // validate
 
+        $description = $validated['description'];
+        $dom = new \DomDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $k => $img) {
+            $data = $img->getAttribute('src');
+
+            list($type, $data) = explode(';', $data);
+            list(, $data) = explode(',', $data);
+            $data = base64_decode($data);
+            $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
+            $path = public_path() . $image_name;
+            file_put_contents($path, $data);
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $image_name);
+        }
+
+        $tempFilePath = sys_get_temp_dir() . '/' . uniqid() . '.html';
+        $dom->saveHTMLFile($tempFilePath);
+        $description = file_get_contents($tempFilePath);
+        unlink($tempFilePath);
+
+        // Title
+        $slug = str_replace([' ', '/'], '-', $validated['title']);
+        
+
+        // Created_at
+        if (!empty($validated['created_at'])) {
+            $publicationDate = $validated['created_at'];
+        } else {
+            $publicationDate = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
+        }
+
+
+
+        $postCreate = Post::create([
+            'title' => $validated['title'],
+            'thumbnail' => $validated['thumbnail'],
+            'user_id' => auth()->user()->id,
+            'slug_url' => $slug,
+            'description' => $description,
+            'categories_id' => $validated['category'],
+            'status' => $validated['status'],
+            'created_at' => $publicationDate,
+            'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
+
+        ]);
+
+        // dd($postCreate->id);
+        $gallery = new Gallery();
+        $gallery->post_id = $postCreate->id;
+        $gallery->title = $postCreate->title;
+        $gallery->save();
+
+
+
+        if ($postCreate) {
+            //redirect dengan pesan sukses
+            return redirect()->route('dashboard.posts.index')->with('success', __('The article was posted successfully.'));
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
+        }
+        
     }
 
     /**

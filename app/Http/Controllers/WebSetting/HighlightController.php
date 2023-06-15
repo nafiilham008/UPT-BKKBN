@@ -26,7 +26,8 @@ class HighlightController extends Controller
     public function index()
     {
         // Call post model with relation categories and users
-        $content = Post::with('categories', 'users')->where('status', 1)->get();
+        $content = Post::with('categories', 'users')->where('status', 1)->orderBy('created_at', 'desc')->get();
+
 
 
         return view('highlights.index', compact('content'));
