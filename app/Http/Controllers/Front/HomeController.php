@@ -30,7 +30,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $banner = Post::where('highlight', 1)->get();
+        $banner = Post::with('categories', 'users')->where('highlight', 1)->orderBy('updated_at', 'desc')->get();
+
 
         $postNews = $this->getPostNews();
         $postArticle = $this->getPostArticle();
@@ -225,10 +226,14 @@ class HomeController extends Controller
     {
         $employee = Employee::findOrFail($id);
 
+        $type_employee = Constant::TYPE_OF_EMPLOYEE;
+
+
         // Return data as JSON
         return response()->json([
             'success' => true,
-            'employee' => $employee
+            'employee' => $employee,
+            'type_employee' => $type_employee
         ]);
     }
     // End Profile Menu
