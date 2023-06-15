@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
         <div class="form-group">
             <label for="password">{{ __('Password') }}</label>
             <input type="password" name="password" id="password"
@@ -52,7 +52,7 @@
             <input type="password" name="password_confirmation" id="password-confirmation" class="form-control"
                 placeholder="{{ __('Password Confirmation') }}" {{ empty($user) ? 'required' : '' }}>
         </div>
-    </div>
+    </div> --}}
 
     @empty($user)
         <div class="col-md-6">

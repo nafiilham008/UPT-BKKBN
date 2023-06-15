@@ -12,7 +12,7 @@
                         <img src="{{ asset('uploads/images/content/thumbnail/' . $slide->thumbnail) }}" class="d-block w-100"
                             alt="{{ $slide->thumbnail }}" />
                         <div class="carousel-caption d-flex h-100 justify-content-center">
-                            <a href="#">
+                            <a href="{{ route('home.detail', [$slide->categories->label, $slide->slug_url]) }}">
                                 <h3 class="text-white font-30 mb-5">{{ $slide->title }}</h3>
                             </a>
                         </div>
@@ -102,10 +102,10 @@
                                 tabindex="0">
                                 @include('front.landing.components.postarticle')
                             </div>
-                            <div class="tab-pane fade" id="Informasi" role="tabpanel" aria-labelledby="pills-contact-tab"
+                            {{-- <div class="tab-pane fade" id="Informasi" role="tabpanel" aria-labelledby="pills-contact-tab"
                                 tabindex="0">
                                 @include('front.landing.components.postinformation')
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
