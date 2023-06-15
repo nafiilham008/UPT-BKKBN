@@ -4,17 +4,19 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('mazer') }}/css/pages/auth.css">
+    <style>
+        .img-logo-login {
+            height: 300px !important;
+            width: 100%;
+        }
+    </style>
 @endpush
 
 @section('content')
     <div class="row h-100">
         <div class="col-lg-6 col-12">
             <div id="auth-left">
-                <div class="auth-logo">
-                    <a href="/">
-                        <img src="{{ asset('mazer') }}/images/logo/logo.svg" alt="Logo">
-                    </a>
-                </div>
+
 
                 <h1 class="auth-title">{{ __('Log in.') }}</h1>
                 <p class="auth-subtitle mb-3">{{ __('Log in with your data that you entered during registration.') }}</p>
@@ -69,7 +71,7 @@
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3">{{ __('Log in') }}</button>
                 </form>
 
-                <div class="text-center mt-4 text-lg fs-4">
+                {{-- <div class="text-center mt-4 text-lg fs-4">
                     <p class="text-gray-600">{{ __("Don't have an account") }}?
                         <a href="/register" class="font-bold">
                             {{ __('Sign up.') }}
@@ -83,13 +85,19 @@
                             </a>.
                         </p>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
 
         <div class="col-lg-6 d-none d-lg-block">
-            <div id="auth-right">
+            <div id="auth-right" class="d-flex justify-content-center align-items-center">
+                <div class="">
+                    <a href="/">
+                        <img class="img-logo-login" src="{{ asset('img/logo/logo_upt.png') }}" alt="Logo">
+                    </a>
+                </div>
             </div>
         </div>
+
     </div>
 @endsection
