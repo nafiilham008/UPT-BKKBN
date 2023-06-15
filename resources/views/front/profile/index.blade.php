@@ -84,9 +84,9 @@
                     <div class="d-flex justify-content-start mb-4">
                         <h4>{{ $item->name }}</h4>
                     </div>
-                    <p><strong>NIP : </strong>{{ $item->nip }}</p>
-                    <p><strong>Jabatan : </strong>{{ $item->position }}</p>
-                    <p><strong>Deskripsi singkat : </strong></p>
+                    <p class="font-16"><strong>NIP : </strong>{{ $item->nip }}</p>
+                    <p class="font-16"><strong>Jabatan : </strong>{{ $item->position }}</p>
+                    <p class="font-16"><strong>Deskripsi singkat : </strong></p>
                     <p style="text-align: justify">
                         @if ($item->place_of_birth)
                             Lahir di {{ $item->place_of_birth }},
@@ -109,77 +109,6 @@
                             {{ \Carbon\Carbon::parse($item->birthdate)->locale('id')->isoFormat('D MMMM YYYY') }}.
                         @endif
                     </p>
-
-                    <div class="row mb-5">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Riwayat Pendidikan</h5>
-                                    <table class="education-table">
-                                        <tbody>
-                                            @if ($item->educationHistories->isEmpty())
-                                                <tr>
-                                                    <td colspan="4">Data belum tersedia</td>
-                                                </tr>
-                                            @else
-                                                @foreach ($item->educationHistories as $education)
-                                                    <tr>
-                                                        <td class="bullet-point"></td> <!-- Empty cell for bullet point -->
-                                                        <td><strong>{{ $education->institution_name }}</strong></td>
-                                                        <td>{{ $education->degree }}</td>
-                                                        <td><em>{{ $education->graduation_year }}</em></td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Riwayat Pekerjaan</h5>
-                                    <table class="education-table">
-                                        <tbody>
-                                            @if ($item->employeeHistories->isEmpty())
-                                                <tr>
-                                                    <td colspan="4">Data belum tersedia</td>
-                                                </tr>
-                                            @else
-                                                @foreach ($item->employeeHistories as $employee)
-                                                    <tr>
-                                                        <td></td> <!-- Empty cell for bullet point -->
-                                                        <td><strong>{{ $employee->company_name }}</strong></td>
-                                                        <td>{{ $employee->position }}</td>
-                                                        <td><em>{{ $employee->end_year }}</em></td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 col-sm-12 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Penghargaan/Tanda Jasa</h5>
-                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
-                                    @empty($item->awards)
-                                        <p class="card-text">Data belum tersedia</p>
-                                    @else
-                                        <p class="card-text">{!! $item->awards !!}</p>
-                                    @endempty
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
                 </div>
             </div>
             <hr class="border border-dark border-2 opacity-100 mb-5 mt-3">
@@ -410,16 +339,19 @@
                     success: function(data) {
                         if (data.success) {
                             var employee = data.employee;
+                            var type_employee = getTypeOfEmployeeById(employee.id);
                             $('#detail-employee' + employeeId + ' .employee-photo')
                                 .attr('src',
                                     '{{ asset('uploads/images/profile/employee-photo/') }}/' +
                                     employee.photo);
-                            $('#detail-employee' + employeeId + ' .employee-name')
-                                .text(employee.name);
-                            $('#detail-employee' + employeeId + ' .employee-nip')
-                                .text(employee.nip);
-                            $('#detail-employee' + employeeId +
-                                ' .employee-position').text(employee.position);
+                            $('#detail-employee' + employeeId + ' .employee-name').text(employee
+                                .name);
+                            $('#detail-employee' + employeeId + ' .employee-nip').text(employee
+                                .nip);
+                            $('#detail-employee' + employeeId + ' .employee-position').text(
+                                employee.position);
+                            $('#detail-employee' + employeeId + ' .employee-type').text(
+                                type_employee.label);
                             $('#detail-employee' + employeeId).modal('show');
                         } else {
                             alert('Failed to get employee detail!');
@@ -430,6 +362,34 @@
                     }
                 });
             });
+
+            function getTypeOfEmployeeById(employeeId) {
+                const TYPE_OF_EMPLOYEE = {
+                    1: {
+                        id: 1,
+                        label: 'Struktural'
+                    },
+                    2: {
+                        id: 2,
+                        label: 'Widyaiswara'
+                    },
+                    3: {
+                        id: 3,
+                        label: 'Fungsional'
+                    },
+                    4: {
+                        id: 4,
+                        label: 'Pelaksana'
+                    },
+                    5: {
+                        id: 5,
+                        label: 'PPNPN'
+                    }
+                };
+
+                return TYPE_OF_EMPLOYEE[employeeId];
+            }
+
 
         });
     </script>

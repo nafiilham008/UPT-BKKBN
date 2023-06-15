@@ -515,7 +515,7 @@
                 var employeeId = $(this).data('id');
 
                 $.ajax({
-                    url: '{{ route('educations.store', ':employeeId') }}'.replace(':employeeId',
+                    url: '{{ route('dashboard.educations.store', ':employeeId') }}'.replace(':employeeId',
                         employeeId),
                     type: 'POST',
                     data: $("#form-education-history").serialize(),
@@ -629,7 +629,7 @@
                 e.preventDefault();
                 var educationId = $(this).data('id');
                 var token = $('meta[name="csrf-token"]').attr('content');
-                var url = "{{ route('educations.destroy', ':id') }}";
+                var url = "{{ route('dashboard.educations.destroy', ':id') }}";
                 url = url.replace(':id', educationId);
 
                 if (confirm('Are you sure you want to delete this data?')) {

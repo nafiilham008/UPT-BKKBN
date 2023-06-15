@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Employee Detail</h5>
+                <h5 class="modal-title">Detail Pegawai</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -19,8 +19,12 @@
                                 <td class="employee-nip"></td>
                             </tr>
                             <tr>
-                                <td>Position</td>
+                                <td>Posisi</td>
                                 <td class="employee-position"></td>
+                            </tr>
+                            <tr>
+                                <td>Tipe Pegawai</td>
+                                <td class="employee-type"></td>
                             </tr>
                             {{-- <tr>
                                 <td>Address</td>
