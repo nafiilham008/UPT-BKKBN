@@ -74,14 +74,14 @@
         @foreach ($structural as $item)
             <h1 class="text-center mb-5">{{ $item->position }}</h1>
             <div class="row">
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-6 col-sm-4">
                     <div class="d-flex justify-content-center">
                         <img class="rounded-4 img-detail-profile"
                             src="{{ asset('uploads/images/profile/employee-photo/' . $item->photo) }}" alt="">
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-8">
-                    <div class="d-flex justify-content-start mb-4">
+                <div class="col-md-6 col-sm-8">
+                    <div class="d-flex justify-content-start mt-2 mb-4">
                         <h4>{{ $item->name }}</h4>
                     </div>
                     <p class="font-16"><strong>NIP : </strong>{{ $item->nip }}</p>
@@ -117,7 +117,7 @@
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pegawai">
         <h2 class="text-center mb-5 bold-text">Informasi Pegawai</h2>
         <div class="row">
-            <div class="col-md-2 col-sm-2">
+            <div class="col-md-4 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -129,7 +129,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-2">
+            <div class="col-md-4 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-2">
+            <div class="col-md-4 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -153,7 +153,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-2">
+            <div class="col-md-4 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -165,7 +165,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-2">
+            <div class="col-md-4 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -177,7 +177,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-2">
+            <div class="col-md-4 col-sm-2">
                 <div class="card shadow-none border-0 bg-transparent">
                     <div class="card-body text-center">
                         <div
@@ -192,34 +192,37 @@
 
 
         </div>
-        <table class="table table-bordered mt-5" style="background-color: #F4F4F4;">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Lengkap</th>
-                    <th scope="col">NIP</th>
-                    <th scope="col">Jabatan</th>
-                    <th scope="col">Detail</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employee as $key => $item)
+        <div class="table-responsive">
+            <table class="table table-bordered mt-5" style="background-color: #F4F4F4;">
+                <thead>
                     <tr>
-                        <td>{{ $loop->iteration }}. </td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->nip }}</td>
-                        <td>{{ $item->position }}</td>
-                        <td>
-                            <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#detail-employee{{ $item->id }}" data-id="{{ $item->id }}">View
-                                Detail</a>
-                        </td>
-
-
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">NIP</th>
+                        <th scope="col">Jabatan</th>
+                        <th scope="col">Detail</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($employee as $key => $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}. </td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->nip }}</td>
+                            <td>{{ $item->position }}</td>
+                            <td>
+                                <a href="#" data-bs-toggle="modal"
+                                    data-bs-target="#detail-employee{{ $item->id }}"
+                                    data-id="{{ $item->id }}">View
+                                    Detail</a>
+                            </td>
+
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     @foreach ($employee as $item)
         @include('front.profile.include.modal-detail', [

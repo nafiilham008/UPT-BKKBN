@@ -106,12 +106,13 @@
     </nav>
 
     @yield('content')
-
-    <div class="floating-button bg-success">
+    {{-- <div class="floating-button bg-success">
         <button type="button" class="btn btn-light" data-toggle="modal" data-target="#guestBookModal">
             <i class="fas fa-book"></i>
         </button>
-    </div>
+    </div> --}}
+
+
 
     <!-- footer -->
     @include('layouts.front.footer')

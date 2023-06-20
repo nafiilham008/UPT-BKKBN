@@ -224,13 +224,26 @@
             document.getElementById(tabID).classList.add("block");
         }
     </script>
+    {{-- <script>
+        // Batasi jumlah karakter yang ditampilkan
+        var descriptionElement = document.getElementById('description');
+        var maxLength = 10; // Ubah sesuai kebutuhan
+        var descriptionText = descriptionElement.innerHTML;
+
+        if (descriptionText.length > maxLength) {
+            var truncatedText = descriptionText.substr(0, maxLength) + '...';
+            descriptionElement.innerHTML = truncatedText;
+        }
+    </script> --}}
     <script>
         function applyLineClamp() {
-            var element = document.getElementById('description');
+            var elements = document.getElementsByClassName('description');
 
-            if (element) {
+            for (var i = 0; i < elements.length; i++) {
+                var element = elements[i];
+
                 var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
-                var maxHeight = lineHeight * 3; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
+                var maxHeight = lineHeight * 4; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
 
                 var text = element.innerText;
                 var truncatedText = text;
@@ -245,4 +258,29 @@
         // Panggil fungsi applyLineClamp setelah konten selesai dimuat
         window.addEventListener('DOMContentLoaded', applyLineClamp);
     </script>
+    {{-- <script>
+        function applyLineClampArticle() {
+            var counter = 1;
+
+            while (document.getElementById('description-article' + counter)) {
+                var element = document.getElementById('description-article' + counter);
+
+                var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
+                var maxHeight = lineHeight * 4; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
+
+                var text = element.innerText;
+                var truncatedText = text;
+
+                while (element.scrollHeight > maxHeight) {
+                    truncatedText = truncatedText.slice(0, -1);
+                    element.innerText = truncatedText + '...';
+                }
+
+                counter++;
+            }
+        }
+
+        // Panggil fungsi applyLineClampArticle setelah konten selesai dimuat
+        window.addEventListener('DOMContentLoaded', applyLineClampArticle);
+    </script> --}}
 @endpush

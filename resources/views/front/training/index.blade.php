@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-md-8 col-sm-8">
                     <div class="d-flex justify-content-start mb-4">
-                        <h4>{{ $item->name }}</h4>
+                        <h4 class="mt-2">{{ $item->name }}</h4>
                     </div>
                     <p><strong>NIP : </strong>{{ $item->nip }}</p>
                     <p><strong>Jabatan : </strong>{{ $item->position }}</p>
@@ -153,7 +153,7 @@
                         @endif
                     </p>
 
-                    <div class="row mb-5">
+                    {{-- <div class="row mb-5">
                         <div class="col-md-6 col-sm-6">
                             <div class="card">
                                 <div class="card-body">
@@ -167,7 +167,7 @@
                                             @else
                                                 @foreach ($item->educationHistories as $education)
                                                     <tr>
-                                                        <td class="bullet-point"></td> <!-- Empty cell for bullet point -->
+                                                        <td class="bullet-point"></td>
                                                         <td><strong>{{ $education->institution_name }}</strong></td>
                                                         <td>{{ $education->degree }}</td>
                                                         <td><em>{{ $education->graduation_year }}</em></td>
@@ -211,7 +211,6 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Penghargaan/Tanda Jasa</h5>
-                                    {{-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> --}}
                                     @empty($item->awards)
                                         <p class="card-text">Data belum tersedia</p>
                                     @else
@@ -222,7 +221,7 @@
                         </div>
 
 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         @endforeach
@@ -312,7 +311,7 @@
 
         @media (max-width: 767px) {
             .logo-container {
-                justify-content: flex-start;
+                justify-content: center;
             }
         }
     </style>

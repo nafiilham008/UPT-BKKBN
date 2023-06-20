@@ -184,7 +184,7 @@
 
         .slideshow {
             position: relative;
-            min-height: 200px;
+            min-height: 100px !important;
             height: auto;
             width: 100%;
             background: #fff;
@@ -200,7 +200,7 @@
         button.slick-prev.slick-arrow {
             position: absolute;
             z-index: 5;
-            bottom: -80px;
+            bottom: -30px;
             right: 160px;
             background: transparent;
             color: transparent;
@@ -216,7 +216,7 @@
 
         button.slick-next.slick-arrow {
             position: absolute;
-            bottom: -82px;
+            bottom: -30px;
             right: 105px;
             background: transparent;
             color: transparent;

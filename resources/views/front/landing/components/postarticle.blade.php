@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm-7 col-lg-7">
             <h6 class="tab-title">{{ $item->title }}</h6>
-            <div class="tab-desc">
+            <div class="tab-desc description">
                 @php
                     $description = preg_replace('/<img[^>]+>/i', '', $item->description);
                     $paragraphs = explode('<p>', $description);

@@ -11,7 +11,7 @@
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
-    <div class="container-fluid d-flex justify-content-center bg-menu-doc mt-custom">
+    <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
         <ul class="nav d-flex my-auto">
             <li class="nav-item">
                 <a class="nav-link active" href="#" data-target="daftar-informasi">Daftar Informasi Publik</a>
@@ -105,26 +105,28 @@
 
     <div class="container-fluid detail-news fade-in d-none" id="akuntabilitas-kerja">
         <h2 class="text-center bold-text mb-5">Akuntabilitas Kerja</h2>
-        <table class="table table-bordered mt-2" style="background-color: #F4F4F4;">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Year</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($workAccountability as $item)
+        <div class="table-responsive">
+            <table class="table table-bordered mt-2" style="background-color: #F4F4F4;">
+                <thead>
                     <tr>
-                        <td>{{ $loop->iteration }}. </td>
-                        <td>{{ $item->year }} - {{ $item->additional }}</td>
-                        <td>
-                            <a href="{{ $item->link }}" target="_blank">Lihat Detail</a>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Year</th>
+                        <th scope="col"></th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($workAccountability as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}. </td>
+                            <td>{{ $item->year }} - {{ $item->additional }}</td>
+                            <td>
+                                <a href="{{ $item->link }}" target="_blank">Lihat Detail</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="container-fluid detail-news fade-in d-none" id="maklumat-pelayanan">
@@ -148,7 +150,7 @@
             border-radius: 1rem;
         }
 
-        .bg-menu-doc .nav {
+        /* .bg-menu-doc .nav {
             flex-wrap: nowrap;
             overflow-x: auto;
         }
@@ -159,7 +161,7 @@
 
         .bg-menu-doc .nav-link.active {
             color: #fff;
-        }
+        } */
 
         .center-img-service {
             display: flex;
@@ -174,7 +176,7 @@
             width: 500px !important;
         }
 
-        @media (max-width: 767px) {
+        /* @media (max-width: 767px) {
             .bg-menu-doc {
                 max-width: 300px;
                 height: 150px;
@@ -189,7 +191,7 @@
                 flex-basis: 50%;
             }
 
-        }
+        } */
     </style>
     <style>
         .text-white-accordion {

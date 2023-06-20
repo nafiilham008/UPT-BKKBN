@@ -24,7 +24,7 @@
                         @if ($item->type == 'Website')
                             <h6 class="text-center">{{ $item->title }}</h6>
                             <a href="{{ $item->link }}" target="_blank"
-                                class="text-decoration-none text-dark btn btn-outline-light btn-banner"
+                                class="text-center text-decoration-none text-dark btn btn-outline-light btn-banner"
                                 style="background-image: url('{{ asset('uploads/images/link/' . $item->photo) }}');">
                             </a>
                         @endif
@@ -39,7 +39,7 @@
                         @if ($item->type == 'LMS')
                             <h6 class="text-center">{{ $item->title }}</h6>
                             <a href="{{ $item->link }}" target="_blank"
-                                class="text-decoration-none text-dark btn btn-outline-light btn-banner"
+                                class="text-center text-decoration-none text-dark btn btn-outline-light btn-banner"
                                 style="background-image: url('{{ asset('uploads/images/link/' . $item->photo) }}');">
                             </a>
                         @endif

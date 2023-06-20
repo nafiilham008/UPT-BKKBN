@@ -265,7 +265,8 @@ body {
 
 .tab-desc {
     text-align: justify;
-    display: -webkit-box;
+    /* display: -webkit-box; */
+    display: -webkit-inline-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -577,6 +578,7 @@ footer .badge {
 
 .bg-menu .nav-link {
     color: #f4f4f4c5;
+    width: max-content;
 }
 
 .bg-menu .nav-link.active {
@@ -748,8 +750,6 @@ label.mandatory::before {
 
 
 
-
-
 /* Responsive */
 
 @media (max-width: 767px) {
@@ -793,6 +793,10 @@ label.mandatory::before {
     .font-title {
         font-size: 20px;
         font-weight: bold;
+    }
+
+    .font-30 {
+        font-size: 20px;
     }
 
     .img-rounded-custom {
@@ -921,13 +925,13 @@ label.mandatory::before {
     }
 
     .bg-menu {
-        max-width: 300px;
-        height: 150px;
-        margin: 0 auto;
+        max-width: 300px !important;
+        height: 50px;
+        overflow-x: auto;
     }
 
     .bg-menu .nav {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .bg-menu .nav-item {
@@ -1017,7 +1021,7 @@ label.mandatory::before {
     }
 
     .img-detail-profile {
-        height: 300px;
+        height: 350px;
         width: 100%;
         object-fit: cover;
     }
@@ -1029,8 +1033,8 @@ label.mandatory::before {
     }
 
     .detail-news {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
     }
 
     .justify-custom-detail {
@@ -1044,6 +1048,15 @@ label.mandatory::before {
         object-fit: cover;
     }
 
+    .image-button-link a {
+        
+        width: 250px !important;
+        height: 70px !important;
+        
+    }
+    
+
+
 
 }
 
@@ -1056,6 +1069,10 @@ label.mandatory::before {
         background-color: #FFFFFF !important;
         height: 100px !important;
         display: block;
+    }
+
+    .font-30 {
+        font-size: 20px;
     }
 
 
@@ -1217,4 +1234,77 @@ label.mandatory::before {
     .count-footer {
         font-size: 10px !important;
     }
+
+    /* Profile */
+    .background-image-profile img {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        background-size: 100% auto;
+        background-attachment: fixed;
+        background-position: center;
+        filter: brightness(0.5) blur(2px);
+    }
+
+    .img-fluid {
+        max-width: 100% !important;
+    }
+
+    .background-image-profile {
+        display: none;
+        background-image: none;
+    }
+
+    .background-image-profile:before {
+        display: none;
+        z-index: 0;
+    }
+
+    .bg-menu {
+        max-width: 750px !important;
+        height: 50px;
+    }
+
+    .bg-menu .nav {
+        flex-wrap: nowrap;
+    }
+
+    .detail-news {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .img-detail-profile {
+        height: 350px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .logo-container {
+        justify-content: center;
+    }
+
+    .margin-body {
+        margin-top: 100%;
+    }
+
+    footer {
+        position: relative !important;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .img-fluid-footer {
+        width: 12rem !important;
+    }
+
+    .image-button-link a {
+        
+        width: 500px !important;
+        height: 150px !important;  
+    }
+    
 }
