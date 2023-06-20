@@ -146,7 +146,7 @@ class KediklatanController extends Controller
         $cek = Kediklatan::all();
         $cekPhoto = false;
 
-        if ($cek->isEmpty()) {
+        if ($cek->isEmpty() || $kediklatan->photo) {
             $cekPhoto = true;
         } else {
             foreach ($cek as $item) {

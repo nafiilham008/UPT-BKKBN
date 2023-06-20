@@ -32,7 +32,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.historicals.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.historicals.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 <div class="row mb-2">
@@ -41,7 +42,8 @@
                                             <label for="title">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
                                                 class="form-control @error('title') is-invalid @enderror"
-                                                placeholder="{{ __('Insert Title') }}" required autofocus>
+                                                placeholder="{{ __('Insert Title') }}" data-parsley-trigger="change"
+                                                data-parsley-required-message="{{ __('Please enter a title') }}">
                                             @error('title')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -52,14 +54,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
-                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpeg">
+                                            <input class="form-control" type="file" id="thumbnail" name="thumbnail"
+                                                accept="image/png, image/jpeg" required data-parsley-trigger="change"
+                                                data-parsley-filemaxmegabytes="2"
+                                                data-parsley-required-message="{{ __('Please select a thumbnail') }}"
+                                                data-parsley-error-message="{{ __('Please upload an image file (JPEG, PNG) with a maximum size of 2MB') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description">{{ __('Description') }}</label>
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="Insert description" required autofocus></textarea> {{-- {!! $post->description !!} --}}
+                                                placeholder="Insert description" required autofocus data-parsley-trigger="change"
+                                                data-parsley-required-message="{{ __('Please enter a description') }}"></textarea>
                                             @error('description')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -68,6 +75,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
 

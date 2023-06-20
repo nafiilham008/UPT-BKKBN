@@ -11,20 +11,20 @@
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
-    <div class="container-fluid d-flex justify-content-center bg-menu-doc mt-custom">
+    {{-- <div class="container-fluid d-flex justify-content-center bg-menu-doc mt-custom">
         <ul class="nav d-flex my-auto">
             <li class="nav-item">
                 <a class="nav-link active" href="#" data-target="materi-diklat">Materi Diklat</a>
             </li>
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="#" data-target="kursus">Pelatihan Lainnya</a>
-            </li> --}}
-            {{-- <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#" data-target="pengumuman">Pengumumanr</a>
-            </li> --}}
+            </li>
 
         </ul>
-    </div>
+    </div> --}}
     <div class="container-fluid detail-news" id="materi-iklat">
         <h2 class="text-center bold-text mb-5">Materi Diklat</h2>
         <div class="row">
@@ -118,6 +118,7 @@
 
         .bg-menu-doc .nav-link {
             color: #f4f4f4c5;
+            width: max-content;
         }
 
         .bg-menu-doc .nav-link.active {
@@ -133,13 +134,13 @@
 
         @media (max-width: 767px) {
             .bg-menu-doc {
-                max-width: 300px;
-                height: 150px;
-                margin: 0 auto;
+                max-width: 300px !important;
+                height: 50px;
+                overflow-x: auto;
             }
 
             .bg-menu-doc .nav {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
             }
 
             .bg-menu-doc .nav-item {

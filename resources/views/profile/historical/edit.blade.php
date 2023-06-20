@@ -45,8 +45,9 @@
                                             <input type="text" name="title" id="title"
                                                 class="form-control @error('title') is-invalid @enderror"
                                                 placeholder="{{ __('Insert Title') }}"
-                                                value="{{ isset($history) ? $history->title : old('title') }}" required
-                                                autofocus>
+                                                value="{{ isset($history) ? $history->title : old('title') }}"
+                                                data-parsley-trigger="change"
+                                                data-parsley-required-message="{{ __('Please enter a title') }}">
                                             @error('title')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -65,7 +66,9 @@
                                             <label for="thumbnail">{{ __('Thumbnail') }}</label>
                                             <input class="form-control @error('thumbnail') is-invalid @enderror"
                                                 type="file" id="thumbnail" name="thumbnail"
-                                                accept="image/png, image/jpeg">
+                                                accept="image/png, image/jpeg" 
+                                                data-parsley-filemaxmegabytes="2"
+                                                data-parsley-error-message="{{ __('Please upload an image file (JPEG, PNG) with a maximum size of 2MB') }}">
                                             @error('thumbnail')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -78,7 +81,8 @@
                                             <label for="description">{{ __('Description') }}</label>
                                             {{ csrf_field() }}
                                             <textarea id="summernote" name="description" class="form-control @error('description') is-invalid @enderror"
-                                                placeholder="Insert description" required autofocus>{!! $history->description !!}</textarea>
+                                                placeholder="Insert description" data-parsley-trigger="change"
+                                                data-parsley-required-message="{{ __('Please enter a description') }}">{!! $history->description !!}</textarea>
                                             @error('description')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -87,7 +91,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">{{ __('Back') }}</a>
 
@@ -131,6 +134,5 @@
             'code',
             `{!! $history->description !!}`,
         );
-       
     </script>
 @endpush
