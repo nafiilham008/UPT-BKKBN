@@ -30,10 +30,12 @@
                 target="_blank" class="me-2 text-decoration-share">
                 <iconify-icon inline icon="logos:facebook" width="30" height="30"></iconify-icon>
             </a>
-            <a href="https://api.whatsapp.com/send?text={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}" target="_blank" class="me-2 text-decoration-share">
+            <a href="https://api.whatsapp.com/send?text={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}"
+                target="_blank" class="me-2 text-decoration-share">
                 <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
             </a>
-            <a href="https://t.me/share/url?url={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}" target="_blank" class="text-decoration-share">
+            <a href="https://t.me/share/url?url={{ urlencode(route('home.detail', [$post->categories->label, $post->slug_url])) }}"
+                target="_blank" class="text-decoration-share">
                 <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
             </a>
         </div>
@@ -61,3 +63,4 @@
 
     </div>
 @endsection
+

@@ -119,7 +119,7 @@
                     <div class="card-body text-center">
                         @foreach ($buttonBanner as $item)
                             <a href="{{ $item->link }}"
-                                class="text-decoration-none text-dark btn btn-outline-light btn-banner"
+                                class="text-decoration-width text-dark btn btn-outline-light btn-banner"
                                 style="background-image: url('{{ asset('uploads/images/information/button-banner/' . $item->photo) }}');">
                             </a>
                         @endforeach

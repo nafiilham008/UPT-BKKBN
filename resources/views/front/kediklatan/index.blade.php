@@ -18,8 +18,7 @@
         <h2 class="text-center bold-text mb-5">Kediklatan</h2>
 
         <div class="row">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     @if (isset($getImage->photo))
                         <div class=" text-end me-5">
                             <img class="image-kediklatan"
@@ -27,7 +26,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-md-8 my-auto">
+                <div class="col-md-8 col-sm-6 my-auto mt-responsive">
                     @if (isset($kediklatan))
                         <div class="sd_master_wrapper">
                             <div class="slideshow d-flex justify-content-center align-items-center">
@@ -51,7 +50,6 @@
                         </div>
                     @endif
                 </div>
-            </div>
         </div>
 
 
@@ -123,6 +121,7 @@
             max-height: 400px;
             height: 100%;
             width: 100%;
+            object-fit: cover
         }
     </style>
 
@@ -186,14 +185,10 @@
             position: relative;
             min-height: 100px !important;
             height: auto;
-            width: 100%;
+            width: 100% !important;
             background: #fff;
             box-shadow: 0px 18px 52.8537px rgba(215, 228, 249, 0.5);
             border-radius: 20px;
-            /* background-image: url(https://farsighttechnologies.com/wp-content/uploads/2021/03/quote1.png), url(https://farsighttechnologies.com/wp-content/uploads/2021/03/quote.png);
-                                            background-position: top 15px left 15px, bottom 40% right 15px;
-                                            background-repeat: no-repeat;
-                                            background-size: 180px, 180px; */
             z-index: 3;
         }
 

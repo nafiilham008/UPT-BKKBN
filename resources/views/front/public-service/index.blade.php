@@ -120,7 +120,7 @@
                             <td>{{ $loop->iteration }}. </td>
                             <td>{{ $item->year }} - {{ $item->additional }}</td>
                             <td>
-                                <a href="{{ $item->link }}" target="_blank">Lihat Detail</a>
+                                <a href="{{ $item->link }}" target="_blank">Lihat Selengkapnya</a>
                             </td>
                         </tr>
                     @endforeach

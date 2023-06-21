@@ -116,7 +116,7 @@
     <div class="container-fluid detail-news fade-in d-none" id="profil-pengajar">
         <h2 class="text-center bold-text mb-3">Profil Pengajar</h2>
         @foreach ($profileInstructor as $item)
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-md-4 col-sm-4 mt-2">
                     <div class="d-flex justify-content-center">
                         <img class="rounded-4 img-detail-profile"

@@ -1049,12 +1049,31 @@ label.mandatory::before {
     }
 
     .image-button-link a {
-        
+
         width: 250px !important;
         height: 70px !important;
-        
+
     }
-    
+
+    .mt-responsive {
+        margin-top: 2rem !important;
+    }
+
+    .text-end {
+        text-align: center !important;
+    }
+
+    .image-kediklatan {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .me-5 {
+        margin-right: 0 !important;
+        margin-bottom: 2rem !important;
+    }
+
 
 
 
@@ -1066,8 +1085,7 @@ label.mandatory::before {
     }
 
     .navbar {
-        background-color: #FFFFFF !important;
-        height: 100px !important;
+        height: auto;
         display: block;
     }
 
@@ -1157,8 +1175,8 @@ label.mandatory::before {
         -webkit-line-clamp: 3;
     }
 
-    .text-decoration-none {
-        width: 13rem !important;
+    .text-decoration-width {
+        width: 10rem !important;
     }
 
     .nav-pills .nav-item {
@@ -1286,9 +1304,9 @@ label.mandatory::before {
         justify-content: center;
     }
 
-    .margin-body {
+    /* .margin-body {
         margin-top: 100%;
-    }
+    } */
 
     footer {
         position: relative !important;
@@ -1302,9 +1320,9 @@ label.mandatory::before {
     }
 
     .image-button-link a {
-        
+
         width: 500px !important;
-        height: 150px !important;  
+        height: 150px !important;
     }
-    
+
 }

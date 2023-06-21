@@ -34,7 +34,8 @@
                 class="me-2 text-decoration-none">
                 <iconify-icon inline icon="logos:whatsapp-icon" width="33" height="33"></iconify-icon>
             </a>
-            <a href="https://t.me/share/url?url={{ urlencode(route('home.detail.history')) }}" target="_blank" class="text-decoration-none">
+            <a href="https://t.me/share/url?url={{ urlencode(route('home.detail.history')) }}" target="_blank"
+                class="text-decoration-none">
                 <iconify-icon inline icon="logos:telegram" width="30" height="30"></iconify-icon>
             </a>
         </div>
