@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     @include('layouts.front.style')
 
+    <link rel="icon" href="{{ asset('img/logo/logo_upt.png') }}" />
+
+
     <title>@yield('title')</title>
 
     <style>
