@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\{StoreUserRequest, UpdateUserRequest};
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
-use Image;
+use Intervention\Image\Facades\Image;
+
 
 class UserController extends Controller
 {

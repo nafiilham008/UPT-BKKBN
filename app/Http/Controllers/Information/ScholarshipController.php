@@ -57,14 +57,13 @@ class ScholarshipController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'photo' => 'required|mimes:jpeg,png|max:2048',
-            'link' => 'required',
+            'link' => 'nullable',
             'description' => 'required',
         ], [
             'title.required' => 'Title field is required.',
             'photo.required' => 'Photo field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
-            'link.required' => 'Link field is required.',
             'description.required' => 'Description field is required.',
         ]);
 
@@ -146,13 +145,12 @@ class ScholarshipController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'photo' => 'nullable|mimes:jpeg,png|max:2048',
-            'link' => 'required',
+            'link' => 'nullable',
             'description' => 'required',
         ], [
             'title.required' => 'Title field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
-            'link.required' => 'Link field is required.',
             'description.required' => 'Description field is required.',
         ]);
 

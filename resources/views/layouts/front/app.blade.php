@@ -11,7 +11,7 @@
 
     <title>@yield('title')</title>
 
-    <style>
+    {{-- <style>
         .floating-button {
             position: fixed;
             bottom: 20px;
@@ -55,7 +55,7 @@
                 transform: translateY(-10px);
             }
         }
-    </style>
+    </style> --}}
     <style>
         .search-container {
             position: relative;
@@ -122,7 +122,7 @@
 
     @include('layouts.front.script')
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             var floatingButton = document.querySelector('.floating-button');
 
@@ -136,7 +136,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
     <script>
         function handleLinkClick(event, url) {
             event.preventDefault(); // Mencegah perilaku default dari tautan

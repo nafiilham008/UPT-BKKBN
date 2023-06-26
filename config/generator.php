@@ -190,6 +190,11 @@ return [
                             'permission' => 'jobandfunc view'
                         ],
                         [
+                            'title' => 'Structure Organization',
+                            'route' => '/structures',
+                            'permission' => 'structure view'
+                        ],
+                        [
                             'title' => 'Employee',
                             'route' => '/employees',
                             'permission' => 'employee view'

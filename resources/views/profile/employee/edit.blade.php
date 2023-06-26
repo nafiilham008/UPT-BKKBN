@@ -381,6 +381,11 @@
 
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 
     {{-- Select --}}
     <script src="{{ asset('mazer') }}/extensions/choices.js/public/assets/scripts/choices.js"></script>

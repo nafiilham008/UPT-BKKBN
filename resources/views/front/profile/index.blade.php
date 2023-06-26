@@ -5,8 +5,8 @@
 @section('content')
     <div class="background-image-profile d-flex align-items-center justify-content-center">
         <div class="profile-text">
-            <h3>Profil Perusahaan</h3>
-            <p>Profil Perusahaan UPT Balai Diklat KKB Banyumas</p>
+            <h3>Profil Lembaga</h3>
+            <p>Profil Lembaga UPT Balai Diklat KKB Banyumas</p>
         </div>
         {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
@@ -31,7 +31,7 @@
         </ul>
     </div>
 
-    <div class="container-fluid detail-news fade-in" id="sejarah">
+    <div class="container-fluid detail-news fade-in d-none" id="sejarah">
         @foreach ($history as $item)
             <h2 class="text-center mb-5 bold-text">{{ $item->title }}</h2>
             <div class="d-flex justify-content-center">
@@ -64,9 +64,115 @@
 
 
     </div>
-    <div class="container-fluid detail-news fade-in d-none" id="struktur-organisasi">
+    <div class="container-fluid detail-news fade-in" id="struktur-organisasi">
         <h2 class="text-center bold-text mb-5">Struktur Organisasi</h2>
         <img class="img-structure mx-auto d-block" src="{{ asset('img/struktur.svg') }}" alt="">
+        {{-- @foreach ($structure as $item)
+            @empty($item)
+            @else
+                <img class="img-structure mx-auto" src="{{ asset('uploads/images/profile/structure/' . $item->photo) }}"
+                    alt="">
+            @endempty
+        @endforeach --}}
+
+        {{-- <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">Parent</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 right-line"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 right-line"></div>
+                <div class="col-md-3 right-line top-line"></div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 halved right-line">Parent2</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 right-line"></div>
+                <div class="col-md-3 right-line"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 right-line"></div>
+                <div class="col-md-2 right-line top-line"></div>
+                <div class="col-md-2 right-line top-line"></div>
+                <div class="col-md-1 right-line"></div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">TU 1</div>
+                <div class="col-md-2">TU 2</div>
+                <div class="col-md-2 right-line">TU 3</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 right-line"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 top-line right-line"></div>
+                <div class="col-md-2 top-line"></div>
+                <div class="col-md-2 top-line"></div>
+                <div class="col-md-2 top-line"></div>
+                <div class="col-md-2 top-line"></div>
+                <div class="col-md-2 top-line right-line"></div>
+                
+            </div> --}}
+        {{-- <div class="row">
+                <div class="col-md-2 right-line"></div>
+                
+            </div> --}}
+
+
+        {{-- <div class="row">
+                <div class="col-md-6 right-line"></div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 right-line"></div>
+                <div class="col-md-3 right-line top-line"></div>
+                <div class="col-md-3 right-line top-line"></div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">Child</div>
+                <div class="col-md-4">Bigger Child</div>
+                <div class="col-md-2">Child</div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 right-line"></div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 p-0">
+                    <div class="halved right-line"></div>
+                    <div class="halved top-line"></div>
+                </div>
+                <div class="col-md-3 p-0">
+                    <div class="halved right-line top-line"></div>
+                    <div class="halved top-line"></div>
+                </div>
+                <div class="col-md-3 p-0">
+                    <div class="halved right-line top-line"></div>
+                    <div class="halved top-line"></div>
+                </div>
+                <div class="col-md-3 p-0">
+                    <div class="halved right-line top-line"></div>
+                    <div class="halved"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">GrandChild</div>
+                <div class="col-md-3">GrandChild</div>
+                <div class="col-md-3">GrandChild</div>
+                <div class="col-md-3">GrandChild</div>
+            </div> --}}
+    </div>
     </div>
     <div class="container-fluid detail-news fade-in d-none" id="informasi-pejabat">
 
@@ -279,6 +385,21 @@
 
         a {
             text-decoration: none;
+        }
+    </style>
+    <style>
+        .right-line {
+            border-right: 5px #ccc solid;
+            height: 2em
+        }
+
+        .top-line {
+            border-top: 5px #ccc solid;
+        }
+
+        .halved {
+            width: 50%;
+            float: left;
         }
     </style>
 @endpush

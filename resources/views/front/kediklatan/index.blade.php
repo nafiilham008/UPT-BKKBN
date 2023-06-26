@@ -15,7 +15,7 @@
 
 
     <div class="container-fluid detail-news" id="beasiswa">
-        <h2 class="text-center bold-text mb-5">Kediklatan</h2>
+        <h2 class="text-center bold-text mb-5">Pelatihan</h2>
 
         <div class="row">
                 <div class="col-md-4 col-sm-6">

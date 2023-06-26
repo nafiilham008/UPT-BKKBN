@@ -6,12 +6,12 @@
             </div>
             <div class="col-lg-3 col-sm-3">
                 <h3>KONTAK</h3>
-                <p class="text-footer-tablet">Telepon: (021) 655421</p>
-                <p class="text-footer-tablet">Email: <a href="#">info@example.com</a></p>
+                <p class="text-footer-tablet">Telepon: (0281) 6445887</p>
+                <p class="text-footer-tablet">Email: <a href="mailto:diklat.banyumas@bkkbn.go.id">diklat.banyumas@bkkbn.go.id</a></p>
             </div>
             <div class="col-lg-3 col-sm-3">
                 <h3>ALAMAT</h3>
-                <p class="text-footer-tablet">Karangbajing, Kejawar, </p>
+                <p class="text-footer-tablet">Jalan Raya Kejawar Km.1, </p>
                 <p class="text-footer-tablet">Kec. Banyumas, Kab. Banyumas,</p>
                 <P class="text-footer-tablet">Jawa Tengah 53192</p>
             </div>

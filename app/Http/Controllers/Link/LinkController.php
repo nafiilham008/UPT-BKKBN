@@ -52,7 +52,7 @@ class LinkController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
             'type' => 'required',
             'photo' => 'required|mimes:jpeg,png|max:2048',
         ], [
@@ -61,7 +61,6 @@ class LinkController extends Controller
             'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
             'type.required' => 'Type field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
@@ -140,7 +139,7 @@ class LinkController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'photo' => 'nullable|mimes:jpeg,png|max:2048',
-            'link' => 'required',
+            'link' => 'nullable',
             'type' => 'required',
         ], [
             'title.required' => 'Title field is required.',

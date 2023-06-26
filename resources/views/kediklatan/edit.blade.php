@@ -125,7 +125,7 @@
                                                 value="{{ $kediklatan->link }}"
                                                 class="form-control @error('link') is-invalid @enderror"
                                                 placeholder="e.g. https://example.com"
-                                                data-parsley-required="{{ $kediklatan->link ? 'false' : 'true' }}"
+                                                data-parsley-required="{{ $kediklatan->link ? 'true' : 'false' }}"
                                                 data-parsley-required-message="The Link field is required!"
                                                 data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
                                                 data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
@@ -162,4 +162,9 @@
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 @endpush

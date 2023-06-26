@@ -50,11 +50,10 @@ class WorkAccountabilityController extends Controller
     {
         $validated = $request->validate([
             'year' => ['required', 'numeric', 'max:' . date('Y')],
-            'link' => 'required',
+            'link' => 'nullable',
             'additional' => 'nullable'
         ], [
             'year.required' => 'year field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         $workAccountability = WorkAccountability::create([
@@ -115,11 +114,10 @@ class WorkAccountabilityController extends Controller
 
         $validated = $request->validate([
             'year' => ['required', 'numeric', 'max:' . date('Y')],
-            'link' => 'required',
+            'link' => 'nullable',
             'additional' => 'nullable'
         ], [
             'year.required' => 'year field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         

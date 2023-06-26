@@ -58,11 +58,10 @@ class   PublicInformationController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
             'type_public_information' => 'required'
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
             'type_public_information.required' => 'Type Public Information field is required.',
         ]);
 
@@ -128,11 +127,10 @@ class   PublicInformationController extends Controller
 
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
             'type_public_information' => 'required'
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
             'type_public_information.required' => 'Type Public Information field is required.',
         ]);
 

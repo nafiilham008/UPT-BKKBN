@@ -16,7 +16,7 @@
                 alt="">
         </div>
         <div class="mt-4">
-            <h6>Penulis: {{ $post->users->name }}</h6>
+            {{-- <h6>Penulis: {{ $post->users->name }}</h6> --}}
             {!! str_replace(
                 ['<img ', '<span '],
                 ["<img class='img-fluid-summernote' ", "<span class='span-text-summernote' "],

@@ -90,6 +90,7 @@ class RoleAndPermissionController extends Controller
     {
         $role = Role::with('permissions')->findOrFail($id);
 
+        // dd($role);
         return view('roles.edit', compact('role'));
     }
 

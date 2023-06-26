@@ -58,8 +58,7 @@
                                             <label for="link" class="form-label">{{ __('Link') }}</label>
                                             <input type="text" name="link" id="link"
                                                 class="form-control @error('link') is-invalid @enderror"
-                                                placeholder="e.g. https://example.com" data-parsley-required="true"
-                                                data-parsley-required-message="The Link field is required!"
+                                                placeholder="e.g. https://example.com"
                                                 data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
                                                 data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
                                             @error('link')

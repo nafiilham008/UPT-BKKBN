@@ -53,14 +53,15 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group mandatory">
-                                        <label for="title" class="form-label">{{ __('Link Calendar (drive)') }}</label>
+                                        <label for="link" class="form-label">{{ __('Link Calendar (drive)') }}</label>
                                         <input type="text" name="link" id="link" value="{{ $calendar->link }}"
                                             class="form-control @error('link') is-invalid @enderror"
                                             placeholder="e.g. https://drive.google.com/...."
-                                            pattern="^https:\/\/drive\.google\.com\/.*$" data-parsley-required="true"
-                                            data-parsley-required-message="The Link Calendar (drive) field is required!"
-                                            data-parsley-pattern-message="The Link Calendar (drive) field should be a valid Google Drive link!"
-                                            value="{{ old('link') }}" autofocus>
+                                            data-parsley-required="{{ $calendar->link ? 'true' : 'false' }}"
+                                            data-parsley-required-message="The Link field is required!"
+                                            data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
+                                            data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'"
+                                            value="{{ old('link') }}">
                                         @error('title')
                                             <span class="text-danger">
                                                 {{ $message }}
@@ -72,7 +73,8 @@
 
                             </div>
 
-                            <a href="{{ route('dashboard.calendars.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
+                            <a href="{{ route('dashboard.calendars.index') }}"
+                                class="btn btn-secondary">{{ __('Back') }}</a>
 
                             <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                         </form>
@@ -82,3 +84,14 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
+    <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
+@endpush

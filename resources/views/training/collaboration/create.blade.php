@@ -87,4 +87,9 @@
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 @endpush

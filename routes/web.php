@@ -23,6 +23,7 @@ use App\Http\Controllers\Profile\EmployeeController;
 use App\Http\Controllers\Profile\EmployeeHistoryController;
 use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
+use App\Http\Controllers\Profile\StructureController;
 use App\Http\Controllers\PublicService\ServiceInformationController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Training\CalendarController;
@@ -77,6 +78,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('historicals', HistoricalController::class)->names('dashboard.historicals');
         Route::resource('jobandfuncs', JobandfuncController::class)->names('dashboard.jobandfuncs');
         Route::resource('employees', EmployeeController::class)->names('dashboard.employees');
+        Route::resource('structures', StructureController::class)->names('dashboard.structures');
         Route::resource('scholarships', ScholarshipController::class)->names('dashboard.scholarships');
         Route::resource('courses', OtherCourseController::class)->names('dashboard.courses');
         Route::resource('announcements', AnnouncementController::class)->names('dashboard.announcements');

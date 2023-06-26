@@ -132,7 +132,7 @@
     <div class="container-fluid detail-news fade-in d-none" id="maklumat-pelayanan">
         <h2 class="text-center bold-text mb-5">Maklumat Pelayanan</h2>
         @foreach ($serviceInformation as $item)
-            <div class="center-img-service">
+            <div class="center-img-service mt-3">
                 <img src="{{ asset('uploads/images/public-service/service-information/' . $item->photo) }}" alt="">
             </div>
         @endforeach
@@ -174,6 +174,7 @@
             max-width: 100%;
             max-height: 100%;
             width: 500px !important;
+            object-fit: contain;
         }
 
         /* @media (max-width: 767px) {

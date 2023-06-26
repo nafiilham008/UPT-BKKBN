@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <label for="image" class="form-label">{{ __('Image') }}</label>
                                             <input class="form-control" type="file" id="image" name="image"
-                                                accept="image/png, image/jpeg" data-parsley-required="true"
+                                                accept="image/png, image/jpeg"
                                                 data-parsley-filemaxmegabytes="2" data-parsley-trigger="change"
                                                 data-parsley-filemimetypes="image/jpeg,image/png"
                                                 data-parsley-error-message="Please upload an image file (JPEG, PNG) with a maximum size of 2MB">
@@ -74,11 +74,23 @@
                                             <label for="link" class="form-label">{{ __('Link') }}</label>
                                             <input type="text" name="link" id="link"
                                                 class="form-control @error('link') is-invalid @enderror"
-                                                placeholder="e.g. https://example.com" data-parsley-required="true"
-                                                data-parsley-required-message="The Link field is required!"
+                                                placeholder="e.g. https://example.com" 
                                                 data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
                                                 data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
                                             @error('link')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="description" class="form-label">{{ __('Description') }}</label>
+                                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                                rows="4" placeholder="Enter description" data-parsley-required="true"
+                                                data-parsley-required-message="The Description field is required!"></textarea>
+                                            @error('description')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>

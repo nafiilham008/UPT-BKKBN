@@ -37,7 +37,10 @@
                                         aria-labelledby="flush-heading{{ $item->id }}"
                                         data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
-                                            Lihat selengkapnya <a href="{{ $item->link }}" target="_blank">Disini</a>
+                                            {{ $item->description }}
+                                            @if (isset($item->link))
+                                                Lihat selengkapnya <a href="{{ $item->link }}" target="_blank">Disini</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Edit Announcement'))
+@section('title', __('Edit Structure'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Announcement') }}</h3>
+                    <h3>{{ __('Structure') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Edit an announcement.') }}
+                        {{ __('Edit an structure.') }}
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.announcements.index') }}">{{ __('Announcement') }}</a>
+                        <a href="{{ route('dashboard.structures.index') }}">{{ __('Structure') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.announcements.update', $announcement->id) }}" method="POST"
+                            <form action="{{ route('dashboard.structures.update', $structure->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -42,10 +42,9 @@
                                         <div class="form-group mandatory">
                                             <label for="title" class="form-label">{{ __('Title') }}</label>
                                             <input type="text" name="title" id="title"
-                                                value="{{ $announcement->title }}"
+                                                value="{{ $structure->title }}"
                                                 class="form-control @error('title') is-invalid @enderror"
-                                                placeholder="e.g. Beasiswa" data-parsley-required="true"
-                                                data-parsley-required-message="The Title field is required!" autofocus>
+                                                placeholder="e.g. Struktur Organisasi" autofocus>
                                             @error('title')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -53,27 +52,37 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-1 text-center"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="avatar avatar-xl">
+                                            <img style="object-fit: cover"
+                                                src="{{ asset('uploads/images/profile/structure/' . $structure->photo) }}"
+                                                alt="avatar">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="link" class="form-label">{{ __('Link') }}</label>
-                                            <input type="text" name="link" id="link"
-                                                value="{{ $announcement->link }}"
-                                                class="form-control @error('link') is-invalid @enderror"
-                                                placeholder="e.g. https://example.com"
-                                                data-parsley-required="{{ $announcement->link ? 'true' : 'false' }}"
-                                                data-parsley-required-message="The Link field is required!"
-                                                data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
-                                                data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
-                                            @error('link')
+                                            <label for="photo" class="form-label">{{ __('Photo') }}</label>
+                                            <input class="form-control" type="file" id="photo" name="photo"
+                                                accept="image/png, image/jpeg, image/svg+xml" data-parsley-filemaxmegabytes="5"
+                                                data-parsley-trigger="change"
+                                                data-parsley-filemimetypes="image/jpeg,image/png,image/svg"
+                                                data-parsley-error-message="Please upload an image file (JPEG, PNG, SVG) with a maximum size of 5MB">
+                                            @error('photo')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
+                                    
+
                                 </div>
 
-                                <a href="{{ route('dashboard.announcements.index') }}"
+
+
+
+                                <a href="{{ route('dashboard.structures.index') }}"
                                     class="btn btn-secondary">{{ __('Back') }}</a>
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

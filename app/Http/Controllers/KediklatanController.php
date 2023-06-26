@@ -73,13 +73,12 @@ class KediklatanController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
             'description' => 'required',
             'photo' => 'nullable|mimes:jpeg,png|max:2048',
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
-            'description.required' => 'Link field is required.',
+            'description.required' => 'Description field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
         ]);
@@ -176,13 +175,12 @@ class KediklatanController extends Controller
 
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
             'description' => 'required',
             'photo' => 'nullable|mimes:jpeg,png|max:2048',
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
-            'description.required' => 'Link field is required.',
+            'description.required' => 'Description field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
         ]);

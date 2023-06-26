@@ -32,8 +32,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.work-accountabilities.update', $workAccountability->id) }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.work-accountabilities.update', $workAccountability->id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -56,7 +56,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group mandatory">
                                             <label for="additional" class="form-label">{{ __('Additional') }}</label>
-                                            <input type="text" name="additional" id="additional" value="{{ $workAccountability->additional }}"
+                                            <input type="text" name="additional" id="additional"
+                                                value="{{ $workAccountability->additional }}"
                                                 class="form-control @error('additional') is-invalid @enderror"
                                                 placeholder="e.g. (Revisi)" data-parsley-required="false">
                                             @error('additional')
@@ -66,7 +67,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="link" class="form-label">{{ __('Link') }}</label>
@@ -74,7 +75,7 @@
                                                 value="{{ $workAccountability->link }}"
                                                 class="form-control @error('link') is-invalid @enderror"
                                                 placeholder="e.g. https://example.com"
-                                                data-parsley-required="{{ $workAccountability->link ? 'false' : 'true' }}"
+                                                data-parsley-required="{{ $workAccountability->link ? 'true' : 'false' }}"
                                                 data-parsley-required-message="The Link field is required!"
                                                 data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
                                                 data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
@@ -111,4 +112,9 @@
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 @endpush

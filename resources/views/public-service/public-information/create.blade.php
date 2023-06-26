@@ -32,8 +32,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.public-informations.store') }}" method="POST" enctype="multipart/form-data"
-                                data-parsley-validate>
+                            <form action="{{ route('dashboard.public-informations.store') }}" method="POST"
+                                enctype="multipart/form-data" data-parsley-validate>
                                 @csrf
                                 @method('POST')
                                 <div class="row">
@@ -56,7 +56,8 @@
                                         <div class="form-group">
                                             <label for="type_public_information"
                                                 class="form-label">{{ __('Type of Public Information') }}</label>
-                                            <select class="form-select" name="type_public_information" id="type_public_information"
+                                            <select class="form-select" name="type_public_information"
+                                                id="type_public_information"
                                                 class="form-control @error('type_public_information') is-invalid @enderror"
                                                 data-parsley-required="true"
                                                 data-parsley-required-message="The Type of Public Information field is required!">
@@ -79,8 +80,7 @@
                                             <label for="link" class="form-label">{{ __('Link') }}</label>
                                             <input type="text" name="link" id="link"
                                                 class="form-control @error('link') is-invalid @enderror"
-                                                placeholder="e.g. https://example.com" data-parsley-required="true"
-                                                data-parsley-required-message="The Link field is required!"
+                                                placeholder="e.g. https://example.com"
                                                 data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
                                                 data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
                                             @error('link')

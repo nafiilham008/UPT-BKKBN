@@ -27,34 +27,35 @@
         </div>
     </div>
 
-    {{-- <div class="col-md-6">
-        <div class="form-group">
-            <label for="password">{{ __('Password') }}</label>
-            <input type="password" name="password" id="password"
-                class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}"
-                {{ empty($user) ? 'required' : '' }}>
-            @error('password')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-            @enderror
-            @isset($user)
-                <div id="passwordHelpBlock" class="form-text">
-                    {{ __('Leave the password & password confirmation blank if you don`t want to change them.') }}
-                </div>
-            @endisset
-        </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="password-confirmation">{{ __('Password Confirmation') }}</label>
-            <input type="password" name="password_confirmation" id="password-confirmation" class="form-control"
-                placeholder="{{ __('Password Confirmation') }}" {{ empty($user) ? 'required' : '' }}>
-        </div>
-    </div> --}}
 
     @empty($user)
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="password">{{ __('Password') }}</label>
+                <input type="password" name="password" id="password"
+                    class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}"
+                    {{ empty($user) ? 'required' : '' }}>
+                @error('password')
+                    <span class="text-danger">
+                        {{ $message }}
+                    </span>
+                @enderror
+                @isset($user)
+                    <div id="passwordHelpBlock" class="form-text">
+                        {{ __('Leave the password & password confirmation blank if you don`t want to change them.') }}
+                    </div>
+                @endisset
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="password-confirmation">{{ __('Password Confirmation') }}</label>
+                <input type="password" name="password_confirmation" id="password-confirmation" class="form-control"
+                    placeholder="{{ __('Password Confirmation') }}" {{ empty($user) ? 'required' : '' }}>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="role">{{ __('Role') }}</label>
@@ -121,7 +122,8 @@
             <div class="col-md-5 me-0 pe-0">
                 <div class="form-group">
                     <label for="avatar">{{ __('Avatar') }}</label>
-                    <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror" id="avatar">
+                    <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror"
+                        id="avatar">
                     @error('avatar')
                         <span class="text-danger">
                             {{ $message }}

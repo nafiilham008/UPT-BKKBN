@@ -58,9 +58,8 @@
                                         <input type="text" name="link" id="link"
                                             class="form-control @error('link') is-invalid @enderror"
                                             placeholder="e.g. https://drive.google.com/...."
-                                            pattern="^https:\/\/drive\.google\.com\/.*$" data-parsley-required="true"
-                                            data-parsley-required-message="The Link Calendar (drive) field is required!"
-                                            data-parsley-pattern-message="The Link Calendar (drive) field should be a valid Google Drive link!"
+                                            data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
+                                            data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'"
                                             value="{{ old('link') }}" autofocus>
                                         @error('title')
                                             <span class="text-danger">
@@ -88,7 +87,6 @@
 @endsection
 
 @push('css')
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -97,4 +95,9 @@
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 @endpush

@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', __('Other Course'))
+@section('title', __('Structure'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Other Course') }}</h3>
+                    <h3>{{ __('Structure') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Below is a list of other course.') }}
+                        {{ __('Below is a list of structure.') }}
                     </p>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Other Course') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Structure') }}</li>
                 </x-breadcrumb>
             </div>
         </div>
@@ -22,11 +22,11 @@
         <section class="section">
             <x-alert></x-alert>
 
-            @can('course create')
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('dashboard.courses.create') }}" class="btn btn-primary mb-3">
+            @can('structure create')
+                <div class="d-flex justify-content-end {{ $structure->count() == 1 ? 'd-none' : '' }}">
+                    <a href="{{ route('dashboard.structures.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
-                        {{ __('Add other course') }}
+                        {{ __('Add structure') }}
                     </a>
                 </div>
             @endcan
@@ -41,33 +41,26 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
-                                            <th>Image</th>
-                                            <th>Link</th>
+                                            <th>Photo</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($course as $item)
+                                        @foreach ($structure as $item)
                                             <tr>
-                                                <td>{{ $item->title }}</td>
+                                                <td><span class="badge bg-success">{{ $item->title }}</span></td>
                                                 <td>
-                                                    @if (isset($item->image))
-                                                        <img class="avatar avatar-xl"
-                                                            src="{{ asset('uploads/images/information/other-course/' . $item->image) }}"
-                                                            alt="avatar"
-                                                            style="height: 50px; width: 50px; object-fit:cover">
-                                                    @else
-                                                        -
-                                                    @endif
+                                                    <img class="avatar avatar-xl"
+                                                        src="{{ asset('uploads/images/profile/structure/' . $item->photo) }}"
+                                                        alt="avatar" style="height: 50px; width: 50px; object-fit:cover">
                                                 </td>
-                                                <td>{{ $item->link }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y H:i') }}
                                                 </td>
                                                 <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('j F, Y H:i') }}
                                                 </td>
-                                                @include('information.other-course.include.action')
+                                                @include('profile.structure.include.action')
 
                                             </tr>
                                         @endforeach

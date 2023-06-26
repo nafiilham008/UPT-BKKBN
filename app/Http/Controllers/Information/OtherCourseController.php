@@ -53,14 +53,14 @@ class OtherCourseController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'image' => 'required|mimes:jpeg,png|max:2048',
-            'link' => 'required',
+            'image' => 'nullable|mimes:jpeg,png|max:2048',
+            'link' => 'nullable',
+            'description' => 'required',
         ], [
             'title.required' => 'Title field is required.',
-            'image.required' => 'Image field is required.',
             'image.mimes' => 'Image must be a file of type: jpeg, png.',
             'image.max' => 'The Image may not be greater than 2048 kilobytes.',
-            'link.required' => 'Link field is required.',
+            'description.required' => 'Description field is required'
         ]);
 
         if ($request->file('image') && $request->file('image')->isValid()) {
@@ -85,6 +85,7 @@ class OtherCourseController extends Controller
             'title' => $validated['title'],
             'image' => $validated['image'],
             'link' => $validated['link'],
+            'description' => $validated['description'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
@@ -138,12 +139,13 @@ class OtherCourseController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'image' => 'nullable|mimes:jpeg,png|max:2048',
-            'link' => 'required',
+            'link' => 'nullable',
+            'description' => 'required',
         ], [
             'title.required' => 'Title field is required.',
             'image.mimes' => 'image must be a file of type: jpeg, png.',
             'image.max' => 'The image may not be greater than 2048 kilobytes.',
-            'link.required' => 'Link field is required.',
+            'description.required' => 'Description field is required'
         ]);
 
         if ($request->file('image') && $request->file('image')->isValid()) {
@@ -176,6 +178,7 @@ class OtherCourseController extends Controller
             'title' => $validated['title'],
             'image' => $validated['image'],
             'link' => $validated['link'],
+            'description' => $validated['description'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 

@@ -1,24 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Information;
+namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Models\Information\ButtonBanner as InformationButtonBanner;
+use App\Models\Profile\Structure;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 
-class ButtonBanner extends Controller
+class StructureController extends Controller
 {
-
-    protected $imagePath = 'uploads/images/information/button-banner/';
+    /**
+     * Path for historical content file.
+     *
+     * @var string
+     */
+    protected $imagePath = 'uploads/images/profile/structure/';
 
     public function __construct()
     {
-        $this->middleware('permission:button-banner view')->only('index', 'show');
-        $this->middleware('permission:button-banner create')->only('create', 'store');
-        $this->middleware('permission:button-banner edit')->only('edit', 'update');
-        $this->middleware('permission:button-banner delete')->only('destroy');
+        $this->middleware('permission:structure view')->only('index', 'show');
+        $this->middleware('permission:structure create')->only('create', 'store');
+        $this->middleware('permission:structure edit')->only('edit', 'update');
+        $this->middleware('permission:structure delete')->only('destroy');
     }
 
     /**
@@ -28,9 +32,10 @@ class ButtonBanner extends Controller
      */
     public function index()
     {
-        $buttonBanner = InformationButtonBanner::all();
+        $structure = Structure::all();
 
-        return view('information.button-banner.index', compact('buttonBanner'));
+
+        return view('profile.structure.index', compact('structure'));
     }
 
     /**
@@ -40,7 +45,13 @@ class ButtonBanner extends Controller
      */
     public function create()
     {
-        return view('information.button-banner.create');
+        $structure = Structure::all();
+
+        if ($structure->count() == 1) {
+            return redirect()->route('dashboard.structures.index')->with('error', __('Structure already exists'));
+        } else {
+            return view('profile.structure.create', compact('structure'));
+        }
     }
 
     /**
@@ -52,14 +63,12 @@ class ButtonBanner extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
-            'link' => 'nullable',
-            'photo' => 'required|mimes:jpeg,png|max:2048',
+            'title' => 'nullable',
+            'photo' => 'required|mimes:jpeg,png,svg|max:5120',
         ], [
-            'title.required' => 'Title field is required.',
             'photo.required' => 'Photo field is required.',
-            'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
-            'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
+            'photo.mimes' => 'Photo must be a file of type: jpeg, png, svg.',
+            'photo.max' => 'The photo may not be greater than 5120 kilobytes.',
         ]);
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
@@ -80,20 +89,19 @@ class ButtonBanner extends Controller
             $validated['photo'] = null;
         }
 
-        $buttonBanner = InformationButtonBanner::create([
+        $structure = Structure::create([
             'title' => $validated['title'],
             'photo' => $validated['photo'],
-            'link' => $validated['link'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
 
-        if ($buttonBanner) {
+        if ($structure) {
             //redirect dengan pesan sukses
-            return redirect()->route('dashboard.button-banners.index')->with('success', __('The button banner was posted successfully.'));
+            return redirect()->route('dashboard.structures.index')->with('success', __('The button structure was posted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('dashboard.button-banners.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.structures.index')->with('error', __('Failed'));
         }
     }
 
@@ -105,9 +113,9 @@ class ButtonBanner extends Controller
      */
     public function show($id)
     {
-        $buttonBanner = InformationButtonBanner::findOrFail($id);
+        $structure = Structure::findOrFail($id);
 
-        return view('information.button-banner.show', compact('buttonBanner'));
+        return view('profile.structure.show', compact('structure'));
     }
 
     /**
@@ -118,9 +126,9 @@ class ButtonBanner extends Controller
      */
     public function edit($id)
     {
-        $buttonBanner = InformationButtonBanner::findOrFail($id);
+        $structure = Structure::findOrFail($id);
 
-        return view('information.button-banner.edit', compact('buttonBanner'));
+        return view('profile.structure.edit', compact('structure'));
     }
 
     /**
@@ -132,17 +140,14 @@ class ButtonBanner extends Controller
      */
     public function update(Request $request, $id)
     {
-        $buttonBanner = InformationButtonBanner::findOrFail($id);
+        $structure = Structure::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required',
-            'photo' => 'nullable|mimes:jpeg,png|max:2048',
-            'link' => 'nullable',
+            'title' => 'nullable',
+            'photo' => 'nullable|mimes:jpeg,png,svg|max:5120',
         ], [
-            'title.required' => 'Title field is required.',
             'photo.mimes' => 'Photo must be a file of type: jpeg, png.',
-            'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
-            'link' => 'nullable',
+            'photo.max' => 'The photo may not be greater than 5120 kilobytes.',
         ]);
 
         if ($request->file('photo') && $request->file('photo')->isValid()) {
@@ -161,29 +166,28 @@ class ButtonBanner extends Controller
             })->save(public_path($this->imagePath) . $filename);
 
             // delete old avatar from storage
-            if ($buttonBanner->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $buttonBanner->photo))) {
+            if ($structure->photo != null && file_exists($oldphoto = public_path($this->imagePath .
+                $structure->photo))) {
                 unlink($oldphoto);
             }
 
             $validated['photo'] = $filename;
         } else {
-            $validated['photo'] = $buttonBanner->photo;
+            $validated['photo'] = $structure->photo;
         }
 
-        $buttonBanner->update([
+        $structure->update([
             'title' => $validated['title'],
             'photo' => $validated['photo'],
-            'link' => $validated['link'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
-        if ($buttonBanner) {
+        if ($structure) {
             //redirect dengan pesan sukses
-            return redirect()->route('dashboard.button-banners.index')->with('success', __('The button banner was updated successfully.'));
+            return redirect()->route('dashboard.structures.index')->with('success', __('The structure was updated successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('dashboard.button-banners.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.structures.index')->with('error', __('Failed'));
         }
     }
 
@@ -195,21 +199,21 @@ class ButtonBanner extends Controller
      */
     public function destroy($id)
     {
-        $buttonBanner = InformationButtonBanner::findOrFail($id);
+        $structure = Structure::findOrFail($id);
 
-        if ($buttonBanner->photo != null && file_exists($oldphoto = public_path($this->imagePath . $buttonBanner->photo))) {
+        if ($structure->photo != null && file_exists($oldphoto = public_path($this->imagePath . $structure->photo))) {
             unlink($oldphoto);
         }
 
         // Delete all data
-        $buttonBanner->delete();
+        $structure->delete();
 
-        if ($buttonBanner) {
+        if ($structure) {
             //redirect dengan pesan sukses
-            return redirect()->route('dashboard.button-banners.index')->with('success', __('The button banner was deleted successfully.'));
+            return redirect()->route('dashboard.structures.index')->with('success', __('The structure was deleted successfully.'));
         } else {
             //redirect dengan pesan error
-            return redirect()->route('dashboard.button-banners.index')->with('error', __('Failed'));
+            return redirect()->route('dashboard.structures.index')->with('error', __('Failed'));
         }
     }
 }

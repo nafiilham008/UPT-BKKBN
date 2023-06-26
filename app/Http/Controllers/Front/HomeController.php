@@ -16,6 +16,7 @@ use App\Models\Profile\EducationHistory;
 use App\Models\Profile\Employee;
 use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
+use App\Models\Profile\Structure;
 use App\Models\PublicService\ServiceInformation;
 use App\Models\PublicService\WorkAccountability;
 use App\Models\Training\Calendar;
@@ -180,6 +181,7 @@ class HomeController extends Controller
         $history = Historical::all();
         $jobandfunc = Jobandfunc::all();
         $employee = Employee::all();
+        $structure = Structure::all();
 
         $structural = $this->getTypeStructural();
         $widyaiswara = $this->getTypeWidyaiswara();
@@ -188,7 +190,7 @@ class HomeController extends Controller
         $ppnpn = $this->getTypePpnpn();
 
 
-        return view('front.profile.index', compact('history', 'jobandfunc', 'employee', 'structural', 'widyaiswara', 'functional', 'executor', 'ppnpn'));
+        return view('front.profile.index', compact('history', 'jobandfunc', 'employee', 'structural', 'widyaiswara', 'functional', 'executor', 'ppnpn', 'structure'));
     }
 
     public function detailHistory()

@@ -63,7 +63,7 @@
     <div class="background-image-overlay d-flex align-items-center justify-content-center">
         <div class="overlay-divider-landing"></div>
         <div class="overlay-text">
-            <h1>Informasi Diklat</h1>
+            <h1>Informasi Pelatihan</h1>
             <a href="{{ route('home.kediklatan') }}" class="btn btn-overlay">Lihat Selengkapnya</a>
         </div>
         <div class="overlay-divider-landing"></div>
@@ -177,8 +177,8 @@
     </div>
 @endsection
 
-@push('js')
-    {{-- <script>
+{{-- @push('js')
+    <script>
         $(document).ready(function() {
             $(document).on('click', '#pagination-news li a', function(e) {
                 e.preventDefault();
@@ -191,8 +191,8 @@
                 });
             });
         });
-    </script> --}}
-@endpush
+    </script>
+@endpush --}}
 
 @push('css')
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" /> --}}
@@ -224,63 +224,5 @@
             document.getElementById(tabID).classList.add("block");
         }
     </script>
-    {{-- <script>
-        // Batasi jumlah karakter yang ditampilkan
-        var descriptionElement = document.getElementById('description');
-        var maxLength = 10; // Ubah sesuai kebutuhan
-        var descriptionText = descriptionElement.innerHTML;
-
-        if (descriptionText.length > maxLength) {
-            var truncatedText = descriptionText.substr(0, maxLength) + '...';
-            descriptionElement.innerHTML = truncatedText;
-        }
-    </script> --}}
-    <script>
-        function applyLineClamp() {
-            var elements = document.getElementsByClassName('description');
-
-            for (var i = 0; i < elements.length; i++) {
-                var element = elements[i];
-
-                var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
-                var maxHeight = lineHeight * 4; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
-
-                var text = element.innerText;
-                var truncatedText = text;
-
-                while (element.scrollHeight > maxHeight) {
-                    truncatedText = truncatedText.slice(0, -1);
-                    element.innerText = truncatedText + '...';
-                }
-            }
-        }
-
-        // Panggil fungsi applyLineClamp setelah konten selesai dimuat
-        window.addEventListener('DOMContentLoaded', applyLineClamp);
-    </script>
-    {{-- <script>
-        function applyLineClampArticle() {
-            var counter = 1;
-
-            while (document.getElementById('description-article' + counter)) {
-                var element = document.getElementById('description-article' + counter);
-
-                var lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
-                var maxHeight = lineHeight * 4; // Ganti angka 3 dengan jumlah baris yang Anda inginkan
-
-                var text = element.innerText;
-                var truncatedText = text;
-
-                while (element.scrollHeight > maxHeight) {
-                    truncatedText = truncatedText.slice(0, -1);
-                    element.innerText = truncatedText + '...';
-                }
-
-                counter++;
-            }
-        }
-
-        // Panggil fungsi applyLineClampArticle setelah konten selesai dimuat
-        window.addEventListener('DOMContentLoaded', applyLineClampArticle);
-    </script> --}}
+    
 @endpush

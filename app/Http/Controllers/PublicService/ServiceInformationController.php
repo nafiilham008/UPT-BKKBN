@@ -38,14 +38,7 @@ class ServiceInformationController extends Controller
      */
     public function create()
     {
-        $serviceInformation = ServiceInformation::all();
-
-
-        if ($serviceInformation->count() == 1) {
-            return redirect()->route('dashboard.service-informations.index')->with('error', 'Service Information already exists.');
-        } else {
-            return view('public-service.service-information.create');
-        }
+        return view('public-service.service-information.create');
     }
 
     /**
@@ -180,7 +173,7 @@ class ServiceInformationController extends Controller
 
         if ($serviceInformation) {
             //redirect dengan pesan sukses
-            return redirect()->route('dashboard.service-informations.index')->with('success', __('The button banner was updated successfully.'));
+            return redirect()->route('dashboard.service-informations.index')->with('success', __('The service information was updated successfully.'));
         } else {
             //redirect dengan pesan error
             return redirect()->route('dashboard.service-informations.index')->with('error', __('Failed'));

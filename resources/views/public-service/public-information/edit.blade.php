@@ -32,8 +32,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.public-informations.update', $publicInformation->id) }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.public-informations.update', $publicInformation->id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -82,7 +82,7 @@
                                                 value="{{ $publicInformation->link }}"
                                                 class="form-control @error('link') is-invalid @enderror"
                                                 placeholder="e.g. https://example.com"
-                                                data-parsley-required="{{ $publicInformation->link ? 'false' : 'true' }}"
+                                                data-parsley-required="{{ $publicInformation->link ? 'true' : 'false' }}"
                                                 data-parsley-required-message="The Link field is required!"
                                                 data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
                                                 data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
@@ -119,4 +119,9 @@
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/parsleyjs/parsley.min.js"></script>
     <script src="{{ asset('mazer') }}/js/pages/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script>
 @endpush

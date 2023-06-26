@@ -340,6 +340,15 @@ return [
                 'link delete',
             ]
         ],
+        [
+            'group' => 'structure',
+            'access' => [
+                'structure view',
+                'structure create',
+                'structure edit',
+                'structure delete',
+            ]
+        ],
         // [
         //     'group' => 'tests',
         //     'access' => [

@@ -51,10 +51,9 @@ class AnnouncementController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         $announcement = AnnouncementDocument::create([
@@ -112,10 +111,9 @@ class AnnouncementController extends Controller
 
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         

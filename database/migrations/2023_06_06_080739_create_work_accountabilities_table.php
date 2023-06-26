@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->year('year');
             $table->string('additional')->nullable();
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

@@ -48,10 +48,9 @@ class MaterialController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         $material = Material::create([
@@ -109,10 +108,9 @@ class MaterialController extends Controller
 
         $validated = $request->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
         ], [
             'title.required' => 'Title field is required.',
-            'link.required' => 'Link field is required.',
         ]);
 
         

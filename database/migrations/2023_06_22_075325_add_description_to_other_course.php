@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('other_courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('link')->nullable();
-            $table->text('image')->nullable();
-            $table->timestamps();
+        Schema::table('other_courses', function (Blueprint $table) {
+            $table->text('description');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('other_courses');
+        Schema::table('other_courses', function (Blueprint $table) {
+            $table->dropColumn('description');
+        });
     }
 };

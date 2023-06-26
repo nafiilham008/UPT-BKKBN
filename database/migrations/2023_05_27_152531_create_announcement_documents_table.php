@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('announcement_documents', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

@@ -52,7 +52,6 @@ class CalendarController extends Controller
         ], [
             'title.required' => 'The Title field is required.',
             'title.unique' => 'The Title has already been taken.',
-            'link.required' => 'The Link Calendar (drive) field is required.',
             'link.url' => 'The Link Calendar (drive) field must be a valid URL.'
         ]);
 
@@ -112,7 +111,6 @@ class CalendarController extends Controller
         ], [
             'title.required' => 'The Title field is required.',
             'title.unique' => 'The Title has already been taken.',
-            'link.required' => 'The Link Calendar (drive) field is required.',
             'link.url' => 'The Link Calendar (drive) field must be a valid URL.'
         ]);
 
