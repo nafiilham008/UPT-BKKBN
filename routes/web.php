@@ -37,6 +37,12 @@ Route::get('/login-user', function () {
 Route::get('/register-user', function () {
     return view('remaja.auth-user.register');
 });
+Route::get('/forgot-password', function () {
+    return view('remaja.auth-user.forgot-password');
+});
+Route::get('/change-password', function () {
+    return view('remaja.auth-user.change-password');
+});
 
 
 
