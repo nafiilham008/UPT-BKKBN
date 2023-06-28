@@ -123,10 +123,10 @@
                             In</a>
                     </div>
                     <div class="mb-4 flex justify-center">
-                        <button
+                        <a  href="/code-verification" onclick="showLoading(event)"
                             class="text-white bg-[#5C7AEA] hover:bg-blue-700 transition-colors duration-300 font-semibold text-base py-4 text-center w-96 text-center rounded-full button-shadow">
                             Next
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

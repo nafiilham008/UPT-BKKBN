@@ -43,6 +43,9 @@ Route::get('/forgot-password', function () {
 Route::get('/change-password', function () {
     return view('remaja.auth-user.change-password');
 });
+Route::get('/code-verification', function () {
+    return view('remaja.auth-user.code-verification');
+});
 
 
 
