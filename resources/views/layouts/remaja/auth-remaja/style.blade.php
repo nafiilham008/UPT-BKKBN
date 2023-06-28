@@ -25,4 +25,43 @@
     .button-shadow {
         box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25);
     }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(137deg, #DFF2FF 0%, #DFF2FF 0.01%, #BCCAFF 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 3px solid #ffffff;
+      border-top-color: #3498db;
+      border-radius: 50%;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 </style>

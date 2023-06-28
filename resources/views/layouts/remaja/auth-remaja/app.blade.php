@@ -13,6 +13,9 @@
 
 <body class="">
     @yield('content')
+    <div class="loading-overlay">
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_p8bfn5to.json"  background="transparent"  speed="1"  style="width: 183px; height: 183px;"  loop  autoplay></lottie-player>
+      </div>
 </body>
 @include('layouts.remaja.auth-remaja.js')
 @stack('js')
