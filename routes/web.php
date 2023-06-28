@@ -32,8 +32,16 @@ use App\Http\Controllers\Training\ProfileTrainingController;
 use App\Http\Controllers\WebSetting\HighlightController;
 
 Route::get('/login-user', function () {
-    return view('auth-user/login');
+    return view('remaja.auth-user.login');
 });
+Route::get('/register-user', function () {
+    return view('remaja.auth-user.register');
+});
+
+
+
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
 Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');

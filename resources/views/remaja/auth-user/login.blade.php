@@ -1,42 +1,10 @@
-<!doctype html>
-<html>
+@extends('layouts.remaja.auth-remaja.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900|Poppins:400,700"
-        rel="stylesheet">
-    <style>
-        @import url('https://rsms.me/inter/inter.css');
+@section('title', __('Login'))
 
-        .font-be-vietnam {
-            font-family: 'Be Vietnam Pro', sans-serif;
-        }
-
-        .font-poppins {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .bg {
-            background: linear-gradient(137deg, #DFF2FF 0%, #DFF2FF 0.01%, #BCCAFF 100%);
-
-        }
-
-        .box-shadow {
-            box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);
-            backdrop-filter: blur(35px);
-        }
-        .button-shadow{
-            box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25);
-        }
-    </style>
-</head>
-
-<body class="">
-    <div class="relative bg">
-        <div class="flex flex-col justify-center items-center h-full  py-28">
+@section('content')
+    <div class="relative bg h-auto">
+        <div class="flex flex-col justify-center items-center py-28">
             <img src="../img/logo/logo-menjadi.svg" alt="" class="mb-9">
             <div class="rounded-[24px] bg-white/40 py-[22px] w-[522px] box-shadow">
                 <h1 class="font-be-vietnam text-[32px] font-semibold text-center mb-1.5 text-black">Login</h1>
@@ -85,7 +53,9 @@
                             <label for="pengantaranSelesai" class="cursor-pointer text-xs text-black">Save
                                 Remember me</label>
                         </div>
-                        <a href="" class="font-be-vietnam text-xs text-[#3754C1] hover:text-blue-700 transition-colors duration-300">Forgot Password ?</a>
+                        <a href=""
+                            class="font-be-vietnam text-xs text-[#3754C1] hover:text-blue-700 transition-colors duration-300">Forgot
+                            Password ?</a>
                     </div>
                     <div class="flex w-full px-16 gap-4 items-center mb-4">
                         <hr class="h-[0.5px] w-full border-[#5C7AEA] border">
@@ -100,30 +70,34 @@
                             Sign In with Google
                         </button>
                     </div>
-                    <div class="flex gap-1 mb-10">
+                   <div class="flex justify-center gap-1 mb-10">
                         <h1 class="font-be-vietnam text-xs text-[#272727]">Don’t have an account?</h1>
-                        <a href="" class="font-be-vietnam text-xs text-[#3754C1] hover:text-blue-700 transition-colors duration-300 font-semibold">Sign Up</a>
+                        <a href="/register-user"
+                            class="font-be-vietnam text-xs text-[#3754C1] hover:text-blue-700 transition-colors duration-300 font-semibold">Sign
+                            Up</a>
                     </div>
-                    <button class="text-white bg-[#5C7AEA] hover:bg-blue-700 transition-colors duration-300 font-semibold text-base py-4 text-center w-full rounded-full button-shadow">
+                    <button
+                        class="text-white bg-[#5C7AEA] hover:bg-blue-700 transition-colors duration-300 font-semibold text-base py-4 text-center w-full rounded-full button-shadow">
                         Sign In
                     </button>
                 </div>
             </div>
         </div>
         <div class="absolute top-40 left-20">
-            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json"  background="transparent"  speed="1.5"  style="width: 286px; height: 286px;"  loop autoplay></lottie-player>
+            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
+                speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
         <div class="absolute bottom-20 left-10">
-            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json"  background="transparent"  speed="1.5"  style="width: 286px; height: 286px;"  loop autoplay></lottie-player>
+            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
+                speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
         <div class="absolute top-40 right-20">
-            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json"  background="transparent"  speed="1.5"  style="width: 286px; height: 286px;"  loop autoplay></lottie-player>
+            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
+                speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
         <div class="absolute bottom-10 right-40">
-            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json"  background="transparent"  speed="1.5"  style="width: 286px; height: 286px;"  loop autoplay></lottie-player>
+            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
+                speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
     </div>
-</body>
-<script src="https://code.iconify.design/iconify-icon/1.0.5/iconify-icon.min.js"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-</html>
+@endsection
