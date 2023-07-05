@@ -5,6 +5,7 @@
 @section('content')
     <div>
         <div id="lottie-background"></div>
+        @include('layouts.remaja.component.navbar')
         <div id="content" class="py-24">
             <h1 class="font-titan text-[40px] text-[#272727]/70 mb-5">Let's Start The Game</h1>
             <h1 class="font-be-vietnam text-base text-center text-[#272727]/70">Lorem ipsum dolor sit amet consectetur. Donec
