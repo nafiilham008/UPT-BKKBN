@@ -44,6 +44,9 @@ class AuthController extends Controller
 
             $newUser->save();
 
+            $newUser->assignRole('User Remaja');
+
+
             // // Menambahkan peran "User Remaja" jika belum ada
             // $roleUserRemaja = Role::where('name', 'User Remaja')->first();
             // if ($roleUserRemaja) {
@@ -81,7 +84,7 @@ class AuthController extends Controller
                 $verificationCodeUrlSafe = base64_encode($verificationCodeEncrypt);
                 $user->verification_code = $verificationCodeUrlSafe;
                 $user->save();
-                
+
                 $job = new SendVerificationCodeEmail($user, $verificationCode);
                 dispatch($job);
 
