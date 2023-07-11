@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Remaja\DetailUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avatar'
+        'avatar',
+        'verification_code',
     ];
 
     /**
@@ -34,6 +36,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'verification_code',
     ];
 
     /**
@@ -50,5 +53,10 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class, 'id', 'user_id');
+    }
+
+    public function detailUser()
+    {
+        return $this->hasOne(DetailUser::class, 'id', 'user_id');
     }
 }

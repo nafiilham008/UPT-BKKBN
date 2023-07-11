@@ -26,10 +26,13 @@ use App\Http\Controllers\Profile\JobandfuncController;
 use App\Http\Controllers\Profile\StructureController;
 use App\Http\Controllers\PublicService\ServiceInformationController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
+use App\Http\Controllers\Remaja\Auth\AuthController;
 use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
 use App\Http\Controllers\WebSetting\HighlightController;
+
+
 
 Route::get('/login-user', function () {
     return view('remaja.auth-user.login');
@@ -77,11 +80,6 @@ Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 
-
-
-
-
-
 Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
@@ -108,13 +106,13 @@ Route::middleware(['auth', 'web'])->group(function () {
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('dashboard.employees.educations');
         Route::post('/employees/{id}/educations/delete', [EducationHistoryController::class, 'destroy'])->name('dashboard.educations.destroy');
-        Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('dashboard.educations.store');        
+        Route::post('/employees/{id}/educations', [EducationHistoryController::class, 'store'])->name('dashboard.educations.store');
         Route::get('/employees/{employeeId}/educations/{educationId}/edit', [EducationHistoryController::class, 'edit'])->name('dashboard.educations.edit');
         Route::put('/employees/{id}/educations/{education_id}', [EducationHistoryController::class, 'update'])->name('dashboard.employees.educations.update');
-        
+
         // Employee History
         Route::get('/employees/{id}/history', [EmployeeController::class, 'getEmployeeHistory'])->name('dashboard.employees.history');
-        Route::post('/employees/{id}/history', [EmployeeHistoryController::class, 'store'])->name('dashboard.employees.history.store');    
+        Route::post('/employees/{id}/history', [EmployeeHistoryController::class, 'store'])->name('dashboard.employees.history.store');
         Route::get('/employees/{employeeId}/history/{educationId}/edit', [EmployeeHistoryController::class, 'edit'])->name('dashboard.employees.history.edit');
         Route::put('/employees/{id}/history/{education_id}', [EmployeeHistoryController::class, 'update'])->name('dashboard.employees.educations.update');
         Route::post('/employees/{id}/history/delete', [EmployeeHistoryController::class, 'destroy'])->name('dashboard.employees.history.destroy');
@@ -128,17 +126,41 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('service-informations', ServiceInformationController::class)->names('dashboard.service-informations');
         Route::resource('kediklatans', KediklatanController::class)->names('dashboard.kediklatans');
         Route::resource('links', LinkController::class)->names('dashboard.links');
-
-        
-
     });
-
-
-
 
     // Highlights
     // Route::get('highlights', [App\Http\Controllers\WebSetting\HighlightController::class, 'index'])->name('highlights.index');
     // Route::get('highlights/{$id}', [App\Http\Controllers\WebSetting\HighlightController::class, 'show'])->name('highlights.show');
+});
+
+
+// Menjadi Remaja
+Route::middleware('guest')->group(function () {
+    // Biasa
+    Route::get('/user/log-in', [AuthController::class, 'indexLogin'])->name('remaja.login');
+    Route::post('/user/log-in/callback', [AuthController::class, 'login'])->name('remaja.login.process');
+
+    Route::get('/user/register', [AuthController::class, 'indexRegister'])->name('remaja.register');
+    Route::post('/user/register/callback', [AuthController::class, 'register'])->name('remaja.register.process');
+
+    Route::get('/user/verification/{code}', [AuthController::class, 'indexVerification'])->name('remaja.verification');
+    Route::post('/user/verification/{code}/confirm', [AuthController::class, 'verificationProcess'])->name('remaja.verification.confirm');
+
+    Route::get('/user/verification/{id}/resend', [AuthController::class, 'resendVerification'])->name('remaja.verification.resend');
+
+
+
+    // Google
+    Route::get('/user/login', [AuthController::class, 'redirectToGoogle'])->name('remaja.google.login');
+    Route::get('/user/login/callback', [AuthController::class, 'handleGoogleCallback'])->name('remaja.google.callback');
+});
+
+
+Route::middleware('role:User Remaja')->group(function () {
+    Route::prefix('user')->group(function () {
+        // Route::get('/', fn () => view('dashboard'));
+        Route::get('/', [HomeController::class, 'index'])->name('user.dashboard');
+    });
 });
 
 // Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
