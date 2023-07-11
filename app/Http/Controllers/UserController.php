@@ -95,6 +95,7 @@ class UserController extends Controller
         }
 
         $attr['password'] = bcrypt($request->password);
+        $attr['email_verified_at'] = now();
 
         $user = User::create($attr);
 
