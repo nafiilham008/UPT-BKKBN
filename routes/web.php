@@ -138,6 +138,12 @@ Route::middleware(['auth', 'web'])->group(function () {
 Route::get('/test', function () {
     return view('remaja.front.index');
 });
+Route::get('/game', function () {
+    return view('remaja.front.game');
+});
+Route::get('/nilai', function () {
+    return view('remaja.front.nilai');
+});
 Route::middleware('guest')->group(function () {
     // Biasa
     Route::get('/user/log-in', [AuthController::class, 'indexLogin'])->name('remaja.login');
