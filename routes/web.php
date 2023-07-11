@@ -135,6 +135,9 @@ Route::middleware(['auth', 'web'])->group(function () {
 
 
 // Menjadi Remaja
+Route::get('/test', function () {
+    return view('remaja.front.index');
+});
 Route::middleware('guest')->group(function () {
     // Biasa
     Route::get('/user/log-in', [AuthController::class, 'indexLogin'])->name('remaja.login');
@@ -153,6 +156,7 @@ Route::middleware('guest')->group(function () {
     // Google
     Route::get('/user/login', [AuthController::class, 'redirectToGoogle'])->name('remaja.google.login');
     Route::get('/user/login/callback', [AuthController::class, 'handleGoogleCallback'])->name('remaja.google.callback');
+   
 });
 
 
