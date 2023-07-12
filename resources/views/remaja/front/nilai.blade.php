@@ -19,13 +19,18 @@
         <div id="content" class="py-24">
             <h1 class="font-titan text-[48px] text-center text-[#110946] mb-5">Good Job </h1>
             <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-11">Kamu melakukannya dengan baik</h1>
-            <div
-                class="w-[231px] h-[231px] flex justify-center items-center rounded-full bg-[#FF9C07] text-white text-[64px] font-be-vietnam mb-20" style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
+            <div id="myElement"
+                class="w-[231px] h-[231px] flex justify-center items-center rounded-full bg-[#FF9C07] text-white text-[64px] font-be-vietnam mb-20"
+                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
                 88
             </div>
             <div class="flex gap-[50px] items-center">
-                <button class="w-[245px] h-11 justify-center items-center text-white text-base rounded-full bg-[#4CAF50]" style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Review</button>
-                <button class="w-[245px] h-11 justify-center items-center text-white text-base rounded-full bg-[#FF0707]" style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Rangking</button>
+                <button
+                    class="w-[245px] h-11 justify-center items-center text-white text-base rounded-full transition-colors duration-300 bg-[#4CAF50] hover:bg-[#45A249]"
+                    style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Review</button>
+                <button
+                    class="w-[245px] h-11 justify-center items-center text-white text-base rounded-full transition-colors duration-300 bg-[#FF0707] hover:bg-[#D60606]"
+                    style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Rangking</button>
             </div>
         </div>
     </div>
@@ -57,6 +62,37 @@
         window.addEventListener('resize', function() {
             adjustContentHeight();
         });
+    </script>
+
+    <script>
+        var scale = 1;
+        var element = document.getElementById('myElement');
+        var maxScale = 1.1; // Ukuran maksimal yang diinginkan
+        var initialScale = 1; // Ukuran awal
+        var duration = 1000; // Durasi total untuk mencapai ukuran maksimal (dalam milidetik)
+        var startTime = null;
+
+        function scaleElement(timestamp) {
+            if (!startTime) {
+                startTime = timestamp;
+            }
+
+            var elapsedTime = timestamp - startTime;
+            var progress = elapsedTime / duration;
+
+            if (progress < 1) {
+                scale = initialScale + (maxScale - initialScale) * progress;
+                element.style.transform = "scale(" + scale + ")";
+                requestAnimationFrame(scaleElement);
+            } else {
+                scale = initialScale;
+                element.style.transform = "scale(" + scale + ")";
+                startTime = null;
+                requestAnimationFrame(scaleElement);
+            }
+        }
+
+        requestAnimationFrame(scaleElement);
     </script>
 @endpush
 @push('css')
