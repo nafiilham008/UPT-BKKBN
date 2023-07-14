@@ -8,7 +8,7 @@
             style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
             <div class="relative">
                 <div class="flex justify-between px-[78px] items-center mb-24">
-                    <a href="" class="flex gap-4 text-base text-[#272727] items-center font-medium">
+                    <a href="/list-game" onclick="showLoading(event)" class="flex gap-4 text-base text-[#272727] items-center font-medium">
                         <div>
                             <img src="../img/remaja/assets/back-button.svg" alt="">
                         </div>
@@ -49,6 +49,7 @@
                                     <h1 class="font-be-vietnam text-base text-[#272727]/70 text-center">Lorem ipsum dolor
                                         sit amet consectetur. Enim vestibulum faucibus non mattis urna commodo enim. Varius
                                         purus nulla in fermentum.</h1>
+                                        {{-- image --}}
                                     <div class="flex justify-center items-center gap-5 mt-6">
                                         <div class="w-[162px] h-[144px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
                                             style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
@@ -353,7 +354,7 @@
         }
 
         .custom-radio.checked {
-            background-color: #E1D8A9;
+            background-color: #FFBF00;
         }
     </style>
 @endpush

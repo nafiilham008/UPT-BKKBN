@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+    <audio src="../audio/backsound-home.mp3" autoplay></audio>
 @endsection
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>

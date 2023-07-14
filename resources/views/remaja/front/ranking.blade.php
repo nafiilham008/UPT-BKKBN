@@ -6,7 +6,7 @@
     <div>
         <div id="lottie-background"></div>
         <div class="flex justify-between px-[78px] items-center pt-16">
-            <a href="" class="flex gap-4 text-base text-[#272727] items-center font-medium">
+            <a href="/list-game" onclick="showLoading(event)" class="flex gap-4 text-base text-[#272727] items-center font-medium">
                 <div>
                     <img src="../img/remaja/assets/back-button.svg" alt="">
                 </div>
