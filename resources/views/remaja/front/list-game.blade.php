@@ -39,7 +39,7 @@
                     </form>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-7">
+            <div class="grid grid-cols-3 gap-7 px-[186px]">
                 <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                     <a href="#">
                         <img class="rounded-t-[24px] w-full h-52" src="../img/remaja/ilustrasi/kenali.svg" alt="" />
@@ -49,6 +49,9 @@
                             <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Kenali Dirimu!</h5>
                         </a>
                         <p class="mb-3 font-normal text-[#272727] text-sm">Kenali dirimu disini</p>
+                        <a href="/game" onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
+                            <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
+                        </a>
                     </div>
                 </div>
                 <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
@@ -60,6 +63,9 @@
                             <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Stay Healty</h5>
                         </a>
                         <p class="mb-3 font-normal text-[#272727] text-sm">Jaga kesehatanmu demi masa depan</p>
+                        <a href="/game" onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
+                            <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
+                        </a>
                     </div>
                 </div>
                 <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
@@ -71,6 +77,9 @@
                             <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Kenali Batasmu!</h5>
                         </a>
                         <p class="mb-3 font-normal text-[#272727] text-sm">Batasi dirimu demi kebaikan</p>
+                        <a href="/game" onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
+                            <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
+                        </a>
                     </div>
                 </div>
             </div>

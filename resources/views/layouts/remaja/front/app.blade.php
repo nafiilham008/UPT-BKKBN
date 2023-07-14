@@ -8,7 +8,9 @@
     @stack('css')
 
     <title>@yield('title')</title>
-
+    <div class="loading-overlay">
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_p8bfn5to.json"  background="transparent"  speed="1"  style="width: 183px; height: 183px;"  loop  autoplay></lottie-player>
+      </div>
 </head>
 
 <body class="">
