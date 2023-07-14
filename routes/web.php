@@ -144,6 +144,12 @@ Route::get('/game', function () {
 Route::get('/nilai', function () {
     return view('remaja.front.nilai');
 });
+Route::get('/list-game', function () {
+    return view('remaja.front.list-game');
+});
+Route::get('/ranking', function () {
+    return view('remaja.front.ranking');
+});
 Route::middleware('guest')->group(function () {
     // Biasa
     Route::get('/user/log-in', [AuthController::class, 'indexLogin'])->name('remaja.login');
