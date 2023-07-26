@@ -99,8 +99,6 @@ class EmployeeController extends Controller
         ]);
         
 
-
-
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();

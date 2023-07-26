@@ -27,6 +27,8 @@ use App\Http\Controllers\Profile\StructureController;
 use App\Http\Controllers\PublicService\ServiceInformationController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Remaja\Auth\AuthController;
+use App\Http\Controllers\Remaja\Quiz\CategoryController;
+use App\Http\Controllers\Remaja\Quiz\QuizController;
 use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
@@ -126,6 +128,17 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('service-informations', ServiceInformationController::class)->names('dashboard.service-informations');
         Route::resource('kediklatans', KediklatanController::class)->names('dashboard.kediklatans');
         Route::resource('links', LinkController::class)->names('dashboard.links');
+
+
+        // Remaja
+        // Route::get('/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');
+        // Route::get('/categories/create', [CategoryController::class, 'create'])->name('dashboard.categories.create');
+        // Route::post('/categories/store', [CategoryController::class, 'store'])->name('dashboard.categories.store');
+        // Route::get('/categories/refresh', [CategoryController::class, 'index'])->name('dashboard.categories.refresh');
+        Route::get('/categories/datatable', [CategoryController::class, 'getCategories'])->name('dashboard.categories.datatable');
+        Route::resource('categories', CategoryController::class)->names('dashboard.categories');
+
+        Route::resource('quiz', QuizController::class)->names('dashboard.quizzes');
     });
 
     // Highlights
