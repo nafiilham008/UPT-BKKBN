@@ -349,6 +349,24 @@ return [
                 'structure delete',
             ]
         ],
+        [
+            'group' => 'quiz',
+            'access' => [
+                'quiz view',
+                'quiz create',
+                'quiz edit',
+                'quiz delete',
+            ]
+        ],
+        [
+            'group' => 'quiz-category',
+            'access' => [
+                'quiz-category view',
+                'quiz-category create',
+                'quiz-category edit',
+                'quiz-category delete',
+            ]
+        ],
         // [
         //     'group' => 'tests',
         //     'access' => [
