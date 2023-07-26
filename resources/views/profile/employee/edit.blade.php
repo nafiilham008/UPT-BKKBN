@@ -394,8 +394,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
 
 
-
-
     <script>
         $(document).ready(function() {
             $('#table1').DataTable({
