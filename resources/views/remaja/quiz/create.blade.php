@@ -55,6 +55,24 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="url"
+                                                class="form-label">{{ __('URL Video (Youtube)') }}</label>
+                                            <input type="text" name="url" id="url"
+                                                class="form-control @error('url') is-invalid @enderror"
+                                                placeholder="{{ __('Insert url') }}" data-parsley-trigger="change"
+                                                data-parsley-required="true"
+                                                data-parsley-required-message="{{ __('Please enter a url') }}">
+                                            @error('url')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="image" class="form-label">{{ __('Image') }}</label>

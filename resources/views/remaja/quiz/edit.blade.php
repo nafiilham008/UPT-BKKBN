@@ -55,6 +55,22 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="url"
+                                                class="form-label">{{ __('URL Video (Youtube)') }}</label>
+                                            <input type="text" name="url" id="url" value="{{ isset($quiz) ? $quiz->url : old('url') }}"
+                                                class="form-control @error('url') is-invalid @enderror"
+                                                placeholder="{{ __('Insert url') }}" data-parsley-trigger="change"
+                                                data-parsley-required="true"
+                                                data-parsley-required-message="{{ __('Please enter a url') }}">
+                                            @error('url')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-md-1 text-center">
                                         @if (!empty($quiz->image))
                                             <div class="avatar avatar-xl">

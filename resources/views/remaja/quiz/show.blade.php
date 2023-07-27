@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.quizzes.index') }}">{{ __('quiz') }}</a>
+                        <a href="{{ route('dashboard.quizzes.index') }}">{{ __('Quiz') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Detail') }}
@@ -37,13 +37,23 @@
                                     <tr>
                                         <td colspan="2" class="text-center">
                                             <div class="avatar avatar-xl">
-                                                    <img src="{{ asset('storage/' . $quiz->image) }}" alt="Avatar">
+                                                <img src="{{ asset('storage/' . $quiz->image) }}" alt="Avatar">
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Title Quiz') }}</td>
                                         <td>{{ $quiz->title }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Video') }}</td>
+                                        <td>
+                                            <div class="container">
+                                                <div id="player" data-plyr-provider="youtube"
+                                                    data-plyr-embed-id="{{ $quiz->url }}"
+                                                    data-plyr-config='{"youtube": {"noCookie": true}}'></div>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Category Quiz') }}</td>
@@ -68,3 +78,20 @@
         </section>
     </div>
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <style>
+        .container {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+    </style>
+@endpush
+
+@push('js')
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        const player = new Plyr('#player');
+    </script>
+@endpush

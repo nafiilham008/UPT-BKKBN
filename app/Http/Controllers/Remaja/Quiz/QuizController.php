@@ -59,6 +59,7 @@ class QuizController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|unique:quizzes,title',
+            'url' => 'required|unique:quizzes,url',
             'image' => 'nullable|mimes:jpeg,png,jpg|image|max:5120',
             'category_quiz_id' => 'required'
         ]);
@@ -74,6 +75,7 @@ class QuizController extends Controller
 
         $quizCreate = Quiz::create([
             'title' => $validated['title'],
+            'url' => $validated['url'],
             'image' => $path,
             'user_id' => auth()->user()->id,
             'category_quiz_id' => $validated['category_quiz_id'],
@@ -103,8 +105,18 @@ class QuizController extends Controller
     {
         $quiz = Quiz::with('users', 'category_quiz')->findOrFail($id);
 
-        return view('remaja.quiz.show', compact('quiz'));
+        $linkYoutube = $quiz->url;
+        $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
+        preg_match($pattern, $linkYoutube, $matches);
+        $videoCode = null;
+
+        if (!empty($matches)) {
+            $videoCode = $matches[0];
+        }
+
+        return view('remaja.quiz.show', compact('quiz', 'videoCode'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -133,6 +145,7 @@ class QuizController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|unique:quizzes,title,' . $id,
+            'url' => 'required|unique:quizzes,url,' . $id,
             'image' => 'nullable|mimes:jpeg,png,jpg|image|max:5120',
             'category_quiz_id' => 'required'
         ]);
@@ -144,15 +157,15 @@ class QuizController extends Controller
             if ($quiz->image) {
                 Storage::disk('public')->delete($quiz->image);
             }
-        
+
             $filename = $request->file('image')->hashName();
             $path = $request->file('image')->storeAs('images/quiz', $filename, 'public');
-
         } else {
             $path = $quiz->image;
         }
-        
+
         $quiz->title = $validated['title'];
+        $quiz->url = $validated['url'];
         $quiz->image = $path;
         $quiz->category_quiz_id = $validated['category_quiz_id'];
         $quiz->updated_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
