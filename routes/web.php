@@ -84,7 +84,7 @@ Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 
-Route::middleware(['auth', 'web', 'user_remaja'])->group(function () {
+Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
