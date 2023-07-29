@@ -367,6 +367,15 @@ return [
                 'quiz-category delete',
             ]
         ],
+        [
+            'group' => 'question',
+            'access' => [
+                'question view',
+                'question create',
+                'question edit',
+                'question delete',
+            ]
+        ],
         // [
         //     'group' => 'tests',
         //     'access' => [

@@ -19,7 +19,7 @@ class Quiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'question_id', 'id');
+        return $this->hasMany(Question::class, 'quiz_id', 'id');
     }
 
     public function category_quiz()
