@@ -1,6 +1,6 @@
 @extends('layouts.remaja.front.app')
 
-@section('title', __('test'))
+@section('title', __('Menjadi Remaja'))
 
 @section('content')
     <div>

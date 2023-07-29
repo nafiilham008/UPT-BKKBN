@@ -27,6 +27,7 @@ use App\Http\Controllers\Profile\StructureController;
 use App\Http\Controllers\PublicService\ServiceInformationController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Remaja\Auth\AuthController;
+use App\Http\Controllers\Remaja\Landing\HomeController as LandingHomeController;
 use App\Http\Controllers\Remaja\Quiz\CategoryController;
 use App\Http\Controllers\Remaja\Quiz\QuestionController;
 use App\Http\Controllers\Remaja\Quiz\QuizController;
@@ -83,7 +84,7 @@ Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 
-Route::middleware(['auth', 'web'])->group(function () {
+Route::middleware(['auth', 'web', 'user_remaja'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -148,8 +149,6 @@ Route::middleware(['auth', 'web'])->group(function () {
 
         // Route::get('/quiz/{id}/questions/create', [QuestionController::class, 'create'])->name('dashboard.questions.create');
         Route::resource('quiz', QuizController::class)->names('dashboard.quizzes');
-
-
     });
 
     // Highlights
@@ -159,6 +158,12 @@ Route::middleware(['auth', 'web'])->group(function () {
 
 
 // Menjadi Remaja
+Route::prefix('remaja')->group(function () {
+    Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
+});
+
+
+
 Route::get('/test', function () {
     return view('remaja.front.index');
 });
@@ -192,14 +197,12 @@ Route::middleware('guest')->group(function () {
     // Google
     Route::get('/user/login', [AuthController::class, 'redirectToGoogle'])->name('remaja.google.login');
     Route::get('/user/login/callback', [AuthController::class, 'handleGoogleCallback'])->name('remaja.google.callback');
-   
 });
 
 
 Route::middleware('role:User Remaja')->group(function () {
     Route::prefix('user')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
-        Route::get('/', [HomeController::class, 'index'])->name('user.dashboard');
     });
 });
 

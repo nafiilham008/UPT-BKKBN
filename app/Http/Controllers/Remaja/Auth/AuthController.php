@@ -20,7 +20,7 @@ class AuthController extends Controller
     public function redirectToGoogle()
     {
         if (Auth::check()) {
-            return redirect()->intended('/user');
+            return redirect()->intended('/remaja');
         }
 
         return Socialite::driver('google')->redirect();
@@ -56,7 +56,7 @@ class AuthController extends Controller
             Auth::login($newUser, true);
         }
 
-        return redirect()->intended('/user');
+        return redirect()->intended('/remaja');
     }
 
 
@@ -90,7 +90,7 @@ class AuthController extends Controller
 
                 return redirect()->route('remaja.verification', ['code' => $verificationCodeUrlSafe])->with('error', 'Please confirm your account!');
             } elseif ($user && $user->hasRole('User Remaja') && Auth::attempt($credentials) && $user->email_verified_at !== null) {
-                return redirect()->intended('/user');
+                return redirect()->intended('/remaja');
             } else {
                 return redirect()->route('remaja.login')->with('error', 'Invalid email or password');
             }
