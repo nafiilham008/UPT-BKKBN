@@ -82,8 +82,9 @@
                                         <div class="form-group">
                                             <label for="image" class="form-label">{{ __('Image') }}</label>
                                             <input class="form-control @error('image') is-invalid @enderror" type="file"
-                                                id="image" name="image" accept="image/png, image/jpeg"
-                                                data-parsley-trigger="change" data-parsley-required="false">
+                                            id="image" name="image" accept="image/png, image/jpeg"
+                                            data-parsley-trigger="change" data-parsley-filemaxmegabytes="5"
+                                            data-parsley-error-message="{{ __('Please upload an image file (JPEG, PNG) with a maximum size of 5MB') }}">
                                             @error('image')
                                                 <span class="text-danger">
                                                     {{ $message }}

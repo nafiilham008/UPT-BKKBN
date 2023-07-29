@@ -31,7 +31,6 @@ class QuizController extends Controller
             ->with('category_quiz', 'users')
             ->get();
 
-        // dd($quizzes);
         return view('remaja.quiz.index', compact('quizzes'));
     }
 
