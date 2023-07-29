@@ -28,6 +28,7 @@ use App\Http\Controllers\PublicService\ServiceInformationController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Remaja\Auth\AuthController;
 use App\Http\Controllers\Remaja\Quiz\CategoryController;
+use App\Http\Controllers\Remaja\Quiz\QuestionController;
 use App\Http\Controllers\Remaja\Quiz\QuizController;
 use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
@@ -138,7 +139,17 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::get('/categories/datatable', [CategoryController::class, 'getCategories'])->name('dashboard.categories.datatable');
         Route::resource('categories', CategoryController::class)->names('dashboard.categories');
 
+        Route::get('/quiz/{id}/questions', [QuestionController::class, 'index'])->name('dashboard.questions');
+        Route::get('/quiz/{id}/datatable', [QuestionController::class, 'getQuestion'])->name('dashboard.questions.datatable');
+        Route::post('/quiz/{id}/store', [QuestionController::class, 'store'])->name('dashboard.questions.store');
+        Route::get('/quiz/{id}/edit/{question_id}', [QuestionController::class, 'edit'])->name('dashboard.questions.edit');
+        Route::put('/quiz/{id}/update/{question_id}', [QuestionController::class, 'update'])->name('dashboard.questions.update');
+        Route::delete('/quiz/{id}/delete/{question_id}', [QuestionController::class, 'destroy'])->name('dashboard.questions.destroy');
+
+        // Route::get('/quiz/{id}/questions/create', [QuestionController::class, 'create'])->name('dashboard.questions.create');
         Route::resource('quiz', QuizController::class)->names('dashboard.quizzes');
+
+
     });
 
     // Highlights
