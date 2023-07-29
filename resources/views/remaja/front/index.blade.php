@@ -70,7 +70,8 @@
                     style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);"></div>
                 <h1 class="text-[40px] text-[#272727] font-bold font-be-vietnam">Menjadi Remaja</h1>
             </div>
-            <h1 class="text-lg text-[#212121] font-be-vietnam"><label class="font-bold">Menjadi Remaja</label> adalah sebuah media yang
+            <h1 class="text-lg text-[#212121] font-be-vietnam"><label class="font-bold">Menjadi Remaja</label> adalah sebuah
+                media yang
                 mewadaih anak-anak yang akan menginjak remaja dan belum mengenal dirinya dengan baik. Disajikan dan dikemas
                 dengan sesuatu yang menyenangkan agar dapat diterima oleh semua anak Indonesia. Belajar sambil bermain?
                 Kenapa Tidak</h1>
@@ -86,10 +87,14 @@
         </div>
         <div class="bg-[#EFF4FF] py-[70px] flex justify-center">
             <div class="">
-                <h1 class="text-2xl text-black text-center font-semibold font-inter mb-4">Ayo coba main sekarang dan kenali dirimu! </h1>
-                <h1 class="text-lg text-black text-center font-medium font-inter mb-9">KLIK tombol di bawah ini atau KLIK tombol<label class="font-bold"> ‘PLAY’</label> di atas </h1>
+                <h1 class="text-2xl text-black text-center font-semibold font-inter mb-4">Ayo coba main sekarang dan kenali
+                    dirimu! </h1>
+                <h1 class="text-lg text-black text-center font-medium font-inter mb-9">KLIK tombol di bawah ini atau KLIK
+                    tombol<label class="font-bold"> ‘PLAY’</label> di atas </h1>
                 <div class="flex justify-center">
-                    <button class="text-white rounded-full px-28 py-[14px] bg-[#110946] transition-colors duration-300 hover:bg-[#6B629C]  font-be-vietnam text-base" style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25);">Ayo Mulai</button>
+                    <button
+                        class="text-white rounded-full px-28 py-[14px] bg-[#110946] transition-colors duration-300 hover:bg-[#6B629C]  font-be-vietnam text-base"
+                        style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25);">Ayo Mulai</button>
                 </div>
             </div>
         </div>
@@ -122,6 +127,11 @@
 
         window.addEventListener('resize', function() {
             adjustContentHeight();
+        });
+    </script>
+    <script>
+        document.getElementById('logout-form').addEventListener('submit', function() {
+            window.location.href = "{{ route('user.index') }}";
         });
     </script>
 @endpush

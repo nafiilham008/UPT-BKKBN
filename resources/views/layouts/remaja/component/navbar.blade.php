@@ -37,19 +37,28 @@
                 @auth
                     <li>
                         <div class="relative">
-                            <button class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center focus:outline-none" 
-                                    id="dropdownButton">
-                              <img src="../img/remaja/assets/user.svg" alt="">
-                              <span>{{ auth()->user()->name }}</span>
+                            <button
+                                class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center focus:outline-none"
+                                id="dropdownButton">
+                                <img src="../img/remaja/assets/user.svg" alt="">
+                                <span>{{ auth()->user()->name }}</span>
                             </button>
                             <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white hidden" id="dropdownMenu">
-                              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
-                              </div>
+                                <div class="py-1" role="menu" aria-orientation="vertical"
+                                    aria-labelledby="dropdownButton">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        role="menuitem">Profile</a>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        role="menuitem">Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
                             </div>
-                          </div>
-                          
+                        </div>
+
                     </li>
                 @endauth
             </ul>
