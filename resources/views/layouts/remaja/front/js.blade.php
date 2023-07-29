@@ -35,3 +35,10 @@
         menu.classList.toggle('hidden');
     });
 </script>
+<script>
+    document.getElementById('dropdownButton').addEventListener('click', function() {
+  var menu = document.getElementById('dropdownMenu');
+  menu.classList.toggle('hidden');
+});
+
+</script>

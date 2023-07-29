@@ -22,7 +22,7 @@
                     <a class="md:p-4 py-2 block hover:text-purple-400" href="/list-game">Game List</a>
                 </li>
                 <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="#">Rating</a>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="#">Ranking</a>
                 </li>
                 @guest
                     <li>
@@ -36,11 +36,20 @@
 
                 @auth
                     <li>
-                        <a class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center"
-                            href="#" style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25);">
-                            <img src="../img/remaja/assets/user.svg" alt="">
-                            <span>{{ auth()->user()->name }}</span>
-                        </a>
+                        <div class="relative">
+                            <button class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center focus:outline-none" 
+                                    id="dropdownButton">
+                              <img src="../img/remaja/assets/user.svg" alt="">
+                              <span>{{ auth()->user()->name }}</span>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white hidden" id="dropdownMenu">
+                              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="dropdownButton">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
+                              </div>
+                            </div>
+                          </div>
+                          
                     </li>
                 @endauth
             </ul>
