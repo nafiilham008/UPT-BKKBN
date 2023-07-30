@@ -5,9 +5,13 @@
     function showLoading(event) {
         event.preventDefault();
         document.querySelector('.loading-overlay').classList.add('active');
+        const targetHref = event.target.getAttribute('data-href');
         setTimeout(function() {
-            window.location.href = event.target.href;
+            window.location.href = targetHref;
         }, 1000);
+        // setTimeout(function() {
+        //     window.location.href = event.target.href;
+        // }, 1000);
     }
 
     // Menghilangkan overlay loading setelah halaman selesai dimuat
