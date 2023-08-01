@@ -167,6 +167,9 @@ Route::prefix('remaja')->group(function () {
 Route::get('/test', function () {
     return view('remaja.front.index');
 });
+Route::get('/profile-user', function () {
+    return view('remaja.profile-user.index');
+});
 Route::get('/game', function () {
     return view('remaja.front.game');
 });
