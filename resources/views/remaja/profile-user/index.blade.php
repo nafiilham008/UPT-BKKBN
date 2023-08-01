@@ -5,7 +5,7 @@
 @section('content')
     <div>
         <div x-data="app()" x-init="initializeStep()" x-cloak id="app" class=""
-            style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
+            style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 30%);">
             <div class="relative">
                 @include('layouts.remaja.component.navbar')
                 <div class="py-20">
