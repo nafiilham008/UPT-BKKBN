@@ -35,8 +35,7 @@ use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
 use App\Http\Controllers\WebSetting\HighlightController;
-
-
+use App\Http\Livewire\Remaja\Landing\HomeLivewire;
 
 Route::get('/login-user', function () {
     return view('remaja.auth-user.login');
@@ -159,7 +158,15 @@ Route::middleware(['auth', 'web'])->group(function () {
 
 // Menjadi Remaja
 Route::prefix('remaja')->group(function () {
+
     Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
+    Route::get('/list', [LandingHomeController::class, 'listGame'])->name('user.list');
+    Route::middleware('role:User Remaja')->group(function () {
+        Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
+        Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
+        Route::get('/ranking', [LandingHomeController::class, 'ranking'])->name('user.detail.rangking');
+    });
+    // Route::get('/game/{slug_url}', HomeLivewire::class)->name('user.detail.game');
 });
 
 
@@ -205,7 +212,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('role:User Remaja')->group(function () {
     Route::prefix('user')->group(function () {
-        // Route::get('/', fn () => view('dashboard'));
+        Route::get('/', fn () => view('dashboard'));
     });
 });
 
