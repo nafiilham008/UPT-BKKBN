@@ -32,6 +32,22 @@ class HomeController extends Controller
 
     public function gameDetail($slug_url)
     {
+        $userId = Auth::id();
+        $resultCheck = ResultAnswer::with('users', 'quiz')
+            ->where('user_id', $userId)
+            ->whereHas('quiz', function ($query) use ($slug_url) {
+                $query->where('slug_url', $slug_url);
+            })
+            ->first();
+
+        // dd($resultCheck);
+
+        if (isset($resultCheck)) {
+            return redirect()->back();
+        }
+
+        // dd('kosong');
+
         $question = Question::with(['quiz', 'users'])
             ->whereHas('quiz', function (Builder $query) use ($slug_url) {
                 $query->where('slug_url', $slug_url);

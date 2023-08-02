@@ -23,66 +23,91 @@
                 <div class="px-[185px]">
                     <div class="rounded-[24px] flex flex-col justify-between min-h-[600px] bg-white/40"
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
-                        <div></div>
+                        @if ($step === 0)
+                            <div class="px-44 pt-10">
+                                <div id="player" data-plyr-provider="youtube"
+                                    data-plyr-embed-id="{{ $url }}"
+                                    data-plyr-config='{"youtube": {"noCookie": true}}'></div>
+                            </div>
+                        @else
+                            <div></div>
+                        @endif
                         @if (!$currentQuestion)
                             <p>Anda telah menyelesaikan semua soal!</p>
                         @else
-                            <p>Question {{ $step }}</p>
-                            <div class="px-44">
-                                <h1 class="font-be-vietnam text-base text-[#272727]/70 text-center">
-                                    {{ $currentQuestion->question }}</h1>
-                                <div class="flex justify-center items-center gap-5 mt-6">
-                                    @if ($currentQuestion->image)
-                                        <div class="w-[162px] h-[144px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
-                                            style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
-                                            <img src="{{ asset('storage/' . $currentQuestion->image) }}" alt="">
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="flex justify-center items-center gap-5 mt-6">
-                                    @foreach (json_decode($currentQuestion->options, true) as $option)
-                                        <label>
-                                            <input type="radio" name="answer[{{ $currentQuestion->id }}]"
-                                                class="hidden" wire:model="input.{{ $currentQuestion->id }}"
-                                                value="{{ $option['value'] }}"
-                                                @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
-                                            <div
-                                                class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
-
-                                                {{ $option['value'] }}
+                            @if ($step !== 0)
+                                <p>Question {{ $step }}</p>
+                                <div class="px-44">
+                                    <h1 class="font-be-vietnam text-base text-[#272727]/70 text-center">
+                                        {{ $currentQuestion->question }}</h1>
+                                    <div class="flex justify-center items-center gap-5 mt-6">
+                                        @if ($currentQuestion->image)
+                                            <div class="w-[162px] h-[144px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
+                                                style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
+                                                <img src="{{ asset('storage/' . $currentQuestion->image) }}"
+                                                    alt="">
                                             </div>
-                                        </label>
-                                    @endforeach
+                                        @endif
+                                    </div>
+                                    <div class="flex justify-center items-center gap-5 mt-6">
+                                        @foreach (json_decode($currentQuestion->options, true) as $option)
+                                            <label>
+                                                <input type="radio" name="answer[{{ $currentQuestion->id }}]"
+                                                    class="hidden" wire:model="input.{{ $currentQuestion->id }}"
+                                                    value="{{ $option['value'] }}"
+                                                    @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
+                                                <div
+                                                    class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+
+                                                    {{ $option['value'] }}
+                                                </div>
+                                            </label>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
 
                             <div
                                 class="py-8 px-12 @if ($step !== 0) flex justify-between @else flex justify-end @endif">
-                                <!-- Tombol Next akan muncul hanya jika ada opsi yang dipilih -->
-                                <button wire:click="previousQuestion"
-                                    class="flex gap-4 text-base text-[#272727] items-center font-medium"
-                                    @if ($step == 1) disabled @endif>
-                                    <div>
-                                        <img src="{{ asset('img/remaja/assets/back-button.svg') }}" class="w-8 h-8"
-                                            alt="">
-                                    </div>
-                                    Sebelumnya
-                                </button>
+                                <!-- Stepper and Buttons -->
+                                @if ($step !== 0)
+                                    <button wire:click="previousQuestion"
+                                        class="flex gap-4 text-base text-[#272727] items-center font-medium">
+                                        <div>
+                                            <img src="{{ asset('img/remaja/assets/back-button.svg') }}" class="w-8 h-8"
+                                                alt="">
+                                        </div>
+                                        Sebelumnya
+                                    </button>
+                                @endif
                                 @if ($step == $totalQuestions)
                                     <button wire:click="submitAnswers"
-                                        class="flex gap-4 text-base text-[#272727] items-center font-medium">
+                                        class="flex gap-4 text-base text-[#272727] items-center font-medium"
+                                        @if (!isset($input[$currentQuestion->id])) disabled @endif>
                                         Selesai
                                     </button>
                                 @else
-                                    <button wire:click="nextQuestion"
-                                        class="flex gap-4 text-base text-[#272727] items-center font-medium"
-                                        @if (!isset($input[$currentQuestion->id])) disabled @endif>
-                                        Selanjutnya
-                                        <div>
-                                            <img src="{{ asset('img/remaja/assets/next-button.svg') }}" class="w-8 h-8"
-                                                alt="">
-                                        </div>
-                                    </button>
+                                    @if ($step !== 0)
+                                        <button wire:click="nextQuestion"
+                                            class="flex gap-4 text-base text-[#272727] items-center font-medium"
+                                            @if (!isset($input[$currentQuestion->id])) disabled @endif>
+                                            Selanjutnya
+                                            <div>
+                                                <img src="{{ asset('img/remaja/assets/next-button.svg') }}"
+                                                    class="w-8 h-8" alt="">
+                                            </div>
+                                        </button>
+                                    @else
+                                        <button wire:click="nextQuestion"
+                                            class="flex gap-4 text-base text-[#272727] items-center font-medium">
+                                            Selanjutnya
+                                            <div>
+                                                <img src="{{ asset('img/remaja/assets/next-button.svg') }}"
+                                                    class="w-8 h-8" alt="">
+                                            </div>
+                                        </button>
+                                    @endif
                                 @endif
                             </div>
                         @endif
@@ -103,11 +128,17 @@
 
 @push('js')
     @livewireScripts
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        const player = new Plyr('#player');
+    </script>
+
     <script>
         document.addEventListener('livewire:load', function() {
             Livewire.on('saveAnswer', (questionId, answer) => {
                 let userAnswers = JSON.parse(localStorage.getItem('user_answers')) || {};
                 userAnswers[questionId] = answer;
+                console.log(questionId);
                 localStorage.setItem('user_answers', JSON.stringify(userAnswers));
             });
 
@@ -124,6 +155,8 @@
 @endpush
 @push('css')
     @livewireStyles
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
     <style>
         .outer {
             display: table;
