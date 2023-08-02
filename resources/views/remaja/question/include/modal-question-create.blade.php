@@ -43,6 +43,17 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="description" class="form-label">{{ __('Description') }}</label>
+                                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                    placeholder="{{ __('Insert description') }}" data-parsley-trigger="change">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label>{{ __('Options') }}</label>
                                 <div id="options-container">
                                     @if (!empty($options))

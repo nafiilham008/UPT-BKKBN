@@ -70,6 +70,7 @@ class QuestionController extends Controller
                 'correct_answers' => 'nullable|array',
                 'correct_answers.*' => 'nullable|boolean',
                 'image' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+                'description' => 'nullable|string',
             ]);
 
             $optionsData = [];
@@ -96,6 +97,7 @@ class QuestionController extends Controller
                 'question' => $request->question,
                 'options' => json_encode($optionsData),
                 'image' => $path,
+                'description' => $request->description,
                 'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             ]);
@@ -160,6 +162,7 @@ class QuestionController extends Controller
             'correct_answers' => 'nullable|array',
             'correct_answers.*' => 'nullable|boolean',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+            'description' => 'nullable|string',
         ]);
 
         $question = Question::where('id', $question_id)
@@ -191,6 +194,7 @@ class QuestionController extends Controller
         }
 
         $question->question = $request->question;
+        $question->description = $request->description;
         $question->options = json_encode($optionsData);
         $question->updated_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
 

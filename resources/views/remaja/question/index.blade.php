@@ -14,7 +14,7 @@
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('dashboard.quizzes.index') }}">{{ __('Quiz') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.quizzes.index') }}">{{ __('Quiz') }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Question') }}</li>
                 </x-breadcrumb>
             </div>
