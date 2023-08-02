@@ -6,14 +6,15 @@
     <div>
         <div id="lottie-background"></div>
         <div class="flex justify-between px-[78px] items-center pt-16">
-            <a href="/list-game" onclick="showLoading(event)" class="flex gap-4 text-base text-[#272727] items-center font-medium">
+            <a href="{{ route('user.list') }}" data-href="{{ route('user.list') }}" onclick="showLoading(event)"
+                class="flex gap-4 text-base text-[#272727] items-center font-medium">
                 <div>
-                    <img src="../img/remaja/assets/back-button.svg" alt="">
+                    <img src="{{ asset('img/remaja/assets/back-button.svg') }}" alt="">
                 </div>
                 Back to game list
             </a>
             <div class="">
-                <img src="../img/remaja/logo/logo.svg" alt="">
+                <img src="{{ asset('img/remaja/logo/logo.svg') }}" alt="">
             </div>
         </div>
         <div id="content" class="py-24 relative">
@@ -23,7 +24,7 @@
             <section class="bg-no-repeat bg-center bg-cover rotate-section mb-11">
                 <div class="w-[231px] h-[231px] items-center flex justify-center"
                     style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
-                    <h1 class="text-[#FF9C07] text-[64px] font-be-vietnam font-semibold">88</h1>
+                    <h1 class="text-[#FF9C07] text-[64px] font-be-vietnam font-semibold">{{ $finalScore }}</h1>
                 </div>
             </section>
             <h1 class="font-be-vietnam text-base text-center text-[#272727]/90 mb-5" style="font-weight: 500">Lihat dimana
@@ -32,15 +33,15 @@
                 <a href="#review" onclick="scrollToReview()"
                     class="w-[245px] h-11 flex justify-center items-center text-white text-base rounded-full transition-colors duration-300 bg-[#4CAF50] hover:bg-[#45A249]"
                     style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Review</a>
-                <a href="/ranking" onclick="showLoading(event)"
+                <a href="{{ route('user.detail.rangking') }}" data-href="{{ route('user.detail.rangking') }}" onclick="showLoading(event)"
                     class="w-[245px] flex h-11 justify-center items-center text-white text-base rounded-full transition-colors duration-300 bg-[#FF0707] hover:bg-[#D60606]"
                     style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Rangking</a>
             </div>
             <div class="absolute left-20 top-10">
-                <img src="../img/remaja/assets/ilustrasi1.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/ilustrasi1.svg') }}" alt="">
             </div>
             <div class="absolute right-20 top-32">
-                <img src="../img/remaja/assets/ilustrasi2.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/ilustrasi2.svg') }}" alt="">
             </div>
         </div>
         <div class="bg-white relative px-20 py-7">
@@ -49,63 +50,35 @@
                     style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);"></div>
                 <h1 class="text-[40px] text-[#272727] font-bold font-be-vietnam">Review Materi</h1>
             </div>
-            <div class="border rounded-[24px] border-[#4895EF] mb-6"
-                style="background: rgba(255, 255, 255, 0.20); box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
-                <div class="bg-white pt-10 pb-5 px-10 rounded-t-[24px]">
-                    <h1 class="font-be-vietnam text-base text-[#272727] mb-5">Lorem ipsum dolor sit amet consectetur. Enim
-                        vestibulum faucibus non mattis urna commodo enim. Varius purus nulla in fermentum?</h1>
+            {{-- Soal --}}
+            <!-- Loop melalui pertanyaan -->
+            @foreach ($results as $result)
+                <div class="border rounded-[24px] border-{{ $result->is_correct ? '[#4895EF]' : '[#DA1E37]' }} mb-6"
+                    style="background: rgba(255, 255, 255, 0.20); box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
+                    <div class="bg-white pt-10 pb-5 px-10 rounded-t-[24px]">
+                        <h1 class="font-be-vietnam text-base text-[#272727] mb-5">{{ $result->question->question }}</h1>
+                        <div
+                            class="bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                            {{ $result->is_correct ? 'Benar' : 'Salah' }}
+                        </div>
+                    </div>
                     <div
-                        class="bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
-                        Benar
+                        class="bg-{{ $result->is_correct ? '[#4895EF]' : '[#DA1E37]' }}/20 pt-6 pb-4 px-10 rounded-b-[24px]">
+                        <h1 class="font-be-vietnam text-lg text-[#272727] font-bold mb-2">Penjelasan</h1>
+                        <h1 id="myText" class="font-be-vietnam text-base text-[#272727] mb-5 line-clamp">
+                            {{ $result->question->description }}
+                        </h1>
+
+                        <button id="toggleButton" onclick="toggleText()"
+                            class="text-[#5C7AEA] font-be-vietnam text-base">Read more..</button>
                     </div>
                 </div>
-                <div class="bg-[#4895EF]/20 pt-6 pb-4 px-10 rounded-b-[24px]">
-                    <h1 class="font-be-vietnam text-lg text-[#272727] font-bold mb-2">Penjelasan</h1>
-                    <h1 id="myText" class="font-be-vietnam text-base text-[#272727] mb-5 line-clamp">
-                        Lorem ipsum dolor sit amet consectetur. Pulvinar lorem id amet eget. Malesuada placerat nibh
-                        dignissim erat volutpat sed at. Nisi sed sed scelerisque ornare. Urna tincidunt senectus gravida
-                        tincidunt ornare. Viverra posuere sit maecenas consectetur viverra. Ligula augue non sodales
-                        pellentesque velit dolor cras ut. Scelerisque amet mauris dignissim enim. Dignissim ullamcorper
-                        massa dignissim placerat nunc mauris. Amet elementum nec nisl lectus auctor ac et nisl. Consequat
-                        ultrices donec faucibus nibh placerat auctor eget nec eu. Vehicula pulvinar vulputate vel turpis
-                        consequat vulputate. Aliquam in pharetra tristique dignissim quis enim. Nullam ornare volutpat
-                        dignissim platea.
-                    </h1>
+            @endforeach
 
-                    <button id="toggleButton" onclick="toggleText()" class="text-[#5C7AEA] font-be-vietnam text-base">Read
-                        more..</button>
-                </div>
-            </div>
-            <div class="border rounded-[24px] border-[#DA1E37] mb-6"
-                style="background: rgba(255, 255, 255, 0.20); box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
-                <div class="bg-white pt-10 pb-5 px-10 rounded-t-[24px]">
-                    <h1 class="font-be-vietnam text-base text-[#272727] mb-5">Lorem ipsum dolor sit amet consectetur. Enim
-                        vestibulum faucibus non mattis urna commodo enim. Varius purus nulla in fermentum?</h1>
-                    <div
-                        class="bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
-                        Salah
-                    </div>
-                </div>
-                <div class="bg-[#DA1E37]/20 pt-6 pb-4 px-10 rounded-b-[24px]">
-                    <h1 class="font-be-vietnam text-lg text-[#272727] font-bold mb-2">Penjelasan</h1>
-                    <h1 id="myText" class="font-be-vietnam text-base text-[#272727] mb-5 line-clamp">
-                        Lorem ipsum dolor sit amet consectetur. Pulvinar lorem id amet eget. Malesuada placerat nibh
-                        dignissim erat volutpat sed at. Nisi sed sed scelerisque ornare. Urna tincidunt senectus gravida
-                        tincidunt ornare. Viverra posuere sit maecenas consectetur viverra. Ligula augue non sodales
-                        pellentesque velit dolor cras ut. Scelerisque amet mauris dignissim enim. Dignissim ullamcorper
-                        massa dignissim placerat nunc mauris. Amet elementum nec nisl lectus auctor ac et nisl. Consequat
-                        ultrices donec faucibus nibh placerat auctor eget nec eu. Vehicula pulvinar vulputate vel turpis
-                        consequat vulputate. Aliquam in pharetra tristique dignissim quis enim. Nullam ornare volutpat
-                        dignissim platea.
-                    </h1>
 
-                    <button id="toggleButton" onclick="toggleText()" class="text-[#5C7AEA] font-be-vietnam text-base">Read
-                        more..</button>
-                </div>
-            </div>
         </div>
     </div>
-    <audio src="../audio/backsound-score.mp3" autoplay></audio>
+    <audio src="{{ asset('audio/backsound-score.mp3') }}" autoplay></audio>
 
 @endsection
 @push('js')

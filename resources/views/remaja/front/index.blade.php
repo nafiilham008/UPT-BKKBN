@@ -11,7 +11,7 @@
             <h1 class="font-be-vietnam text-base text-center text-[#272727]/70">Lorem ipsum dolor sit amet consectetur. Donec
                 eu
                 tortor quis mollis cursus sed<br>vestibulum nec sit. Iaculis id blandit ut in at urna.</h1>
-            <a href="" class="mb-10 h-max w-max">
+            <a href="{{ route('user.list') }}" class="mb-10 h-max w-max">
                 <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_nvkvb2j5.json" background="transparent"
                     speed="1" style="width: 257px; height: 257px;" loop autoplay></lottie-player>
             </a>
@@ -37,7 +37,7 @@
                             dimengerti</h1>
                     </div>
                     <div class="absolute right-0 top-[-40px]">
-                        <img src="../img/remaja/ilustrasi/sand-clock.svg" alt="">
+                        <img src="{{ asset('img/remaja/ilustrasi/sand-clock.svg') }}" alt="">
                     </div>
                 </div>
                 <div class="bg-[#E0F3FF] rounded-[24px] py-10 px-6 relative w-full"
@@ -48,7 +48,7 @@
                             untuk anak.</h1>
                     </div>
                     <div class="absolute right-[-30px] top-[-40px]">
-                        <img src="../img/remaja/ilustrasi/rocket.svg" alt="">
+                        <img src="{{ asset('img/remaja/ilustrasi/rocket.svg') }}" alt="">
                     </div>
                 </div>
                 <div class="bg-[#C2E0F2] rounded-[24px] py-10 px-6 relative w-full"
@@ -58,12 +58,12 @@
                         <h1 class="text-[#272727] text-lg font-be-vietnam">Materi yang disajikan mudah untuk dipahami</h1>
                     </div>
                     <div class="absolute right-[-30px] top-[-40px]">
-                        <img src="../img/remaja/ilustrasi/lamp.svg" alt="">
+                        <img src="{{ asset('img/remaja/ilustrasi/lamp.svg') }}" alt="">
                     </div>
                 </div>
             </div>
             <div class="flex justify-center mb-7">
-                <img src="../img/remaja/ilustrasi/profession.svg" alt="">
+                <img src="{{ asset('img/remaja/ilustrasi/profession.svg') }}" alt="">
             </div>
             <div class="flex gap-8 items-center mb-7">
                 <div class="w-8 h-[73px] rounded-full bg-[#CF6EA7]"
@@ -76,13 +76,13 @@
                 dengan sesuatu yang menyenangkan agar dapat diterima oleh semua anak Indonesia. Belajar sambil bermain?
                 Kenapa Tidak</h1>
             <div class="absolute right-0 top-0">
-                <img src="../img/remaja/assets/book-right.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/book-right.svg') }}" alt="">
             </div>
             <div class="absolute left-0 top-96">
-                <img src="../img/remaja/assets/book-left.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/book-left.svg') }}" alt="">
             </div>
             <div class="absolute right-0 top-[600px]">
-                <img src="../img/remaja/assets/book-right.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/book-right.svg') }}" alt="">
             </div>
         </div>
         <div class="bg-[#EFF4FF] py-[70px] flex justify-center">
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <audio src="../audio/backsound-home.mp3" autoplay></audio>
+    <audio src="{{ asset('audio/backsound-home.mp3') }}" autoplay></audio>
 @endsection
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>

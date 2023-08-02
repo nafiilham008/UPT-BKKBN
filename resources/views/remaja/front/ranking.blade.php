@@ -6,14 +6,14 @@
     <div>
         <div id="lottie-background"></div>
         <div class="flex justify-between px-[78px] items-center pt-16">
-            <a href="/list-game" onclick="showLoading(event)" class="flex gap-4 text-base text-[#272727] items-center font-medium">
+            <a href="{{ route('user.list') }}" data-href="{{ route('user.list') }}" onclick="showLoading(event)" class="flex gap-4 text-base text-[#272727] items-center font-medium">
                 <div>
-                    <img src="../img/remaja/assets/back-button.svg" alt="">
+                    <img src="{{ asset('img/remaja/assets/back-button.svg') }}" alt="">
                 </div>
                 Back to game list
             </a>
             <div class="">
-                <img src="../img/remaja/logo/logo.svg" alt="">
+                <img src="{{ asset('img/remaja/logo/logo.svg') }}" alt="">
             </div>
         </div>
         <div id="content" class="py-24 relative">
@@ -50,12 +50,14 @@
                 </div>
             </div>
             <div class="absolute left-20 top-10">
-                <img src="../img/remaja/assets/ilustrasi1.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/ilustrasi1.svg') }}" alt="">
             </div>
             <div class="absolute right-20 top-32">
-                <img src="../img/remaja/assets/ilustrasi2.svg" alt="">
+                <img src="{{ asset('img/remaja/assets/ilustrasi2.svg') }}" alt="">
             </div>
         </div>
+
+        {{-- TOP 10 --}}
         <div class="bg-white relative px-20 py-7 relative">
             <div id="review" class="flex gap-8 items-center mb-16 mb-10">
                 <div class="w-8 h-[73px] rounded-full bg-[#CF6EA7]"

@@ -1,11 +1,10 @@
 @extends('layouts.remaja.front.app')
 
-@section('title', __('test'))
+@section('title', __('List Game'))
 
 @section('content')
     <div>
-        <div class=""
-            style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
+        <div class="" style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
             @include('layouts.remaja.component.navbar')
             <div class="flex gap-8 items-center mb-16 py-[135px] px-[186px]">
                 <div class="flex items-center" style="box-shadow: 2px 4px 17px 0px rgba(189, 179, 252, 0.25);">
@@ -17,20 +16,21 @@
                             <select name="" id="kategori-select"
                                 class="w-[265px] text-center font-be-vietnam cursor-pointer pr-10 pl-3 py-4 font-medium border border-[#3754C1] text-black text-sm rounded-r-[12px] appearance-none">
                                 <option value="" selected disabled>Pilih Kategori</option>
-                                <option value="">Kesehatan Kesehatan Kesehatan Kesehatan Kesehatan Kesehatan</option>
-                                <option value="">Remaja</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}">{{ $item->title }}</option>
+                                @endforeach
                             </select>
-                            <img src="../img/remaja/assets/arrow-down.svg" alt="" class="arrow-icon">
+                            <img src="{{ asset('img/remaja/assets/arrow-down.svg') }}" alt="" class="arrow-icon">
                         </div>
                     </div>
+
                 </div>
                 <div class="">
                     <form>
-                        <label for="default-search"
-                            class="mb-2 text-sm font-medium text-black sr-only">Search</label>
+                        <label for="default-search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                <img src="../img/remaja/assets/icon-search.svg" alt="" class="">
+                                <img src="{{ asset('img/remaja/assets/icon-search.svg') }}" alt="" class="">
                             </div>
                             <input type="search" id="default-search"
                                 class="block w-96 p-4 pr-10 text-sm font-be-vietnam text-black border border-[#3754C1] rounded-[12px] bg-white focus:ring-blue-500 focus:border-blue-500 placeholder:text-[#272727]/40"
@@ -40,48 +40,84 @@
                 </div>
             </div>
             <div class="grid grid-cols-3 gap-7 px-[186px]">
-                <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
+                @foreach ($quiz as $quizItem)
+                    <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]"
+                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
+                        <a href="{{ route('user.detail.game', $quizItem->slug_url) }}"
+                            data-href="{{ route('user.detail.game', $quizItem->slug_url) }}" onclick="showLoading(event)">
+                            <img class="rounded-t-[24px] w-full h-52" src="{{ asset('storage/' . $quizItem->image) }}"
+                                alt="" />
+                        </a>
+                        <div class="p-5">
+                            <a href="{{ route('user.detail.game', $quizItem->slug_url) }}"
+                                data-href="{{ route('user.detail.game', $quizItem->slug_url) }}"
+                                onclick="showLoading(event)">
+                                <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
+                                    {{ $quizItem->title }}</h5>
+                            </a>
+                            <p class="mb-3 font-normal text-[#272727] text-sm">{{ $quizItem->description }}</p>
+                            <a href="{{ route('user.detail.game', $quizItem->slug_url) }}"
+                                data-href="{{ route('user.detail.game', $quizItem->slug_url) }}"
+                                onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai
+                                Bermain
+                                <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]"
+                    style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                     <a href="#">
                         <img class="rounded-t-[24px] w-full h-52" src="../img/remaja/ilustrasi/kenali.svg" alt="" />
                     </a>
                     <div class="p-5">
                         <a href="#">
-                            <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Kenali Dirimu!</h5>
+                            <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Kenali
+                                Dirimu!</h5>
                         </a>
                         <p class="mb-3 font-normal text-[#272727] text-sm">Kenali dirimu disini</p>
-                        <a href="/game" onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
+                        <a href="/game" onclick="showLoading(event)"
+                            class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
                             <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
                         </a>
                     </div>
                 </div>
-                <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
+                <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]"
+                    style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                     <a href="#">
                         <img class="rounded-t-[24px] w-full h-52" src="../img/remaja/ilustrasi/sehat.svg" alt="" />
                     </a>
                     <div class="p-5">
                         <a href="#">
-                            <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Stay Healty</h5>
+                            <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Stay
+                                Healty</h5>
                         </a>
                         <p class="mb-3 font-normal text-[#272727] text-sm">Jaga kesehatanmu demi masa depan</p>
-                        <a href="/game" onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
+                        <a href="/game" onclick="showLoading(event)"
+                            class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
                             <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
                         </a>
                     </div>
                 </div>
-                <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
+                <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]"
+                    style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                     <a href="#">
-                        <img class="rounded-t-[24px] w-full h-52" src="../img/remaja/ilustrasi/batasan.svg" alt="" />
+                        <img class="rounded-t-[24px] w-full h-52" src="../img/remaja/ilustrasi/batasan.svg"
+                            alt="" />
                     </a>
                     <div class="p-5">
                         <a href="#">
-                            <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Kenali Batasmu!</h5>
+                            <h5 class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">Kenali
+                                Batasmu!</h5>
                         </a>
                         <p class="mb-3 font-normal text-[#272727] text-sm">Batasi dirimu demi kebaikan</p>
-                        <a href="/game" onclick="showLoading(event)" class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
+                        <a href="/game" onclick="showLoading(event)"
+                            class="text-[#5C7AEA] text-lg gap-5 flex items-center">Mulai Bermain
                             <img src="../img/remaja/assets/arrow-right.svg" alt="" class="w-6 h-6">
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -165,6 +201,7 @@
             height: 1.5rem;
             pointer-events: none;
         }
+
         #content {
             position: relative;
             z-index: 1;
