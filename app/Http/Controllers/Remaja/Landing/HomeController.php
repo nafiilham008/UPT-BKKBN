@@ -10,6 +10,7 @@ use App\Models\Remaja\Ranking;
 use App\Models\Remaja\ResultAnswer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -64,18 +65,20 @@ class HomeController extends Controller
         $finalScore = round($scorePercentage);
 
         // save coba
-        $ranking = Ranking::where('user_id', $results[0]->users->id)
-        ->first();
-        // $ranking = Ranking::all();
-        
-        
+        $userId = Auth::id();
+        $ranking = Ranking::where('user_id', $userId)
+            ->first();
+
+        // dd($ranking);
+
+
         if ($ranking) {
             $ranking->final_score += $finalScore;
         } else {
             // dd('no');
             $ranking = new Ranking();
             $ranking->final_score = $finalScore;
-            $ranking->user_id = $results->first()->users->id;
+            $ranking->user_id = $userId;
         }
 
         // Save the ranking to the database
@@ -87,8 +90,13 @@ class HomeController extends Controller
 
     public function ranking()
     {
-        $ranking = Ranking::with('users')->get();
-        // dd($ranking);
-        return view('remaja.front.ranking', compact('ranking'));
+        $topRanking = Ranking::with('users')
+            ->orderByDesc('final_score')
+            ->take(3)
+            ->get();
+
+        $all = Ranking::with('users')->get();
+
+        return view('remaja.front.ranking', compact('topRanking', 'all'));
     }
 }
