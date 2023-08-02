@@ -16,9 +16,22 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, ...$roles)
     {
-        if (!auth()->check() || !in_array(auth()->user()->role, $roles)) {
-            abort(403, 'Unauthorized');
+        $user = auth()->user();
+
+        // Memastikan pengguna sudah login
+        if (!$user) {
+            return redirect()->route('login');
         }
+
+        // Memeriksa apakah peran pengguna adalah "User Remaja"
+        if (in_array('User Remaja', $roles) && $user->role === 'User Remaja') {
+            abort(403, 'USER DOES NOT HAVE THE RIGHT ROLES.');
+        }
+
+        // // Memeriksa apakah peran pengguna tidak sama dengan salah satu dari peran yang diberikan
+        // if (!in_array($user->role, $roles)) {
+        //     abort(403, 'Unauthorized');
+        // }
 
         return $next($request);
     }
