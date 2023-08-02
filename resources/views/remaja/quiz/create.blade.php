@@ -108,7 +108,18 @@
                                             @enderror
                                         </fieldset>
                                     </div>
-
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="description" class="form-label">{{ __('Description') }}</label>
+                                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                                placeholder="{{ __('Insert Description') }}" data-parsley-trigger="change" rows="4"></textarea> {{-- {{ isset($quiz) ? $quiz->description : old('description') }} --}}
+                                            @error('description')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                 </div>
 

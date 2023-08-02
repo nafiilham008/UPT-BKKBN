@@ -60,6 +60,10 @@
                                         <td>{{ $quiz->category_quiz->title }}</td>
                                     </tr>
                                     <tr>
+                                        <td class="fw-bold">{{ __('Description') }}</td>
+                                        <td>{{ $quiz->description }}</td>
+                                    </tr>
+                                    <tr>
                                         <td class="fw-bold">{{ __('Created at') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($quiz->created_at)->format('j F, Y H:i') }}</td>
                                     </tr>

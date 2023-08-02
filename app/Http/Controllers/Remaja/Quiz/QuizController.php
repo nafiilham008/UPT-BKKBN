@@ -7,6 +7,7 @@ use App\Models\Remaja\CategoryQuiz;
 use App\Models\Remaja\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class QuizController extends Controller
 {
@@ -27,8 +28,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::with('users')
-            ->with('category_quiz', 'users')
+        $quizzes = Quiz::with('category_quiz', 'users')
             ->get();
 
         return view('remaja.quiz.index', compact('quizzes'));
@@ -60,9 +60,12 @@ class QuizController extends Controller
             'title' => 'required|unique:quizzes,title',
             'url' => 'required|unique:quizzes,url',
             'image' => 'nullable|mimes:jpeg,png,jpg|image|max:5120',
+            'description' => 'nullable|string',
             'category_quiz_id' => 'required'
         ]);
 
+        $slug_url = Str::slug($validated['title'], '-');
+        $slug_url = Str::lower($slug_url);
 
         if ($request->hasFile('image')) {
             // $path = $request->file('image')->store('images/quiz');
@@ -74,16 +77,15 @@ class QuizController extends Controller
 
         $quizCreate = Quiz::create([
             'title' => $validated['title'],
-            'url' => $validated['url'],
+            'url' => $validated['url'], 
+            'slug_url' => $slug_url, 
             'image' => $path,
+            'description' => $validated['description'],
             'user_id' => auth()->user()->id,
             'category_quiz_id' => $validated['category_quiz_id'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
-
         ]);
-
-
 
         if ($quizCreate) {
             //redirect dengan pesan sukses
@@ -146,10 +148,14 @@ class QuizController extends Controller
             'title' => 'required|unique:quizzes,title,' . $id,
             'url' => 'required|unique:quizzes,url,' . $id,
             'image' => 'nullable|mimes:jpeg,png,jpg|image|max:5120',
+            'description' => 'nullable|string',
             'category_quiz_id' => 'required'
         ]);
 
         $quiz = Quiz::findOrFail($id);
+
+        $slug_url = Str::slug($validated['title'], '-');
+        $slug_url = Str::lower($slug_url);
 
         if ($request->hasFile('image')) {
             // Hapus file gambar lama
@@ -165,7 +171,9 @@ class QuizController extends Controller
 
         $quiz->title = $validated['title'];
         $quiz->url = $validated['url'];
+        $quiz->slug_url = $slug_url;
         $quiz->image = $path;
+        $quiz->description = $validated['description'];
         $quiz->category_quiz_id = $validated['category_quiz_id'];
         $quiz->updated_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
 

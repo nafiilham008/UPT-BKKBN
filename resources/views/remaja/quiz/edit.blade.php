@@ -59,7 +59,8 @@
                                         <div class="form-group">
                                             <label for="url"
                                                 class="form-label">{{ __('URL Video (Youtube)') }}</label>
-                                            <input type="text" name="url" id="url" value="{{ isset($quiz) ? $quiz->url : old('url') }}"
+                                            <input type="text" name="url" id="url"
+                                                value="{{ isset($quiz) ? $quiz->url : old('url') }}"
                                                 class="form-control @error('url') is-invalid @enderror"
                                                 placeholder="{{ __('Insert url') }}" data-parsley-trigger="change"
                                                 data-parsley-required="true"
@@ -82,9 +83,9 @@
                                         <div class="form-group">
                                             <label for="image" class="form-label">{{ __('Image') }}</label>
                                             <input class="form-control @error('image') is-invalid @enderror" type="file"
-                                            id="image" name="image" accept="image/png, image/jpeg"
-                                            data-parsley-trigger="change" data-parsley-filemaxmegabytes="5"
-                                            data-parsley-error-message="{{ __('Please upload an image file (JPEG, PNG) with a maximum size of 5MB') }}">
+                                                id="image" name="image" accept="image/png, image/jpeg"
+                                                data-parsley-trigger="change" data-parsley-filemaxmegabytes="5"
+                                                data-parsley-error-message="{{ __('Please upload an image file (JPEG, PNG) with a maximum size of 5MB') }}">
                                             @error('image')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -112,6 +113,21 @@
                                             @enderror
                                         </fieldset>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="description" class="form-label">{{ __('Description') }}</label>
+                                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                                placeholder="{{ __('Insert Description') }}" data-parsley-trigger="change" data-parsley-required="false"
+                                                rows="4">{!! isset($quiz) ? $quiz->description : old('description') !!}</textarea>
+                                            @error('description')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
 
                                 </div>
 
