@@ -25,7 +25,7 @@
                                 <h1 class="font-be-vietnam text-[#272727] font-semibold text-base">13 thn</h1>
                             </div>
                             <div class="mt-8">
-                                <a href=""
+                                <a href="/edit-profile-user"
                                     class="profile-link text-base text-[#3754C1] border border-[#3754C1] rounded-[10px] px-9 py-3 font-semibold">Edit
                                     Profile</a>
                             </div>
