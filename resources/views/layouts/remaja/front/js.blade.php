@@ -5,7 +5,7 @@
     function showLoading(event) {
         event.preventDefault();
         document.querySelector('.loading-overlay').classList.add('active');
-        const targetHref = event.target.getAttribute('data-href');
+        const targetHref = event.currentTarget.getAttribute('data-href');
         setTimeout(function() {
             window.location.href = targetHref;
         }, 1000);
@@ -18,7 +18,25 @@
     window.addEventListener('load', function() {
         document.querySelector('.loading-overlay').classList.remove('active');
     });
+
+    const links = document.querySelectorAll('.link-loading');
+    links.forEach(function(link) {
+        link.addEventListener('click', showLoading);
+    });
 </script>
+{{-- // function showLoading(event) {
+//     event.preventDefault();
+//     document.querySelector('.loading-overlay').classList.add('active');
+//     const targetHref = event.target.getAttribute('data-href');
+//     setTimeout(function() {
+//         window.location.href = targetHref;
+//     }, 1000);
+// }
+
+// // Menghilangkan overlay loading setelah halaman selesai dimuat
+// window.addEventListener('load', function() {
+//     document.querySelector('.loading-overlay').classList.remove('active');
+// }); --}}
 <script type="text/javascript">
     var nav = document.querySelector('nav');
 
