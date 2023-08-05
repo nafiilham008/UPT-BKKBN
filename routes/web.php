@@ -36,6 +36,7 @@ use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
 use App\Http\Controllers\WebSetting\HighlightController;
 use App\Http\Livewire\Remaja\Landing\HomeLivewire;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/login-user', function () {
     return view('remaja.auth-user.login');
@@ -215,6 +216,16 @@ Route::middleware('role:User Remaja')->group(function () {
         Route::get('/', fn () => view('dashboard'));
     });
 });
+
+
+// Command
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+}); 
+// Route::get('/migrate', function () {
+//     Artisan::call('migrate:fresh --seed');
+// }); 
+
 
 // Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
 //     dd('This is just a test and an example for permission and sidebar menu. You can remove this line on web.php, config/permission.php and config/generator.php');

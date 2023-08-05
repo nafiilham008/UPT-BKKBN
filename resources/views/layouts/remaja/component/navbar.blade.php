@@ -2,8 +2,8 @@
     <nav
         class="flex flex-wrap items-center justify-between w-full py-4 md:py-3 md:px-14 px-4 text-lg text-gray-700 bg-transparent">
         <div>
-            <a href="#">
-                <img src="../img/remaja/logo/logo.svg" alt="">
+            <a href="{{ route('user.index') }}">
+                <img src="{{ asset('img/remaja/logo/logo.svg') }}" alt="">
             </a>
         </div>
 
@@ -16,13 +16,13 @@
             <ul
                 class="pt-4 text-base text-[#272727] font-be-vietnam md:flex  md:items-center md:justify-between md:pt-0">
                 <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="/test">Home</a>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.index') }}">Home</a>
                 </li>
                 <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="/list-game">Game List</a>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.list') }}" data-href="{{ route('user.list') }}" onclick="showLoading(event)"">Game List</a>
                 </li>
                 <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="#">Ranking</a>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.detail.rangking') }}" data-href="{{ route('user.detail.rangking') }}" onclick="showLoading(event)">Ranking</a>
                 </li>
                 @guest
                     <li>

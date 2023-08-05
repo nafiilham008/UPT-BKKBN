@@ -49,9 +49,12 @@
                                         <td class="fw-bold">{{ __('Video') }}</td>
                                         <td>
                                             <div class="container">
-                                                <div id="player" data-plyr-provider="youtube"
-                                                    data-plyr-embed-id="{{ $quiz->url }}"
-                                                    data-plyr-config='{"youtube": {"noCookie": true}}'></div>
+                                                <div class="plyr__video-embed" id="player"
+                                                    style="position: relative;">
+                                                    <iframe src="{{ $quiz->url }}" frameborder="0" allowfullscreen
+                                                        allowtransparency allow="autoplay"
+                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

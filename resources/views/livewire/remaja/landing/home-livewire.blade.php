@@ -23,17 +23,19 @@
                 <div class="px-[185px]">
                     <div class="rounded-[24px] flex flex-col justify-between min-h-[600px] bg-white/40"
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
-                        @if ($step === 0)
-                            <div class="px-44 pt-10">
-                                <div id="player" data-plyr-provider="youtube"
-                                    data-plyr-embed-id="{{ $url }}"
-                                    data-plyr-config='{"youtube": {"noCookie": true}}'></div>
-                            </div>
-                        @else
-                            <div></div>
-                        @endif
+                        <div class="px-44 pt-10 {{ $step === 0 ? '' : 'd-none' }}">
+                            @if ($step === 0)
+                                <div class="plyr__video-embed" id="player{{ $step }}"
+                                    style="position: relative;">
+                                    <iframe src="{{ $url }}" frameborder="0" allowfullscreen allowtransparency
+                                        allow="autoplay"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                                </div>
+                            @endif
+                        </div>
+
                         @if (!$currentQuestion)
-                            <p>Anda telah menyelesaikan semua soal!</p>
+                            <h1>Anda telah menyelesaikan semua soal!</h1>
                         @else
                             @if ($step !== 0)
                                 <p>Question {{ $step }}</p>
@@ -129,9 +131,16 @@
 @push('js')
     @livewireScripts
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-    <script>
-        const player = new Plyr('#player');
-    </script>
+    @if ($step === 0)
+        <script>
+            const player = new Plyr('#player{{ $step }}');
+        </script>
+    @endif
+    {{-- @if ($step === 0)
+        <script>
+            const player{{ $step }} = new Plyr('#player{{ $step }}');
+        </script>
+    @endif --}}
 
     <script>
         document.addEventListener('livewire:load', function() {

@@ -40,9 +40,9 @@ class HomeLivewire extends Component
 
     public function getVideo($dataQuiz)
     {
-        $quizIds = $dataQuiz->pluck('quiz_id')->unique(); 
-
-        $quiz = Quiz::whereIn('id', $quizIds)->get(); 
+        $quizIds = $dataQuiz->pluck('quiz_id')->unique();
+        
+        $quiz = Quiz::whereIn('id', $quizIds)->get();
         // dd($quiz);
         foreach ($dataQuiz as $value) {
             foreach ($quiz as $valueQuiz) {
@@ -52,20 +52,21 @@ class HomeLivewire extends Component
                 }
             }
         }
-
-        $linkYoutube = $this->url;
-        $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
-        preg_match($pattern, $linkYoutube, $matches);
-        $videoCode = null;
-
-        if (!empty($matches)) {
-            $videoCode = $matches[0];
-        }
-
-        $this->url = $videoCode;
+        
+        // $linkYoutube = $this->url;
+        // $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
+        // preg_match($pattern, $linkYoutube, $matches);
+        // $videoCode = null;
+        
+        // if (!empty($matches)) {
+        //     $videoCode = $matches[0];
+        // }
+        
+        // $this->url = $videoCode;
         // dd($this->url);
+        // dd($dataQuiz);
     }
-
+    
     // Jika ada localStorage 
     public function loadData($userAnswers)
     {
@@ -80,7 +81,7 @@ class HomeLivewire extends Component
 
         // ambil step
         $keys = array_keys($this->input);
-        $this->step = count($keys);
+        $this->step = count($keys) + 1;
         // dd($this->step);
 
         // ambil question dari step
@@ -102,11 +103,15 @@ class HomeLivewire extends Component
 
     public function previousQuestion()
     {
-        if ($this->step >= 1) {
+        if ($this->step > 1) {
             $this->step--;
-            $this->currentQuestion = $this->questions[$this->step];
-        // $this->getVideo($dataQuestion);
-
+            $this->currentQuestion = $this->questions[$this->step - 1];
+        // } else {
+        } elseif ($this->step == 1) {
+            $this->step--;
+            // $this->currentQuestion = $this->questions[$this->step];
+            // dd($this->currentQuestion);
+            $this->getVideo($this->questions);
         }
     }
 

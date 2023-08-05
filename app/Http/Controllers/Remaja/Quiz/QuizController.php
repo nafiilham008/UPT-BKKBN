@@ -106,16 +106,16 @@ class QuizController extends Controller
     {
         $quiz = Quiz::with('users', 'category_quiz')->findOrFail($id);
 
-        $linkYoutube = $quiz->url;
-        $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
-        preg_match($pattern, $linkYoutube, $matches);
-        $videoCode = null;
+        // $linkYoutube = $quiz->url;
+        // $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
+        // preg_match($pattern, $linkYoutube, $matches);
+        // $videoCode = null;
 
-        if (!empty($matches)) {
-            $videoCode = $matches[0];
-        }
+        // if (!empty($matches)) {
+        //     $videoCode = $matches[0];
+        // }
 
-        return view('remaja.quiz.show', compact('quiz', 'videoCode'));
+        return view('remaja.quiz.show', compact('quiz'));
     }
 
 
