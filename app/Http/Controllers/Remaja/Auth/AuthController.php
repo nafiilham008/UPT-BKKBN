@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
@@ -39,19 +40,22 @@ class AuthController extends Controller
             $newUser->name = $user->getName();
             $newUser->email = $user->getEmail();
             $newUser->password = bcrypt(Str::random(16));
-            $newUser->avatar = $user->getAvatar();
+            // $newUser->avatar = $user->getAvatar();
             $newUser->email_verified_at = now();
+
+            $avatarUrl = $user->getAvatar();
+            if ($avatarUrl) {
+                $filename = Str::random(16) . '.jpg'; // Contoh penamaan file, ubah sesuai kebutuhan
+                $path = 'images/profile/user/' . $filename;
+                Storage::disk('public')->put($path, file_get_contents($avatarUrl));
+                $newUser->avatar = $path; // Simpan path ke kolom avatar dalam database
+            } else {
+                $newUser->avatar = null;
+            }
 
             $newUser->save();
 
             $newUser->assignRole('User Remaja');
-
-
-            // // Menambahkan peran "User Remaja" jika belum ada
-            // $roleUserRemaja = Role::where('name', 'User Remaja')->first();
-            // if ($roleUserRemaja) {
-            //     $newUser->assignRole($roleUserRemaja);
-            // }
 
             Auth::login($newUser, true);
         }

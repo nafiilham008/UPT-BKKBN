@@ -19,10 +19,12 @@
                     <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.index') }}">Home</a>
                 </li>
                 <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.list') }}" data-href="{{ route('user.list') }}" onclick="showLoading(event)"">Game List</a>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.list') }}"
+                        data-href="{{ route('user.list') }}" onclick="showLoading(event)"">Game List</a>
                 </li>
                 <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.detail.rangking') }}" data-href="{{ route('user.detail.rangking') }}" onclick="showLoading(event)">Ranking</a>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.detail.rangking') }}"
+                        data-href="{{ route('user.detail.rangking') }}" onclick="showLoading(event)">Ranking</a>
                 </li>
                 @guest
                     <li>
@@ -40,7 +42,11 @@
                             <button
                                 class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center focus:outline-none"
                                 id="dropdownButton">
-                                <img src="../img/remaja/assets/user.svg" alt="">
+                                @if (auth()->user()->avatar)
+                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="w-8 h-8 rounded-full"  alt="">
+                                @else
+                                    <img src="../img/remaja/assets/user.svg" class="w-8 h-8 rounded-full" alt="">
+                                @endif
                                 <span>{{ auth()->user()->name }}</span>
                             </button>
                             <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white hidden" id="dropdownMenu">
