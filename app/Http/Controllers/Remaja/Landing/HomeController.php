@@ -11,6 +11,7 @@ use App\Models\Remaja\ResultAnswer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -117,7 +118,13 @@ class HomeController extends Controller
         $all = Ranking::with('users')
             ->whereNotIn('id', $topRankingIds)
             ->get();
-        // dd($all);
-        return view('remaja.front.ranking', compact('topRanking', 'all'));
+
+
+        $totalQuiz = ResultAnswer::select('user_id', DB::raw('count(distinct quiz_id) as total_quiz'))
+            ->groupBy('user_id')
+            ->get();
+
+        // dd($totalQuiz);
+        return view('remaja.front.ranking', compact('topRanking', 'all', 'totalQuiz'));
     }
 }
