@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
@@ -15,7 +16,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      *
      * @var string
      */
-    protected $avatarPath = '/uploads/images/avatars/';
+    // protected $avatarPath = '/uploads/images/avatars/';
 
     /**
      * Validate and update the given user's profile information.
@@ -39,28 +40,21 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['avatar']) && $input['avatar']->isValid()) {
+            // Hapus file gambar lama
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
 
             $filename = $input['avatar']->hashName();
-
-            if (!file_exists($path = public_path($this->avatarPath))) {
-                mkdir($path, 0777, true);
-            }
-
-            Image::make($input['avatar']->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->avatarPath) . $filename);
-
-            // delete old avatar from storage
-            if ($user->avatar != null && file_exists(public_path($this->avatarPath . $user->avatar))) {
-                unlink(public_path($this->avatarPath . $user->avatar));
-            }
-
-            $user->forceFill([
-                'avatar' => $filename,
-            ])->save();
+            $path = $input['avatar']->storeAs('images/profile/user', $filename, 'public');
+        } else {
+            $path = $user->avatar;
         }
 
+        $user->forceFill([
+            'avatar' => $path,
+        ])->save();
+        
         if ($input['email'] !== $user->email && $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
         } else {
