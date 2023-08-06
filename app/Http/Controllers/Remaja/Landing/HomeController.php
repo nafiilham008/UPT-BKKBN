@@ -64,6 +64,7 @@ class HomeController extends Controller
             ->whereHas('quiz', function ($query) use ($slug_url) {
                 $query->where('slug_url', $slug_url);
             })
+            ->where('user_id', Auth::user()->id)
             ->get();
 
 
@@ -111,8 +112,12 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        $all = Ranking::with('users')->get();
+        $topRankingIds = $topRanking->pluck('id')->toArray();
 
+        $all = Ranking::with('users')
+            ->whereNotIn('id', $topRankingIds)
+            ->get();
+        // dd($all);
         return view('remaja.front.ranking', compact('topRanking', 'all'));
     }
 }
