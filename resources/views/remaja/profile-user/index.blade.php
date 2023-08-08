@@ -21,13 +21,31 @@
                             <h1 class="font-be-vietnam font-bold text-[#272727] text-xl">{{ Auth::user()->name }}</h1>
                             <h1 class="font-be-vietnam text-[#272727] text-base">{{ Auth::user()->email }}</h1>
                             <div class="flex gap-3 items-center">
-                                <img src="{{ asset('img/remaja/assets/male.svg') }}" alt="">
-                                <h1 class="font-be-vietnam text-[#272727] font-semibold text-base">
-                                    {{ empty($detailUser->birthdate) ? '- (please fill in your age first)' : $detailUser->birthdate }}
-                                </h1>
+                                @if (isset($detailUser->gender) && $detailUser->gender == 'man')
+                                    <img src="{{ asset('img/remaja/assets/male.svg') }}" alt="">
+                                @else
+                                    <img src="{{ asset('img/remaja/assets/female.svg') }}" alt="">
+                                @endif
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
+
+                                @if (empty($detailUser->birthdate))
+                                    <h1 class="font-be-vietnam text-[#272727] font-semibold text-base">- (please fill in
+                                        your birthdate first)</h1>
+                                @else
+                                    @php
+                                        $birthdate = Carbon::parse($detailUser->birthdate);
+                                        $now = Carbon::now();
+                                        $age = $birthdate->diffInYears($now);
+                                    @endphp
+                                    <h1 class="font-be-vietnam text-[#272727] font-semibold text-base">{{ $age }}
+                                        years old</h1>
+                                @endif
                             </div>
                             <div class="mt-8">
-                                <a href="/edit-profile-user"
+                                <a href="{{ route('user.profile.edit') }}" data-href="{{ route('user.profile.edit') }}"
+                                    onclick="showLoading(event)"
                                     class="profile-link text-base text-[#3754C1] border border-[#3754C1] rounded-[10px] px-9 py-3 font-semibold">Edit
                                     Profile</a>
                             </div>
@@ -105,8 +123,8 @@
                                                     data-href="{{ route('user.detail.result.view', $item->quiz->slug_url) }}"
                                                     onclick="showLoading(event)"
                                                     class="text-[#5C7AEA] text-lg gap-5 flex items-center">Lihat Review
-                                                    <img src="{{ asset('img/remaja/assets/arrow-right.svg') }}" alt=""
-                                                        class="w-6 h-6">
+                                                    <img src="{{ asset('img/remaja/assets/arrow-right.svg') }}"
+                                                        alt="" class="w-6 h-6">
                                                 </a>
                                             </div>
                                         </div>
@@ -137,59 +155,18 @@
                                                         class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
                                                         {{ $item->quiz->title }}</h5>
                                                 </a>
-                                                <p class="mb-3 font-normal text-[#272727] text-sm">{{ $item->quiz->description }}</p>
+                                                <p class="mb-3 font-normal text-[#272727] text-sm">
+                                                    {{ $item->quiz->description }}</p>
                                                 <a href="{{ route('user.profile.certificate', $item->quiz->slug_url) }}"
                                                     data-href="{{ route('user.profile.certificate', $item->quiz->slug_url) }}"
                                                     onclick="showLoading(event)"
                                                     class="text-[#5C7AEA] text-lg gap-5 flex items-center">Unduh Sertifikat
-                                                    <img src="{{ asset('img/remaja/assets/arrow-right.svg') }}" alt=""
-                                                        class="w-6 h-6">
+                                                    <img src="{{ asset('img/remaja/assets/arrow-right.svg') }}"
+                                                        alt="" class="w-6 h-6">
                                                 </a>
                                             </div>
                                         </div>
                                     @endforeach
-                                    {{-- <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
-                                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
-                                        <a href="#">
-                                            <img class="rounded-t-[24px] w-full h-52"
-                                                src="../img/remaja/ilustrasi/sehat.svg" alt="" />
-                                        </a>
-                                        <div class="p-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
-                                                    Stay Healty</h5>
-                                            </a>
-                                            <p class="mb-3 font-normal text-[#272727] text-sm">Jaga kesehatanmu demi masa
-                                                depan</p>
-                                            <a href="/nilai" onclick="showLoading(event)"
-                                                class="text-[#5C7AEA] text-lg gap-5 flex items-center">Unduh Sertifikat
-                                                <img src="../img/remaja/assets/arrow-right.svg" alt=""
-                                                    class="w-6 h-6">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
-                                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
-                                        <a href="#">
-                                            <img class="rounded-t-[24px] w-full h-52"
-                                                src="../img/remaja/ilustrasi/batasan.svg" alt="" />
-                                        </a>
-                                        <div class="p-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
-                                                    Kenali Batasmu!</h5>
-                                            </a>
-                                            <p class="mb-3 font-normal text-[#272727] text-sm">Batasi dirimu demi kebaikan
-                                            </p>
-                                            <a href="/nilai" onclick="showLoading(event)"
-                                                class="text-[#5C7AEA] text-lg gap-5 flex items-center">Unduh Sertifikat
-                                                <img src="../img/remaja/assets/arrow-right.svg" alt=""
-                                                    class="w-6 h-6">
-                                            </a>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>

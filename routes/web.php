@@ -171,6 +171,12 @@ Route::prefix('remaja')->group(function () {
         Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile');
         Route::get('/profile/{slug_rul}/certificate', [UserProfileController::class, 'myCertificate'])->name('user.profile.certificate');
         Route::get('/profile/{slug_rul}/certificate/print', [UserProfileController::class, 'myPrintCertificate'])->name('user.profile.certificate.print');
+
+        // Edit Profile
+        Route::get('/profile/edit', [UserProfileController::class, 'editProfile'])->name('user.profile.edit');
+        Route::post('/profile/{id}/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
+
+
     });
     // Route::get('/game/{slug_url}', HomeLivewire::class)->name('user.detail.game');
 });
