@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Printable Layout</title>
+    <title>Certificate - {{ $resultQuiz->quiz->title }} - {{ Auth()->user()->name }}</title>
     <style>
         @media print {
             @page {
@@ -24,23 +24,23 @@
 
     </div>
     <div class="relative">
-        <img src="../img/remaja/assets/sertifikat.svg" class="w-full" alt="">
+        <img src="{{ asset('img/remaja/assets/sertifikat.svg') }}" class="w-full" alt="">
         <div class="absolute top-[280px] left-[95px]">
-            <h1 class="font-montserrat font-semibold text-2xl">Cipung Abubu Hacikule A.</h1>
+            <h1 class="font-montserrat font-semibold text-2xl">{{ $resultQuiz->users->name }}</h1>
         </div>
         <div class="absolute top-80 left-[95px]">
-            <h1 class="font-montserrat  text-xs w-[360px]">Telah Menyelesaikan Game <label class="font-semibold">“Nama
-                    Game”</label> pada <label class="font-semibold">“tangga main”</label></h1>
+            <h1 class="font-montserrat  text-xs w-[360px]">Telah Menyelesaikan Game <label
+                    class="font-semibold">{{ $resultQuiz->quiz->title }}</label> pada <label
+                    class="font-semibold">{{ $resultQuiz->created_at->format('j, F Y') }}</label></h1>
         </div>
         <div class="absolute top-[515px] left-[95px] w-36">
-            <h1 class="font-montserrat font-semibold text-center text-sm">Nur Hidayati, SP.</h1>
+            <h1 class="font-montserrat font-semibold text-center text-sm">{{ $resultQuiz->quiz->users->name }}</h1>
         </div>
         <div class="absolute top-[550px] left-[95px] w-36">
-            <h1 class="font-montserrat text-center text-xs">Kasubag TU UPT Balai Diklat KKB
-                Banyumas</h1>
+            <h1 class="font-montserrat text-center text-xs">Pengajar</h1>
         </div>
         <div class="absolute top-[450px] left-20">
-            <img src="../img/remaja/assets/tanda tangan.png" class="w-40 h-auto" alt="">
+            <img src="{{ asset('img/remaja/assets/tanda tangan.png') }}" class="w-40 h-auto" alt="">
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

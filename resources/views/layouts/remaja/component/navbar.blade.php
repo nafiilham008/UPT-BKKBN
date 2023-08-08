@@ -52,7 +52,7 @@
                             <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white hidden" id="dropdownMenu">
                                 <div class="py-1" role="menu" aria-orientation="vertical"
                                     aria-labelledby="dropdownButton">
-                                    <a href="/profile-user" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    <a href="{{ route('user.profile') }}" data-href="{{ route('user.profile') }}" onclick="showLoading(event)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Profile</a>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();"

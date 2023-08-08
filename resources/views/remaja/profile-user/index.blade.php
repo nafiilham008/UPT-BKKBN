@@ -11,18 +11,20 @@
                 <div class="py-20">
                     <div class="flex justify-center gap-5 items-center mb-[76px]">
                         <div class="relative">
-                            <img src="../img/remaja/assets/marsha.png" class="rounded-full w-[200px] h-[200px] px-5 py-5"
-                                alt="">
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}"
+                                class="rounded-full w-[200px] h-[200px] px-5 py-5" alt="">
                             <div class="absolute top-0 right-0 left-0">
-                                <img src="../img/remaja/assets/border.svg" class="" alt="">
+                                <img src="{{ asset('img/remaja/assets/border.svg') }}" class="" alt="">
                             </div>
                         </div>
                         <div class="">
-                            <h1 class="font-be-vietnam font-bold text-[#272727] text-xl">Marsha Lenathea</h1>
-                            <h1 class="font-be-vietnam text-[#272727] text-base">marshalenathea@gmail.com</h1>
+                            <h1 class="font-be-vietnam font-bold text-[#272727] text-xl">{{ Auth::user()->name }}</h1>
+                            <h1 class="font-be-vietnam text-[#272727] text-base">{{ Auth::user()->email }}</h1>
                             <div class="flex gap-3 items-center">
-                                <img src="../img/remaja/assets/male.svg" alt="">
-                                <h1 class="font-be-vietnam text-[#272727] font-semibold text-base">13 thn</h1>
+                                <img src="{{ asset('img/remaja/assets/male.svg') }}" alt="">
+                                <h1 class="font-be-vietnam text-[#272727] font-semibold text-base">
+                                    {{ empty($detailUser->birthdate) ? '- (please fill in your age first)' : $detailUser->birthdate }}
+                                </h1>
                             </div>
                             <div class="mt-8">
                                 <a href="/edit-profile-user"
@@ -55,19 +57,22 @@
                                 <div class="flex items-center justify-center gap-9">
                                     <div class="rounded-[24px] w-[327px] shadow-purple bg-[#52B788]/30 px-12 py-8 relative">
                                         <h1 class="text-xl text-black font-medium font-be-vietnam mb-[30px]">Peringkat</h1>
-                                        <h1 class="text-[48px] text-black font-medium font-be-vietnam">8</h1>
+                                        <h1 class="text-[48px] text-black font-medium font-be-vietnam">
+                                            {{ $ranking->ranking ?? 'N/A' }}</h1>
                                         <div class="absolute bottom-0 right-0">
-                                            <img src="../img/remaja/assets/trophy.svg" alt="">
+                                            <img src="{{ asset('img/remaja/assets/trophy.svg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="rounded-[24px] w-[327px] shadow-purple bg-[#4895EF]/30 px-12 py-8">
                                         <h1 class="text-xl text-black font-medium font-be-vietnam mb-[30px]">Dimainkan</h1>
-                                        <h1 class="text-[48px] text-black font-medium font-be-vietnam">8</h1>
+                                        <h1 class="text-[48px] text-black font-medium font-be-vietnam">{{ $totalQuiz }}
+                                        </h1>
                                     </div>
                                     <div class="rounded-[24px] w-[327px] shadow-purple bg-[#9D4EDD]/30 px-12 py-8">
                                         <h1 class="text-xl text-black font-medium font-be-vietnam mb-[30px]">Skor Tertinggi
                                         </h1>
-                                        <h1 class="text-[48px] text-black font-medium font-be-vietnam">100</h1>
+                                        <h1 class="text-[48px] text-black font-medium font-be-vietnam">
+                                            {{ $ranking->final_score ?? 'N/A' }}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -81,68 +86,32 @@
                                     menyelesaikan permainan, semakin kamu banyak menyelesaikan permainan semakin banyak juga
                                     pengetahuanmu. Ayo coba mainkan permainan yang lain disini!</h1>
                                 <div class="grid grid-cols-3 gap-7">
-                                    <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
-                                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
-                                        <a href="#">
-                                            <img class="rounded-t-[24px] w-full h-52"
-                                                src="../img/remaja/ilustrasi/kenali.svg" alt="" />
-                                        </a>
-                                        <div class="p-5">
+                                    @foreach ($quiz as $item)
+                                        <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
+                                            style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                                             <a href="#">
-                                                <h5
-                                                    class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
-                                                    Kenali Dirimu!</h5>
+                                                <img class="rounded-t-[24px] w-full h-52"
+                                                    src="{{ asset('storage/' . $item->quiz->image) }}" alt="" />
                                             </a>
-                                            <p class="mb-3 font-normal text-[#272727] text-sm">Kenali dirimu disini</p>
-                                            <a href="/nilai" onclick="showLoading(event)"
-                                                class="text-[#5C7AEA] text-lg gap-5 flex items-center">Lihat Review
-                                                <img src="../img/remaja/assets/arrow-right.svg" alt=""
-                                                    class="w-6 h-6">
-                                            </a>
+                                            <div class="p-5">
+                                                <a href="#">
+                                                    <h5
+                                                        class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
+                                                        {{ $item->quiz->title }}</h5>
+                                                </a>
+                                                <p class="mb-3 font-normal text-[#272727] text-sm">
+                                                    {{ $item->quiz->description }}</p>
+                                                <a href="{{ route('user.detail.result.view', $item->quiz->slug_url) }}"
+                                                    data-href="{{ route('user.detail.result.view', $item->quiz->slug_url) }}"
+                                                    onclick="showLoading(event)"
+                                                    class="text-[#5C7AEA] text-lg gap-5 flex items-center">Lihat Review
+                                                    <img src="{{ asset('img/remaja/assets/arrow-right.svg') }}" alt=""
+                                                        class="w-6 h-6">
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
-                                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
-                                        <a href="#">
-                                            <img class="rounded-t-[24px] w-full h-52"
-                                                src="../img/remaja/ilustrasi/sehat.svg" alt="" />
-                                        </a>
-                                        <div class="p-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
-                                                    Stay Healty</h5>
-                                            </a>
-                                            <p class="mb-3 font-normal text-[#272727] text-sm">Jaga kesehatanmu demi masa
-                                                depan</p>
-                                            <a href="/nilai" onclick="showLoading(event)"
-                                                class="text-[#5C7AEA] text-lg gap-5 flex items-center">Lihat Review
-                                                <img src="../img/remaja/assets/arrow-right.svg" alt=""
-                                                    class="w-6 h-6">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
-                                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
-                                        <a href="#">
-                                            <img class="rounded-t-[24px] w-full h-52"
-                                                src="../img/remaja/ilustrasi/batasan.svg" alt="" />
-                                        </a>
-                                        <div class="p-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
-                                                    Kenali Batasmu!</h5>
-                                            </a>
-                                            <p class="mb-3 font-normal text-[#272727] text-sm">Batasi dirimu demi kebaikan
-                                            </p>
-                                            <a href="/nilai" onclick="showLoading(event)"
-                                                class="text-[#5C7AEA] text-lg gap-5 flex items-center">Lihat Review
-                                                <img src="../img/remaja/assets/arrow-right.svg" alt=""
-                                                    class="w-6 h-6">
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
@@ -155,27 +124,31 @@
                             </div>
                             <div class="px-16 mb-[14]">
                                 <div class="grid grid-cols-3 gap-7">
-                                    <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
-                                        style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
-                                        <a href="#">
-                                            <img class="rounded-t-[24px] w-full h-52"
-                                                src="../img/remaja/ilustrasi/kenali.svg" alt="" />
-                                        </a>
-                                        <div class="p-5">
+                                    @foreach ($quiz as $item)
+                                        <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
+                                            style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                                             <a href="#">
-                                                <h5
-                                                    class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
-                                                    Kenali Dirimu!</h5>
+                                                <img class="rounded-t-[24px] w-full h-52"
+                                                    src="{{ asset('storage/' . $item->quiz->image) }}" alt="" />
                                             </a>
-                                            <p class="mb-3 font-normal text-[#272727] text-sm">Kenali dirimu disini</p>
-                                            <a href="/nilai" onclick="showLoading(event)"
-                                                class="text-[#5C7AEA] text-lg gap-5 flex items-center">Unduh Sertifikat
-                                                <img src="../img/remaja/assets/arrow-right.svg" alt=""
-                                                    class="w-6 h-6">
-                                            </a>
+                                            <div class="p-5">
+                                                <a href="#">
+                                                    <h5
+                                                        class="mb-2 text-[28px] font-be-vietnam font-semibold tracking-tight text-[#272727]">
+                                                        {{ $item->quiz->title }}</h5>
+                                                </a>
+                                                <p class="mb-3 font-normal text-[#272727] text-sm">{{ $item->quiz->description }}</p>
+                                                <a href="{{ route('user.profile.certificate', $item->quiz->slug_url) }}"
+                                                    data-href="{{ route('user.profile.certificate', $item->quiz->slug_url) }}"
+                                                    onclick="showLoading(event)"
+                                                    class="text-[#5C7AEA] text-lg gap-5 flex items-center">Unduh Sertifikat
+                                                    <img src="{{ asset('img/remaja/assets/arrow-right.svg') }}" alt=""
+                                                        class="w-6 h-6">
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
+                                    @endforeach
+                                    {{-- <div class="w-[336px] bg-white border border-gray-200 rounded-[24px]"
                                         style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                                         <a href="#">
                                             <img class="rounded-t-[24px] w-full h-52"
@@ -216,7 +189,7 @@
                                                     class="w-6 h-6">
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

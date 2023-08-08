@@ -34,6 +34,7 @@ use App\Http\Controllers\Remaja\Quiz\QuizController;
 use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
+use App\Http\Controllers\Remaja\User\UserController as UserProfileController;
 use App\Http\Controllers\WebSetting\HighlightController;
 use App\Http\Livewire\Remaja\Landing\HomeLivewire;
 use Illuminate\Support\Facades\Artisan;
@@ -165,7 +166,11 @@ Route::prefix('remaja')->group(function () {
     Route::middleware('role:User Remaja')->group(function () {
         Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
         Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
+        Route::get('/game/{slug_url}/result/view', [LandingHomeController::class, 'gameResultView'])->name('user.detail.result.view');
         Route::get('/ranking', [LandingHomeController::class, 'ranking'])->name('user.detail.rangking');
+        Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile');
+        Route::get('/profile/{slug_rul}/certificate', [UserProfileController::class, 'myCertificate'])->name('user.profile.certificate');
+        Route::get('/profile/{slug_rul}/certificate/print', [UserProfileController::class, 'myPrintCertificate'])->name('user.profile.certificate.print');
     });
     // Route::get('/game/{slug_url}', HomeLivewire::class)->name('user.detail.game');
 });
@@ -222,6 +227,7 @@ Route::middleware('role:User Remaja')->group(function () {
 Route::get('/foo', function () {
     Artisan::call('storage:link');
 }); 
+
 // Route::get('/migrate', function () {
 //     Artisan::call('migrate:fresh --seed');
 // }); 

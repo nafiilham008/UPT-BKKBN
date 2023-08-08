@@ -8,6 +8,7 @@ use App\Models\Remaja\Question;
 use App\Models\Remaja\Quiz;
 use App\Models\Remaja\Ranking;
 use App\Models\Remaja\ResultAnswer;
+use App\Models\Remaja\ResultQuiz;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,12 +83,39 @@ class HomeController extends Controller
         $scorePercentage = ($totalCorrectAnswers / count($results)) * 100;
         $finalScore = round($scorePercentage);
 
+        $uniqueQuizIds = $results->groupBy('quiz_id')->keys();
+
+
+        foreach ($uniqueQuizIds as $quizId) {
+            $checkResultQuiz = ResultQuiz::where('user_id', Auth::user()->id)
+                ->where('quiz_id', $quizId)
+                ->first();
+
+            if (!$checkResultQuiz) {
+                $resultQuiz = new ResultQuiz();
+                $resultQuiz->user_id = Auth::user()->id;
+                $resultQuiz->quiz_id = $quizId;
+                $resultQuiz->score = $finalScore;
+                $resultQuiz->created_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
+                $resultQuiz->updated_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
+
+                $resultQuiz->save();
+
+                $this->saveScore($finalScore);
+            }
+        }
+
+        return view('remaja.front.nilai', compact('results', 'totalCorrectAnswers', 'totalPoints', 'finalScore'));
+    }
+
+    public function saveScore($finalScore)
+    {
         // save coba
         $userId = Auth::id();
         $ranking = Ranking::where('user_id', $userId)
             ->first();
 
-        // dd($ranking);
+        // dd($ranking);p
 
 
         if ($ranking) {
@@ -99,8 +127,31 @@ class HomeController extends Controller
             $ranking->user_id = $userId;
         }
 
-        // Save the ranking to the database
         $ranking->save();
+    }
+
+    public function gameResultView($slug_url)
+    {
+        $results = ResultAnswer::with('quiz', 'users', 'question')
+            ->whereHas('quiz', function ($query) use ($slug_url) {
+                $query->where('slug_url', $slug_url);
+            })
+            ->where('user_id', Auth::user()->id)
+            ->get();
+
+
+        $totalCorrectAnswers = 0;
+        $totalPoints = 0;
+
+        foreach ($results as $result) {
+            if ($result->is_correct) {
+                $totalCorrectAnswers++;
+                $totalPoints += $result->points;
+            }
+        }
+
+        $scorePercentage = ($totalCorrectAnswers / count($results)) * 100;
+        $finalScore = round($scorePercentage);
 
 
         return view('remaja.front.nilai', compact('results', 'totalCorrectAnswers', 'totalPoints', 'finalScore'));
