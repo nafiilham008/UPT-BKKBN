@@ -22,9 +22,9 @@
                 @foreach ($topRanking as $index => $rank)
                     <div class="flex flex-col items-center">
                         <h1 class="font-be-vietnam font-semibold text-lg text-black mb-6">{{ $rank->users->name }}</h1>
-                        <div class="relative rounded-full" style="box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.25);">
+                        <div class="relative rounded-full">
                             <img src="{{ asset('storage/' . $rank->users->avatar) }}"
-                                class="w-[105px] h-[105px] rounded-full border-[8px] border-[#D6D6D6]" alt="">
+                                class="w-[105px] h-[105px] rounded-full border-[8px] border-[#D6D6D6]" alt="" style="box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.25);">
                             @if ($index === 0)
                                 <div class="absolute -top-8 -right-5">
                                     <img src="{{ asset('img/remaja/assets/golden crown.svg') }}" alt="">
