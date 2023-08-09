@@ -102,9 +102,9 @@
                                                 class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
                                                 style="appearance: left;">
                                                 <option disabled>Choose Gender</option>
-                                                <option value="man" {{ $detail->gender == 'man' ? 'selected' : '' }}>Man
+                                                <option value="man" {{ isset($detail->gender) == 'man' ? 'selected' : '' }}>Man
                                                 </option>
-                                                <option value="woman" {{ $detail->gender == 'woman' ? 'selected' : '' }}>
+                                                <option value="woman" {{ isset($detail->gender) == 'woman' ? 'selected' : '' }}>
                                                     Woman</option>
                                             </select>
                                         </div>

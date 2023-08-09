@@ -22,9 +22,9 @@
                             <h1 class="font-be-vietnam text-[#272727] text-base">{{ Auth::user()->email }}</h1>
                             <div class="flex gap-3 items-center">
                                 @if (isset($detailUser->gender) && $detailUser->gender == 'man')
-                                    <img src="{{ asset('img/remaja/assets/male.svg') }}" alt="">
+                                    <img src="{{ asset('img/remaja/assets/male.svg') }}" class="w-6 h-6" alt="">
                                 @else
-                                    <img src="{{ asset('img/remaja/assets/female.svg') }}" alt="">
+                                    <img src="{{ asset('img/remaja/assets/female.svg') }}" class="w-6 h-6" alt="">
                                 @endif
                                 @php
                                     use Carbon\Carbon;
@@ -81,16 +81,22 @@
                                             <img src="{{ asset('img/remaja/assets/trophy.svg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="rounded-[24px] w-[327px] shadow-purple bg-[#4895EF]/30 px-12 py-8">
+                                    <div class="rounded-[24px] w-[327px] shadow-purple bg-[#4895EF]/30 px-12 py-8 relative">
                                         <h1 class="text-xl text-black font-medium font-be-vietnam mb-[30px]">Dimainkan</h1>
                                         <h1 class="text-[48px] text-black font-medium font-be-vietnam">{{ $totalQuiz }}
                                         </h1>
+                                        <div class="absolute bottom-0 right-0">
+                                            <img src="{{ asset('img/remaja/assets/dimainkan.svg') }}" alt="">
+                                        </div>
                                     </div>
-                                    <div class="rounded-[24px] w-[327px] shadow-purple bg-[#9D4EDD]/30 px-12 py-8">
+                                    <div class="rounded-[24px] w-[327px] shadow-purple bg-[#9D4EDD]/30 px-12 py-8 relative">
                                         <h1 class="text-xl text-black font-medium font-be-vietnam mb-[30px]">Skor Tertinggi
                                         </h1>
                                         <h1 class="text-[48px] text-black font-medium font-be-vietnam">
                                             {{ $ranking->final_score ?? 'N/A' }}</h1>
+                                        <div class="absolute bottom-0 right-0">
+                                            <img src="{{ asset('img/remaja/assets/skor.svg') }}" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
