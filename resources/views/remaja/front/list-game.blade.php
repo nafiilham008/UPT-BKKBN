@@ -6,15 +6,15 @@
     <div>
         <div class="" style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
             @include('layouts.remaja.component.navbar')
-            <div class="flex gap-8 items-center mb-16 py-[135px] px-[186px]">
+            <div class="flex lg:flex-row flex-col gap-8 items-end lg:items-center mb-16 lg:py-[135px] py-12 lg:px-[186px] px-5">
                 <div class="flex items-center" style="box-shadow: 2px 4px 17px 0px rgba(189, 179, 252, 0.25);">
-                    <div class="rounded-l-[12px] bg-[#5C7AEA] px-9 py-4">
+                    <div class="rounded-l-[12px] bg-[#5C7AEA] lg:px-9 px-4 py-4">
                         <h1 class="text-white font-be-vietnam font-semibold text-base">Kategori</h1>
                     </div>
                     <div class="relative h-full">
                         <div class="select-wrapper">
                             <select name="" id="kategori-select"
-                                class="w-[265px] text-center font-be-vietnam cursor-pointer pr-10 pl-3 py-4 font-medium border border-[#3754C1] text-black text-sm rounded-r-[12px] appearance-none">
+                                class="lg:w-[265px] w-[150px] text-center font-be-vietnam cursor-pointer pr-10 pl-3 py-4 font-medium border border-[#3754C1] text-black text-sm rounded-r-[12px] appearance-none">
                                 <option value="" selected disabled>Pilih Kategori</option>
                                 @foreach ($category as $item)
                                     <option value="{{ $item->id }}">{{ $item->title }}</option>
@@ -33,13 +33,13 @@
                                 <img src="{{ asset('img/remaja/assets/icon-search.svg') }}" alt="" class="">
                             </div>
                             <input type="search" id="default-search"
-                                class="block w-96 p-4 pr-10 text-sm font-be-vietnam text-black border border-[#3754C1] rounded-[12px] bg-white focus:ring-blue-500 focus:border-blue-500 placeholder:text-[#272727]/40"
+                                class="block w-56 md:w-96 p-4 pr-10 text-sm font-be-vietnam text-black border border-[#3754C1] rounded-[12px] bg-white focus:ring-blue-500 focus:border-blue-500 placeholder:text-[#272727]/40"
                                 placeholder="Search" required>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-7 px-[186px]">
+            <div class="lg:grid lg:grid-cols-3 lg:space-y-0 space-y-10  lg:gap-7 px-5 lg:px-[186px]">
                 @foreach ($quiz as $quizItem)
                     <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]"
                         style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
