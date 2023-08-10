@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class HomeLivewire extends Component
 {
-    public $step = 0;
+    public $step;
     public $slug_url = [];
     public $questions;
     public $currentQuestion;
@@ -26,6 +26,7 @@ class HomeLivewire extends Component
     public function mount($dataQuestion)
     {
         // dd($dataQuestion);
+        $this->step = 0;
         $this->resetAll();
         $this->getVideo($dataQuestion);
         // dd($this->url);
@@ -33,7 +34,7 @@ class HomeLivewire extends Component
         $this->totalQuestions = count($dataQuestion);
         $this->currentQuestion = $this->questions[0];
 
-        // dd($this->currentQuestion);
+        // dd($this->step);
 
         // $this->emit('loadAnswers', $this->input);
     }
@@ -41,7 +42,7 @@ class HomeLivewire extends Component
     public function getVideo($dataQuiz)
     {
         $quizIds = $dataQuiz->pluck('quiz_id')->unique();
-        
+
         $quiz = Quiz::whereIn('id', $quizIds)->get();
         // dd($quiz);
         foreach ($dataQuiz as $value) {
@@ -52,21 +53,21 @@ class HomeLivewire extends Component
                 }
             }
         }
-        
+
         // $linkYoutube = $this->url;
         // $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
         // preg_match($pattern, $linkYoutube, $matches);
         // $videoCode = null;
-        
+
         // if (!empty($matches)) {
         //     $videoCode = $matches[0];
         // }
-        
+
         // $this->url = $videoCode;
         // dd($this->url);
         // dd($dataQuiz);
     }
-    
+
     // Jika ada localStorage 
     public function loadData($userAnswers)
     {
@@ -81,13 +82,10 @@ class HomeLivewire extends Component
 
         // ambil step
         $keys = array_keys($this->input);
-        $this->step = count($keys) + 1;
+        // dd($keys);
+        $this->step = count($keys);
         // dd($this->step);
-
-        // ambil question dari step
         $this->currentQuestion = $this->questions[$this->step - 1];
-
-        // dd($this->currentQuestion);
     }
 
 
@@ -106,7 +104,7 @@ class HomeLivewire extends Component
         if ($this->step > 1) {
             $this->step--;
             $this->currentQuestion = $this->questions[$this->step - 1];
-        // } else {
+            // } else {
         } elseif ($this->step == 1) {
             $this->step--;
             // $this->currentQuestion = $this->questions[$this->step];

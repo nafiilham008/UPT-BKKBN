@@ -1,8 +1,9 @@
 <div>
-    <div id="app" class="py-16"
+    <div id="app" class="lg:py-16 py-5"
         style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
         <div class="relative">
-            <div class="flex justify-between px-[78px] items-center mb-24">
+            <div
+                class="flex flex-col-reverse lg:flex-row lg:justify-between px-5 lg:px-[78px] lg:items-center mb-10 lg:mb-24">
                 <a href="{{ route('user.list') }}" data-href="{{ route('user.list') }}" onclick="showLoading(event)"
                     class="flex gap-4 text-base text-[#272727] items-center font-medium">
                     <div>
@@ -10,7 +11,7 @@
                     </div>
                     Back to game list
                 </a>
-                <div class="">
+                <div class="flex lg:flex-none justify-center mb-10 lg:mb-0">
                     <img src="{{ asset('img/remaja/logo/logo.svg') }}" alt="">
                 </div>
             </div>
@@ -20,10 +21,10 @@
                     Ayo
                     mulai
                     main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
-                <div class="px-[185px]">
-                    <div class="rounded-[24px] flex flex-col justify-between min-h-[600px] bg-white/40"
+                <div class=" px-5 lg:px-[185px]">
+                    <div class="rounded-[24px] flex flex-col justify-between lg:min-h-[600px] bg-white/40"
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
-                        <div class="px-44 pt-10 {{ $step === 0 ? '' : 'd-none' }}">
+                        <div class="px-5 lg:px-44 pt-10 {{ $step === 0 ? '' : 'd-none' }}">
                             @if ($step === 0)
                                 <div class="plyr__video-embed" id="player{{ $step }}"
                                     style="position: relative;">
@@ -38,8 +39,10 @@
                             <h1>Anda telah menyelesaikan semua soal!</h1>
                         @else
                             @if ($step !== 0)
-                                <p>Question {{ $step }}</p>
-                                <div class="px-44">
+                                <div class="lg:px-44 px-5">
+                                    <p>Question {{ $step }}</p>
+                                </div>
+                                <div class="lg:px-44 px-5">
                                     <h1 class="font-be-vietnam text-base text-[#272727]/70 text-center">
                                         {{ $currentQuestion->question }}</h1>
                                     <div class="flex justify-center items-center gap-5 mt-6">
@@ -60,7 +63,6 @@
                                                     @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
                                                 <div
                                                     class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
-
                                                     {{ $option['value'] }}
                                                 </div>
                                             </label>
@@ -116,10 +118,10 @@
                     </div>
                 </div>
             </div>
-            <div class="absolute top-[50%] left-16">
+            <div class="lg:block hidden absolute top-[50%] left-16">
                 <img src="{{ asset('img/remaja/assets/board.svg') }}" alt="">
             </div>
-            <div class="absolute top-[75%] right-16">
+            <div class="lg:block hidden absolute top-[75%] right-16">
                 <img src="{{ asset('img/remaja/assets/pallete.svg') }}" alt="">
             </div>
         </div>
@@ -223,7 +225,7 @@
             cursor: pointer;
         }
 
-        .custom-radio:checked {
+        input[type="radio"]:checked+.custom-radio {
             background-color: #FFBF00;
         }
     </style>
