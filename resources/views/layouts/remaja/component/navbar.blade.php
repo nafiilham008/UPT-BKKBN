@@ -1,6 +1,6 @@
 <div class="sticky top-0 z-20">
     <nav
-        class="flex flex-wrap items-center justify-between w-full py-4 md:py-3 md:px-14 px-4 text-lg text-gray-700 bg-transparent">
+        class="flex flex-wrap items-center justify-between w-full py-4 md:py-3 lg:px-14 px-4 text-lg text-gray-700 bg-transparent">
         <div>
             <a href="{{ route('user.index') }}">
                 <img src="{{ asset('img/remaja/logo/logo.svg') }}" alt="">
