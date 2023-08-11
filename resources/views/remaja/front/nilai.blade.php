@@ -203,7 +203,7 @@
         }
 
         /* Style untuk layar dengan lebar maksimum 768px (misalnya mobile) */
-        @media only screen and (max-width: 769px) {
+        @media only screen and (max-width: 820px) {
             #lottie-background {
                 position: fixed;
                 top: 0;
