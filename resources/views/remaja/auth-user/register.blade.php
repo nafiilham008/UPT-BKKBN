@@ -4,22 +4,24 @@
 
 @section('content')
     <div class="relative bg h-auto">
-        <div class="flex flex-col justify-center h-full items-center py-28">
+        <div class="flex flex-col justify-center px-5 md:px-0 h-full items-center py-14 md:py-28">
             <img src="../img/logo/logo-menjadi.svg" alt="" class="mb-9">
 
-            <div class="rounded-[24px] bg-white/40 py-[22px]     box-shadow">
-                <h1 class="font-be-vietnam text-[32px] font-semibold text-center mb-1.5 text-black">Create an Account </h1>
-                <h1 class="font-be-vietnam text-xs font-medium text-center text-[#272727B2]/70">Fill in all available fields,
-                    make sure you fill in the data below correctly</h1>
+            <div class="rounded-[24px] bg-white/40 py-[22px] box-shadow">
+                <div class="px-5 md:px-0">
+                    <h1 class="font-be-vietnam text-[32px] font-semibold text-center mb-1.5 text-black">Create an Account </h1>
+                    <h1 class="font-be-vietnam text-xs font-medium text-center text-[#272727B2]/70">Fill in all available fields,
+                        make sure you fill in the data below correctly</h1>
+                </div>
                 <form action="{{ route('remaja.register.process') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="px-20 py-10 w-full">
-                        <div class="flex mb-4 gap-4 items-center">
+                    <div class="lg:px-20 px-5 py-10 w-full">
+                        <div class="flex lg:flex-row flex-col mb-4 gap-4 items-center">
                             <div class="w-full">
                                 <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Full Name</h1>
                                 <div class="relative ">
                                     <input type="text" name="name" value="{{ old('name') }}"
-                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
+                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-full md:w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
                                         placeholder="example: Muhammad Iqbal Ainu Rafie">
 
                                 </div>
@@ -31,7 +33,7 @@
                                 <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Email</h1>
                                 <div class="relative">
                                     <input type="email" name="email" value="{{ old('email') }}"
-                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
+                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-full md:w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
                                         placeholder="example: ainurafie@gmail.com">
                                 </div>
                                 @error('email')
@@ -39,12 +41,12 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="flex mb-4 gap-4 items-center">
+                        <div class="flex lg:flex-row flex-col mb-4 gap-4 items-center">
                             <div class="w-full">
                                 <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Date of Birth</h1>
                                 <div class="relative">
                                     <input type="date" name="birthdate" value="{{ old('birthdate') }}"
-                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs">
+                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-full md:w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs">
 
                                 </div>
                                 @error('birthdate')
@@ -55,7 +57,7 @@
                                 <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Gender</h1>
                                 <div class="relative">
                                     <select name="gender"
-                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
+                                        class="bg-white border border-[#5C7AEA] px-[18px] py-3 w-full md:w-96 text-[#272727]/30 rounded-full font-be-vietnam text-xs"
                                         style="appearance: left;">
                                         <option disabled>Choose Gender</option>
                                         <option value="man" {{ old('gender') == 'man' ? 'selected' : '' }}>Men</option>
@@ -69,7 +71,7 @@
                             </div>
 
                         </div>
-                        <div class="flex mb-4 gap-4 items-center">
+                        <div class="flex lg:flex-row flex-col mb-4 gap-4 items-center">
                             <div class="w-full">
                                 <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Password</h1>
                                 <div class="relative">
@@ -132,7 +134,7 @@
                         </div>
                         <div class="mb-4 flex justify-center">
                             <a href="{{ route('remaja.google.login') }}"
-                                class="button flex hover:bg-gray-200 transition-colors duration-300 items-center gap-1 font-poppins font-be-vietnam text-xs bg-white w-96 text-center rounded-full justify-center py-2 text-[#272727] ">
+                                class="button flex hover:bg-gray-200 transition-colors duration-300 items-center gap-1 font-poppins font-be-vietnam text-xs bg-white w-full md:w-96 text-center rounded-full justify-center py-2 text-[#272727] ">
                                 <iconify-icon icon="flat-color-icons:google" width="26" height="26">
                                 </iconify-icon>
                                 Sign In with Google
@@ -146,7 +148,7 @@
                         </div>
                         <div class="mb-4 flex justify-center">
                             <button type="submit" {{-- onclick="showLoading(event)" --}}
-                                class="text-white bg-[#5C7AEA] hover:bg-blue-700 transition-colors duration-300 font-semibold text-base py-4 text-center w-96 text-center rounded-full button-shadow">
+                                class="text-white bg-[#5C7AEA] hover:bg-blue-700 transition-colors duration-300 font-semibold text-base py-4 text-center w-full md:w-96 text-center rounded-full button-shadow">
                                 Next
                             </button>
                         </div>
@@ -154,19 +156,19 @@
                 </form>
             </div>
         </div>
-        <div class="absolute top-40 left-5">
+        <div class="hidden lg:block absolute top-40 left-5">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute bottom-20 left-5">
+        <div class="hidden lg:block absolute bottom-20 left-5">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute top-40 right-5">
+        <div class="hidden lg:block absolute top-40 right-5">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute bottom-10 right-5">
+        <div class="hidden lg:block absolute bottom-10 right-5">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>

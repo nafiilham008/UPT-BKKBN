@@ -4,12 +4,12 @@
 
 @section('content')
     <div class="relative bg h-auto">
-        <div class="flex flex-col justify-center items-center py-28">
+        <div class="flex flex-col justify-center items-center px-5 md:px-0 py-14 md:py-28">
             <img src="../img/logo/logo-menjadi.svg" alt="" class="mb-9">
-            <div class="rounded-[24px] bg-white/40 py-[22px] w-[522px] box-shadow">
+            <div class="rounded-[24px] bg-white/40 py-[22px] w-full md:w-[522px] box-shadow">
                 <h1 class="font-be-vietnam text-[32px] font-semibold text-center mb-1.5 text-black">Forgot Password?</h1>
                 <h1 class="font-be-vietnam text-xs font-medium text-center text-[#272727]/70">Don’t worries, we’ll send you reset instruction</h1>
-                <div class="px-20 py-10">
+                <div class="md:px-20 px-5 py-10">
                     <div class="mb-4">
                         <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Email or Username</h1>
                         <div class="relative">
@@ -53,19 +53,19 @@
                 </div>
             </div>
         </div>
-        <div class="absolute top-40 left-20">
+        <div class="hidden lg:block absolute top-40 left-20">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute bottom-20 left-10">
+        <div class="hidden lg:block absolute bottom-20 left-10">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute top-40 right-20">
+        <div class="hidden lg:block absolute top-40 right-20">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute bottom-10 right-40">
+        <div class="hidden lg:block absolute bottom-10 right-40">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>

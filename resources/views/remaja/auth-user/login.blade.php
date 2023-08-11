@@ -6,16 +6,16 @@
     <div class="relative bg h-auto">
         <form action="{{ route('remaja.login.process') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col justify-center items-center py-28">
+            <div class="flex flex-col md:px-0 px-5 justify-center items-center py-28">
                 <img src="../img/logo/logo-menjadi.svg" alt="" class="mb-9">
-                <div class="rounded-[24px] bg-white/40 py-[22px] w-[522px] box-shadow">
+                <div class="rounded-[24px] bg-white/40 py-[22px] w-full md:w-[522px] px-5 box-shadow">
                     <h1 class="font-be-vietnam text-[32px] font-semibold text-center mb-1.5 text-black">Login</h1>
                     <h1 class="font-be-vietnam text-xs font-medium text-center text-[#272727]/70">Enter your username and
                         password correctly</h1>
                     @if (session('error'))
                         <div class="text-red-500 text-xs mt-2">{{ session('error') }}</div>
                     @endif
-                    <div class="px-20 py-10">
+                    <div class="md:px-20 px-5 py-10">
                         <div class="mb-4">
                             <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Email </h1>
                             <div class="relative">
@@ -103,19 +103,19 @@
                 </div>
             </div>
         </form>
-        <div class="absolute top-40 left-20">
+        <div class="hidden lg:block absolute top-40 left-20">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute bottom-20 left-10">
+        <div class="hidden lg:block absolute bottom-20 left-10">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute top-40 right-20">
+        <div class="hidden lg:block absolute top-40 right-20">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
-        <div class="absolute bottom-10 right-40">
+        <div class="hidden lg:block absolute bottom-10 right-40">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
         </div>
