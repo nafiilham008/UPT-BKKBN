@@ -16,11 +16,11 @@
                 </div>
             </div>
             <div class="">
-                <h1 class="font-titan text-[40px] text-center text-[#272727]/70 mb-5">Let's Start The Game</h1>
-                <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-12">Seberapa jauh kamu tau?
-                    Ayo
-                    mulai
-                    main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
+                <div class="px-5 lg:px-0">
+                    <h1 class="font-titan text-[40px] text-center text-[#272727]/70 mb-5">Let's Start The Game</h1>
+                    <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-12">Seberapa jauh kamu tau?Ayo mulai main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
+                </div>
+                    
                 <div class=" px-5 lg:px-[185px]">
                     <div class="rounded-[24px] flex flex-col justify-between lg:min-h-[600px] bg-white/40"
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
@@ -39,8 +39,8 @@
                             <h1>Anda telah menyelesaikan semua soal!</h1>
                         @else
                             @if ($step !== 0)
-                                <div class="lg:px-44 px-5">
-                                    <p>Question {{ $step }}</p>
+                                <div class="lg:px-44 text-center mb-10 px-5">
+                                    <p>Soal {{ $step }}</p>
                                 </div>
                                 <div class="lg:px-44 px-5">
                                     <h1 class="font-be-vietnam text-base text-[#272727]/70 text-center">
@@ -73,7 +73,7 @@
 
 
                             <div
-                                class="py-8 px-12 @if ($step !== 0) flex justify-between @else flex justify-end @endif">
+                                class="py-8 px-5 lg:px-12 @if ($step !== 0) flex justify-between @else flex justify-end @endif">
                                 <!-- Stepper and Buttons -->
                                 @if ($step !== 0)
                                     <button wire:click="previousQuestion"

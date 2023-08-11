@@ -29,7 +29,8 @@
                     style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);"></div>
                 <h1 class="lg:text-[40px] text-[30px] text-[#272727] font-bold font-be-vietnam">About Menjadi Remaja</h1>
             </div>
-            <div class="lg:grid lg:grid-cols-3 lg:gap-[30px] flex flex-col lg:space-y-0 space-y-10 lg:flex-none justify-center items-center mb-24">
+            <div
+                class="lg:grid lg:grid-cols-3 lg:gap-[30px] flex flex-col lg:space-y-0 space-y-10 lg:flex-none justify-center items-center mb-24">
                 <div class="bg-[#B1DAF3] rounded-[24px] py-10 px-6 relative w-full"
                     style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                     <div class="">
