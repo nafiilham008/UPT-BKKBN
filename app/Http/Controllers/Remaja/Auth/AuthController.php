@@ -45,10 +45,10 @@ class AuthController extends Controller
 
             $avatarUrl = $user->getAvatar();
             if ($avatarUrl) {
-                $filename = Str::random(16) . '.jpg'; // Contoh penamaan file, ubah sesuai kebutuhan
+                $filename = Str::random(16) . '.jpg'; 
                 $path = 'images/profile/user/' . $filename;
                 Storage::disk('public')->put($path, file_get_contents($avatarUrl));
-                $newUser->avatar = $path; // Simpan path ke kolom avatar dalam database
+                $newUser->avatar = $path; 
             } else {
                 $newUser->avatar = null;
             }
