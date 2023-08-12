@@ -79,7 +79,7 @@
 @push('js')
     <script src="{{ asset('mazer') }}/extensions/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
 
@@ -133,7 +133,7 @@
 
                         // Menampilkan notifikasi berhasil
                         if (response.success) {
-                            console.log(response.success);
+                            // console.log(response.success);
 
                             alert(response.success);
                         }
@@ -159,6 +159,22 @@
                     }
 
                 });
+            });
+
+            document.querySelector('#form-category-create').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(this);
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                $("#exampleModalScrollable").modal("hide");
+                $('#table-category').DataTable().ajax.reload();
+                $("#form-category-create").trigger('reset');
+                alert(data.success); // Menampilkan pesan dari respons JSON
             });
 
             // GET DATA Category
@@ -236,7 +252,8 @@
                         },
                         error: function(xhr) {
                             alert(xhr
-                            .statusText); // Menggunakan xhr.statusText untuk menampilkan pesan kesalahan
+                                .statusText
+                            ); // Menggunakan xhr.statusText untuk menampilkan pesan kesalahan
                             $('#table-category').DataTable().ajax.reload();
                         }
                     });
