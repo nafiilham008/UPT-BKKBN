@@ -73,7 +73,7 @@
                                                 <img src="https://www.gravatar.com/avatar/{{ md5(strtolower(trim(auth()->user()->email))) }}&s=500"
                                                     alt="Avatar">
                                             @else
-                                                <img src="{{ asset('uploads/images/avatars/' . auth()->user()->avatar) }}"
+                                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}"
                                                     alt="Avatar">
                                             @endif
                                         </div>

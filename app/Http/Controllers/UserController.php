@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\{StoreUserRequest, UpdateUserRequest};
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Intervention\Image\Facades\Image;
 
@@ -50,7 +51,7 @@ class UserController extends Controller
                     if ($row->avatar == null) {
                         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($row->email))) . '&s=500';
                     }
-                    return asset($this->avatarPath . $row->avatar);
+                    return asset('storage/' . $row->avatar);
                 })
                 ->toJson();
         }
@@ -81,20 +82,14 @@ class UserController extends Controller
         if ($request->file('avatar') && $request->file('avatar')->isValid()) {
 
             $filename = $request->file('avatar')->hashName();
-
-            if (!file_exists($folder = public_path($this->avatarPath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('avatar')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->avatarPath . $filename);
-
-            $attr['avatar'] = $filename;
+            $path = $request->file('avatar')->storeAs('images/profile/user', $filename, 'public');
+        }  else {
+            $path = null;
         }
 
         $attr['password'] = bcrypt($request->password);
+        $attr['avatar'] = $path;
+        $attr['email_verified_at'] = now();
 
         $user = User::create($attr);
 
@@ -141,41 +136,30 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $attr = $request->validated();
-
-        if ($request->file('avatar') && $request->file('avatar')->isValid()) {
+    
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            // Hapus file gambar lama
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
 
             $filename = $request->file('avatar')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->avatarPath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('avatar')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->avatarPath) . $filename);
-
-            // delete old avatar from storage
-            if ($user->avatar != null && file_exists($oldAvatar = public_path($this->avatarPath .
-                $user->avatar))) {
-                unlink($oldAvatar);
-            }
-
-            $attr['avatar'] = $filename;
+            $path = $request->file('avatar')->storeAs('images/profile/user', $filename, 'public');
         } else {
-            $attr['avatar'] = $user->avatar;
+            $path = $user->avatar;
         }
 
-        switch (is_null($request->password)) {
-            case true:
-                unset($attr['password']);
-                break;
-            default:
-                $attr['password'] = bcrypt($request->password);
-                break;
-        }
+
+        // switch (is_null($request->password)) {
+        //     case true:
+        //         unset($attr['password']);
+        //         break;
+        //     default:
+        //         $attr['password'] = bcrypt($request->password);
+        //         break;
+        // }
+
+        $attr['avatar'] = $path;
 
         $user->update($attr);
 
