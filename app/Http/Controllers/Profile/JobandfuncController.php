@@ -15,7 +15,6 @@ class JobandfuncController extends Controller
      *
      * @var string
      */
-    protected $imagePath = 'uploads/images/profile/jobandfunction/';
 
     // Construct for permission
     public function __construct()

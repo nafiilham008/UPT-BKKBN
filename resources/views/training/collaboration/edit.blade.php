@@ -41,7 +41,7 @@
                                     style="display: flex; justify-content: center; align-items: center;">
                                     <div class="avatar avatar-xl">
                                         <img style="object-fit: cover"
-                                            src="{{ asset('uploads/images/training/collaboration-logo/' . $collaboration->logo) }}"
+                                            src="{{ asset('storage/' . $collaboration->logo) }}"
                                             alt="avatar">
                                     </div>
                                 </div>

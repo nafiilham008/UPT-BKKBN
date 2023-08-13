@@ -38,7 +38,7 @@
                                         <td colspan="2" class="text-center">
                                             <div class="avatar avatar-xl">
                                                 @if (isset($course->image))
-                                                    <img src="{{ asset('uploads/images/information/other-course/' . $course->image) }}"
+                                                    <img src="{{ asset('storage/' . $course->image) }}"
                                                         alt="Avatar">
                                                 @else
                                                     Gambar tidak tersedia

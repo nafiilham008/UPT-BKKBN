@@ -12,7 +12,7 @@
             <p class="clock-news-text">{{ $post->created_at->format('H:i:s') }}</p>
         </div>
         <div class="d-flex justify-content-center">
-            <img class="rounded-5 img-news-detail" src="{{ asset('uploads/images/content/thumbnail/' . $post->thumbnail) }}"
+            <img class="rounded-5 img-news-detail" src="{{ asset('storage/' . $post->thumbnail) }}"
                 alt="">
         </div>
         <div class="mt-4">
@@ -48,7 +48,7 @@
                 <div class="col-sm-12 col-md-12">
                     @foreach ($getCategory as $slide => $item)
                         <div class="image-wrapper">
-                            <img src="{{ asset('uploads/images/content/thumbnail/' . $item->thumbnail) }}"
+                            <img src="{{ asset('storage/' . $item->thumbnail) }}"
                                 class="img-fluid-detail img-rounded-custom-detail m-2 " alt="{{ $item->thumbnail }}" />
                             <div class="caption">
                                 <a class="font-other-news-tablet"

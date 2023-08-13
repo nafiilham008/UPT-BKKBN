@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Information;
 use App\Http\Controllers\Controller;
 use App\Models\OtherCourse as ModelsOtherCourse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class OtherCourseController extends Controller
 {
 
-    protected $imagePath = 'uploads/images/information/other-course/';
 
     public function __construct()
     {
@@ -66,24 +66,14 @@ class OtherCourseController extends Controller
         if ($request->file('image') && $request->file('image')->isValid()) {
 
             $filename = $request->file('image')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('image')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['image'] = $filename;
+            $pathImage = $request->file('image')->storeAs('images/information/other-course', $filename, 'public');
         } else {
-            $validated['image'] = null;
+            $pathImage = null;
         }
 
         $course = ModelsOtherCourse::create([
             'title' => $validated['title'],
-            'image' => $validated['image'],
+            'image' => $pathImage,
             'link' => $validated['link'],
             'description' => $validated['description'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
@@ -148,35 +138,21 @@ class OtherCourseController extends Controller
             'description.required' => 'Description field is required'
         ]);
 
-        if ($request->file('image') && $request->file('image')->isValid()) {
+        if ($request->hasFile('image')) {
+            // Hapus file gambar lama
+            if ($course->image) {
+                Storage::disk('public')->delete($course->image);
+            }
 
             $filename = $request->file('image')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('image')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($course->image != null && file_exists($oldImage = public_path($this->imagePath .
-                $course->image))) {
-                unlink($oldImage);
-            }
-
-            $validated['image'] = $filename;
+            $pathImage = $request->file('image')->storeAs('images/information/other-course', $filename, 'public');
         } else {
-            $validated['image'] = $course->image;
+            $pathImage = $course->image;
         }
 
         $course->update([
             'title' => $validated['title'],
-            'image' => $validated['image'],
+            'image' => $pathImage,
             'link' => $validated['link'],
             'description' => $validated['description'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
@@ -201,8 +177,8 @@ class OtherCourseController extends Controller
     {
         $course = ModelsOtherCourse::findOrFail($id);
 
-        if ($course->image != null && file_exists($oldImage = public_path($this->imagePath . $course->image))) {
-            unlink($oldImage);
+        if ($course->image) {
+            Storage::disk('public')->delete($course->image);
         }
 
         // Delete all data

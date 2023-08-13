@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -91,20 +92,11 @@ class PostController extends Controller
         if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
 
             $filename = $request->file('thumbnail')->hashName();
-
-            if (!file_exists($folder = public_path($this->thumbnailPath))) {
-                mkdir($folder, 0777, true);
-            }
-            // dd($folder, $filename);
-
-            Image::make($request->file('thumbnail')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->thumbnailPath . $filename);
-
-
-            $validated['thumbnail'] = $filename;
+            $pathThumbnail = $request->file('thumbnail')->storeAs('images/post/thumbnail', $filename, 'public');
+        } else {
+            $pathThumbnail = null;
         }
+
 
         $description = $validated['description'];
         $dom = new \DomDocument();
@@ -132,8 +124,10 @@ class PostController extends Controller
         unlink($tempFilePath);
 
         // Title
-        $slug = str_replace([' ', '/'], '-', $validated['title']);
-        
+        // $slug = str_replace([' ', '/'], '-', $validated['title']);
+        $slug = Str::slug($validated['title'], '-');
+        $slug = Str::lower($slug);
+
 
         // Created_at
         if (!empty($validated['created_at'])) {
@@ -146,7 +140,7 @@ class PostController extends Controller
 
         $postCreate = Post::create([
             'title' => $validated['title'],
-            'thumbnail' => $validated['thumbnail'],
+            'thumbnail' => $pathThumbnail,
             'user_id' => auth()->user()->id,
             'slug_url' => $slug,
             'description' => $description,
@@ -172,7 +166,6 @@ class PostController extends Controller
             //redirect dengan pesan error
             return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
         }
-        
     }
 
     /**
@@ -233,44 +226,30 @@ class PostController extends Controller
             'created_at.date' => 'The publication date must be a valid date.',
         ]);
 
-
-
-        if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
+        if ($request->hasFile('thumbnail')) {
+            // Hapus file gambar lama
+            if ($post->thumbnail) {
+                Storage::disk('public')->delete($post->thumbnail);
+            }
 
             $filename = $request->file('thumbnail')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->thumbnailPath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('thumbnail')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->thumbnailPath) . $filename);
-
-            // delete old avatar from storage
-            if ($post->thumbnail != null && file_exists($oldThumbnail = public_path($this->thumbnailPath .
-                $post->thumbnail))) {
-                unlink($oldThumbnail);
-            }
-
-            $validated['thumbnail'] = $filename;
+            $pathThumbnail = $request->file('thumbnail')->storeAs('images/post/thumbnail', $filename, 'public');
         } else {
-            $validated['thumbnail'] = $post->thumbnail;
+            $pathThumbnail = $post->thumbnail;
         }
 
         // Call func summernoteUpdate with params desc
         $description = $this->summernoteUpdate($validated['description']);
 
-        $slug = str_replace([' ', '/'], '-', $validated['title']);
+        // $slug = str_replace([' ', '/'], '-', $validated['title']);
+        $slug = Str::slug($validated['title'], '-');
+        $slug = Str::lower($slug);
 
 
 
         $post->update([
             'title' => $validated['title'],
-            'thumbnail' => $validated['thumbnail'],
+            'thumbnail' => $pathThumbnail,
             'user_id' => auth()->user()->id,
             'slug_url' => $slug,
             'description' => $description,
@@ -327,35 +306,6 @@ class PostController extends Controller
         return $updatedDescription;
     }
 
-
-    // public function summernoteUpdate($description)
-    // {
-    //     $dom = new \DomDocument();
-
-    //     $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-    //     $images = $dom->getElementsByTagName('img');
-
-    //     foreach ($images as $k => $img) {
-    //         $data = $img->getAttribute('src');
-    //         $count = Str::length($data);
-    //         // check image before
-    //         if ($count > 100) {
-    //             list($type, $data) = explode(';', $data);
-    //             list(, $data)      = explode(',', $data);
-    //             $data = base64_decode($data);
-    //             $image_name = "/uploads/images/content/image-content/" . time() . $k . '.png';
-    //             $path = public_path() . $image_name;
-    //             file_put_contents($path, $data);
-    //             $img->removeAttribute('src');
-    //             $img->setAttribute('src', $image_name);
-    //         }
-    //     }
-
-    //     $description = $dom->saveHTML();
-    //     return $description;
-    // }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -368,10 +318,10 @@ class PostController extends Controller
         if ($post->highlight == 1) {
             return redirect()->route('dashboard.posts.index')->with('error', __('Failed'));
         } else {
-            if ($post->thumbnail != null && file_exists($oldThumbnail = public_path($this->thumbnailPath . $post->thumbnail))) {
-                unlink($oldThumbnail);
+            if ($post->thumbnail) {
+                Storage::disk('public')->delete($post->thumbnail);
             }
-
+    
             // Check Image
             $description = $post->description;
             $result = strstr($description, 'src="/uploads/images/content/image-content/');

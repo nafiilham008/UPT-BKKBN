@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="col-md-1 text-center">
                                         <div class="avatar avatar-xl">
-                                            <img src="{{ asset('uploads/images/profile/history/' . $history->thumbnail) }}"
+                                            <img src="{{ asset('storage/' . $history->thumbnail) }}"
                                                 alt="avatar">
                                         </div>
                                     </div>

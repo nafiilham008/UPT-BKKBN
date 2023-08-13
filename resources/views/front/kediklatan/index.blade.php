@@ -8,7 +8,6 @@
             <h3>Informasi Diklat</h3>
             <p>Kumpulan informasi terkait Kediklatan UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
@@ -22,7 +21,7 @@
                     @if (isset($getImage->photo))
                         <div class=" text-end me-5">
                             <img class="image-kediklatan"
-                                src="{{ asset('uploads/images/kediklatan/' . $getImage->photo) }}">
+                                src="{{ asset('storage/' . $getImage->photo) }}">
                         </div>
                     @endif
                 </div>

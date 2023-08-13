@@ -32,16 +32,7 @@
     - 2FA Authentication
     - Update profile information 
 - [x] Roles and permissions ([Spatie Permission](https://spatie.be/docs/laravel-permission/v5/introduction))
-- [x] CRUD User
-- [x] CRUD Generator
-    - Support more than [15 column type migration](https://laravel.com/docs/9.x/migrations#available-column-types), like string, char, date, year, etc.
-    - Datatables ([Yajra datatables](https://github.com/yajra/laravel-datatables))
-    - BelongsTo relation
-    - Model casting
-    - Image upload ([Intervention Image](https://image.intervention.io/v2))
-    - Support [HTML 5 Input](https://developer.mozilla.org/en-US/docs/Learn/Forms/HTML5_input_types)
-    - Request validations supported: 
-        - required, in, image, min, max, string, email, number, date, exists, nullable, unique, comfirmed
+- [x] Content Management System All Menu for Admin.
 
 ## Setup
 1. Clone or download from [Releases](https://github.com/nafiilham008/UPT-BKKBN.git)
@@ -96,4 +87,4 @@ Account
 - Password: password
 
 ## License
-[MIT License](./LICENSE)
+This project has been registered for Intellectual Property Rights (HKI) and can only be used by UPT Balai Diklat KKB Banyumas, with the application number and date: EC00202347371, June 20, 2023.

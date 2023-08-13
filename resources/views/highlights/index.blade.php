@@ -33,7 +33,7 @@
                                             <th>{{ __('Title') }}</th>
                                             <th>{{ __('Thumbnail') }}</th>
                                             <th>{{ __('Category') }}</th>
-                                            <th>{{ __('Updated At') }}</th>
+                                            <th>{{ __('Date Event') }}</th>
                                             <th>{{ __('Banner') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
@@ -43,12 +43,12 @@
                                             <tr>
                                                 <td>{{ $item->title }}</td>
                                                 <td><img class="avatar avatar-xl"
-                                                        src="{{ asset('uploads/images/content/thumbnail/' . $item->thumbnail) }}"
+                                                        src="{{ asset('storage/' . $item->thumbnail) }}"
                                                         alt="avatar" style="height: 50px; width: 50px;"></td>
                                                 <td><span class="badge bg-success">{{ $item->categories->label }}</span>
                                                 </td>
                                                 <td>
-                                                    {{ \Carbon\Carbon::parse($item->updated_at)->format('j F, Y H:i') }}
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y H:i') }}
                                                 </td>
                                                 <td>
                                                     <span

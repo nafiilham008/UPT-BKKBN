@@ -8,7 +8,6 @@
             <h3>Kediklatan</h3>
             <p>Menyajikan seluruh informasi terkait Kediklatan UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
     <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
@@ -120,7 +119,7 @@
                 <div class="col-md-4 col-sm-4 mt-2">
                     <div class="d-flex justify-content-center">
                         <img class="rounded-4 img-detail-profile"
-                            src="{{ asset('uploads/images/profile/employee-photo/' . $item->photo) }}" alt="">
+                            src="{{ asset('storage/' . $item->photo) }}" alt="">
                     </div>
                 </div>
                 <div class="col-md-8 col-sm-8">
@@ -233,7 +232,7 @@
 
         <div class="logo-container mt-5">
             @foreach ($collaboration as $item)
-                <img src="{{ asset('uploads/images/training/collaboration-logo/' . $item->logo) }}"
+                <img src="{{ asset('storage/' . $item->logo) }}"
                     alt="Logo {{ $item->institution_name }}">
             @endforeach
         </div>

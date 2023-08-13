@@ -55,7 +55,7 @@
                                                 <td>
                                                     @if (isset($item->image))
                                                         <img class="avatar avatar-xl"
-                                                            src="{{ asset('uploads/images/information/other-course/' . $item->image) }}"
+                                                            src="{{ asset('storage/' . $item->image) }}"
                                                             alt="avatar"
                                                             style="height: 50px; width: 50px; object-fit:cover">
                                                     @else

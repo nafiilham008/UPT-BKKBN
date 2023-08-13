@@ -37,7 +37,7 @@
                                     <tr>
                                         <td colspan="2" class="text-center">
                                             <div class="avatar avatar-xl">
-                                                <img src="{{ asset('uploads/images/profile/structure/' . $structure->photo) }}"
+                                                <img src="{{ asset('storage/' . $structure->photo) }}"
                                                     alt="Avatar">
                                             </div>
                                         </td>

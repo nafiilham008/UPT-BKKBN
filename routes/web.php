@@ -56,9 +56,6 @@ Route::get('/code-verification', function () {
 });
 
 
-
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
 Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
@@ -131,7 +128,6 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('service-informations', ServiceInformationController::class)->names('dashboard.service-informations');
         Route::resource('kediklatans', KediklatanController::class)->names('dashboard.kediklatans');
         Route::resource('links', LinkController::class)->names('dashboard.links');
-
 
         // Remaja
         // Route::get('/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');

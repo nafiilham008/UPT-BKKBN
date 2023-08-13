@@ -42,7 +42,7 @@
                                                 </div>
                                             @else
                                                 <div class="avatar avatar-xl">
-                                                    <img src="{{ asset('uploads/images/profile/employee-photo/' . $employee->photo) }}"
+                                                    <img src="{{ asset('storage/' . $employee->photo) }}"
                                                         alt="Avatar">
                                                 </div>
                                             @endif

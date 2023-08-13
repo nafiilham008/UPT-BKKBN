@@ -182,6 +182,7 @@ class HomeController extends Controller
         $jobandfunc = Jobandfunc::all();
         $employee = Employee::all();
         $structure = Structure::all();
+        // dd($structure);
 
         $structural = $this->getTypeStructural();
         $widyaiswara = $this->getTypeWidyaiswara();
@@ -259,12 +260,13 @@ class HomeController extends Controller
     public function documentation()
     {
         try {
-            $gallery = Gallery::with('posts')->get();
+            $gallery = Gallery::with('posts')->paginate(4);
             return view('front.documentation.index', compact('gallery'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
+
 
     // End Documentation
 
@@ -387,7 +389,7 @@ class HomeController extends Controller
         $keyword = $request->query('keyword');
 
         $results = Post::with('categories', 'users')
-        ->where('status', 1)->where('title', 'like', '%' . $keyword . '%')->get();
+            ->where('status', 1)->where('title', 'like', '%' . $keyword . '%')->get();
 
         return response()->json($results);
     }

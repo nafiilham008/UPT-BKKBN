@@ -51,7 +51,7 @@
                                                 <td>{{ $item->institution_name }}</td>
                                                 <td>
                                                     <img class="avatar avatar-xl"
-                                                        src="{{ asset('uploads/images/training/collaboration-logo/' . $item->logo) }}"
+                                                        src="{{ asset('storage/' . $item->logo) }}"
                                                         alt="avatar" style="height: 50px; width: 50px; object-fit:cover">
                                                 </td>
                                                 @include('training.collaboration.include.action')

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Link;
 use App\Http\Controllers\Controller;
 use App\Models\Link\Link;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class LinkController extends Controller
 {
-    protected $imagePath = 'uploads/images/link/';
 
     public function __construct()
     {
@@ -66,24 +66,14 @@ class LinkController extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/link', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $link = Link::create([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'type' => $validated['type'],
             'link' => $validated['link'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
@@ -149,35 +139,21 @@ class LinkController extends Controller
             'type' => 'Type field is required.',
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($link->photo) {
+                Storage::disk('public')->delete($link->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($link->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $link->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/link', $filename, 'public');
         } else {
-            $validated['photo'] = $link->photo;
+            $pathPhoto = $link->photo;
         }
 
         $link->update([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'link' => $validated['link'],
             'type' => $validated['type'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
@@ -202,8 +178,8 @@ class LinkController extends Controller
     {
         $link = Link::findOrFail($id);
 
-        if ($link->photo != null && file_exists($oldphoto = public_path($this->imagePath . $link->photo))) {
-            unlink($oldphoto);
+        if ($link->photo) {
+            Storage::disk('public')->delete($link->photo);
         }
 
         // Delete all data

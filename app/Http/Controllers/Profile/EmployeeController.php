@@ -8,6 +8,7 @@ use App\Models\Profile\Employee;
 use App\Models\Profile\EmployeeHistory;
 use App\Utilities\Constant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,7 +21,6 @@ class EmployeeController extends Controller
      *
      * @var string
      */
-    protected $imagePath = 'uploads/images/profile/employee-photo/';
 
 
     // Construct for permission
@@ -102,19 +102,9 @@ class EmployeeController extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/profile/employee-photo', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $employeeCreate = Employee::create([
@@ -125,7 +115,7 @@ class EmployeeController extends Controller
             'position' => $validated['position'],
             'nip' => $validated['nip'],
             'address' => $validated['address'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'awards' => json_encode($validated['awards']), 
             'phone_number' => $validated['phone_number'],
             'type_employee' => $validated['type_employee'],
@@ -265,35 +255,21 @@ class EmployeeController extends Controller
             'type_employee.required' => 'Type of Employee must be fill.'
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($employee->photo) {
+                Storage::disk('public')->delete($employee->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($employee->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $employee->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/profile/employee-photo', $filename, 'public');
         } else {
-            $validated['photo'] = $employee->photo;
+            $pathPhoto = $employee->photo;
         }
 
         $employee->update([
             'name' => $validated['name'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'email' => $validated['email'],
             'place_of_birth' => $validated['place_of_birth'],
             'birthdate' => $validated['birthdate'],
@@ -331,8 +307,8 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
-        if ($employee->photo != null && file_exists($oldphoto = public_path($this->imagePath . $employee->photo))) {
-            unlink($oldphoto);
+        if ($employee->photo) {
+            Storage::disk('public')->delete($employee->photo);
         }
 
         // Delete all data

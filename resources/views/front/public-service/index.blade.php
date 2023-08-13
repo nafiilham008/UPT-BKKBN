@@ -8,7 +8,6 @@
             <h3>Informasi</h3>
             <p>Kumpulan informasi terkait Beasiswa dan Short/Long Course UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
     <div class="container-fluid d-flex justify-content-center bg-menu mt-custom">
@@ -151,17 +150,17 @@
         }
 
         /* .bg-menu-doc .nav {
-            flex-wrap: nowrap;
-            overflow-x: auto;
-        }
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
 
-        .bg-menu-doc .nav-link {
-            color: #f4f4f4c5;
-        }
+            .bg-menu-doc .nav-link {
+                color: #f4f4f4c5;
+            }
 
-        .bg-menu-doc .nav-link.active {
-            color: #fff;
-        } */
+            .bg-menu-doc .nav-link.active {
+                color: #fff;
+            } */
 
         .center-img-service {
             display: flex;
@@ -178,21 +177,21 @@
         }
 
         /* @media (max-width: 767px) {
-            .bg-menu-doc {
-                max-width: 300px;
-                height: 150px;
-                margin: 0 auto;
-            }
+                .bg-menu-doc {
+                    max-width: 300px;
+                    height: 150px;
+                    margin: 0 auto;
+                }
 
-            .bg-menu-doc .nav {
-                flex-wrap: wrap;
-            }
+                .bg-menu-doc .nav {
+                    flex-wrap: wrap;
+                }
 
-            .bg-menu-doc .nav-item {
-                flex-basis: 50%;
-            }
+                .bg-menu-doc .nav-item {
+                    flex-basis: 50%;
+                }
 
-        } */
+            } */
     </style>
     <style>
         .text-white-accordion {
@@ -234,38 +233,5 @@
             });
         })
     </script>
-    <script>
-        $(document).ready(function() {
-            $('a[data-bs-toggle="modal"]').on('click', function() {
-                var scholarshipId = $(this).data('id');
-                $.ajax({
-                    url: '/information/scholarship/' + scholarshipId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.success) {
-                            var scholarship = data.scholarship;
-                            $('#detail-scholarship' + scholarshipId + ' .scholarship-photo')
-                                .attr('src',
-                                    '{{ asset('uploads/images/information/scholarship/') }}/' +
-                                    scholarship.photo);
-                            $('#detail-scholarship' + scholarshipId +
-                                    ' .scholarship-description')
-                                .text(scholarship.description);
-                            $('#detail-scholarship' + scholarshipId +
-                                    ' .scholarship-title')
-                                .text(scholarship.title);
-                            $('#detail-scholarship' + scholarshipId).modal('show');
-                        } else {
-                            alert('Failed to get scholarship detail!');
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert('Error getting scholarship detail!');
-                    }
-                });
-            });
-
-        });
-    </script>
+    
 @endpush

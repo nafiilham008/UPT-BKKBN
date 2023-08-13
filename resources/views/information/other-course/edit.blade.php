@@ -57,13 +57,13 @@
                                         @if (isset($course->image))
                                             <div class="avatar avatar-xl">
                                                 <img style="object-fit: cover"
-                                                    src="{{ asset('uploads/images/information/other-course/' . $course->image) }}"
+                                                    src="{{ asset('storage/' . $course->image) }}"
                                                     alt="avatar">
                                             </div>
                                         @else
                                             <div class="avatar avatar-xl d-none">
                                                 <img style="object-fit: cover"
-                                                    src="{{ asset('uploads/images/information/other-course/' . $course->image) }}"
+                                                    src="{{ asset('storage/' . $course->image) }}"
                                                     alt="avatar">
                                             </div>
                                         @endif

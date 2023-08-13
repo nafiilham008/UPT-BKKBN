@@ -9,7 +9,7 @@
             @if (!empty($banner))
                 @foreach ($banner as $key => $slide)
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <img src="{{ asset('uploads/images/content/thumbnail/' . $slide->thumbnail) }}" class="d-block w-100"
+                        <img src="{{ asset('storage/' . $slide->thumbnail) }}" class="d-block w-100"
                             alt="{{ $slide->thumbnail }}" />
                         <div class="carousel-caption d-flex h-100 justify-content-center">
                             <a href="{{ route('home.detail', [$slide->categories->label, $slide->slug_url]) }}">
@@ -46,7 +46,7 @@
                 <h1 class="font-title text-center mb-3">{{ $item->title }}</h1>
                 <div class="col-sm-6 col-lg-6 fade-in d-flex justify-content-center mt-2">
                     <img class="img-fluid img-rounded-custom"
-                        src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="">
+                        src="{{ asset('storage/' . $item->thumbnail) }}" alt="">
                 </div>
                 <div class="col-sm-6 col-lg-6 mt-4 fade-in">
                     <h6 class="img-desc">{!! $item->description !!}
@@ -120,7 +120,7 @@
                         @foreach ($buttonBanner as $item)
                             <a href="{{ $item->link }}"
                                 class="text-decoration-width text-dark btn btn-outline-light btn-banner"
-                                style="background-image: url('{{ asset('uploads/images/information/button-banner/' . $item->photo) }}');">
+                                style="background-image: url('{{ asset('storage/' . $item->photo) }}');">
                             </a>
                         @endforeach
                     </div>

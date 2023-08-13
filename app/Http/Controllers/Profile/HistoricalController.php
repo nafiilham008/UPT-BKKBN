@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Profile\Historical;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,6 @@ class HistoricalController extends Controller
      *
      * @var string
      */
-    protected $imagePath = 'uploads/images/profile/history/';
 
     // Construct for permission
     public function __construct()
@@ -81,19 +81,10 @@ class HistoricalController extends Controller
             );
 
             if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
-
                 $filename = $request->file('thumbnail')->hashName();
-
-                if (!file_exists($folder = public_path($this->imagePath))) {
-                    mkdir($folder, 0777, true);
-                }
-
-                Image::make($request->file('thumbnail')->getRealPath())->resize(500, 500, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->save($this->imagePath . $filename);
-
-                $validated['thumbnail'] = $filename;
+                $pathThumbnail = $request->file('thumbnail')->storeAs('images/profile/history', $filename, 'public');
+            } else {
+                $pathThumbnail = null;
             }
 
 
@@ -126,7 +117,7 @@ class HistoricalController extends Controller
 
             $historyCreate = Historical::create([
                 'title' => $validated['title'],
-                'thumbnail' => $validated['thumbnail'],
+                'thumbnail' => $pathThumbnail,
                 'description' => $description,
                 'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
@@ -191,30 +182,16 @@ class HistoricalController extends Controller
             ]
         );
 
-        if ($request->file('thumbnail') && $request->file('thumbnail')->isValid()) {
+        if ($request->hasFile('thumbnail')) {
+            // Hapus file gambar lama
+            if ($history->thumbnail) {
+                Storage::disk('public')->delete($history->thumbnail);
+            }
 
             $filename = $request->file('thumbnail')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('thumbnail')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($history->thumbnail != null && file_exists($oldThumbnail = public_path($this->imagePath .
-                $history->thumbnail))) {
-                unlink($oldThumbnail);
-            }
-
-            $validated['thumbnail'] = $filename;
+            $pathThumbnail = $request->file('thumbnail')->storeAs('images/profile/history', $filename, 'public');
         } else {
-            $validated['thumbnail'] = $history->thumbnail;
+            $pathThumbnail = $history->thumbnail;
         }
 
         // Call func summernoteUpdate with params desc
@@ -222,7 +199,7 @@ class HistoricalController extends Controller
 
         $history->update([
             'title' => $validated['title'],
-            'thumbnail' => $validated['thumbnail'],
+            'thumbnail' => $pathThumbnail,
             'description' => $description,
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
@@ -278,8 +255,8 @@ class HistoricalController extends Controller
     public function destroy($id)
     {
         $history = Historical::findOrFail($id);
-        if ($history->thumbnail != null && file_exists($oldThumbnail = public_path($this->imagePath . $history->thumbnail))) {
-            unlink($oldThumbnail);
+        if ($history->thumbnail) {
+            Storage::disk('public')->delete($history->thumbnail);
         }
 
 
@@ -310,37 +287,5 @@ class HistoricalController extends Controller
             //redirect dengan pesan error
             return redirect()->route('dashboard.historicals.index')->with('error', __('Failed'));
         }
-
-        // if ($history->thumbnail != null && file_exists($oldThumbnail = public_path($this->imagePath . $history->thumbnail))) {
-        //     unlink($oldThumbnail);
-        // }
-
-        // // Check Image
-        // $description = $history->description;
-        // $result = strstr($description, 'src="/uploads/images/image-content/');
-
-        // $result = explode('src="/uploads/images/image-content/', $result);
-        // $img_src = array();
-        // foreach ($result as $img) {
-        //     $img_src[] = explode('"', $img)[0];
-        // }
-        // $img_src = array_filter($img_src);
-
-        // foreach ($img_src as $key => $value) {
-        //     // Delete image from local
-        //     $image = public_path('uploads/images/image-content/' . $value);
-        //     unlink($image);
-        // }
-
-        // // Delete all data
-        // $history->delete();
-
-        // if ($history) {
-        //     //redirect dengan pesan sukses
-        //     return redirect()->route('dashboard.historicals.index')->with('success', __('The history was deleted successfully.'));
-        // } else {
-        //     //redirect dengan pesan error
-        //     return redirect()->route('dashboard.historicals.index')->with('error', __('Failed'));
-        // }
     }
 }

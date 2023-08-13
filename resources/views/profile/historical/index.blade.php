@@ -52,7 +52,7 @@
                                             <tr>
                                                 <td>{{ $item->title }}</td>
                                                 <td><img class="avatar avatar-xl"
-                                                        src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}"
+                                                        src="{{ asset('storage/' . $item->thumbnail) }}"
                                                         alt="avatar" style="height: 50px; width: 50px; object-fit: cover"></td>
                                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y H:i') }}
                                                 </td>

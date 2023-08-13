@@ -8,7 +8,6 @@
             <h3>Informasi Pelatihan Lainnya</h3>
             <p>Kumpulan informasi terkait Pelatihan UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
@@ -218,39 +217,5 @@
                 $('.content').hide();
             });
         })
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('a[data-bs-toggle="modal"]').on('click', function() {
-                var scholarshipId = $(this).data('id');
-                $.ajax({
-                    url: '/information/scholarship/' + scholarshipId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.success) {
-                            var scholarship = data.scholarship;
-                            $('#detail-scholarship' + scholarshipId + ' .scholarship-photo')
-                                .attr('src',
-                                    '{{ asset('uploads/images/information/scholarship/') }}/' +
-                                    scholarship.photo);
-                            $('#detail-scholarship' + scholarshipId +
-                                    ' .scholarship-description')
-                                .text(scholarship.description);
-                            $('#detail-scholarship' + scholarshipId +
-                                    ' .scholarship-title')
-                                .text(scholarship.title);
-                            $('#detail-scholarship' + scholarshipId).modal('show');
-                        } else {
-                            alert('Failed to get scholarship detail!');
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert('Error getting scholarship detail!');
-                    }
-                });
-            });
-
-        });
     </script>
 @endpush

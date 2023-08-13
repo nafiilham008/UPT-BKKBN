@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Kediklatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class KediklatanController extends Controller
 {
 
-    protected $imagePath = 'uploads/images/kediklatan/';
 
     public function __construct()
     {
@@ -86,26 +86,16 @@ class KediklatanController extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/kediklatan/photo', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $kediklatan = Kediklatan::create([
             'title' => $validated['title'],
             'link' => $validated['link'],
             'description' => $validated['description'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
@@ -185,37 +175,23 @@ class KediklatanController extends Controller
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($kediklatan->photo) {
+                Storage::disk('public')->delete($kediklatan->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($kediklatan->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $kediklatan->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/kediklatan/photo', $filename, 'public');
         } else {
-            $validated['photo'] = $kediklatan->photo;
+            $pathPhoto = $kediklatan->photo;
         }
 
         $kediklatan->update([
             'title' => $validated['title'],
             'link' => $validated['link'],
             'description' => $validated['description'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
@@ -238,6 +214,9 @@ class KediklatanController extends Controller
     {
         $kediklatan = Kediklatan::findOrFail($id);
 
+        if ($kediklatan->photo) {
+            Storage::disk('public')->delete($kediklatan->photo);
+        }
 
         // Delete all data
         $kediklatan->delete();

@@ -199,7 +199,7 @@
                                         @else
                                             <div class="avatar avatar-xl">
                                                 <img style="object-fit: cover"
-                                                    src="{{ asset('uploads/images/profile/employee-photo/' . $employee->photo) }}"
+                                                    src="{{ asset('storage/' . $employee->photo) }}"
                                                     alt="avatar">
                                             </div>
                                         @endif

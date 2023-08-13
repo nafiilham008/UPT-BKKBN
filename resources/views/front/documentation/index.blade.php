@@ -8,7 +8,6 @@
             <h3>Dokumentasi</h3>
             <p>Kumpulan dokumentasi dari berita, artikel, informasi UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
@@ -23,7 +22,7 @@
                     @endphp
                     <div class="img-box">
                         <img class="img-rounded-custom-detail"
-                            src="{{ asset('uploads/images/content/thumbnail/' . $image->posts->thumbnail) }}"
+                            src="{{ asset('storage/' . $image->posts->thumbnail) }}"
                             alt="{{ $image->title }}" />
                         <div class="transparent-box">
                             <div class="caption-doc">
@@ -62,6 +61,35 @@
 
 
 
+        <nav aria-label="content">
+            <ul class="pagination d-flex justify-content-center" id="pagination-news">
+                @if ($gallery->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $gallery->previousPageUrl() }}" rel="prev">Previous</a>
+                    </li>
+                @endif
+
+                @for ($i = 1; $i <= $gallery->lastPage(); $i++)
+                    <li class="page-item {{ $gallery->currentPage() == $i ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $gallery->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
+
+                @if ($gallery->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $gallery->nextPageUrl() }}" rel="next">Next</a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                @endif
+            </ul>
+        </nav>
     </div>
 
 
