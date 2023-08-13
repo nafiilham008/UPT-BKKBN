@@ -114,7 +114,7 @@
 
                 <li class="sidebar-title">Account</li>
 
-                <li class="sidebar-item{{ request()->is('profile') ? ' active' : '' }}">
+                <li class="sidebar-item{{ request()->is('dashboard/profile') ? ' active' : '' }}">
                     <a class="sidebar-link" href="{{ route('profile') }}">
                         <i class="bi bi-person-badge-fill"></i>
                         <span> {{ __('Profile') }}</span>
