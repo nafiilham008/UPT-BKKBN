@@ -12,8 +12,7 @@
             <p class="clock-news-text">{{ $history->created_at->format('H:i:s') }}</p>
         </div>
         <div class="d-flex justify-content-center">
-            <img class="rounded-5 img-news-detail" src="{{ asset('uploads/images/profile/history/' . $history->thumbnail) }}"
-                alt="">
+            <img class="rounded-5 img-news-detail" src="{{ asset('storage/' . $history->thumbnail) }}" alt="">
         </div>
         <div class="mt-5">
             {{-- <h6>Penulis: {{ $history->users->name }}</h6> --}}

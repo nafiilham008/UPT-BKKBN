@@ -56,7 +56,7 @@
                                                 <td><span class="badge bg-success">{{ $item->type }}</span></td>
                                                 <td>
                                                     <img class="avatar avatar-xl"
-                                                        src="{{ asset('uploads/images/link/' . $item->photo) }}"
+                                                        src="{{ asset('storage/' . $item->photo) }}"
                                                         alt="avatar" style="height: 50px; width: 50px; object-fit:cover">
                                                 </td>
                                                 <td>{{ $item->link }}</td>

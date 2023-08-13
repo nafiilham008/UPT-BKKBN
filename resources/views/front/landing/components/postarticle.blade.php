@@ -1,7 +1,7 @@
 @foreach ($postArticle as $item)
     <div class="row p-tab" id="Artikel">
         <div class="col-sm-5 col-lg-5">
-            <img class="img-fluid-tab rounded-3" src="{{ asset('uploads/images/content/thumbnail/' . $item->thumbnail) }}"
+            <img class="img-fluid-tab rounded-3" src="{{ asset('storage/' . $item->thumbnail) }}"
                 alt="">
         </div>
         <div class="col-sm-7 col-lg-7">

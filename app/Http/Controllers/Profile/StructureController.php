@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\Profile\Structure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
@@ -15,7 +16,6 @@ class StructureController extends Controller
      *
      * @var string
      */
-    protected $imagePath = 'uploads/images/profile/structure/';
 
     public function __construct()
     {
@@ -74,24 +74,14 @@ class StructureController extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/profile/structure', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $structure = Structure::create([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
@@ -150,35 +140,21 @@ class StructureController extends Controller
             'photo.max' => 'The photo may not be greater than 5120 kilobytes.',
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($structure->photo) {
+                Storage::disk('public')->delete($structure->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($structure->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $structure->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/profile/structure', $filename, 'public');
         } else {
-            $validated['photo'] = $structure->photo;
+            $pathPhoto = $structure->photo;
         }
 
         $structure->update([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
@@ -201,8 +177,8 @@ class StructureController extends Controller
     {
         $structure = Structure::findOrFail($id);
 
-        if ($structure->photo != null && file_exists($oldphoto = public_path($this->imagePath . $structure->photo))) {
-            unlink($oldphoto);
+        if ($structure->photo) {
+            Storage::disk('public')->delete($structure->photo);
         }
 
         // Delete all data

@@ -59,7 +59,7 @@
                                                 style="display: flex; justify-content: center; align-items: center;">
                                                 <div class="avatar avatar-xl">
                                                     <img style="object-fit: cover"
-                                                        src="{{ asset('uploads/images/kediklatan/' . $kediklatan->photo) }}"
+                                                        src="{{ asset('storage/' . $kediklatan->photo) }}"
                                                         alt="avatar">
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                             style="display: flex; justify-content: center; align-items: center;">
                                             <div class="avatar avatar-xl">
                                                 <img style="object-fit: cover"
-                                                    src="{{ asset('uploads/images/kediklatan/' . $kediklatan->photo) }}"
+                                                    src="{{ asset('storage/' . $kediklatan->photo) }}"
                                                     alt="avatar">
                                             </div>
                                         </div>

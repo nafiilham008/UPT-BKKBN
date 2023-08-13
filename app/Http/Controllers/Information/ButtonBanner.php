@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Information;
 use App\Http\Controllers\Controller;
 use App\Models\Information\ButtonBanner as InformationButtonBanner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class ButtonBanner extends Controller
 {
 
-    protected $imagePath = 'uploads/images/information/button-banner/';
 
     public function __construct()
     {
@@ -65,24 +65,14 @@ class ButtonBanner extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/information/button-banner', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $buttonBanner = InformationButtonBanner::create([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'link' => $validated['link'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
@@ -145,35 +135,21 @@ class ButtonBanner extends Controller
             'link' => 'nullable',
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($buttonBanner->photo) {
+                Storage::disk('public')->delete($buttonBanner->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($buttonBanner->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $buttonBanner->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/information/button-banner', $filename, 'public');
         } else {
-            $validated['photo'] = $buttonBanner->photo;
+            $pathPhoto = $buttonBanner->photo;
         }
 
         $buttonBanner->update([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'link' => $validated['link'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
@@ -197,8 +173,8 @@ class ButtonBanner extends Controller
     {
         $buttonBanner = InformationButtonBanner::findOrFail($id);
 
-        if ($buttonBanner->photo != null && file_exists($oldphoto = public_path($this->imagePath . $buttonBanner->photo))) {
-            unlink($oldphoto);
+        if ($buttonBanner->photo) {
+            Storage::disk('public')->delete($buttonBanner->photo);
         }
 
         // Delete all data

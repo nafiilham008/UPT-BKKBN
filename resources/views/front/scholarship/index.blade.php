@@ -8,7 +8,6 @@
             <h3>Informasi Beasiswa</h3>
             <p>Kumpulan informasi terkait Beasiswa UPT Balai Diklat KKB Banyumas ataupun pihak lain</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
@@ -22,8 +21,7 @@
                 <div class="img-box">
                     <a href="#" data-bs-toggle="modal" data-target="#detail-scholarship{{ $item->id }}"
                         data-id="{{ $item->id }}">
-                        <img class="img-banner-scholarship"
-                            src="{{ asset('uploads/images/information/scholarship/' . $item->photo) }}" alt="" />
+                        <img class="img-banner-scholarship" src="{{ asset('storage/' . $item->photo) }}" alt="" />
                     </a>
                 </div>
             @empty
@@ -222,8 +220,9 @@
                             var scholarship = data.scholarship;
                             $('#detail-scholarship' + scholarshipId + ' .scholarship-photo')
                                 .attr('src',
-                                    '{{ asset('uploads/images/information/scholarship/') }}/' +
+                                    '{{ asset('storage') }}/' +
                                     scholarship.photo);
+
                             $('#detail-scholarship' + scholarshipId +
                                     ' .scholarship-description')
                                 .text(scholarship.description);

@@ -56,7 +56,7 @@
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <div class="avatar avatar-xl">
                                             <img style="object-fit: cover"
-                                                src="{{ asset('uploads/images/link/' . $link->photo) }}" alt="avatar">
+                                                src="{{ asset('storage/' . $link->photo) }}" alt="avatar">
                                         </div>
                                     </div>
                                     <div class="col-md-5">

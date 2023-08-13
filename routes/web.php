@@ -30,6 +30,7 @@ use App\Http\Controllers\Training\CalendarController;
 use App\Http\Controllers\Training\CollaborationController;
 use App\Http\Controllers\Training\ProfileTrainingController;
 use App\Http\Controllers\WebSetting\HighlightController;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
@@ -113,6 +114,9 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     });
 
+    Route::get('/foo', function () {
+        Artisan::call('storage:link');
+    }); 
 
 
 

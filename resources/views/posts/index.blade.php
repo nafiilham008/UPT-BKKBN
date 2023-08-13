@@ -62,7 +62,7 @@
                                         @foreach ($content as $item)
                                             <tr>
                                                 <td>{{ $item->title }}</td>
-                                                <td><img class="avatar avatar-xl" src="{{ asset('uploads/images/content/thumbnail/' . $item->thumbnail) }}"
+                                                <td><img class="avatar avatar-xl" src="{{ asset('storage/' . $item->thumbnail) }}"
                                                         alt="avatar" style="height: 50px; width: 50px; object-fit: cover"></td>
                                                 <td><span class="badge bg-success">{{ $item->categories->label }}</span>
                                                 </td>

@@ -40,7 +40,7 @@
                                     <table class="table table-hover table-striped">
                                         <tr>
                                             <td colspan="2" class="text-center">
-                                                <img src="{{ asset('uploads/images/content/thumbnail/' . $post->thumbnail) }}"
+                                                <img src="{{ asset('storage/' . $post->thumbnail) }}"
                                                     alt="Avatar">
                                                 {{-- <div class="avatar avatar-xl">
                                             </div> --}}

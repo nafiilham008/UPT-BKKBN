@@ -37,7 +37,7 @@
                                     <tr>
                                         <td colspan="2" class="text-center">
                                             <div class="logo-table">
-                                                <img src="{{ asset('uploads/images/training/collaboration-logo/' . $collaboration->logo) }}"
+                                                <img src="{{ asset('storage/' . $collaboration->logo) }}"
                                                     alt="Avatar" class="rounded">
                                             </div>
                                         </td>

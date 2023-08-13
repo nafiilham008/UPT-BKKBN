@@ -182,6 +182,7 @@ class HomeController extends Controller
         $jobandfunc = Jobandfunc::all();
         $employee = Employee::all();
         $structure = Structure::all();
+        // dd($structure);
 
         $structural = $this->getTypeStructural();
         $widyaiswara = $this->getTypeWidyaiswara();

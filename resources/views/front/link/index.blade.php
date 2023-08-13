@@ -8,8 +8,7 @@
             <h3>Informasi Tautan</h3>
             <p>Kumpulan tautan terkait UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
-        <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
+         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
 
@@ -25,7 +24,7 @@
                             <h6 class="text-center">{{ $item->title }}</h6>
                             <a href="{{ $item->link }}" target="_blank"
                                 class="text-center text-decoration-none text-dark btn btn-outline-light btn-banner"
-                                style="background-image: url('{{ asset('uploads/images/link/' . $item->photo) }}');">
+                                style="background-image: url('{{ asset('storage/' . $item->photo) }}');">
                             </a>
                         @endif
                     @endforeach
@@ -40,7 +39,7 @@
                             <h6 class="text-center">{{ $item->title }}</h6>
                             <a href="{{ $item->link }}" target="_blank"
                                 class="text-center text-decoration-none text-dark btn btn-outline-light btn-banner"
-                                style="background-image: url('{{ asset('uploads/images/link/' . $item->photo) }}');">
+                                style="background-image: url('{{ asset('storage/' . $item->photo) }}');">
                             </a>
                         @endif
                     @endforeach

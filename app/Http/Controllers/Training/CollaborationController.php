@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Training;
 use App\Http\Controllers\Controller;
 use App\Models\Training\Collaboration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class CollaborationController extends Controller
 {
-
-    protected $imagePath = 'uploads/images/training/collaboration-logo/';
 
 
     // Construct for permission
@@ -64,25 +63,16 @@ class CollaborationController extends Controller
         ]);
 
         if ($request->file('logo') && $request->file('logo')->isValid()) {
+
             $filename = $request->file('logo')->hashName();
-        
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-        
-            Image::make($request->file('logo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-        
-            $validated['logo'] = $filename;
+            $pathLogo = $request->file('logo')->storeAs('images/training/collaboration-logo', $filename, 'public');
         } else {
-            $validated['logo'] = null;
+            $pathLogo = null;
         }
 
         $collaboration = Collaboration::create([
             'institution_name' => $validated['institution_name'],
-            'logo' => $validated['logo'],
+            'logo' => $pathLogo,
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
@@ -144,35 +134,21 @@ class CollaborationController extends Controller
             'logo.max' => 'The logo may not be greater than 2048 kilobytes.',
         ]);
 
-        if ($request->file('logo') && $request->file('logo')->isValid()) {
+        if ($request->hasFile('logo')) {
+            // Hapus file gambar lama
+            if ($collaboration->logo) {
+                Storage::disk('public')->delete($collaboration->logo);
+            }
 
             $filename = $request->file('logo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('logo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($collaboration->logo != null && file_exists($oldlogo = public_path($this->imagePath .
-                $collaboration->logo))) {
-                unlink($oldlogo);
-            }
-
-            $validated['logo'] = $filename;
+            $pathlogo = $request->file('logo')->storeAs('images/training/collaboration-logo', $filename, 'public');
         } else {
-            $validated['logo'] = $collaboration->logo;
+            $pathlogo = $collaboration->logo;
         }
 
         $collaboration->update([
             'institution_name' => $validated['institution_name'],
-            'logo' => $validated['logo'],
+            'logo' => $pathlogo,
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
@@ -194,8 +170,8 @@ class CollaborationController extends Controller
     public function destroy($id)
     {
         $collaboration = Collaboration::findOrFail($id);
-        if ($collaboration->logo != null && file_exists($oldlogo = public_path($this->imagePath . $collaboration->logo))) {
-            unlink($oldlogo);
+        if ($collaboration->logo) {
+            Storage::disk('public')->delete($collaboration->logo);
         }
 
         // Delete all data

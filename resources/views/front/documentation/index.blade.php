@@ -8,7 +8,6 @@
             <h3>Dokumentasi</h3>
             <p>Kumpulan dokumentasi dari berita, artikel, informasi UPT Balai Diklat KKB Banyumas</p>
         </div>
-        {{-- <img class="img-fluid" src="{{ asset('uploads/images/profile/history/' . $item->thumbnail) }}" alt="Background Image"> --}}
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
 
@@ -23,7 +22,7 @@
                     @endphp
                     <div class="img-box">
                         <img class="img-rounded-custom-detail"
-                            src="{{ asset('uploads/images/content/thumbnail/' . $image->posts->thumbnail) }}"
+                            src="{{ asset('storage/' . $image->posts->thumbnail) }}"
                             alt="{{ $image->title }}" />
                         <div class="transparent-box">
                             <div class="caption-doc">

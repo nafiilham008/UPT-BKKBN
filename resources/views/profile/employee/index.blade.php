@@ -59,7 +59,7 @@
                                                             alt="kosong" style="height: 50px; width: 50px; object-fit:cover">
                                                     @else
                                                         <img class="avatar avatar-xl"
-                                                            src="{{ asset('uploads/images/profile/employee-photo/' . $item->photo) }}"
+                                                            src="{{ asset('storage/' . $item->photo) }}"
                                                             alt="avatar" style="height: 50px; width: 50px; object-fit:cover">
                                                     @endif
                                                 </td>

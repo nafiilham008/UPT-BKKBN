@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Information;
 use App\Http\Controllers\Controller;
 use App\Models\Information\Scholarship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class ScholarshipController extends Controller
 {
 
-    protected $imagePath = 'uploads/images/information/scholarship/';
 
 
     // Construct for permission
@@ -70,24 +70,14 @@ class ScholarshipController extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/information/scholarship', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $scholarship = Scholarship::create([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'link' => $validated['link'],
             'description' => $validated['description'],
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
@@ -154,35 +144,21 @@ class ScholarshipController extends Controller
             'description.required' => 'Description field is required.',
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($scholarship->photo) {
+                Storage::disk('public')->delete($scholarship->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($scholarship->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $scholarship->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/information/scholarship', $filename, 'public');
         } else {
-            $validated['photo'] = $scholarship->photo;
+            $pathPhoto = $scholarship->photo;
         }
 
         $scholarship->update([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'link' => $validated['link'],
             'description' => $validated['description'],
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
@@ -207,8 +183,8 @@ class ScholarshipController extends Controller
     {
         $scholarship = Scholarship::findOrFail($id);
 
-        if ($scholarship->photo != null && file_exists($oldphoto = public_path($this->imagePath . $scholarship->photo))) {
-            unlink($oldphoto);
+        if ($scholarship->photo) {
+            Storage::disk('public')->delete($scholarship->photo);
         }
 
         // Delete all data
