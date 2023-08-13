@@ -17,6 +17,7 @@
 /public/uploads/images/public-service/service-information/*
 /public/uploads/images/kediklatan/*
 /public/uploads/images/link/*
+/storage/app/public/images/*
 
 /storage/*.key
 /vendor
