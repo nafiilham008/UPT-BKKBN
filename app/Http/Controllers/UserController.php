@@ -16,7 +16,6 @@ class UserController extends Controller
      *
      * @var string
      */
-    protected $avatarPath = '/uploads/images/avatars/';
 
     public function __construct()
     {
