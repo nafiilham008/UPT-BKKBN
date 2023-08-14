@@ -74,7 +74,7 @@
             </div>
             <h1 class="text-lg text-[#212121] font-be-vietnam"><label class="font-bold">Menjadi Remaja</label> adalah sebuah
                 media yang
-                mewadaih anak-anak yang akan menginjak remaja dan belum mengenal dirinya dengan baik. Disajikan dan dikemas
+                mewadahi anak-anak yang akan menginjak remaja dan belum mengenal dirinya dengan baik. Disajikan dan dikemas
                 dengan sesuatu yang menyenangkan agar dapat diterima oleh semua anak Indonesia. Belajar sambil bermain?
                 Kenapa Tidak</h1>
             <div class="absolute right-0 top-0">
