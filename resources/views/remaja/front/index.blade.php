@@ -6,12 +6,9 @@
     <div>
         <div id="lottie-background" class="h-[500px]"></div>
         @include('layouts.remaja.component.navbar')
-        <div id="content" class="lg:py-24 py-12 h-auto lg:px-0 px-5">
+        <div id="content" class="lg:py-24 py-12 h-auto lg:px-60 md:px-20 px-5">
             <h1 class="font-titan lg:text-[40px] text-2xl text-[#272727]/70 mb-5">Let's Start The Game</h1>
-            <h1 class="font-be-vietnam lg:text-base text-base text-center text-[#272727]/70">Lorem ipsum dolor sit amet
-                consectetur. Donec
-                eu
-                tortor quis mollis cursus sed<br>vestibulum nec sit. Iaculis id blandit ut in at urna.</h1>
+            <h1 class="font-be-vietnam lg:text-base text-base text-center text-[#272727]/70">Tantangan Pengetahuan Remaja Menunggumu! Ingin tahu sejauh mana pemahamanmu tentang remaja masa kini? Tekan tombol di bawah ini untuk mulai menguji pengetahuanmu. Ayo, jangan ragu!</h1>
             <a href="{{ route('user.list') }}" class="mb-10 w-64 h-64">
                 <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_nvkvb2j5.json" background="transparent"
                     speed="1" class="w-64 h-64" loop autoplay></lottie-player>

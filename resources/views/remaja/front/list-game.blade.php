@@ -68,24 +68,26 @@
                     </div>
                 @endforeach
             </div>
+            @if (Session::has('error'))
+            <div class="absolute top-20 right-0">
+                <div class="px-4 py-[14px] bg-[#FFDD5E]/70 md:w-max w-1/2 rounded-[9px] flex items-center gap-4 mb-7"
+                    id="error-message">
+                    <div class="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 7V13M12 17.01L12.01 16.999M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z"
+                                stroke="#3754C1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h1 class="font-be-vietnam text-[10px] font-medium text-[#272727]/70"><span
+                            class="font-bold">Peringatan:</span>
+                        {{ Session::get('error') }}</h1>
+                </div>
+            </div>
+            @endif
         </div>
 
-        @if (Session::has('error'))
-            <div class="px-4 py-[14px] bg-[#FDFCDCB2]/70 w-max rounded-[9px] flex items-center gap-4 mb-7"
-                id="error-message">
-                <div class="">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 7V13M12 17.01L12.01 16.999M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z"
-                            stroke="#3754C1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </div>
-                <h1 class="font-be-vietnam text-[10px] font-medium text-[#272727]/70"><span
-                        class="font-bold">Peringatan:</span>
-                    {{ Session::get('error') }}</h1>
-            </div>
-        @endif
     </div>
 @endsection
 @push('js')
