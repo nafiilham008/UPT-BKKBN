@@ -12,9 +12,6 @@
                     <h1 class="font-be-vietnam text-[32px] font-semibold text-center mb-1.5 text-black">Login</h1>
                     <h1 class="font-be-vietnam text-xs font-medium text-center text-[#272727]/70">Enter your username and
                         password correctly</h1>
-                    @if (session('error'))
-                        <div class="text-red-500 text-xs mt-2">{{ session('error') }}</div>
-                    @endif
                     <div class="md:px-20 px-5 py-10">
                         <div class="mb-4">
                             <h1 class="font-be-vietnam text-xs font-semibold text-black mb-3">Email </h1>
@@ -103,6 +100,24 @@
                 </div>
             </div>
         </form>
+        @if (session('error'))
+            <div class="absolute top-20 right-0">
+                <div class="px-4 py-[14px] bg-[#FFDD5E]/70 md:w-max w-1/2 rounded-[9px] flex items-center gap-4 mb-7"
+                    id="error-message">
+                    <div class="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 7V13M12 17.01L12.01 16.999M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z"
+                                stroke="#3754C1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h1 class="font-be-vietnam text-[10px] font-medium text-[#272727]/70"><span
+                            class="font-bold">Peringatan:</span>
+                        {{ session('error') }}</h1>
+                </div>
+            </div>
+        @endif
         <div class="hidden lg:block absolute top-40 left-20">
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uuzf4huo.json" background="transparent"
                 speed="1.5" style="width: 286px; height: 286px;" loop autoplay></lottie-player>
