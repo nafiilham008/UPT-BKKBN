@@ -100,6 +100,8 @@ class AuthController extends Controller
             } else {
                 return redirect()->route('remaja.login')->with('error', 'Invalid email or password');
             }
+        } else {
+            return redirect()->route('remaja.login')->with('error', 'Invalid email or password');
         }
     }
 
@@ -219,5 +221,4 @@ class AuthController extends Controller
 
         return redirect()->route('remaja.verification', ['code' => $verificationCodeUrlSafe])->with('success', 'Verification code has been sent to your email. Please check!.');
     }
-
 }
