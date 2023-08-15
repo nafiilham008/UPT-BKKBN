@@ -80,7 +80,7 @@
 
         </div>
     </div>
-    {{-- <audio src="{{ asset('audio/backsound-score.mp3') }}" autoplay></audio> --}}
+    <audio src="{{ asset('audio/backsound-score.mp3') }}" autoplay></audio>
 
 @endsection
 @push('js')
