@@ -69,8 +69,10 @@
                 @endforeach
             </div>
         </div>
-        
-            {{-- <div class="px-4 py-[14px] bg-[#FDFCDCB2]/70 w-max rounded-[9px] flex items-center gap-4 mb-7">
+
+        @if (Session::has('error'))
+            <div class="px-4 py-[14px] bg-[#FDFCDCB2]/70 w-max rounded-[9px] flex items-center gap-4 mb-7"
+                id="error-message">
                 <div class="">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -79,8 +81,11 @@
                             stroke="#3754C1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
-                <h1 class="font-be-vietnam text-[10px] font-medium text-[#272727]/70"><span class="font-bold">Peringatan:</span> Game ini hanya dapat dimainkan sekali. Anda sudah memainkan game ini sebelumnya.</h1>
-            </div> --}}
+                <h1 class="font-be-vietnam text-[10px] font-medium text-[#272727]/70"><span
+                        class="font-bold">Peringatan:</span>
+                    {{ Session::get('error') }}</h1>
+            </div>
+        @endif
     </div>
 @endsection
 @push('js')
@@ -116,6 +121,12 @@
                 }
             });
         });
+    </script>
+    <script>
+        setTimeout(function() {
+            var errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none';
+        }, 3000);
     </script>
 @endpush
 @push('css')

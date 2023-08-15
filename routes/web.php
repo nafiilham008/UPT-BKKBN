@@ -159,6 +159,7 @@ Route::prefix('remaja')->group(function () {
 
     Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
     Route::get('/list', [LandingHomeController::class, 'listGame'])->name('user.list');
+    
     Route::middleware(['auth-user', 'role:User Remaja'])->group(function () {
         Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
         Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
@@ -193,49 +194,17 @@ Route::prefix('remaja')->group(function () {
         Route::get('/user/login/callback', [AuthController::class, 'handleGoogleCallback'])->name('remaja.google.callback');
     });
 
-    // Route::get('/game/{slug_url}', HomeLivewire::class)->name('user.detail.game');
 });
 
 
-
-Route::get('/test', function () {
-    return view('remaja.front.index');
-});
-Route::get('/profile-user', function () {
-    return view('remaja.profile-user.index');
-});
-Route::get('/game', function () {
-    return view('remaja.front.game');
-});
-Route::get('/nilai', function () {
-    return view('remaja.front.nilai');
-});
-Route::get('/list-game', function () {
-    return view('remaja.front.list-game');
-});
-Route::get('/ranking', function () {
-    return view('remaja.front.ranking');
-});
-
-
-
-Route::middleware('role:User Remaja')->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::get('/', fn () => view('dashboard'));
-    });
-});
+// Route::middleware('role:User Remaja')->group(function () {
+//     Route::prefix('user')->group(function () {
+//         Route::get('/', fn () => view('dashboard'));
+//     });
+// });
 
 
 // Command
 Route::get('/foo', function () {
     Artisan::call('storage:link');
 }); 
-
-// Route::get('/migrate', function () {
-//     Artisan::call('migrate:fresh --seed');
-// }); 
-
-
-// Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
-//     dd('This is just a test and an example for permission and sidebar menu. You can remove this line on web.php, config/permission.php and config/generator.php');
-// })->name('tests.index');
