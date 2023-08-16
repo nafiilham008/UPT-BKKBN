@@ -25,6 +25,7 @@ use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
 use App\Http\Controllers\Profile\StructureController;
 use App\Http\Controllers\PublicService\ServiceInformationController;
+use App\Http\Controllers\PublicService\SopController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Remaja\Auth\AuthController;
 use App\Http\Controllers\Remaja\Landing\HomeController as LandingHomeController;
@@ -39,53 +40,40 @@ use App\Http\Controllers\WebSetting\HighlightController;
 use App\Http\Livewire\Remaja\Landing\HomeLivewire;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/login-user', function () {
-    return view('remaja.auth-user.login');
+Route::prefix('/')->middleware('maintenance')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
+    Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('home.profile');
+    Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetail'])->name('employees.educations');
+
+
+    Route::get('/training', [HomeController::class, 'training'])->name('home.training');
+
+    Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
+
+    Route::get('/scholarship', [HomeController::class, 'scholarship'])->name('home.scholarship');
+    Route::get('/other-course', [HomeController::class, 'otherCourse'])->name('home.other.course');
+    Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
+
+    Route::get('/material', [HomeController::class, 'download'])->name('home.material');
+
+    Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
+
+    Route::get('/kediklatan', [HomeController::class, 'kediklatan'])->name('home.kediklatan');
+
+    Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
+
+    Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 });
-Route::get('/register-user', function () {
-    return view('remaja.auth-user.register');
-});
-Route::get('/forgot-password', function () {
-    return view('remaja.auth-user.forgot-password');
-});
-Route::get('/change-password', function () {
-    return view('remaja.auth-user.change-password');
-});
-Route::get('/code-verification', function () {
-    return view('remaja.auth-user.code-verification');
-});
-
-
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
-Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
-Route::get('/profile', [HomeController::class, 'profile'])->name('home.profile');
-Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetail'])->name('employees.educations');
-
-
-Route::get('/training', [HomeController::class, 'training'])->name('home.training');
-
-Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
-
-Route::get('/scholarship', [HomeController::class, 'scholarship'])->name('home.scholarship');
-Route::get('/other-course', [HomeController::class, 'otherCourse'])->name('home.other.course');
-Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
-
-Route::get('/material', [HomeController::class, 'download'])->name('home.material');
-
-Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
-
-Route::get('/kediklatan', [HomeController::class, 'kediklatan'])->name('home.kediklatan');
-
-Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
-
-Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 
 Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        // Route::get('/maintenance', [DashboardController::class, 'maintenance'])->name('dashboard.maintenance');
+        Route::post('/maintenance/update', [DashboardController::class, 'updateMaintenance'])->name('dashboard.maintenance.update');
 
         Route::get('/profile', ProfileController::class)->name('profile');
 
@@ -104,6 +92,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('announcements', AnnouncementController::class)->names('dashboard.announcements');
         Route::resource('public-informations', PublicInformationController::class)->names('dashboard.public-informations');
         Route::resource('materials', MaterialController::class)->names('dashboard.materials');
+        Route::resource('sops', SopController::class)->names('dashboard.sops');
 
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('dashboard.employees.educations');
@@ -154,88 +143,8 @@ Route::middleware(['auth', 'web'])->group(function () {
 });
 
 
-// Menjadi Remaja
-Route::prefix('remaja')->group(function () {
-
-    Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
-    Route::get('/list', [LandingHomeController::class, 'listGame'])->name('user.list');
-    Route::middleware(['auth-user', 'role:User Remaja'])->group(function () {
-        Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
-        Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
-        Route::get('/game/{slug_url}/result/view', [LandingHomeController::class, 'gameResultView'])->name('user.detail.result.view');
-        Route::get('/ranking', [LandingHomeController::class, 'ranking'])->name('user.detail.rangking');
-        Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile');
-        Route::get('/profile/{slug_rul}/certificate', [UserProfileController::class, 'myCertificate'])->name('user.profile.certificate');
-        Route::get('/profile/{slug_rul}/certificate/print', [UserProfileController::class, 'myPrintCertificate'])->name('user.profile.certificate.print');
-
-        // Edit Profile
-        Route::get('/profile/edit', [UserProfileController::class, 'editProfile'])->name('user.profile.edit');
-        Route::post('/profile/{id}/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
-    });
-
-    Route::middleware('guest')->group(function () {
-        // Biasa
-        Route::get('/user/log-in', [AuthController::class, 'indexLogin'])->name('remaja.login');
-        Route::post('/user/log-in/callback', [AuthController::class, 'login'])->name('remaja.login.process');
-
-        Route::get('/user/register', [AuthController::class, 'indexRegister'])->name('remaja.register');
-        Route::post('/user/register/callback', [AuthController::class, 'register'])->name('remaja.register.process');
-
-        Route::get('/user/verification/{code}', [AuthController::class, 'indexVerification'])->name('remaja.verification');
-        Route::post('/user/verification/{code}/confirm', [AuthController::class, 'verificationProcess'])->name('remaja.verification.confirm');
-
-        Route::get('/user/verification/{id}/resend', [AuthController::class, 'resendVerification'])->name('remaja.verification.resend');
-
-
-
-        // Google
-        Route::get('/user/login', [AuthController::class, 'redirectToGoogle'])->name('remaja.google.login');
-        Route::get('/user/login/callback', [AuthController::class, 'handleGoogleCallback'])->name('remaja.google.callback');
-    });
-
-    // Route::get('/game/{slug_url}', HomeLivewire::class)->name('user.detail.game');
-});
-
-
-
-Route::get('/test', function () {
-    return view('remaja.front.index');
-});
-Route::get('/profile-user', function () {
-    return view('remaja.profile-user.index');
-});
-Route::get('/game', function () {
-    return view('remaja.front.game');
-});
-Route::get('/nilai', function () {
-    return view('remaja.front.nilai');
-});
-Route::get('/list-game', function () {
-    return view('remaja.front.list-game');
-});
-Route::get('/ranking', function () {
-    return view('remaja.front.ranking');
-});
-
-
-
-Route::middleware('role:User Remaja')->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::get('/', fn () => view('dashboard'));
-    });
-});
-
-
 // Command
 Route::get('/foo', function () {
     Artisan::call('storage:link');
 }); 
 
-// Route::get('/migrate', function () {
-//     Artisan::call('migrate:fresh --seed');
-// }); 
-
-
-// Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
-//     dd('This is just a test and an example for permission and sidebar menu. You can remove this line on web.php, config/permission.php and config/generator.php');
-// })->name('tests.index');

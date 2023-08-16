@@ -136,10 +136,10 @@
                                 <iconify-icon inline icon="skill-icons:instagram" width="32" height="32">
                                 </iconify-icon>
                             </a>
-                            <a href="#" target="_blank" class="me-2 text-decoration-none">
+                            <a href="https://facebook.com/bdkkbbanyumas" target="_blank" class="me-2 text-decoration-none">
                                 <iconify-icon inline icon="logos:facebook" width="31" height="31"></iconify-icon>
                             </a>
-                            <a href="" target="_blank" class="me-2 text-decoration-none">
+                            <a href="https://www.youtube.com/@balaidiklatkkbbanyumas1273" target="_blank" class="me-2 text-decoration-none">
                                 <iconify-icon inline icon="logos:youtube-icon" width="33" height="33">
                                 </iconify-icon>
                             </a>
