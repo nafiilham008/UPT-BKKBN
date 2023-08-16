@@ -53,7 +53,7 @@
                                                 <td><span class="badge bg-success">{{ $item->title }}</span></td>
                                                 <td>
                                                     <img class="avatar avatar-xl"
-                                                        src="{{ asset('uploads/images/public-service/service-information/' . $item->photo) }}"
+                                                        src="{{ asset('storage/' . $item->photo) }}"
                                                         alt="avatar" style="height: 50px; width: 50px; object-fit:cover">
                                                 </td>
                                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y H:i') }}
