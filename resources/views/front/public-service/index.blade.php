@@ -6,7 +6,7 @@
     <div class="background-image-profile d-flex align-items-center justify-content-center">
         <div class="profile-text">
             <h3>Informasi</h3>
-            <p>Kumpulan informasi terkait Beasiswa dan Short/Long Course UPT Balai Diklat KKB Banyumas</p>
+            <p>Kumpulan informasi terkait Pelayanan Publik UPT Balai Diklat KKB Banyumas</p>
         </div>
         <img class="img-fluid" src="{{ asset('img/dummy/img-kediklatan-2.jpg') }}" alt="Background Image">
     </div>
@@ -20,6 +20,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-target="maklumat-pelayanan">Maklumat Pelayanan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-target="SOP">Standar Operasional Prosedur</a>
             </li>
 
         </ul>
@@ -137,6 +140,55 @@
         @endforeach
     </div>
 
+    <div class="container-fluid detail-news fade-in d-none" id="SOP">
+        <h2 class="text-center bold-text mb-5">Standar Operasional Prosedur</h2>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card rounded-custom">
+                    <div class="card-body">
+                        <p>
+                            Berikut adalah SOP UPT Balai Diklat KKB Banyumas:
+                        </p>
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            @if (isset($sop))
+                                @foreach ($sop as $item)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-heading{{ $item->id }}">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false"
+                                                aria-controls="flush-collapse{{ $item->id }}">
+                                                {{ $item->title }}
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse"
+                                            aria-labelledby="flush-heading{{ $item->id }}"
+                                            data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                {{ $item->description }}
+                                                @if (isset($item->link))
+                                                    Lihat selengkapnya <a href="{{ $item->link }}"
+                                                        target="_blank">Disini</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                    <h5>Data Belum Tersedia</h5>
+                            @endif
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
 @endsection
 
 @push('css')
@@ -150,17 +202,17 @@
         }
 
         /* .bg-menu-doc .nav {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-            }
+                            flex-wrap: nowrap;
+                            overflow-x: auto;
+                        }
 
-            .bg-menu-doc .nav-link {
-                color: #f4f4f4c5;
-            }
+                        .bg-menu-doc .nav-link {
+                            color: #f4f4f4c5;
+                        }
 
-            .bg-menu-doc .nav-link.active {
-                color: #fff;
-            } */
+                        .bg-menu-doc .nav-link.active {
+                            color: #fff;
+                        } */
 
         .center-img-service {
             display: flex;
@@ -177,21 +229,21 @@
         }
 
         /* @media (max-width: 767px) {
-                .bg-menu-doc {
-                    max-width: 300px;
-                    height: 150px;
-                    margin: 0 auto;
-                }
+                            .bg-menu-doc {
+                                max-width: 300px;
+                                height: 150px;
+                                margin: 0 auto;
+                            }
 
-                .bg-menu-doc .nav {
-                    flex-wrap: wrap;
-                }
+                            .bg-menu-doc .nav {
+                                flex-wrap: wrap;
+                            }
 
-                .bg-menu-doc .nav-item {
-                    flex-basis: 50%;
-                }
+                            .bg-menu-doc .nav-item {
+                                flex-basis: 50%;
+                            }
 
-            } */
+                        } */
     </style>
     <style>
         .text-white-accordion {
@@ -233,5 +285,4 @@
             });
         })
     </script>
-    
 @endpush

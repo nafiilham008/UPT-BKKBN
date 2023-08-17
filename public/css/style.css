@@ -163,12 +163,12 @@ body {
 .btn-detail {
     position: absolute;
     bottom: 0;
-    background: linear-gradient(to right, #0672B0, #5197d4);
+    background: linear-gradient(to right, #AC2023, #DC212A);
     color: #FFFFFF;
 }
 
 .btn-detail:hover {
-    background: linear-gradient(to right, #5197d4, #0672B0);
+    background: linear-gradient(to right, #DC212A, #AC2023);
     cursor: pointer;
     color: #FFFFFF;
 }
@@ -665,12 +665,12 @@ footer .badge {
 
 .btn-overlay {
     border-radius: 1rem;
-    background: linear-gradient(to right, #0672B0, #5197d4);
+    background: linear-gradient(to right, #AC2023, #DC212A);
     color: #FFFFFF;
 }
 
 .btn-overlay:hover {
-    background: linear-gradient(to right, #5197d4, #0672B0);
+    background: linear-gradient(to right, #DC212A, #AC2023);
     cursor: pointer;
     color: #FFFFFF;
 }
