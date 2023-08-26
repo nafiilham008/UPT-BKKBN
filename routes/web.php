@@ -25,6 +25,7 @@ use App\Http\Controllers\Profile\HistoricalController;
 use App\Http\Controllers\Profile\JobandfuncController;
 use App\Http\Controllers\Profile\StructureController;
 use App\Http\Controllers\PublicService\ServiceInformationController;
+use App\Http\Controllers\PublicService\SopController;
 use App\Http\Controllers\PublicService\WorkAccountabilityController;
 use App\Http\Controllers\Remaja\Auth\AuthController;
 use App\Http\Controllers\Remaja\Landing\HomeController as LandingHomeController;
@@ -39,53 +40,40 @@ use App\Http\Controllers\WebSetting\HighlightController;
 use App\Http\Livewire\Remaja\Landing\HomeLivewire;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/login-user', function () {
-    return view('remaja.auth-user.login');
+Route::prefix('/')->middleware('maintenance')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
+    Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('home.profile');
+    Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetail'])->name('employees.educations');
+
+
+    Route::get('/training', [HomeController::class, 'training'])->name('home.training');
+
+    Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
+
+    Route::get('/scholarship', [HomeController::class, 'scholarship'])->name('home.scholarship');
+    Route::get('/other-course', [HomeController::class, 'otherCourse'])->name('home.other.course');
+    Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
+
+    Route::get('/material', [HomeController::class, 'download'])->name('home.material');
+
+    Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
+
+    Route::get('/kediklatan', [HomeController::class, 'kediklatan'])->name('home.kediklatan');
+
+    Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
+
+    Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 });
-Route::get('/register-user', function () {
-    return view('remaja.auth-user.register');
-});
-Route::get('/forgot-password', function () {
-    return view('remaja.auth-user.forgot-password');
-});
-Route::get('/change-password', function () {
-    return view('remaja.auth-user.change-password');
-});
-Route::get('/code-verification', function () {
-    return view('remaja.auth-user.code-verification');
-});
-
-
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/history', [HomeController::class, 'detailHistory'])->name('home.detail.history');
-Route::get('/{category}/detail/{slug}', [HomeController::class, 'detail'])->name('home.detail');
-Route::get('/profile', [HomeController::class, 'profile'])->name('home.profile');
-Route::get('/profile/employees/{id}', [HomeController::class, 'getEmployeesDetail'])->name('employees.educations');
-
-
-Route::get('/training', [HomeController::class, 'training'])->name('home.training');
-
-Route::get('/documentation', [HomeController::class, 'documentation'])->name('home.documentation');
-
-Route::get('/scholarship', [HomeController::class, 'scholarship'])->name('home.scholarship');
-Route::get('/other-course', [HomeController::class, 'otherCourse'])->name('home.other.course');
-Route::get('/information/scholarship/{id}', [HomeController::class, 'getScholarshipDetail'])->name('information.scholarship');
-
-Route::get('/material', [HomeController::class, 'download'])->name('home.material');
-
-Route::get('/public-information', [HomeController::class, 'publicService'])->name('home.public.information');
-
-Route::get('/kediklatan', [HomeController::class, 'kediklatan'])->name('home.kediklatan');
-
-Route::get('/tautan', [HomeController::class, 'tautan'])->name('home.tautan');
-
-Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 
 Route::middleware(['auth', 'web'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        // Route::get('/maintenance', [DashboardController::class, 'maintenance'])->name('dashboard.maintenance');
+        Route::post('/maintenance/update', [DashboardController::class, 'updateMaintenance'])->name('dashboard.maintenance.update');
 
         Route::get('/profile', ProfileController::class)->name('profile');
 
@@ -104,6 +92,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::resource('announcements', AnnouncementController::class)->names('dashboard.announcements');
         Route::resource('public-informations', PublicInformationController::class)->names('dashboard.public-informations');
         Route::resource('materials', MaterialController::class)->names('dashboard.materials');
+        Route::resource('sops', SopController::class)->names('dashboard.sops');
 
         // Education History
         Route::get('/employees/{id}/educations', [EmployeeController::class, 'getEducationHistory'])->name('dashboard.employees.educations');

@@ -70,5 +70,7 @@ class Kernel extends HttpKernel
 
         'user_remaja' => \App\Http\Middleware\RoleMiddleware::class,
         'auth-user' => \App\Http\Middleware\AuthUser::class,
+
+        'maintenance' => \App\Http\Middleware\CheckMaintenanceMode::class,
     ];
 }

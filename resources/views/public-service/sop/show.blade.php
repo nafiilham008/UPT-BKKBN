@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Detail Service Information'))
+@section('title', __('Detail Standart Operational Procedure'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Service Information') }}</h3>
+                    <h3>{{ __('Standart Operational Procedure') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Detail service information content information.') }}
+                        {{ __('Detail standart operational procedure information.') }}
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.service-informations.index') }}">{{ __('Service Information') }}</a>
+                        <a href="{{ route('dashboard.sops.index') }}">{{ __('SOP') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Detail') }}
@@ -35,24 +35,24 @@
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
                                     <tr>
-                                        <td colspan="2" class="text-center">
-                                            <div class="avatar avatar-xl">
-                                                <img src="{{ asset('storage/' . $serviceInformation->photo) }}"
-                                                    alt="Avatar">
-                                            </div>
-                                        </td>
+                                        <td class="fw-bold">{{ __('Title') }}</td>
+                                        <td><span class="badge bg-success">{{ $sop->title }}</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">{{ __('Title') }}</td>
-                                        <td><span class="badge bg-success">{{ $serviceInformation->title }}</span></td>
+                                        <td class="fw-bold">{{ __('Description') }}</td>
+                                        <td>{{ $sop->description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Link') }}</td>
+                                        <td>{{ $sop->link }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Created at') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($serviceInformation->created_at)->format('j F, Y H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($sop->created_at)->format('j F, Y H:i') }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Updated at') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($serviceInformation->updated_at)->format('j F, Y H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($sop->updated_at)->format('j F, Y H:i') }}</td>
                                     </tr>
                                 </table>
                             </div>

@@ -68,6 +68,36 @@
                             </div>
                         </div>
                     </div>
+                    @can('maintenance edit')
+                        <div class="col-12 col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="text-muted font-semibold">Maintenance Mode</h6>
+                                            <form method="POST" action="{{ route('dashboard.maintenance.update') }}">
+                                                @csrf
+                                                <div class="d-flex align-items-center">
+                                                    <div class="form-check me-3">
+                                                        <input class="form-check-input form-check-warning" type="checkbox"
+                                                            name="maintenance" value="1"
+                                                            {{ isset($maintenanceStatus->is_maintenance) && $maintenanceStatus->is_maintenance == '1' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="maintenance">
+                                                            Active
+                                                        </label>
+                                                    </div>
+                                                    <button type="submit"
+                                                        class="btn btn-primary btn-sm">{{ __('Save') }}</button>
+                                                </div>
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </section>
@@ -75,5 +105,4 @@
 @endsection
 
 @push('js')
-    
 @endpush

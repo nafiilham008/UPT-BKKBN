@@ -18,6 +18,7 @@ use App\Models\Profile\Historical;
 use App\Models\Profile\Jobandfunc;
 use App\Models\Profile\Structure;
 use App\Models\PublicService\ServiceInformation;
+use App\Models\PublicService\Sop;
 use App\Models\PublicService\WorkAccountability;
 use App\Models\Training\Calendar;
 use App\Models\Training\Collaboration;
@@ -340,8 +341,9 @@ class HomeController extends Controller
 
             $workAccountability = WorkAccountability::all();
             $serviceInformation = ServiceInformation::all();
+            $sop = Sop::all();
 
-            return view('front.public-service.index', compact('publicService', 'typePublicInformation', 'workAccountability', 'serviceInformation'));
+            return view('front.public-service.index', compact('publicService', 'typePublicInformation', 'workAccountability', 'serviceInformation', 'sop'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

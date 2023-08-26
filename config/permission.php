@@ -164,6 +164,12 @@ return [
      */
     'permissions' => [
         [
+            'group' => 'maintenance mode',
+            'access' => [
+                'maintenance edit',
+            ]
+        ],
+        [
             'group' => 'users',
             'access' => [
                 'user view',
@@ -296,6 +302,15 @@ return [
             ]
         ],
         [
+            'group' => 'standart-operational-procedure',
+            'access' => [
+                'sop view',
+                'sop create',
+                'sop edit',
+                'sop delete',
+            ]
+        ],
+        [
             'group' => 'work-accountability',
             'access' => [
                 'work-accountability view',
@@ -349,33 +364,33 @@ return [
                 'structure delete',
             ]
         ],
-        [
-            'group' => 'quiz',
-            'access' => [
-                'quiz view',
-                'quiz create',
-                'quiz edit',
-                'quiz delete',
-            ]
-        ],
-        [
-            'group' => 'quiz-category',
-            'access' => [
-                'quiz-category view',
-                'quiz-category create',
-                'quiz-category edit',
-                'quiz-category delete',
-            ]
-        ],
-        [
-            'group' => 'question',
-            'access' => [
-                'question view',
-                'question create',
-                'question edit',
-                'question delete',
-            ]
-        ],
+        // [
+        //     'group' => 'quiz',
+        //     'access' => [
+        //         'quiz view',
+        //         'quiz create',
+        //         'quiz edit',
+        //         'quiz delete',
+        //     ]
+        // ],
+        // [
+        //     'group' => 'quiz-category',
+        //     'access' => [
+        //         'quiz-category view',
+        //         'quiz-category create',
+        //         'quiz-category edit',
+        //         'quiz-category delete',
+        //     ]
+        // ],
+        // [
+        //     'group' => 'question',
+        //     'access' => [
+        //         'question view',
+        //         'question create',
+        //         'question edit',
+        //         'question delete',
+        //     ]
+        // ],
         // [
         //     'group' => 'tests',
         //     'access' => [

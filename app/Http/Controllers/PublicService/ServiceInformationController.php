@@ -5,12 +5,12 @@ namespace App\Http\Controllers\PublicService;
 use App\Http\Controllers\Controller;
 use App\Models\PublicService\ServiceInformation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
 class ServiceInformationController extends Controller
 {
-    protected $imagePath = 'uploads/images/public-service/service-information/';
 
     public function __construct()
     {
@@ -62,24 +62,14 @@ class ServiceInformationController extends Controller
         if ($request->file('photo') && $request->file('photo')->isValid()) {
 
             $filename = $request->file('photo')->hashName();
-
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save($this->imagePath . $filename);
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/public-service/service-information', $filename, 'public');
         } else {
-            $validated['photo'] = null;
+            $pathPhoto = null;
         }
 
         $serviceInformation = ServiceInformation::create([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'created_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
         ]);
@@ -139,35 +129,21 @@ class ServiceInformationController extends Controller
             'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
         ]);
 
-        if ($request->file('photo') && $request->file('photo')->isValid()) {
+        if ($request->hasFile('photo')) {
+            // Hapus file gambar lama
+            if ($serviceInformation->photo) {
+                Storage::disk('public')->delete($serviceInformation->photo);
+            }
 
             $filename = $request->file('photo')->hashName();
-
-            // if folder dont exist, then create folder
-            if (!file_exists($folder = public_path($this->imagePath))) {
-                mkdir($folder, 0777, true);
-            }
-
-            // Intervention Image
-            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(public_path($this->imagePath) . $filename);
-
-            // delete old avatar from storage
-            if ($serviceInformation->photo != null && file_exists($oldphoto = public_path($this->imagePath .
-                $serviceInformation->photo))) {
-                unlink($oldphoto);
-            }
-
-            $validated['photo'] = $filename;
+            $pathPhoto = $request->file('photo')->storeAs('images/public-service/service-information', $filename, 'public');
         } else {
-            $validated['photo'] = $serviceInformation->photo;
+            $pathPhoto = $serviceInformation->photo;
         }
 
         $serviceInformation->update([
             'title' => $validated['title'],
-            'photo' => $validated['photo'],
+            'photo' => $pathPhoto,
             'updated_at' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')
         ]);
 
@@ -190,8 +166,8 @@ class ServiceInformationController extends Controller
     {
         $serviceInformation = ServiceInformation::findOrFail($id);
 
-        if ($serviceInformation->photo != null && file_exists($oldphoto = public_path($this->imagePath . $serviceInformation->photo))) {
-            unlink($oldphoto);
+        if ($serviceInformation->photo) {
+            Storage::disk('public')->delete($serviceInformation->photo);
         }
 
         // Delete all data

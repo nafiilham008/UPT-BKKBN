@@ -260,13 +260,19 @@ return [
                     'permissions' => [
                         'public-information view',
                         'work-accountability view',
-                        'service-information'
+                        'service-information',
+                        'sop view'
                     ],
                     'submenus' => [
                         [
                             'title' => 'Public Information',
                             'route' => '/public-informations',
                             'permission' => 'public-information view'
+                        ],
+                        [
+                            'title' => 'Standart Operational Procedur',
+                            'route' => '/sops',
+                            'permission' => 'sop view'
                         ],
                         [
                             'title' => 'Work Accountability',
@@ -367,42 +373,42 @@ return [
                 ]
             ]
         ],
-        [
-            'header' => 'MENJADI REMAJA',
-            'permissions' => [
-                'quiz view',
-                'quiz-category view'
-            ],
-            'menus' => [
-                [
-                    'title' => 'Setting Quiz',
-                    'icon' => '<i class="bi bi-people-fill"></i>',
-                    'route' => null,
-                    'permission' => null,
-                    'permissions' => [
-                        'quiz-category view',
-                        'quiz view',
-                    ],
-                    'submenus' => [
-                        [
-                            'title' => 'Category Quiz',
-                            'route' => '/categories',
-                            'permission' => 'quiz-category view'
-                        ],
-                        [
-                            'title' => 'Quiz',
-                            'route' => '/quiz',
-                            'permission' => 'quiz view'
-                        ],
-                        // [
-                        //     'title' => 'Roles & Permissions',
-                        //     'route' => '/roles',
-                        //     'permission' => 'role & permission view'
-                        // ]
-                    ]
-                ]
-            ]
-        ],
+        // [
+        //     'header' => 'MENJADI REMAJA',
+        //     'permissions' => [
+        //         'quiz view',
+        //         'quiz-category view'
+        //     ],
+        //     'menus' => [
+        //         [
+        //             'title' => 'Setting Quiz',
+        //             'icon' => '<i class="bi bi-people-fill"></i>',
+        //             'route' => null,
+        //             'permission' => null,
+        //             'permissions' => [
+        //                 'quiz-category view',
+        //                 'quiz view',
+        //             ],
+        //             'submenus' => [
+        //                 [
+        //                     'title' => 'Category Quiz',
+        //                     'route' => '/categories',
+        //                     'permission' => 'quiz-category view'
+        //                 ],
+        //                 [
+        //                     'title' => 'Quiz',
+        //                     'route' => '/quiz',
+        //                     'permission' => 'quiz view'
+        //                 ],
+        //                 // [
+        //                 //     'title' => 'Roles & Permissions',
+        //                 //     'route' => '/roles',
+        //                 //     'permission' => 'role & permission view'
+        //                 // ]
+        //             ]
+        //         ]
+        //     ]
+        // ],
         // [
         //     'header' => 'Web Setting',
         //     'permissions' => [

@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', __('Edit Service Information'))
+@section('title', __('Edit Standart Operational Procedure'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Service Information') }}</h3>
+                    <h3>{{ __('Standart Operational Procedure') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Edit an service information.') }}
+                        {{ __('Edit an standart operational procedure.') }}
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@
                         <a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.service-informations.index') }}">{{ __('Service Information') }}</a>
+                        <a href="{{ route('dashboard.sops.index') }}">{{ __('SOP') }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ __('Edit') }}
@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('dashboard.service-informations.update', $serviceInformation->id) }}" method="POST"
+                            <form action="{{ route('dashboard.sops.update', $sop->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -41,8 +41,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mandatory">
                                             <label for="title" class="form-label">{{ __('Title') }}</label>
-                                            <input type="text" name="title" id="title"
-                                                value="{{ $serviceInformation->title }}"
+                                            <input type="text" name="title" id="title" value="{{ $sop->title }}"
                                                 class="form-control @error('title') is-invalid @enderror"
                                                 placeholder="e.g. Beasiswa" data-parsley-required="true"
                                                 data-parsley-required-message="The Title field is required!" autofocus>
@@ -53,37 +52,39 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-1 text-center"
-                                        style="display: flex; justify-content: center; align-items: center;">
-                                        <div class="avatar avatar-xl">
-                                            <img style="object-fit: cover"
-                                                src="{{ asset('storage/' . $serviceInformation->photo) }}"
-                                                alt="avatar">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="photo" class="form-label">{{ __('Photo') }}</label>
-                                            <input class="form-control" type="file" id="photo" name="photo"
-                                                accept="image/png, image/jpeg" data-parsley-filemaxmegabytes="2"
-                                                data-parsley-trigger="change"
-                                                data-parsley-filemimetypes="image/jpeg,image/png"
-                                                data-parsley-error-message="Please upload an image file (JPEG, PNG) with a maximum size of 2MB">
-                                            @error('photo')
+                                            <label for="description" class="form-label">{{ __('Description') }}</label>
+                                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                                rows="4" placeholder="Enter description" data-parsley-required="true"
+                                                data-parsley-required-message="The Description field is required!">{{ $sop->description }}</textarea>
+                                            @error('description')
                                                 <span class="text-danger">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
-                                    
-
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="link" class="form-label">{{ __('Link') }}</label>
+                                            <input type="text" name="link" id="link"
+                                                value="{{ $sop->link }}"
+                                                class="form-control @error('link') is-invalid @enderror"
+                                                placeholder="e.g. https://example.com"
+                                                data-parsley-required="{{ $sop->link ? 'true' : 'false' }}"
+                                                data-parsley-required-message="The Link field is required!"
+                                                data-parsley-pattern="^(https?://)[\w.-]+\.[a-zA-Z]{2,}(\/\S*)?$"
+                                                data-parsley-pattern-message="Please enter a valid URL starting with 'http://', or 'https://'">
+                                            @error('link')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
-
-
-
-
-                                <a href="{{ route('dashboard.service-informations.index') }}"
+                                <a href="{{ route('dashboard.sops.index') }}"
                                     class="btn btn-secondary">{{ __('Back') }}</a>
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
