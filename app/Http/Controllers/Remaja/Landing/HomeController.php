@@ -45,7 +45,7 @@ class HomeController extends Controller
         // dd($resultCheck);
 
         if (isset($resultCheck)) {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Game ini hanya dapat dimainkan sekali. Anda sudah memainkan game ini sebelumnya.');
         }
 
         // dd('kosong');

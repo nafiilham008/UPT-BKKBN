@@ -45,10 +45,10 @@ class AuthController extends Controller
 
             $avatarUrl = $user->getAvatar();
             if ($avatarUrl) {
-                $filename = Str::random(16) . '.jpg'; 
+                $filename = Str::random(16) . '.jpg';
                 $path = 'images/profile/user/' . $filename;
                 Storage::disk('public')->put($path, file_get_contents($avatarUrl));
-                $newUser->avatar = $path; 
+                $newUser->avatar = $path;
             } else {
                 $newUser->avatar = null;
             }
@@ -89,8 +89,10 @@ class AuthController extends Controller
                 $user->verification_code = $verificationCodeUrlSafe;
                 $user->save();
 
-                $job = new SendVerificationCodeEmail($user, $verificationCode);
-                dispatch($job);
+                // $job = new SendVerificationCodeEmail($user, $verificationCode);
+                // dispatch($job);
+                Mail::to($user->email)->send(new VerificationCodeEmail($verificationCode));
+
 
                 return redirect()->route('remaja.verification', ['code' => $verificationCodeUrlSafe])->with('error', 'Please confirm your account!');
             } elseif ($user && $user->hasRole('User Remaja') && Auth::attempt($credentials) && $user->email_verified_at !== null) {
@@ -98,6 +100,8 @@ class AuthController extends Controller
             } else {
                 return redirect()->route('remaja.login')->with('error', 'Invalid email or password');
             }
+        } else {
+            return redirect()->route('remaja.login')->with('error', 'Invalid email or password');
         }
     }
 
@@ -148,8 +152,10 @@ class AuthController extends Controller
         // dd($verificationCodeUrlSafe); 
 
         // Mengirim email verifikasi
-        $job = new SendVerificationCodeEmail($newUser, $verificationCode);
-        dispatch($job);
+        // $job = new SendVerificationCodeEmail($newUser, $verificationCode);
+        // dispatch($job);
+        // Mail::to($newUser->email)->send(new VerificationCodeMail($newUser, $verificationCode));
+        Mail::to($newUser->email)->send(new VerificationCodeEmail($verificationCode));
 
         return redirect()->route('remaja.verification', ['code' => $verificationCodeUrlSafe])->with('success', 'Verification code has been sent to your email. Please check!.');
     }
@@ -189,7 +195,7 @@ class AuthController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route('user.dashboard')->with('success', 'Verification account successful!');
+            return redirect()->route('user.profile')->with('success', 'Verification account successful!');
         }
 
         return redirect()->back()->with('error', 'Invalid verification code.');
@@ -208,8 +214,10 @@ class AuthController extends Controller
         $user->save();
 
         // Mengirim email verifikasi
-        $job = new SendVerificationCodeEmail($user, $verificationCode);
-        dispatch($job);
+        // $job = new SendVerificationCodeEmail($user, $verificationCode);
+        // dispatch($job);
+        Mail::to($user->email)->send(new VerificationCodeEmail($verificationCode));
+
 
         return redirect()->route('remaja.verification', ['code' => $verificationCodeUrlSafe])->with('success', 'Verification code has been sent to your email. Please check!.');
     }

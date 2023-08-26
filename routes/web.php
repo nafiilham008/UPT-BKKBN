@@ -143,8 +143,57 @@ Route::middleware(['auth', 'web'])->group(function () {
 });
 
 
+// Menjadi Remaja
+Route::prefix('remaja')->group(function () {
+
+    Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
+    Route::get('/list', [LandingHomeController::class, 'listGame'])->name('user.list');
+    
+    Route::middleware(['auth-user', 'role:User Remaja'])->group(function () {
+        Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
+        Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
+        Route::get('/game/{slug_url}/result/view', [LandingHomeController::class, 'gameResultView'])->name('user.detail.result.view');
+        Route::get('/ranking', [LandingHomeController::class, 'ranking'])->name('user.detail.rangking');
+        Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile');
+        Route::get('/profile/{slug_rul}/certificate', [UserProfileController::class, 'myCertificate'])->name('user.profile.certificate');
+        Route::get('/profile/{slug_rul}/certificate/print', [UserProfileController::class, 'myPrintCertificate'])->name('user.profile.certificate.print');
+
+        // Edit Profile
+        Route::get('/profile/edit', [UserProfileController::class, 'editProfile'])->name('user.profile.edit');
+        Route::post('/profile/{id}/update', [UserProfileController::class, 'updateProfile'])->name('user.profile.update');
+    });
+
+    Route::middleware('guest')->group(function () {
+        // Biasa
+        Route::get('/user/log-in', [AuthController::class, 'indexLogin'])->name('remaja.login');
+        Route::post('/user/log-in/callback', [AuthController::class, 'login'])->name('remaja.login.process');
+
+        Route::get('/user/register', [AuthController::class, 'indexRegister'])->name('remaja.register');
+        Route::post('/user/register/callback', [AuthController::class, 'register'])->name('remaja.register.process');
+
+        Route::get('/user/verification/{code}', [AuthController::class, 'indexVerification'])->name('remaja.verification');
+        Route::post('/user/verification/{code}/confirm', [AuthController::class, 'verificationProcess'])->name('remaja.verification.confirm');
+
+        Route::get('/user/verification/{id}/resend', [AuthController::class, 'resendVerification'])->name('remaja.verification.resend');
+
+
+
+        // Google
+        Route::get('/user/login', [AuthController::class, 'redirectToGoogle'])->name('remaja.google.login');
+        Route::get('/user/login/callback', [AuthController::class, 'handleGoogleCallback'])->name('remaja.google.callback');
+    });
+
+});
+
+
+// Route::middleware('role:User Remaja')->group(function () {
+//     Route::prefix('user')->group(function () {
+//         Route::get('/', fn () => view('dashboard'));
+//     });
+// });
+
+
 // Command
 Route::get('/foo', function () {
     Artisan::call('storage:link');
 }); 
-

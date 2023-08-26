@@ -38,7 +38,8 @@
                     class="md:w-[245px] w-[100px] flex h-11 justify-center items-center text-white text-base rounded-full transition-colors duration-300 bg-[#FF0707] hover:bg-[#D60606]"
                     style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Rangking</a>
             </div>
-            <div class="absolute left-0 md:left-5 lg:left-0 md:top-36 lg:top-10 top-32 lg:w-full lg:h-full md:w-1/4 md:h-1/4 w-1/2 h-1/2">
+            <div class="absolute left-0 md:left-5 lg:left-0 md:top-36 lg:top-10 top-32 lg:w-max
+             lg:h-full md:w-1/4 md:h-1/4 w-1/2 h-1/2">
                 <img src="{{ asset('img/remaja/assets/ilustrasi1.svg') }}" alt="">
             </div>
             <div class="absolute right-0 md:right-5 lg:right-0 md:top-48 lg:top-32 top-48 lg:w-max lg:h-full md:w-1/4 md:h-1/4 w-1/2 h-1/2">
@@ -79,7 +80,7 @@
 
         </div>
     </div>
-    {{-- <audio src="{{ asset('audio/backsound-score.mp3') }}" autoplay></audio> --}}
+    <audio src="{{ asset('audio/backsound-score.mp3') }}" autoplay></audio>
 
 @endsection
 @push('js')

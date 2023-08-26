@@ -4,7 +4,7 @@
 
 @section('content')
     <div>
-        <div class="" style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
+        <div class="relative" style="background: linear-gradient(179deg, #7CDFFF 0%, rgba(255, 255, 255, 0.00) 100%);">
             @include('layouts.remaja.component.navbar')
             <div
                 class="flex lg:flex-row flex-col gap-8 items-end lg:items-center mb-16 lg:py-[135px] py-12 lg:px-[186px] px-5">
@@ -42,7 +42,8 @@
             </div>
             <div class="lg:grid lg:grid-cols-3 lg:space-y-0 space-y-10  lg:gap-7 px-5 lg:px-[186px]">
                 @foreach ($quiz as $quizItem)
-                    <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]" data-category="{{ $quizItem->category_quiz->id }}"
+                    <div class="max-w-sm bg-white border border-gray-200 rounded-[24px]"
+                        data-category="{{ $quizItem->category_quiz->id }}"
                         style="box-shadow: -2px -1px 14px 0px rgba(133, 145, 255, 0.30);">
                         <a href="{{ route('user.detail.game', $quizItem->slug_url) }}"
                             data-href="{{ route('user.detail.game', $quizItem->slug_url) }}" onclick="showLoading(event)">
@@ -67,7 +68,26 @@
                     </div>
                 @endforeach
             </div>
+            @if (Session::has('error'))
+            <div class="absolute top-20 right-0">
+                <div class="px-4 py-[14px] bg-[#FFDD5E]/70 md:w-max w-1/2 rounded-[9px] flex items-center gap-4 mb-7"
+                    id="error-message">
+                    <div class="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 7V13M12 17.01L12.01 16.999M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z"
+                                stroke="#3754C1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h1 class="font-be-vietnam text-[10px] font-medium text-[#272727]/70"><span
+                            class="font-bold">Peringatan:</span>
+                        {{ Session::get('error') }}</h1>
+                </div>
+            </div>
+            @endif
         </div>
+
     </div>
 @endsection
 @push('js')
@@ -103,6 +123,12 @@
                 }
             });
         });
+    </script>
+    <script>
+        setTimeout(function() {
+            var errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none';
+        }, 3000);
     </script>
 @endpush
 @push('css')
