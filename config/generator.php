@@ -373,42 +373,37 @@ return [
                 ]
             ]
         ],
-        // [
-        //     'header' => 'MENJADI REMAJA',
-        //     'permissions' => [
-        //         'quiz view',
-        //         'quiz-category view'
-        //     ],
-        //     'menus' => [
-        //         [
-        //             'title' => 'Setting Quiz',
-        //             'icon' => '<i class="bi bi-people-fill"></i>',
-        //             'route' => null,
-        //             'permission' => null,
-        //             'permissions' => [
-        //                 'quiz-category view',
-        //                 'quiz view',
-        //             ],
-        //             'submenus' => [
-        //                 [
-        //                     'title' => 'Category Quiz',
-        //                     'route' => '/categories',
-        //                     'permission' => 'quiz-category view'
-        //                 ],
-        //                 [
-        //                     'title' => 'Quiz',
-        //                     'route' => '/quiz',
-        //                     'permission' => 'quiz view'
-        //                 ],
-        //                 // [
-        //                 //     'title' => 'Roles & Permissions',
-        //                 //     'route' => '/roles',
-        //                 //     'permission' => 'role & permission view'
-        //                 // ]
-        //             ]
-        //         ]
-        //     ]
-        // ],
+        [
+            'header' => 'MENJADI REMAJA',
+            'permissions' => [
+                'quiz view',
+                'quiz-category view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Setting Quiz',
+                    'icon' => '<i class="bi bi-people-fill"></i>',
+                    'route' => null,
+                    'permission' => null,
+                    'permissions' => [
+                        'quiz-category view',
+                        'quiz view',
+                    ],
+                    'submenus' => [
+                        [
+                            'title' => 'Category Quiz',
+                            'route' => '/categories',
+                            'permission' => 'quiz-category view'
+                        ],
+                        [
+                            'title' => 'Quiz',
+                            'route' => '/quiz',
+                            'permission' => 'quiz view'
+                        ],
+                    ]
+                ]
+            ]
+        ],
         // [
         //     'header' => 'Web Setting',
         //     'permissions' => [

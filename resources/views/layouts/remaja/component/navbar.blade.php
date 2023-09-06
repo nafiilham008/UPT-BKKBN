@@ -13,28 +13,30 @@
         </svg>
 
         <div class="hidden w-full md:flex md:items-center md:w-auto" id="menu">
+
             <ul
                 class="pt-4 text-base text-[#272727] font-be-vietnam md:flex  md:items-center md:justify-between md:pt-0">
-                <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.index') }}">Home</a>
-                </li>
-                <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.list') }}"
-                        data-href="{{ route('user.list') }}" onclick="showLoading(event)"">Game List</a>
-                </li>
-                <li>
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.detail.rangking') }}"
-                        data-href="{{ route('user.detail.rangking') }}" onclick="showLoading(event)">Ranking</a>
-                </li>
                 @guest
                     <li>
-                        <a class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center"
+                        <a class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-green-500 items-center flex gap-3 min-w-[189px] justify-center"
                             href="{{ route('remaja.login') }}" style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25);">
                             {{-- ketika belum login --}}
                             <span>Sign</span>
                         </a>
                     </li>
                 @endguest
+                <li>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.index') }}">Home</a>
+                </li>
+                <li>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.list') }}"
+                        data-href="{{ route('user.list') }}" onclick="showLoading(event)">Game List</a>
+                </li>
+                <li>
+                    <a class="md:p-4 py-2 block hover:text-purple-400" href="{{ route('user.detail.rangking') }}"
+                        data-href="{{ route('user.detail.rangking') }}" onclick="showLoading(event)">Ranking</a>
+                </li>
+
 
                 @auth
                     <li>
@@ -43,7 +45,8 @@
                                 class="px-[19px] font-semibold rounded-full py-2 border border-[#3754C1] text-[#3754C1] items-center flex gap-3 min-w-[189px] justify-center focus:outline-none"
                                 id="dropdownButton">
                                 @if (auth()->user()->avatar)
-                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="w-8 h-8 rounded-full"  alt="">
+                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="w-8 h-8 rounded-full"
+                                        alt="">
                                 @else
                                     <img src="../img/remaja/assets/user.svg" class="w-8 h-8 rounded-full" alt="">
                                 @endif
@@ -52,7 +55,9 @@
                             <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white hidden" id="dropdownMenu">
                                 <div class="py-1" role="menu" aria-orientation="vertical"
                                     aria-labelledby="dropdownButton">
-                                    <a href="{{ route('user.profile') }}" data-href="{{ route('user.profile') }}" onclick="showLoading(event)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    <a href="{{ route('user.profile') }}" data-href="{{ route('user.profile') }}"
+                                        onclick="showLoading(event)"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Profile</a>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();"

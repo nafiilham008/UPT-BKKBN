@@ -60,16 +60,15 @@
                                         @foreach ($options as $index => $option)
                                             <div class="options-input">
                                                 <div class="input-group mb-2">
-                                                    <input name="options[]" type="text" class="form-control"
+                                                    <input name="options[{{ $index }}]" type="text" class="form-control"
                                                         placeholder="Insert option" value="{{ $option['value'] }}">
                                                     <div class="form-check ms-2 me-2 mt-2">
-                                                        <input name="correct_answers[]" type="checkbox"
+                                                        <input type="hidden" name="correct_answers[{{ $index }}]" value="0">
+                                                        <input name="correct_answers[{{ $index }}]" type="checkbox"
                                                             class="form-check-input" value="1"
                                                             {{ $option['is_correct'] ? 'checked' : '' }}>
                                                         <label class="form-check-label">Correct</label>
                                                     </div>
-                                                    <input type="hidden" name="correct_answers[]" value="0">
-
                                                     @if ($index > 0)
                                                         <button type="button"
                                                             class="btn btn-danger remove-option">Remove</button>
@@ -79,10 +78,10 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <button type="button" id="add-option" class="btn btn-success btn-sm mt-2">Add
-                                    Option</button>
+                                <button type="button" id="add-option" class="btn btn-success btn-sm mt-2">Add Option</button>
                             </div>
                         </div>
+
 
 
 

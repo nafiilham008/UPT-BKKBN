@@ -25,18 +25,12 @@ class HomeLivewire extends Component
 
     public function mount($dataQuestion)
     {
-        // dd($dataQuestion);
         $this->step = 0;
         $this->resetAll();
         $this->getVideo($dataQuestion);
-        // dd($this->url);
         $this->questions = $dataQuestion;
         $this->totalQuestions = count($dataQuestion);
         $this->currentQuestion = $this->questions[0];
-
-        // dd($this->step);
-
-        // $this->emit('loadAnswers', $this->input);
     }
 
     public function getVideo($dataQuiz)
@@ -54,21 +48,9 @@ class HomeLivewire extends Component
             }
         }
 
-        // $linkYoutube = $this->url;
-        // $pattern = '/(?<=\?v=|\/embed\/|\/\d\/|\.be\/)[^&#?\/]+/';
-        // preg_match($pattern, $linkYoutube, $matches);
-        // $videoCode = null;
-
-        // if (!empty($matches)) {
-        //     $videoCode = $matches[0];
-        // }
-
-        // $this->url = $videoCode;
-        // dd($this->url);
-        // dd($dataQuiz);
     }
 
-    // Jika ada localStorage 
+    // Jika ada localStorage
     public function loadData($userAnswers)
     {
         // Load answers from JavaScript and update the Livewire input property
@@ -107,8 +89,6 @@ class HomeLivewire extends Component
             // } else {
         } elseif ($this->step == 1) {
             $this->step--;
-            // $this->currentQuestion = $this->questions[$this->step];
-            // dd($this->currentQuestion);
             $this->getVideo($this->questions);
         }
     }
@@ -132,7 +112,7 @@ class HomeLivewire extends Component
                 }
                 $isCorrect = $userAnswer === $correctAnswer;
 
-                // Simpan 
+                // Simpan
                 ResultAnswer::create([
                     'quiz_id' => $question->quiz_id,
                     'question_id' => $question->id,

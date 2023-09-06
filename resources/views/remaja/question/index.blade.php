@@ -25,10 +25,6 @@
 
             @can('question create')
                 <div class="d-flex justify-content-end">
-                    {{-- <a href="{{ route('dashboard.questions.create', $quiz->id) }}" class="btn btn-primary mb-3">
-                <i class="fas fa-plus"></i>
-                {{ __('Create a new question') }}
-            </a> --}}
                     <button id="add-question" class="btn btn-primary mb-3" data-bs-toggle="modal"
                         data-bs-target="#exampleModalScrollable">
                         <i class="fas fa-plus"></i>
@@ -110,15 +106,38 @@
                         <img src="${data}" alt="avatar">
                     </div>`;
                             } else {
-                                return data; // If data is empty or '-', it will show the defaultContent "-"
+                                return data;
                             }
                         }
                     },
                     {
                         data: 'options',
                         name: 'options',
-                        defaultContent: '-'
+                        defaultContent: '-',
+                        render: function(data, type, full, meta) {
+                            if (data) {
+                                try {
+                                    // menyesuaikan format json
+                                    let cleanedData = data.replace(/&quot;/g, '"');
+                                    let parsedData = JSON.parse(cleanedData);
+                                    return parsedData.map(option => {
+                                        let isCorrect = option.is_correct === '1' || option
+                                            .is_correct === true;
+                                        let label = isCorrect ?
+                                            '<span style="color:#198754;"><strong>benar</strong></span>' :
+                                            '<span style="color:#dc3545;"><strong>salah</strong></span>';
+                                        return `&bull; ${option.value} (${label})`;
+                                    }).join('<br>');
+                                } catch (e) {
+                                    console.error(e); 
+                                    return data;
+                                }
+                            } else {
+                                return '-';
+                            }
+                        }
                     },
+
                     {
                         data: 'created_at',
                         name: 'created_at',
@@ -136,16 +155,22 @@
                         searchable: false
                     }
                 ],
-                // order: [
-                //     [2,
-                //         'desc'
-                //     ] // mengurutkan berdasarkan kolom ke-2 (graduation_year) secara descending
-                // ],
                 drawCallback: function(settings) {
                     // menghilangkan notifikasi
                     $('.alert').hide();
                 }
             });
+
+            function handleCheckboxChange() {
+                let hiddenInput = $(this).prev('input[type="hidden"]');
+                if (this.checked) {
+                    hiddenInput.remove();
+                } else {
+                    let newHiddenInput = $('<input type="hidden" name="correct_answers[]" value="0">');
+                    $(this).before(newHiddenInput);
+                }
+            }
+
 
 
             $("#save-question").click(function(event) {
@@ -191,44 +216,32 @@
             });
 
 
-            function updateAddOptionButtonVisibility() {
-                var totalOptions = $('.options-input').length;
-                if (totalOptions >= 2) {
-                    $('#add-option').hide();
-                } else {
-                    $('#add-option').show();
-                }
-            }
+            $('input[type="checkbox"]').change(handleCheckboxChange);
 
             $('#add-option').click(function() {
-                var totalOptions = $('.options-input').length;
+                var inputField = `
+        <div class="options-input">
+            <div class="input-group mb-2">
+                <input name="options[]" type="text" class="form-control" placeholder="Insert option">
+                <div class="form-check ms-2 me-2 mt-2">
+                    <input type="hidden" name="correct_answers[]" value="0">
+                    <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
+                    <label class="form-check-label">Correct</label>
+                </div>
+                <button type="button" class="btn btn-danger remove-option">Remove</button>
+            </div>
+        </div>`;
+                var newOption = $(inputField);
+                $('#options-container').append(newOption);
 
-                if (totalOptions < 2) {
-                    var inputField = `
-                <div class="options-input">
-                    <div class="input-group mb-2">
-                        <input name="options[]" type="text" class="form-control" placeholder="Insert option">
-                        <div class="form-check ms-2 me-2 mt-2">
-                            <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
-                            <label class="form-check-label">Correct</label>
-                        </div>
-                        <input type="hidden" name="correct_answers[]" value="0">
-                        <button type="button" class="btn btn-danger remove-option">Remove</button>
-                    </div>
-                </div>`;
-                    $('#options-container').append(inputField);
-                }
-
-                updateAddOptionButtonVisibility();
+                // Menambahkan event listener ke checkbox baru
+                newOption.find('input[type="checkbox"]').change(handleCheckboxChange);
             });
 
             $('#options-container').on('click', '.remove-option', function() {
                 $(this).closest('.options-input').remove();
-                updateAddOptionButtonVisibility();
             });
 
-            // Check visibility of the "Add Option" button on page load
-            updateAddOptionButtonVisibility();
         });
     </script>
 @endpush
