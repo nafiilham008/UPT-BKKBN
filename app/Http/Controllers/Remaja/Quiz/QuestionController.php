@@ -67,23 +67,22 @@ class QuestionController extends Controller
             ]);
 
             $options = $request->options;
-            $correctAnswers = $request->correct_answers ?? [];
+            if (count($request->options) !== count($request->correct_answers)) {
+                // Isi array correct_answers dengan 0 (false) untuk setiap elemen yang tidak ada
+                $correctAnswers = array_pad($request->correct_answers, count($request->options), 0);
+            } else {
+                $correctAnswers = $request->correct_answers;
+            }
 
             $trueCount = 0;
             $falseCount = 0;
-
-            $optionsData = [];
-            foreach ($options as $index => $option) {
-                $isCorrect = isset($correctAnswers[$index]) ? boolval($correctAnswers[$index]) : false;
-                $optionsData[] = [
-                    'value' => $option,
-                    'is_correct' => $isCorrect,
-                ];
-
-                if ($isCorrect) {
-                    $trueCount++;
-                } else {
-                    $falseCount++;
+            if (is_array($correctAnswers)) {
+                foreach ($correctAnswers as $answer) {
+                    if ($answer) {
+                        $trueCount++;
+                    } else {
+                        $falseCount++;
+                    }
                 }
             }
 
@@ -92,6 +91,21 @@ class QuestionController extends Controller
                     'error' => 'There must be at least one true and one false answer.',
                 ], 500);
             }
+
+            $optionsData = [];
+            foreach ($request->options as $index => $option) {
+                $isCorrect = isset($correctAnswers[$index]) ? $correctAnswers[$index] : false;
+                $optionsData[] = [
+                    'value' => $option,
+                    'is_correct' => $isCorrect,
+                ];
+            }
+
+            // if ($trueCount < 1 || $falseCount < 1) {
+            //     return response()->json([
+            //         'error' => 'There must be at least one true and one false answer.',
+            //     ], 500);
+            // }
 
             if ($request->hasFile('image')) {
                 // $path = $request->file('image')->store('images/quiz');

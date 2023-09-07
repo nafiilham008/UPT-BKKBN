@@ -129,7 +129,7 @@
                                         return `&bull; ${option.value} (${label})`;
                                     }).join('<br>');
                                 } catch (e) {
-                                    console.error(e); 
+                                    console.error(e);
                                     return data;
                                 }
                             } else {
@@ -164,57 +164,14 @@
             function handleCheckboxChange() {
                 let hiddenInput = $(this).prev('input[type="hidden"]');
                 if (this.checked) {
+                    console.log(this.checked);
                     hiddenInput.remove();
                 } else {
                     let newHiddenInput = $('<input type="hidden" name="correct_answers[]" value="0">');
+                    console.log(newHiddenInput);
                     $(this).before(newHiddenInput);
                 }
             }
-
-
-
-            $("#save-question").click(function(event) {
-                event.preventDefault();
-                var formData = new FormData($("#form-question-create")[0]);
-                $.ajax({
-                    url: '{{ route('dashboard.questions.store', $question->id) }}',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        // Menutup modal
-                        $("#exampleModalScrollable").modal("hide");
-
-                        // Menampilkan notifikasi berhasil
-                        if (response.success) {
-
-                            alert(response.success);
-                        }
-
-                        // Reload datatable
-                        $('#table-question').DataTable().ajax.reload();
-                        $("#form-question-create").trigger('reset');
-
-                    },
-                    error: function(xhr, status, error) {
-                        // Menampilkan notifikasi kesalahan
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            console.log("Terjadi kesalahan: " + xhr.responseJSON.error);
-                            alert(xhr.responseJSON.error);
-                            $('#table-question').DataTable().ajax.reload();
-                            $("#form-question-create").trigger('reset');
-                        } else {
-                            console.log("Terjadi kesalahan: " + error);
-                            alert(error);
-                            $('#table-question').DataTable().ajax.reload();
-                            $("#form-question-create").trigger('reset');
-                        }
-                    }
-
-                });
-            });
-
 
             $('input[type="checkbox"]').change(handleCheckboxChange);
 
@@ -241,6 +198,61 @@
             $('#options-container').on('click', '.remove-option', function() {
                 $(this).closest('.options-input').remove();
             });
+
+            $("#save-question").click(function(event) {
+                event.preventDefault();
+
+                // Mengubah teks tombol dan menambahkan animasi loading
+                $(this).html('Sending... <i class="fa fa-spinner fa-spin"></i>');
+                $(this).prop('disabled', true); // Disable tombol untuk mencegah klik berulang
+
+                var formData = new FormData($("#form-question-create")[0]);
+
+                formData.forEach(function(value, key) {
+                    console.log(key + " : " + value);
+                });
+                $.ajax({
+                    url: '{{ route('dashboard.questions.store', $question->id) }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Menutup modal
+                        $("#exampleModalScrollable").modal("hide");
+
+                        // Menampilkan notifikasi berhasil
+                        if (response.success) {
+                            alert(response.success);
+                        }
+
+                        // Reload datatable
+                        $('#table-question').DataTable().ajax.reload();
+                        $("#form-question-create")[0].reset();
+                        $('#options-container .options-input:not(:first)').remove();
+                    },
+                    error: function(xhr, status, error) {
+                        // Menampilkan notifikasi kesalahan
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            console.log("Terjadi kesalahan: " + xhr.responseJSON.error);
+                            alert(xhr.responseJSON.error);
+                            $('#table-question').DataTable().ajax.reload();
+                            $("#form-question-create").trigger('reset');
+                        } else {
+                            console.log("Terjadi kesalahan: " + error);
+                            alert(error);
+                            $('#table-question').DataTable().ajax.reload();
+                            $("#form-question-create").trigger('reset');
+                        }
+                    },
+                    complete: function() {
+                        // Mengembalikan teks dan keadaan tombol ke semula
+                        $("#save-question").html('Save');
+                        $("#save-question").prop('disabled', false);
+                    }
+                });
+            });
+
 
         });
     </script>
