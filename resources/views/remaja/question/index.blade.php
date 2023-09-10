@@ -161,35 +161,29 @@
                 }
             });
 
+            $('#exampleModalScrollable').on('shown.bs.modal', function() {
+                // Set semua checkbox di dalam modal menjadi unchecked
+                $('#options-container input[type="checkbox"]').prop('checked', false);
+
+                // Set semua input hidden dengan nama "correct_answers[]" menjadi 0
+                $('#options-container input[name="correct_answers[]"]').val('0');
+            });
+
+
             function limitCheckboxBasedOnAnswerType() {
                 let answerType = $('#answerType').val();
                 if (answerType === 'single') {
-
                     $('input[name="correct_answers[]"]').change(function() {
                         if ($(this).prop('checked')) {
                             $('input[name="correct_answers[]"]').not(this).prop('checked', false);
                         }
                     });
                 } else {
-
                     $('input[name="correct_answers[]"]').off('change');
                 }
             }
 
-
             $('#answerType').change(limitCheckboxBasedOnAnswerType);
-
-            function handleCheckboxChange() {
-                let hiddenInput = $(this).prev('input[type="hidden"]');
-                if (this.checked) {
-                    hiddenInput.remove();
-                } else {
-                    let newHiddenInput = $('<input type="hidden" name="correct_answers[]" value="0">');
-                    $(this).before(newHiddenInput);
-                }
-            }
-
-            $('input[type="checkbox"]').change(handleCheckboxChange);
 
             $('#add-option').click(function() {
                 var inputField = `
@@ -198,7 +192,7 @@
             <input name="options[]" type="text" class="form-control" placeholder="Insert option">
             <div class="form-check ms-2 me-2 mt-2">
                 <input type="hidden" name="correct_answers[]" value="0">
-                <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
+                <input type="checkbox" class="form-check-input">
                 <label class="form-check-label">Correct</label>
             </div>
             <button type="button" class="btn btn-danger remove-option">Remove</button>
@@ -206,13 +200,15 @@
     </div>`;
                 var newOption = $(inputField);
                 $('#options-container').append(newOption);
-                newOption.find('input[type="checkbox"]').change(handleCheckboxChange);
-                limitCheckboxBasedOnAnswerType
-                    ();
+                limitCheckboxBasedOnAnswerType();
             });
 
-            $('#options-container').on('click', '.remove-option', function() {
-                $(this).closest('.options-input').remove();
+            $('#options-container').on('change', 'input[type="checkbox"]', function() {
+                if ($(this).prop('checked')) {
+                    $(this).prev('input[type="hidden"]').val('1');
+                } else {
+                    $(this).prev('input[type="hidden"]').val('0');
+                }
             });
 
             $("#save-question").click(function(event) {
