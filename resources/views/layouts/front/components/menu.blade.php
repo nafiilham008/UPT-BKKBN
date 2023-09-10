@@ -45,6 +45,11 @@
                     href="{{ route('home.tautan') }}"
                     onclick="handleLinkClick(event, '{{ route('home.tautan') }}')">Tautan</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('remaja*') ? 'active' : '' }}"
+                    href="{{ route('user.index') }}"
+                    onclick="handleLinkClick(event, '{{ route('user.index') }}')">Menjadi Remaja</a>
+            </li>
         </ul>
         <div class="search-container" id="expand">
             <input class="form-control me-2 font-14" type="search" placeholder="Search" aria-label="Search"
