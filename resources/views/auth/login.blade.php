@@ -93,7 +93,7 @@
             <div id="auth-right" class="d-flex justify-content-center align-items-center">
                 <div class="">
                     <a href="/">
-                        <img class="img-logo-login" src="{{ asset('img/logo/logo_upt.png') }}" alt="Logo">
+                        <img class="img-logo-login" src="{{ asset('img/logo/logo_upt_putih.png') }}" alt="Logo">
                     </a>
                 </div>
             </div>

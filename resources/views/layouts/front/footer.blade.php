@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-lg-3 col-sm-3 d-flex align-items-center justify-content-end mb-4 ">
-                <img class="img-fluid-footer" src="{{ asset('img/logo/logo_upt.png') }}" alt="Logo">
+                <img class="img-fluid-footer" src="{{ asset('img/logo/logo_upt_putih.png') }}" alt="Logo">
             </div>
             <div class="col-lg-3 col-sm-3">
                 <h3>KONTAK</h3>
@@ -19,7 +19,7 @@
                 @php
                     use App\Models\visitor;
                     use Carbon\Carbon;
-                    
+
                     $todayVisitor = visitor::where('date', Carbon::now()->toDateString())->sum('day_count');
                     $thisWeekVisitor = visitor::where(
                         'date',
