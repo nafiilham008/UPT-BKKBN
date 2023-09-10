@@ -23,14 +23,23 @@ class HomeLivewire extends Component
         'loadAnswers' => 'loadData',
     ];
 
+    // public function updated($field, $value)
+    // {
+    //     logger("Updated field: $field");
+    //     logger($value);
+    // }
+
+
     public function mount($dataQuestion)
     {
+        // dd($dataQuestion);
         $this->step = 0;
         $this->resetAll();
         $this->getVideo($dataQuestion);
         $this->questions = $dataQuestion;
         $this->totalQuestions = count($dataQuestion);
         $this->currentQuestion = $this->questions[0];
+        // dd($this->currentQuestion);
     }
 
     public function getVideo($dataQuiz)
@@ -47,28 +56,34 @@ class HomeLivewire extends Component
                 }
             }
         }
-
     }
 
     // Jika ada localStorage
     public function loadData($userAnswers)
     {
-        // Load answers from JavaScript and update the Livewire input property
+        // Reset the input array
         $this->input = [];
 
         foreach ($userAnswers as $entry) {
             $key = $entry[0];
             $value = $entry[1];
-            $this->input[$key] = $value;
+
+            if (is_array($value)) {
+                foreach ($value as $choice) {
+                    $this->input[$key][$choice] = $choice;
+                }
+            } else {
+                $this->input[$key] = $value;
+            }
         }
 
-        // ambil step
+        // Update the step
         $keys = array_keys($this->input);
-        // dd($keys);
         $this->step = count($keys);
-        // dd($this->step);
         $this->currentQuestion = $this->questions[$this->step - 1];
     }
+
+
 
 
 
@@ -77,7 +92,7 @@ class HomeLivewire extends Component
         if ($this->step <= $this->totalQuestions) {
             $this->step++;
             $this->currentQuestion = $this->questions[$this->step - 1];
-            // dd($this->step);
+            // dd($this->input);
         }
     }
 
@@ -96,38 +111,74 @@ class HomeLivewire extends Component
     public function submitAnswers()
     {
         foreach ($this->questions as $question) {
-            // COba
             if (!empty($question) && is_object($question)) {
-                $userAnswer = $this->input[$question->id];
 
-                // Decode dlu
-                $options = json_decode($question->options, true);
-
-                $correctAnswer = null;
-                foreach ($options as $option) {
-                    if ($option['is_correct']) {
-                        $correctAnswer = $option['value'];
-                        break;
+                if (isset($this->input[$question->id])) {
+                    $userAnswers = (array) $this->input[$question->id];
+                } else {
+                    $userAnswersKeys = preg_grep("/^{$question->id}\./", array_keys($this->input));
+                    $userAnswers = [];
+                    foreach ($userAnswersKeys as $key) {
+                        $userAnswers[] = $this->input[$key];
                     }
                 }
-                $isCorrect = $userAnswer === $correctAnswer;
 
-                // Simpan
-                ResultAnswer::create([
-                    'quiz_id' => $question->quiz_id,
-                    'question_id' => $question->id,
-                    'user_id' => auth()->user()->id,
-                    'answer' => $userAnswer,
-                    'is_correct' => $isCorrect,
-                ]);
+                $options = json_decode($question->options, true);
+
+                $correctAnswers = array_filter($options, function ($option) {
+                    return $option['is_correct'];
+                });
+
+                $correctValues = array_column($correctAnswers, 'value');
+
+                if (count($correctValues) > 1) {
+                    $allCorrect = !array_diff($userAnswers, $correctValues) && !array_diff($correctValues, $userAnswers);
+
+                    foreach ($userAnswers as $userAnswer) {
+                        ResultAnswer::create([
+                            'quiz_id' => $question->quiz_id,
+                            'question_id' => $question->id,
+                            'user_id' => auth()->user()->id,
+                            'answer' => $userAnswer,
+                            'is_correct' => in_array($userAnswer, $correctValues),
+                        ]);
+                    }
+
+                    if (!$allCorrect) {
+                        $missingAnswers = array_diff($correctValues, $userAnswers);
+                        foreach ($missingAnswers as $missingAnswer) {
+                            ResultAnswer::create([
+                                'quiz_id' => $question->quiz_id,
+                                'question_id' => $question->id,
+                                'user_id' => auth()->user()->id,
+                                'answer' => $missingAnswer,
+                                'is_correct' => false,
+                            ]);
+                        }
+                    }
+                } else {
+                    $isCorrect = $userAnswers[0] == $correctValues[0];
+                    ResultAnswer::create([
+                        'quiz_id' => $question->quiz_id,
+                        'question_id' => $question->id,
+                        'user_id' => auth()->user()->id,
+                        'answer' => $userAnswers[0],
+                        'is_correct' => $isCorrect,
+                    ]);
+                }
             }
         }
-
 
         // Reset stepper
         $this->resetAll();
         return redirect()->route('user.detail.result', $this->questions[0]->quiz->slug_url);
     }
+
+
+
+
+
+
 
     public function resetAll()
     {

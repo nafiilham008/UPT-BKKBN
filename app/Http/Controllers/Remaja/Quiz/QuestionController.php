@@ -63,7 +63,7 @@ class QuestionController extends Controller
                 'correct_answers' => 'nullable|array',
                 'correct_answers.*' => 'nullable|boolean',
                 'image' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-                'description' => 'nullable|string',
+                'description' => 'required|string',
             ]);
 
             if (count($request->options) !== count($request->correct_answers)) {
@@ -186,7 +186,7 @@ class QuestionController extends Controller
             'correct_answers' => 'nullable|array',
             'correct_answers.*' => 'nullable|boolean',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
         ]);
 
         $question = Question::where('id', $question_id)

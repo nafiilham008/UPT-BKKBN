@@ -38,11 +38,13 @@
                     class="md:w-[245px] w-[100px] flex h-11 justify-center items-center text-white text-base rounded-full transition-colors duration-300 bg-[#FF0707] hover:bg-[#D60606]"
                     style="box-shadow: 2px 4px 17px 0px rgba(12, 0, 86, 0.25); 1x">Rangking</a>
             </div>
-            <div class="absolute left-0 md:left-5 lg:left-0 md:top-36 lg:top-10 top-32 lg:w-max
+            <div
+                class="absolute left-0 md:left-5 lg:left-0 md:top-36 lg:top-10 top-32 lg:w-max
              lg:h-full md:w-1/4 md:h-1/4 w-1/2 h-1/2">
                 <img src="{{ asset('img/remaja/assets/ilustrasi1.svg') }}" alt="">
             </div>
-            <div class="absolute right-0 md:right-5 lg:right-0 md:top-48 lg:top-32 top-48 lg:w-max lg:h-full md:w-1/4 md:h-1/4 w-1/2 h-1/2">
+            <div
+                class="absolute right-0 md:right-5 lg:right-0 md:top-48 lg:top-32 top-48 lg:w-max lg:h-full md:w-1/4 md:h-1/4 w-1/2 h-1/2">
                 <img src="{{ asset('img/remaja/assets/ilustrasi2.svg') }}" alt="">
             </div>
         </div>
@@ -54,28 +56,43 @@
             </div>
             {{-- Soal --}}
             <!-- Loop melalui pertanyaan -->
-            @foreach ($results as $result)
-                <div class="border rounded-[24px] border-{{ $result->is_correct ? '[#4895EF]' : '[#DA1E37]' }} mb-6"
+            @php
+                $groupedResults = $results->groupBy('question_id');
+            @endphp
+
+            @foreach ($groupedResults as $questionId => $groupedResult)
+                @php
+                    $firstResult = $groupedResult->first();
+
+                    $totalCorrectChoices = $groupedResult->where('is_correct', true)->count();
+                    $isFullyCorrect = $totalCorrectChoices == count($groupedResult);
+
+                    $isCorrectOverall = (count($groupedResult) == 1 && $firstResult->is_correct) || $isFullyCorrect;
+                @endphp
+
+                <div class="border rounded-[24px] border-{{ $isCorrectOverall ? '[#4895EF]' : '[#DA1E37]' }} mb-6"
                     style="background: rgba(255, 255, 255, 0.20); box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
                     <div class="bg-white pt-10 pb-5 px-5 lg:px-10 rounded-t-[24px]">
-                        <h1 class="font-be-vietnam text-base text-[#272727] mb-5">{{ $result->question->question }}</h1>
+                        <h1 class="font-be-vietnam text-base text-[#272727] mb-5">{{ $firstResult->question->question }}
+                        </h1>
                         <div
                             class="bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
-                            {{ $result->is_correct ? 'Benar' : 'Salah' }}
+                            {{ $isCorrectOverall ? 'Benar' : 'Salah' }}
                         </div>
                     </div>
                     <div
-                        class="bg-{{ $result->is_correct ? '[#4895EF]' : '[#DA1E37]' }}/20 pt-6 pb-4 px-5 lg:px-10 rounded-b-[24px]">
+                        class="bg-{{ $isCorrectOverall ? '[#4895EF]' : '[#DA1E37]' }}/20 pt-6 pb-4 px-5 lg:px-10 rounded-b-[24px]">
                         <h1 class="font-be-vietnam text-lg text-[#272727] font-bold mb-2">Penjelasan</h1>
                         <h1 id="myText" class="font-be-vietnam text-base text-[#272727] mb-5 line-clamp">
-                            {{ $result->question->description }}
+                            {{ $firstResult->question->description }}
                         </h1>
-
                         <button id="toggleButton" onclick="toggleText()"
                             class="text-[#5C7AEA] font-be-vietnam text-base">Read more..</button>
                     </div>
                 </div>
             @endforeach
+
+
 
 
         </div>

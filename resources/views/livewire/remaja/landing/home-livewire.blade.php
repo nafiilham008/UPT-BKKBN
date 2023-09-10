@@ -18,9 +18,10 @@
             <div class="">
                 <div class="px-5 lg:px-0">
                     <h1 class="font-titan text-[40px] text-center text-[#272727]/70 mb-5">Let's Start The Game</h1>
-                    <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-12">Seberapa jauh kamu tau?Ayo mulai main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
+                    <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-12">Seberapa jauh kamu tau?Ayo
+                        mulai main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
                 </div>
-                    
+
                 <div class=" px-5 lg:px-[185px]">
                     <div class="rounded-[24px] flex flex-col justify-between lg:min-h-[600px] bg-white/40"
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
@@ -56,18 +57,50 @@
                                     </div>
                                     <div class="flex justify-center items-center gap-5 mt-6">
                                         @foreach (json_decode($currentQuestion->options, true) as $option)
-                                            <label>
-                                                <input type="radio" name="answer[{{ $currentQuestion->id }}]"
-                                                    class="hidden" wire:model="input.{{ $currentQuestion->id }}"
-                                                    value="{{ $option['value'] }}"
-                                                    @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
-                                                <div
-                                                    class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                                            @if (count(array_filter(json_decode($currentQuestion->options, true), function ($opt) {
+                                                        return $opt['is_correct'] == '1';
+                                                    })) > 1)
+                                                <!-- Keterangan untuk multiple choice -->
+                                                @if ($loop->first)
+                                                    <p>Silahkan pilih jawaban yang menurut Anda benar, dapat lebih dari
+                                                        satu pilihan.
+                                                    </p>
+                                                @endif
+
+                                                <!-- Checkbox untuk multiple choice -->
+                                                <label>
+                                                    <input type="checkbox"
+                                                        name="answer[{{ $currentQuestion->id }}][{{ $option['value'] }}]"
+                                                        wire:model="input.{{ $currentQuestion->id }}.{{ $option['value'] }}"
+                                                        value="{{ $option['value'] }}"
+                                                        @if (isset($input[$currentQuestion->id]) &&
+                                                                isset($input[$currentQuestion->id][$option['value']]) &&
+                                                                $input[$currentQuestion->id][$option['value']] === $option['value']
+                                                        ) checked @endif>
+
                                                     {{ $option['value'] }}
-                                                </div>
-                                            </label>
+                                                </label>
+                                            @else
+                                                <!-- Keterangan untuk single choice -->
+                                                @if ($loop->first)
+                                                    <p>Silahkan pilih satu jawaban yang menurut Anda benar.</p>
+                                                @endif
+
+                                                <!-- Radio untuk single choice -->
+                                                <label>
+                                                    <input type="radio" name="answer[{{ $currentQuestion->id }}]"
+                                                        class="hidden" wire:model="input.{{ $currentQuestion->id }}"
+                                                        value="{{ $option['value'] }}"
+                                                        @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
+                                                    <div
+                                                        class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                                                        {{ $option['value'] }}
+                                                    </div>
+                                                </label>
+                                            @endif
                                         @endforeach
                                     </div>
+
                                 </div>
                             @endif
 
@@ -162,6 +195,19 @@
                 localStorage.removeItem('user_answers');
             });
         });
+    </script>
+
+    <script>
+        function toggleCheckbox(checkboxElem) {
+            if (checkboxElem.checked) {
+                const allCheckboxes = document.querySelectorAll(`input[name="${checkboxElem.name}"]`);
+                allCheckboxes.forEach(cb => {
+                    if (cb !== checkboxElem) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        }
     </script>
 @endpush
 @push('css')
