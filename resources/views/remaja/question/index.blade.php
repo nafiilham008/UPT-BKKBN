@@ -161,14 +161,30 @@
                 }
             });
 
+            function limitCheckboxBasedOnAnswerType() {
+                let answerType = $('#answerType').val();
+                if (answerType === 'single') {
+
+                    $('input[name="correct_answers[]"]').change(function() {
+                        if ($(this).prop('checked')) {
+                            $('input[name="correct_answers[]"]').not(this).prop('checked', false);
+                        }
+                    });
+                } else {
+
+                    $('input[name="correct_answers[]"]').off('change');
+                }
+            }
+
+
+            $('#answerType').change(limitCheckboxBasedOnAnswerType);
+
             function handleCheckboxChange() {
                 let hiddenInput = $(this).prev('input[type="hidden"]');
                 if (this.checked) {
-                    console.log(this.checked);
                     hiddenInput.remove();
                 } else {
                     let newHiddenInput = $('<input type="hidden" name="correct_answers[]" value="0">');
-                    console.log(newHiddenInput);
                     $(this).before(newHiddenInput);
                 }
             }
@@ -177,22 +193,22 @@
 
             $('#add-option').click(function() {
                 var inputField = `
-        <div class="options-input">
-            <div class="input-group mb-2">
-                <input name="options[]" type="text" class="form-control" placeholder="Insert option">
-                <div class="form-check ms-2 me-2 mt-2">
-                    <input type="hidden" name="correct_answers[]" value="0">
-                    <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
-                    <label class="form-check-label">Correct</label>
-                </div>
-                <button type="button" class="btn btn-danger remove-option">Remove</button>
+    <div class="options-input">
+        <div class="input-group mb-2">
+            <input name="options[]" type="text" class="form-control" placeholder="Insert option">
+            <div class="form-check ms-2 me-2 mt-2">
+                <input type="hidden" name="correct_answers[]" value="0">
+                <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
+                <label class="form-check-label">Correct</label>
             </div>
-        </div>`;
+            <button type="button" class="btn btn-danger remove-option">Remove</button>
+        </div>
+    </div>`;
                 var newOption = $(inputField);
                 $('#options-container').append(newOption);
-
-                // Menambahkan event listener ke checkbox baru
                 newOption.find('input[type="checkbox"]').change(handleCheckboxChange);
+                limitCheckboxBasedOnAnswerType
+                    ();
             });
 
             $('#options-container').on('click', '.remove-option', function() {
@@ -202,15 +218,14 @@
             $("#save-question").click(function(event) {
                 event.preventDefault();
 
-                // Mengubah teks tombol dan menambahkan animasi loading
                 $(this).html('Sending... <i class="fa fa-spinner fa-spin"></i>');
-                $(this).prop('disabled', true); // Disable tombol untuk mencegah klik berulang
+                $(this).prop('disabled', true);
 
                 var formData = new FormData($("#form-question-create")[0]);
 
-                formData.forEach(function(value, key) {
-                    console.log(key + " : " + value);
-                });
+                // formData.forEach(function(value, key) {
+                //     console.log(key + " : " + value);
+                // });
                 $.ajax({
                     url: '{{ route('dashboard.questions.store', $question->id) }}',
                     type: 'POST',

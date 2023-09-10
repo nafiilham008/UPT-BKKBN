@@ -51,7 +51,15 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="answerType">{{ __('Type of Answer') }}</label>
+                                <select name="answerType" id="answerType" class="form-control">
+                                    <option value="single">{{ __('Single Choice') }}</option>
+                                    <option value="multiple">{{ __('Multiple Choice') }}</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ __('Options') }}</label>
@@ -59,13 +67,12 @@
 
                                     <div class="options-input">
                                         <div class="input-group mb-2">
-                                            <input name="options[]" type="text"
-                                                class="form-control" placeholder="Insert option">
+                                            <input name="options[]" type="text" class="form-control"
+                                                placeholder="Insert option">
                                             <div class="form-check ms-2 me-2 mt-2">
-                                                <input type="hidden" name="correct_answers[]"
-                                                    value="0">
-                                                <input name="correct_answers[]" type="checkbox"
-                                                    class="form-check-input" value="1">
+                                                <input type="hidden" name="correct_answers[]" value="0">
+                                                <input name="correct_answers[]" type="checkbox" class="form-check-input"
+                                                    value="1">
                                                 <label class="form-check-label">Correct</label>
                                             </div>
                                             <button type="button" class="btn btn-danger remove-option">Remove</button>
@@ -77,10 +84,6 @@
                                     Option</button>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -88,7 +91,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <button type="button" id="save-question" class="btn btn-primary ml-1" >
+                    <button type="button" id="save-question" class="btn btn-primary ml-1">
                         <i class="bx bx-check d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Save</span>
                     </button>

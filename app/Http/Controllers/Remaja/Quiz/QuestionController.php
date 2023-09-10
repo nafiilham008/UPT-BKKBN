@@ -66,9 +66,7 @@ class QuestionController extends Controller
                 'description' => 'nullable|string',
             ]);
 
-            $options = $request->options;
             if (count($request->options) !== count($request->correct_answers)) {
-                // Isi array correct_answers dengan 0 (false) untuk setiap elemen yang tidak ada
                 $correctAnswers = array_pad($request->correct_answers, count($request->options), 0);
             } else {
                 $correctAnswers = $request->correct_answers;

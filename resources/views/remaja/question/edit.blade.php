@@ -80,6 +80,16 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="answerType">{{ __('Type of Answer') }}</label>
+                                        <select name="answerType" id="answerType" class="form-control">
+                                            <option value="single">{{ __('Single Choice') }}</option>
+                                            <option value="multiple">{{ __('Multiple Choice') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label>{{ __('Options') }}</label>
                                         <div id="options-container">
                                             @php
@@ -165,9 +175,17 @@
     </script>
     <script>
         $(document).ready(function() {
-            // Fungsi untuk menangani perubahan checkbox
+
             function handleCheckboxChange() {
                 let hiddenInput = $(this).prev('input[type="hidden"]');
+                let answerType = $('#answerType').val();
+
+                if (answerType === 'single') {
+                    if (this.checked) {
+                        $('input[type="checkbox"]').not(this).prop('checked', false);
+                    }
+                }
+
                 if (this.checked) {
                     hiddenInput.remove();
                 } else {
@@ -176,8 +194,15 @@
                 }
             }
 
+            
+            var checkedCount = $('input[type="checkbox"]:checked').length;
 
-            // Menambahkan event listener ke semua checkbox yang sudah ada
+            if (checkedCount > 1) {
+                $('#answerType').val('multiple');
+            } else {
+                $('#answerType').val('single');
+            }
+
             $('input[type="checkbox"]').change(handleCheckboxChange);
 
             $('#add-option').click(function() {
@@ -193,10 +218,10 @@
                 <button type="button" class="btn btn-danger remove-option">Remove</button>
             </div>
         </div>`;
+
                 var newOption = $(inputField);
                 $('#options-container').append(newOption);
 
-                // Menambahkan event listener ke checkbox baru
                 newOption.find('input[type="checkbox"]').change(handleCheckboxChange);
             });
 
@@ -206,6 +231,12 @@
 
             $("#remove-all-options").click(function() {
                 $("#options-container").empty();
+            });
+
+            $('#answerType').change(function() {
+                if ($(this).val() === 'single') {
+                    $('input[type="checkbox"]').prop('checked', false);
+                }
             });
         });
     </script>
