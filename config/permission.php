@@ -239,7 +239,7 @@ return [
             ]
         ],
         [
-            'group' => 'profiletraining',
+            'group' => 'profile training',
             'access' => [
                 'profiletraining view',
                 'profiletraining create',
@@ -293,7 +293,7 @@ return [
             ]
         ],
         [
-            'group' => 'public-information',
+            'group' => 'public information',
             'access' => [
                 'public-information view',
                 'public-information create',
@@ -302,7 +302,7 @@ return [
             ]
         ],
         [
-            'group' => 'standart-operational-procedure',
+            'group' => 'standart operational procedure',
             'access' => [
                 'sop view',
                 'sop create',
@@ -311,7 +311,7 @@ return [
             ]
         ],
         [
-            'group' => 'work-accountability',
+            'group' => 'work accountability',
             'access' => [
                 'work-accountability view',
                 'work-accountability create',
@@ -320,7 +320,7 @@ return [
             ]
         ],
         [
-            'group' => 'button-banner',
+            'group' => 'button banner',
             'access' => [
                 'button-banner view',
                 'button-banner create',
@@ -329,7 +329,7 @@ return [
             ]
         ],
         [
-            'group' => 'service-information',
+            'group' => 'service information',
             'access' => [
                 'service-information view',
                 'service-information create',
@@ -374,7 +374,7 @@ return [
             ]
         ],
         [
-            'group' => 'quiz-category',
+            'group' => 'quiz category',
             'access' => [
                 'quiz-category view',
                 'quiz-category create',
@@ -389,6 +389,18 @@ return [
                 'question create',
                 'question edit',
                 'question delete',
+            ]
+        ],
+        [
+            'group' => 'dashboard user',
+            'access' => [
+                'dashboard-user',
+            ]
+        ],
+        [
+            'group' => 'dashboard admin',
+            'access' => [
+                'dashboard-admin',
             ]
         ],
         // [

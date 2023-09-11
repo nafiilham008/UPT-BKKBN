@@ -68,7 +68,7 @@ Route::prefix('/')->middleware('maintenance')->group(function () {
 });
 
 
-Route::middleware(['auth', 'web'])->group(function () {
+Route::middleware(['auth', 'web', 'permission:dashboard-admin'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -148,8 +148,8 @@ Route::prefix('remaja')->group(function () {
 
     Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
     Route::get('/list', [LandingHomeController::class, 'listGame'])->name('user.list');
-    
-    Route::middleware(['auth-user', 'role:User Remaja'])->group(function () {
+
+    Route::middleware(['auth-user', 'role:User Remaja', 'permission:dashboard-user'])->group(function () {
         Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
         Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
         Route::get('/game/{slug_url}/result/view', [LandingHomeController::class, 'gameResultView'])->name('user.detail.result.view');
@@ -196,4 +196,4 @@ Route::prefix('remaja')->group(function () {
 // Command
 Route::get('/foo', function () {
     Artisan::call('storage:link');
-}); 
+});

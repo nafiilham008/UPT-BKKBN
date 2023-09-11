@@ -19,6 +19,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $roleAdmin = Role::create(['name' => 'Admin']);
         $roleUserRemaja = Role::create(['name' => 'User Remaja']);
+        $roleAdminRemaja = Role::create(['name' => 'Admin Remaja']);
 
         foreach (config('permission.permissions') as $permission) {
             foreach ($permission['access'] as $access) {
@@ -28,9 +29,14 @@ class RoleAndPermissionSeeder extends Seeder
 
         $userAdmin = User::first();
         $userAdmin->assignRole('Admin');
-        $roleAdmin->givePermissionTo(Permission::all());
+        $allPermissions = Permission::all()->pluck('name');
+        $filteredPermissions = $allPermissions->filter(function ($permissionName) {
+            return $permissionName !== 'dashboard-user';
+        });
+        $roleAdmin->givePermissionTo($filteredPermissions);
 
-        $userAdminRemaja = User::find(2);
-        $userAdminRemaja->assignRole('User Remaja');
+
+        // $userAdminRemaja = User::find(2);
+        // $userAdminRemaja->assignRole('User Remaja');
     }
 }
