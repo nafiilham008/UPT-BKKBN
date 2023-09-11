@@ -55,16 +55,19 @@
                                             @enderror
                                         </div>
                                     </div>
+
+
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="url"
-                                                class="form-label">{{ __('URL Video (Youtube)') }}</label>
+                                            <label for="url" class="form-label">{{ __('URL Materi') }}</label>
                                             <input type="text" name="url" id="url"
                                                 value="{{ isset($quiz) ? $quiz->url : old('url') }}"
                                                 class="form-control @error('url') is-invalid @enderror"
                                                 placeholder="{{ __('Insert url') }}" data-parsley-trigger="change"
                                                 data-parsley-required="true"
-                                                data-parsley-required-message="{{ __('Please enter a url') }}">
+                                                data-parsley-required-message="{{ __('Please enter a url') }}"
+                                                data-parsley-pattern="^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|drive\.google\.com\/file\/d\/)[^&]+"
+                                                data-parsley-pattern-message="{{ __('Please enter a valid YouTube or Google Drive URL') }}">
                                             @error('url')
                                                 <span class="text-danger">
                                                     {{ $message }}
@@ -178,11 +181,11 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $('#summernote').summernote(
             'code',
             `{!! $quiz->description !!}`
 
         );
-    </script>
+    </script> --}}
 @endpush

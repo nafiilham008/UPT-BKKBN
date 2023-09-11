@@ -27,13 +27,25 @@
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
                         <div class="px-5 lg:px-44 pt-10 {{ $step === 0 ? '' : 'd-none' }}">
                             @if ($step === 0)
-                                <div class="plyr__video-embed" id="player{{ $step }}"
-                                    style="position: relative;">
-                                    <iframe src="{{ $url }}" frameborder="0" allowfullscreen allowtransparency
-                                        allow="autoplay"
-                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                                </div>
+                                @if (!empty($url))
+                                    @if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false)
+                                        <div class="plyr__video-embed" id="player{{ $step }}"
+                                            style="position: relative;">
+                                            <iframe src="{{ $url }}" frameborder="0" allowfullscreen
+                                                allowtransparency allow="autoplay"
+                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                                        </div>
+                                    @elseif (strpos($url, 'drive.google.com') !== false)
+                                        <iframe src="{{ $url }}" style="width:600px; height:500px;"
+                                            frameborder="0">
+                                        </iframe>
+                                    @else
+                                        <h3>Materi Error</h3>
+                                    @endif
+
+                                @endif
                             @endif
+
                         </div>
 
                         @if (!$currentQuestion)

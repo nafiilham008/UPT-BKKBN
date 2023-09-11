@@ -69,8 +69,6 @@ class HomeController extends Controller
             ->where('user_id', Auth::user()->id)
             ->get();
 
-
-
         $totalCorrectAnswers = 0;
         $totalPoints = 0;
 
@@ -80,26 +78,18 @@ class HomeController extends Controller
         foreach ($uniqueQuestionIds as $questionId) {
             $relatedResults = $results->where('question_id', $questionId);
 
-
             if (count($relatedResults) > 1) { // Multiple choice question
-                $correctCount = $relatedResults->where('is_correct', true)->count(); // Jumlah jawaban yang benar dari user
+                $correctCount = $relatedResults->where('is_correct', true)->count();
 
-                $actualCorrectCount = $relatedResults->count(); // Total jawaban yang benar untuk pertanyaan ini di database (semua opsi yang seharusnya benar)
+                $actualCorrectCount = $relatedResults->count();
 
-                // Hitung presentase kebenaran jawaban user
                 $percentageCorrect = $correctCount / $actualCorrectCount;
 
-
-                // Jika semua jawaban user benar, tambahkan ke total jawaban yang benar
                 if ($percentageCorrect == 1) {
                     $totalCorrectAnswers++;
                 }
 
-                // Tambahkan presentase ke total poin
                 $totalPoints += $percentageCorrect;
-                // $isCorrect = $relatedResults->first()->is_correct;
-                // dd($isCorrect);
-
 
             } else { // Single choice question
                 $isCorrect = $relatedResults->first()->is_correct;
@@ -109,16 +99,14 @@ class HomeController extends Controller
                     $totalCorrectAnswers++;
                     $totalPoints++;
                 }
-                // dd($totalPoints);
 
             }
         }
 
 
-        // $scorePercentage = ($totalCorrectAnswers / count($uniqueQuestionIds)) * 100;
         $scorePercentage = ($totalPoints / count($uniqueQuestionIds)) * 100;
 
-        // dd(count($uniqueQuestionIds));
+
         $finalScore = round($scorePercentage);
 
         $uniqueQuizIds = $results->groupBy('quiz_id')->keys();
@@ -173,19 +161,16 @@ class HomeController extends Controller
             $relatedResults = $results->where('question_id', $questionId);
 
             if (count($relatedResults) > 1) { // Multiple choice question
-                $correctCount = $relatedResults->where('is_correct', true)->count(); // Jumlah jawaban yang benar dari user
+                $correctCount = $relatedResults->where('is_correct', true)->count();
 
-                $actualCorrectCount = $relatedResults->count(); // Total jawaban yang benar untuk pertanyaan ini di database (semua opsi yang seharusnya benar)
+                $actualCorrectCount = $relatedResults->count();
 
-                // Hitung presentase kebenaran jawaban user
                 $percentageCorrect = $correctCount / $actualCorrectCount;
 
-                // Jika semua jawaban user benar, tambahkan ke total jawaban yang benar
                 if ($percentageCorrect == 1) {
                     $totalCorrectAnswers++;
                 }
 
-                // Tambahkan presentase ke total poin
                 $totalPoints += $percentageCorrect;
             } else { // Single choice question
                 $isCorrect = $relatedResults->first()->is_correct;
@@ -196,7 +181,6 @@ class HomeController extends Controller
             }
         }
 
-        // $scorePercentage = ($totalCorrectAnswers / count($uniqueQuestionIds)) * 100;
         $scorePercentage = ($totalPoints / count($uniqueQuestionIds)) * 100;
         $finalScore = round($scorePercentage);
 

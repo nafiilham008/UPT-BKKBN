@@ -162,10 +162,8 @@
             });
 
             $('#exampleModalScrollable').on('shown.bs.modal', function() {
-                // Set semua checkbox di dalam modal menjadi unchecked
                 $('#options-container input[type="checkbox"]').prop('checked', false);
 
-                // Set semua input hidden dengan nama "correct_answers[]" menjadi 0
                 $('#options-container input[name="correct_answers[]"]').val('0');
             });
 

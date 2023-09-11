@@ -61,12 +61,20 @@ class HomeLivewire extends Component
     // Jika ada localStorage
     public function loadData($userAnswers)
     {
-        // Reset the input array
         $this->input = [];
+        $lastQuestionNumber = 0;
 
         foreach ($userAnswers as $entry) {
             $key = $entry[0];
             $value = $entry[1];
+
+            $explodedKey = explode('.', $key);
+            $questionNumber = intval($explodedKey[0]);
+
+            // Update nomor pertanyaan terakhir jika diperlukan
+            if ($questionNumber > $lastQuestionNumber) {
+                $lastQuestionNumber = $questionNumber;
+            }
 
             if (is_array($value)) {
                 foreach ($value as $choice) {
@@ -77,11 +85,13 @@ class HomeLivewire extends Component
             }
         }
 
-        // Update the step
-        $keys = array_keys($this->input);
-        $this->step = count($keys);
+        // dd($lastQuestionNumber);
+        // Update step berdasarkan nomor pertanyaan terakhir
+        $this->step = $lastQuestionNumber;
+
         $this->currentQuestion = $this->questions[$this->step - 1];
     }
+
 
 
 

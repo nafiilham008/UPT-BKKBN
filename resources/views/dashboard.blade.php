@@ -98,6 +98,21 @@
                             </div>
                         </div>
                     @endcan
+                    {{-- <div class="col-12 col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">CEK PDF</h6>
+                                        <iframe
+                                            src="https://drive.google.com/file/d/1-34Q3VI_Ff3DqFfBTtYAQ48XX9hup5hZ/preview"
+                                            style="width:600px; height:500px;" frameborder="0">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
