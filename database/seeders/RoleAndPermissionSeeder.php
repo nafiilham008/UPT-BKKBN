@@ -35,6 +35,17 @@ class RoleAndPermissionSeeder extends Seeder
         });
         $roleAdmin->givePermissionTo($filteredPermissions);
 
+        $permissions = ['dashboard-user'];
+        $roleUserRemaja->givePermissionTo($permissions);
+
+        $permissions = [
+            'dashboard-admin',
+            'question view', 'question create', 'question edit', 'question delete',
+            'quiz-category view', 'quiz-category create', 'quiz-category edit', 'quiz-category delete',
+            'quiz view', 'quiz create', 'quiz edit', 'quiz delete',
+        ];
+        $roleAdminRemaja->givePermissionTo($permissions);
+
 
         // $userAdminRemaja = User::find(2);
         // $userAdminRemaja->assignRole('User Remaja');
