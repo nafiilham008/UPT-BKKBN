@@ -33,7 +33,10 @@ class UserController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $users = User::with('roles:id,name');
+            // $users = User::with('roles:id,name');
+            $users = User::with('roles:id,name')->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'User Remaja');
+            });
 
             return Datatables::of($users)
                 ->editColumn('created_at', function($user){
@@ -135,7 +138,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $attr = $request->validated();
-    
+
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             // Hapus file gambar lama
             if ($user->avatar) {
