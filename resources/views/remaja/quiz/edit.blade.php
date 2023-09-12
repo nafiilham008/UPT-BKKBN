@@ -66,8 +66,8 @@
                                                 placeholder="{{ __('Insert url') }}" data-parsley-trigger="change"
                                                 data-parsley-required="true"
                                                 data-parsley-required-message="{{ __('Please enter a url') }}"
-                                                data-parsley-pattern="^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|drive\.google\.com\/file\/d\/)[^&]+"
-                                                data-parsley-pattern-message="{{ __('Please enter a valid YouTube or Google Drive URL') }}">
+                                                data-parsley-pattern="^(https?:\/\/)?(www\.)?(youtube\.com\/embed\/|drive\.google\.com\/file\/d\/)[^&]+"
+                                                data-parsley-pattern-message="{{ __('Please enter a valid YouTube embed or Google Drive URL') }}">
                                             @error('url')
                                                 <span class="text-danger">
                                                     {{ $message }}
