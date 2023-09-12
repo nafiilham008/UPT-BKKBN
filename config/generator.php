@@ -346,7 +346,8 @@ return [
             'header' => 'Users',
             'permissions' => [
                 'user view',
-                'role & permission view'
+                'role & permission view',
+                'user-remaja view',
             ],
             'menus' => [
                 [
@@ -356,7 +357,8 @@ return [
                     'permission' => null,
                     'permissions' => [
                         'user view',
-                        'role & permission view'
+                        'role & permission view',
+                        'user-remaja view',
                     ],
                     'submenus' => [
                         [
@@ -368,6 +370,11 @@ return [
                             'title' => 'Roles & Permissions',
                             'route' => '/roles',
                             'permission' => 'role & permission view'
+                        ],
+                        [
+                            'title' => 'User Remaja',
+                            'route' => '/user-remaja',
+                            'permission' => 'user-remaja view'
                         ]
                     ]
                 ]

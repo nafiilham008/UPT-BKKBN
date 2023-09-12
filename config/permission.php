@@ -392,9 +392,9 @@ return [
             ]
         ],
         [
-            'group' => 'dashboard user',
+            'group' => 'user remaja',
             'access' => [
-                'dashboard-user',
+                'user-remaja view',
             ]
         ],
         [
