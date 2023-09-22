@@ -201,10 +201,9 @@
                 }
 
                 if (this.checked) {
-                    hiddenInput.remove();
+                    hiddenInput.attr('disabled', 'disabled');
                 } else {
-                    let newHiddenInput = $('<input type="hidden" name="correct_answers[]" value="0">');
-                    $(this).before(newHiddenInput);
+                    hiddenInput.removeAttr('disabled');
                 }
             }
 
