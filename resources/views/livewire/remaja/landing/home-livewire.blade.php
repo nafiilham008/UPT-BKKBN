@@ -60,28 +60,28 @@
                                         {{ $currentQuestion->question }}</h1>
                                     <div class="flex justify-center items-center gap-5 mt-6">
                                         @if ($currentQuestion->image)
-                                            <div class="w-[162px] h-[144px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
+                                            <div class="w-[400px] h-[400px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
                                                 style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
                                                 <img src="{{ asset('storage/' . $currentQuestion->image) }}"
-                                                    alt="">
+                                                    class="max-h-[375px] max-w-full" alt="">
                                             </div>
                                         @endif
                                     </div>
-                                    <div class="flex justify-center items-center gap-5 mt-6">
+                                    <div class="px-10 mt-6">
                                         @foreach (json_decode($currentQuestion->options, true) as $option)
                                             @if (count(array_filter(json_decode($currentQuestion->options, true), function ($opt) {
                                                         return $opt['is_correct'] == '1';
                                                     })) > 1)
                                                 <!-- Keterangan untuk multiple choice -->
                                                 @if ($loop->first)
-                                                    <p>Silahkan pilih jawaban yang menurut Anda benar, dapat lebih dari
+                                                    <p class="mb-5">Silahkan pilih jawaban yang menurut Anda benar, dapat lebih dari
                                                         satu pilihan.
                                                     </p>
                                                 @endif
 
                                                 <!-- Checkbox untuk multiple choice -->
                                                 <label>
-                                                    <input type="checkbox"
+                                                    <input type="checkbox" class="hidden"
                                                         name="answer[{{ $currentQuestion->id }}][{{ $option['value'] }}]"
                                                         wire:model="input.{{ $currentQuestion->id }}.{{ $option['value'] }}"
                                                         value="{{ $option['value'] }}"
@@ -89,13 +89,14 @@
                                                                 isset($input[$currentQuestion->id][$option['value']]) &&
                                                                 $input[$currentQuestion->id][$option['value']] === $option['value']
                                                         ) checked @endif>
-
-                                                    {{ $option['value'] }}
+                                                    <div class="custom-checkbox mb-5 bg-[#FAEBBE] text-center w-full px-4 py-2 h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                                                        {{ $option['value'] }}
+                                                    </div>
                                                 </label>
                                             @else
                                                 <!-- Keterangan untuk single choice -->
                                                 @if ($loop->first)
-                                                    <p>Silahkan pilih satu jawaban yang menurut Anda benar.</p>
+                                                    <p class="mb-5">Silahkan pilih satu jawaban yang menurut Anda benar.</p>
                                                 @endif
 
                                                 <!-- Radio untuk single choice -->
@@ -105,7 +106,7 @@
                                                         value="{{ $option['value'] }}"
                                                         @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
                                                     <div
-                                                        class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                                                        class="custom-radio mb-5 bg-[#FAEBBE] text-center w-full px-4 py-2 h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
                                                         {{ $option['value'] }}
                                                     </div>
                                                 </label>
@@ -284,6 +285,14 @@
         }
 
         input[type="radio"]:checked+.custom-radio {
+            background-color: #FFBF00;
+        }
+        .custom-checkbox {
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]:checked+.custom-checkbox {
             background-color: #FFBF00;
         }
     </style>
