@@ -71,7 +71,7 @@
                                                 placeholder="Insert option">
                                             <div class="form-check ms-2 me-2 mt-2">
                                                 <input type="hidden" name="correct_answers[]" value="0">
-                                                <input type="checkbox" class="form-check-input">
+                                                <input type="checkbox" name="correct_answers[]" class="form-check-input"value="1">
                                                 <label class="form-check-label">Correct</label>
                                             </div>
                                             <button type="button" class="btn btn-danger remove-option">Remove</button>

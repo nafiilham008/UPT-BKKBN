@@ -163,51 +163,71 @@
 
             $('#exampleModalScrollable').on('shown.bs.modal', function() {
                 $('#options-container input[type="checkbox"]').prop('checked', false);
-
-                $('#options-container input[name="correct_answers[]"]').val('0');
+                $('#options-container input[name^="correct_answers"]').val('0');
+                $('#options-container .options-input:first .remove-option').attr('disabled', true);
             });
-
 
             function limitCheckboxBasedOnAnswerType() {
                 let answerType = $('#answerType').val();
+
                 if (answerType === 'single') {
-                    $('input[name="correct_answers[]"]').change(function() {
-                        if ($(this).prop('checked')) {
-                            $('input[name="correct_answers[]"]').not(this).prop('checked', false);
-                        }
-                    });
-                } else {
-                    $('input[name="correct_answers[]"]').off('change');
+                    if (this.checked) {
+                        $('input[type="checkbox"]').not(this).prop('checked', false);
+                    }
                 }
+
+                // Jangan lakukan tindakan apa pun jika jenis jawaban adalah "multiple"
             }
 
-            $('#answerType').change(limitCheckboxBasedOnAnswerType);
+            $('input[type="checkbox"]').change(limitCheckboxBasedOnAnswerType);
 
             $('#add-option').click(function() {
                 var inputField = `
-    <div class="options-input">
-        <div class="input-group mb-2">
-            <input name="options[]" type="text" class="form-control" placeholder="Insert option">
-            <div class="form-check ms-2 me-2 mt-2">
-                <input type="hidden" name="correct_answers[]" value="0">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label">Correct</label>
+        <div class="options-input">
+            <div class="input-group mb-2">
+                <input name="options[]" type="text" class="form-control" placeholder="Insert option">
+                <div class="form-check ms-2 me-2 mt-2">
+                    <input type="hidden" name="correct_answers[]" value="0">
+                    <input type="checkbox" name="correct_answers[]" class="form-check-input" value="1">
+                    <label class="form-check-label">Correct</label>
+                </div>
+                <button type="button" class="btn btn-danger remove-option">Remove</button>
             </div>
-            <button type="button" class="btn btn-danger remove-option">Remove</button>
-        </div>
-    </div>`;
+        </div>`;
+
                 var newOption = $(inputField);
+
+                var index = $('.options-input').length;
+
+                newOption.find('input[name="options[]"]').attr('name', 'options[' + index + ']');
+                newOption.find('input[name^="correct_answers"]').each(function() {
+                    $(this).attr('name', 'correct_answers[' + index + ']');
+                });
+
                 $('#options-container').append(newOption);
-                limitCheckboxBasedOnAnswerType();
+                newOption.find('input[type="checkbox"]').change(limitCheckboxBasedOnAnswerType);
+                newOption.find('.remove-option').removeAttr('disabled');
+
+            });
+
+            $('#answerType').change(function() {
+                if ($(this).val() === 'single') {
+                    $('input[type="checkbox"]').prop('checked', false);
+                } else {
+                    $('input[name^="correct_answers"]').val('0');
+                }
             });
 
             $('#options-container').on('change', 'input[type="checkbox"]', function() {
-                if ($(this).prop('checked')) {
-                    $(this).prev('input[type="hidden"]').val('1');
-                } else {
-                    $(this).prev('input[type="hidden"]').val('0');
-                }
+                $(this).closest('.options-input').find('input[type="hidden"]').val($(this).prop('checked') ?
+                    '1' : '0');
             });
+
+            $('#options-container').on('click', '.remove-option', function() {
+                $(this).closest('.options-input').remove();
+            });
+
+
 
             $("#save-question").click(function(event) {
                 event.preventDefault();
@@ -217,9 +237,9 @@
 
                 var formData = new FormData($("#form-question-create")[0]);
 
-                // formData.forEach(function(value, key) {
-                //     console.log(key + " : " + value);
-                // });
+                formData.forEach(function(value, key) {
+                    console.log(key + " : " + value);
+                });
                 $.ajax({
                     url: '{{ route('dashboard.questions.store', $question->id) }}',
                     type: 'POST',
