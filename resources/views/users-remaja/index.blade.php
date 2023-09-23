@@ -46,7 +46,7 @@
                                             <th>{{ __('Total Score') }}</th>
                                             <th>{{ __('Created At') }}</th>
                                             <th>{{ __('Updated At') }}</th>
-                                            {{-- <th>{{ __('Action') }}</th> --}}
+                                            <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -117,6 +117,12 @@
                     orderable: true,
                     searchable:false
                 },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }
             ],
         });
     </script>

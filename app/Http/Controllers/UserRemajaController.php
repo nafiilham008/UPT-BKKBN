@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\Excel\UsersExport;
+use App\Models\Remaja\Ranking;
+use App\Models\Remaja\ResultAnswer;
+use App\Models\Remaja\ResultQuiz;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -30,6 +33,7 @@ class UserRemajaController extends Controller
                 ->addColumn('total_score', function ($user) {
                     return $user->ranking->final_score ?? 0;
                 })
+                ->addColumn('action', 'users-remaja.include.action')
                 ->addColumn('quizzes', function ($user) {
                     return $user->results->count();
                 })
@@ -42,5 +46,24 @@ class UserRemajaController extends Controller
     public function exportToExcel()
     {
         return Excel::download(new UsersExport, 'users-remaja.xlsx');
+    }
+
+    public function resetQuiz($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            if (!$user) {
+                return redirect()->route('dashboard.user-remajas.index')->with('error', 'User id is empty!');
+
+            }
+
+            ResultQuiz::where('user_id', $id)->delete();
+            ResultAnswer::where('user_id', $id)->delete();
+            Ranking::where('user_id', $id)->delete();
+
+            return redirect()->route('dashboard.user-remajas.index')->with('success', 'The User has been reset');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.user-remajas.index')->withErrors(['error' => 'Failed to reset user: ' . $e->getMessage()]);
+        }
     }
 }

@@ -138,6 +138,7 @@ Route::middleware(['auth', 'web', 'permission:dashboard-admin'])->group(function
         Route::resource('quiz', QuizController::class)->names('dashboard.quizzes');
 
         Route::get('/user-remaja', [UserRemajaController::class, 'index'])->name('dashboard.user-remajas.index');
+        Route::get('/user-remaja/{id}/reset', [UserRemajaController::class, 'resetQuiz'])->name('dashboard.user-remajas.reset');
 
         Route::get('/users-remaja/export', [UserRemajaController::class, 'exportToExcel'])->name('dashboard.user-remajas.export');
 
