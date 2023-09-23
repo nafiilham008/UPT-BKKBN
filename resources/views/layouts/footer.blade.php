@@ -17,7 +17,12 @@
         <script src="{{ asset('mazer') }}/js/app.js"></script>
         <script src="{{ asset('mazer') }}/js/bootstrap.js"></script>
         <script src="{{ asset('mazer') }}/extensions/jquery/jquery.min.js"></script>
-        
+        <script>
+            setTimeout(function() {
+                var errorMessage = document.getElementById('popup-message');
+                errorMessage.style.display = 'none';
+            }, 3000);
+        </script>
 
 
         @stack('js')
