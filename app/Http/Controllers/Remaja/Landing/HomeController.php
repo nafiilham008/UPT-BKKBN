@@ -81,16 +81,10 @@ class HomeController extends Controller
             if (count($relatedResults) > 1) { // Multiple choice question
                 $correctCount = $relatedResults->where('is_correct', true)->count();
 
-                $actualCorrectCount = $relatedResults->count();
-
-                $percentageCorrect = $correctCount / $actualCorrectCount;
-
-                if ($percentageCorrect == 1) {
+                if ($correctCount == count($relatedResults)) {
                     $totalCorrectAnswers++;
+                    $totalPoints++;
                 }
-
-                $totalPoints += $percentageCorrect;
-
             } else { // Single choice question
                 $isCorrect = $relatedResults->first()->is_correct;
 
@@ -99,7 +93,6 @@ class HomeController extends Controller
                     $totalCorrectAnswers++;
                     $totalPoints++;
                 }
-
             }
         }
 
@@ -163,18 +156,15 @@ class HomeController extends Controller
             if (count($relatedResults) > 1) { // Multiple choice question
                 $correctCount = $relatedResults->where('is_correct', true)->count();
 
-                $actualCorrectCount = $relatedResults->count();
-
-                $percentageCorrect = $correctCount / $actualCorrectCount;
-
-                if ($percentageCorrect == 1) {
+                if ($correctCount == count($relatedResults)) {
                     $totalCorrectAnswers++;
+                    $totalPoints++;
                 }
-
-                $totalPoints += $percentageCorrect;
             } else { // Single choice question
                 $isCorrect = $relatedResults->first()->is_correct;
+
                 if ($isCorrect) {
+                    // dd('cek');
                     $totalCorrectAnswers++;
                     $totalPoints++;
                 }
@@ -199,7 +189,9 @@ class HomeController extends Controller
 
         $all = Ranking::with('users')
             ->whereNotIn('id', $topRankingIds)
+            ->orderByDesc('final_score')
             ->get();
+
 
 
         $totalQuiz = ResultAnswer::select('user_id', DB::raw('count(distinct quiz_id) as total_quiz'))

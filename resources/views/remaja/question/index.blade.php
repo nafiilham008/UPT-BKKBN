@@ -267,11 +267,15 @@
                             alert(xhr.responseJSON.error);
                             $('#table-question').DataTable().ajax.reload();
                             $("#form-question-create").trigger('reset');
+                            $("#exampleModalScrollable").modal("hide");
+
                         } else {
                             console.log("Terjadi kesalahan: " + error);
                             alert(error);
                             $('#table-question').DataTable().ajax.reload();
                             $("#form-question-create").trigger('reset');
+                            $("#exampleModalScrollable").modal("hide");
+
                         }
                     },
                     complete: function() {
