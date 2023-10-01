@@ -1,5 +1,7 @@
 * text=auto
+*.blade.php linguist-detectable=false
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
+*.less linguist-detectable=false
 CHANGELOG.md export-ignore
