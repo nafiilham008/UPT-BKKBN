@@ -1,6 +1,6 @@
 @extends('layouts.remaja.front.app')
 
-@section('title', __('score'))
+@section('title', __('Peringkat'))
 
 @section('content')
     <div>

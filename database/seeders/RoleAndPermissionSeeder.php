@@ -19,6 +19,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $roleAdmin = Role::create(['name' => 'Admin']);
         $roleUserRemaja = Role::create(['name' => 'User Remaja']);
+        $roleAdminRemaja = Role::create(['name' => 'Admin Remaja']);
 
         foreach (config('permission.permissions') as $permission) {
             foreach ($permission['access'] as $access) {
@@ -30,7 +31,29 @@ class RoleAndPermissionSeeder extends Seeder
         $userAdmin->assignRole('Admin');
         $roleAdmin->givePermissionTo(Permission::all());
 
-        $userAdminRemaja = User::find(2);
-        $userAdminRemaja->assignRole('User Remaja');
+        // $userAdmin->assignRole('Admin');
+        // $allPermissions = Permission::all()->pluck('name');
+        // $filteredPermissions = $allPermissions->filter(function ($permissionName) {
+        //     return $permissionName !== 'dashboard-user';
+        // });
+        // $roleAdmin->givePermissionTo($filteredPermissions);
+
+        // $permissions = ['dashboard-user'];
+        // $roleUserRemaja->givePermissionTo($permissions);
+
+        $adminRemaja = User::find(2);
+        $adminRemaja->assignRole('Admin Remaja');
+        $permissions = [
+            'dashboard-admin',
+            'question view', 'question create', 'question edit', 'question delete',
+            'quiz-category view', 'quiz-category create', 'quiz-category edit', 'quiz-category delete',
+            'quiz view', 'quiz create', 'quiz edit', 'quiz delete',
+            'user-remaja view'
+        ];
+        $roleAdminRemaja->givePermissionTo($permissions);
+
+
+        // $userAdminRemaja = User::find(2);
+        // $userAdminRemaja->assignRole('User Remaja');
     }
 }

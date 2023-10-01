@@ -69,38 +69,53 @@ class HomeController extends Controller
             ->where('user_id', Auth::user()->id)
             ->get();
 
-
         $totalCorrectAnswers = 0;
         $totalPoints = 0;
 
-        foreach ($results as $result) {
-            if ($result->is_correct) {
-                $totalCorrectAnswers++;
-                $totalPoints += $result->points;
+        // Dapatkan semua ID pertanyaan unik dari hasil
+        $uniqueQuestionIds = $results->pluck('question_id')->unique();
+
+        foreach ($uniqueQuestionIds as $questionId) {
+            $relatedResults = $results->where('question_id', $questionId);
+
+            if (count($relatedResults) > 1) { // Multiple choice question
+                $correctCount = $relatedResults->where('is_correct', true)->count();
+
+                if ($correctCount == count($relatedResults)) {
+                    $totalCorrectAnswers++;
+                    $totalPoints++;
+                }
+            } else { // Single choice question
+                $isCorrect = $relatedResults->first()->is_correct;
+
+                if ($isCorrect) {
+                    // dd('cek');
+                    $totalCorrectAnswers++;
+                    $totalPoints++;
+                }
             }
         }
 
-        $scorePercentage = ($totalCorrectAnswers / count($results)) * 100;
+
+        $scorePercentage = ($totalPoints / count($uniqueQuestionIds)) * 100;
+
+
         $finalScore = round($scorePercentage);
 
         $uniqueQuizIds = $results->groupBy('quiz_id')->keys();
-
-
         foreach ($uniqueQuizIds as $quizId) {
             $checkResultQuiz = ResultQuiz::where('user_id', Auth::user()->id)
                 ->where('quiz_id', $quizId)
                 ->first();
 
             if (!$checkResultQuiz) {
-                $resultQuiz = new ResultQuiz();
-                $resultQuiz->user_id = Auth::user()->id;
-                $resultQuiz->quiz_id = $quizId;
-                $resultQuiz->score = $finalScore;
-                $resultQuiz->created_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
-                $resultQuiz->updated_at = now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s');
+                $resultQuiz = new ResultQuiz([
+                    'user_id' => Auth::user()->id,
+                    'quiz_id' => $quizId,
+                    'score' => $finalScore,
+                ]);
 
                 $resultQuiz->save();
-
                 $this->saveScore($finalScore);
             }
         }
@@ -110,25 +125,14 @@ class HomeController extends Controller
 
     public function saveScore($finalScore)
     {
-        // save coba
         $userId = Auth::id();
-        $ranking = Ranking::where('user_id', $userId)
-            ->first();
+        $ranking = Ranking::firstOrNew(['user_id' => $userId]);
 
-        // dd($ranking);p
-
-
-        if ($ranking) {
-            $ranking->final_score += $finalScore;
-        } else {
-            // dd('no');
-            $ranking = new Ranking();
-            $ranking->final_score = $finalScore;
-            $ranking->user_id = $userId;
-        }
-
+        $ranking->final_score += $finalScore;
         $ranking->save();
     }
+
+
 
     public function gameResultView($slug_url)
     {
@@ -143,19 +147,36 @@ class HomeController extends Controller
         $totalCorrectAnswers = 0;
         $totalPoints = 0;
 
-        foreach ($results as $result) {
-            if ($result->is_correct) {
-                $totalCorrectAnswers++;
-                $totalPoints += $result->points;
+        // Dapatkan semua ID pertanyaan unik dari hasil
+        $uniqueQuestionIds = $results->pluck('question_id')->unique();
+
+        foreach ($uniqueQuestionIds as $questionId) {
+            $relatedResults = $results->where('question_id', $questionId);
+
+            if (count($relatedResults) > 1) { // Multiple choice question
+                $correctCount = $relatedResults->where('is_correct', true)->count();
+
+                if ($correctCount == count($relatedResults)) {
+                    $totalCorrectAnswers++;
+                    $totalPoints++;
+                }
+            } else { // Single choice question
+                $isCorrect = $relatedResults->first()->is_correct;
+
+                if ($isCorrect) {
+                    // dd('cek');
+                    $totalCorrectAnswers++;
+                    $totalPoints++;
+                }
             }
         }
 
-        $scorePercentage = ($totalCorrectAnswers / count($results)) * 100;
+        $scorePercentage = ($totalPoints / count($uniqueQuestionIds)) * 100;
         $finalScore = round($scorePercentage);
-
 
         return view('remaja.front.nilai', compact('results', 'totalCorrectAnswers', 'totalPoints', 'finalScore'));
     }
+
 
     public function ranking()
     {
@@ -168,7 +189,9 @@ class HomeController extends Controller
 
         $all = Ranking::with('users')
             ->whereNotIn('id', $topRankingIds)
+            ->orderByDesc('final_score')
             ->get();
+
 
 
         $totalQuiz = ResultAnswer::select('user_id', DB::raw('count(distinct quiz_id) as total_quiz'))

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Remaja\DetailUser;
 use App\Models\Remaja\Question;
+use App\Models\Remaja\Ranking;
+use App\Models\Remaja\ResultQuiz;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -70,4 +72,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Question::class, 'id', 'user_id');
     }
+
+    public function results() {
+        return $this->hasMany(ResultQuiz::class, 'user_id', 'id');
+    }
+
+    public function ranking() {
+        return $this->hasOne(Ranking::class, 'user_id', 'id');
+    }
+
 }

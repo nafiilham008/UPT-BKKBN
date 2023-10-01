@@ -8,7 +8,8 @@ use App\Http\Controllers\{
     UserController,
     ProfileController,
     RemoveMediaController,
-    RoleAndPermissionController
+    RoleAndPermissionController,
+    UserRemajaController
 };
 use App\Http\Controllers\Download\MaterialController;
 use App\Http\Controllers\Download\PublicInformationController;
@@ -68,7 +69,7 @@ Route::prefix('/')->middleware('maintenance')->group(function () {
 });
 
 
-Route::middleware(['auth', 'web'])->group(function () {
+Route::middleware(['auth', 'web', 'permission:dashboard-admin'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Route::get('/', fn () => view('dashboard'));
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -135,6 +136,14 @@ Route::middleware(['auth', 'web'])->group(function () {
 
         // Route::get('/quiz/{id}/questions/create', [QuestionController::class, 'create'])->name('dashboard.questions.create');
         Route::resource('quiz', QuizController::class)->names('dashboard.quizzes');
+
+        Route::get('/user-remaja', [UserRemajaController::class, 'index'])->name('dashboard.user-remajas.index');
+        Route::get('/user-remaja/{id}/reset', [UserRemajaController::class, 'resetQuiz'])->name('dashboard.user-remajas.reset');
+
+        Route::get('/users-remaja/export', [UserRemajaController::class, 'exportToExcel'])->name('dashboard.user-remajas.export');
+
+        // Route::get('/user-remaja/detail', [UserRemajaController::class, 'index'])->name('dashboard.user-remajas.detail');
+
     });
 
     // Highlights
@@ -148,7 +157,7 @@ Route::prefix('remaja')->group(function () {
 
     Route::get('/', [LandingHomeController::class, 'index'])->name('user.index');
     Route::get('/list', [LandingHomeController::class, 'listGame'])->name('user.list');
-    
+
     Route::middleware(['auth-user', 'role:User Remaja'])->group(function () {
         Route::get('/game/{slug_url}', [LandingHomeController::class, 'gameDetail'])->name('user.detail.game');
         Route::get('/game/{slug_url}/result', [LandingHomeController::class, 'gameResult'])->name('user.detail.result');
@@ -196,4 +205,4 @@ Route::prefix('remaja')->group(function () {
 // Command
 Route::get('/foo', function () {
     Artisan::call('storage:link');
-}); 
+});

@@ -149,7 +149,7 @@ class AuthController extends Controller
         $newUser->detailUser()->save($detailUser->fill(['user_id' => $newUser->id]));
 
         $newUser->assignRole('User Remaja');
-        // dd($verificationCodeUrlSafe); 
+        // dd($verificationCodeUrlSafe);
 
         // Mengirim email verifikasi
         // $job = new SendVerificationCodeEmail($newUser, $verificationCode);

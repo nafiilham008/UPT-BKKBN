@@ -80,6 +80,30 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="answerType">{{ __('Type of Answer') }}</label>
+                                        <select name="answerType" id="answerType" class="form-control">
+                                            <option value="single">{{ __('Single Choice') }}</option>
+                                            <option value="multiple">{{ __('Multiple Choice') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="description" class="form-label">{{ __('Description') }}</label>
+                                        <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                            placeholder="{{ __('Insert Description') }}" data-parsley-trigger="change" data-parsley-required="false"
+                                            rows="4">{!! isset($question) ? $question->description : old('description') !!}</textarea>
+                                        @error('description')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label>{{ __('Options') }}</label>
                                         <div id="options-container">
                                             @php
@@ -88,21 +112,24 @@
                                             @foreach ($options as $index => $option)
                                                 <div class="options-input">
                                                     <div class="input-group mb-2">
-                                                        <input name="options[]" id="options" type="text"
-                                                            class="form-control" placeholder="Insert option"
+                                                        <input name="options[{{ $index }}]" id="options"
+                                                            type="text" class="form-control" placeholder="Insert option"
                                                             value="{{ $option['value'] }}">
                                                         <div class="form-check ms-2 me-2 mt-2">
-                                                            <input name="correct_answers[]" id="correct_answers"
-                                                                type="checkbox" class="form-check-input" value="1"
+                                                            <input type="hidden"
+                                                                name="correct_answers[{{ $index }}]" value="0">
+                                                            <input name="correct_answers[{{ $index }}]"
+                                                                id="correct_answers" type="checkbox"
+                                                                class="form-check-input" value="1"
                                                                 {{ $option['is_correct'] ? 'checked' : '' }}>
                                                             <label class="form-check-label">Correct</label>
                                                         </div>
-                                                        <input type="hidden" name="correct_answers[]" value="0">
                                                         <button type="button"
                                                             class="btn btn-danger remove-option">Remove</button>
                                                     </div>
                                                 </div>
                                             @endforeach
+
                                         </div>
                                         <button type="button" id="add-option" class="btn btn-success btn-sm mt-2">Add
                                             Option</button>
@@ -162,49 +189,68 @@
     </script>
     <script>
         $(document).ready(function() {
-            function updateAddOptionButtonVisibility() {
-                var totalOptions = $('.options-input').length;
-                if (totalOptions >= 2) {
-                    $('#add-option').hide();
+
+            function handleCheckboxChange() {
+                let hiddenInput = $(this).prev('input[type="hidden"]');
+                let answerType = $('#answerType').val();
+
+                if (answerType === 'single') {
+                    if (this.checked) {
+                        $('input[type="checkbox"]').not(this).prop('checked', false);
+                    }
+                }
+
+                if (this.checked) {
+                    hiddenInput.attr('disabled', 'disabled');
                 } else {
-                    $('#add-option').show();
+                    hiddenInput.removeAttr('disabled');
                 }
             }
 
+
+            var checkedCount = $('input[type="checkbox"]:checked').length;
+
+            if (checkedCount > 1) {
+                $('#answerType').val('multiple');
+            } else {
+                $('#answerType').val('single');
+            }
+
+            $('input[type="checkbox"]').change(handleCheckboxChange);
+
             $('#add-option').click(function() {
-                var totalOptions = $('.options-input').length;
+                var inputField = `
+        <div class="options-input">
+            <div class="input-group mb-2">
+                <input name="options[]" type="text" class="form-control" placeholder="Insert option">
+                <div class="form-check ms-2 me-2 mt-2">
+                    <input type="hidden" name="correct_answers[]" value="0">
+                    <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
+                    <label class="form-check-label">Correct</label>
+                </div>
+                <button type="button" class="btn btn-danger remove-option">Remove</button>
+            </div>
+        </div>`;
 
-                if (totalOptions < 2) {
-                    var inputField = `
-                <div class="options-input">
-                    <div class="input-group mb-2">
-                        <input name="options[]" type="text" class="form-control" placeholder="Insert option">
-                        <div class="form-check ms-2 me-2 mt-2">
-                            <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
-                            <label class="form-check-label">Correct</label>
-                        </div>
-                        <input type="hidden" name="correct_answers[]" value="0">
-                        <button type="button" class="btn btn-danger remove-option">Remove</button>
-                    </div>
-                </div>`;
-                    $('#options-container').append(inputField);
-                }
+                var newOption = $(inputField);
+                $('#options-container').append(newOption);
 
-                updateAddOptionButtonVisibility();
+                newOption.find('input[type="checkbox"]').change(handleCheckboxChange);
             });
 
             $('#options-container').on('click', '.remove-option', function() {
                 $(this).closest('.options-input').remove();
-                updateAddOptionButtonVisibility();
             });
 
             $("#remove-all-options").click(function() {
                 $("#options-container").empty();
-                updateAddOptionButtonVisibility();
             });
 
-            // Check visibility of the "Add Option" button on page load
-            updateAddOptionButtonVisibility();
+            $('#answerType').change(function() {
+                if ($(this).val() === 'single') {
+                    $('input[type="checkbox"]').prop('checked', false);
+                }
+            });
         });
     </script>
 @endpush

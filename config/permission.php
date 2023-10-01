@@ -239,7 +239,7 @@ return [
             ]
         ],
         [
-            'group' => 'profiletraining',
+            'group' => 'profile training',
             'access' => [
                 'profiletraining view',
                 'profiletraining create',
@@ -293,7 +293,7 @@ return [
             ]
         ],
         [
-            'group' => 'public-information',
+            'group' => 'public information',
             'access' => [
                 'public-information view',
                 'public-information create',
@@ -302,7 +302,7 @@ return [
             ]
         ],
         [
-            'group' => 'standart-operational-procedure',
+            'group' => 'standart operational procedure',
             'access' => [
                 'sop view',
                 'sop create',
@@ -311,7 +311,7 @@ return [
             ]
         ],
         [
-            'group' => 'work-accountability',
+            'group' => 'work accountability',
             'access' => [
                 'work-accountability view',
                 'work-accountability create',
@@ -320,7 +320,7 @@ return [
             ]
         ],
         [
-            'group' => 'button-banner',
+            'group' => 'button banner',
             'access' => [
                 'button-banner view',
                 'button-banner create',
@@ -329,7 +329,7 @@ return [
             ]
         ],
         [
-            'group' => 'service-information',
+            'group' => 'service information',
             'access' => [
                 'service-information view',
                 'service-information create',
@@ -364,33 +364,45 @@ return [
                 'structure delete',
             ]
         ],
-        // [
-        //     'group' => 'quiz',
-        //     'access' => [
-        //         'quiz view',
-        //         'quiz create',
-        //         'quiz edit',
-        //         'quiz delete',
-        //     ]
-        // ],
-        // [
-        //     'group' => 'quiz-category',
-        //     'access' => [
-        //         'quiz-category view',
-        //         'quiz-category create',
-        //         'quiz-category edit',
-        //         'quiz-category delete',
-        //     ]
-        // ],
-        // [
-        //     'group' => 'question',
-        //     'access' => [
-        //         'question view',
-        //         'question create',
-        //         'question edit',
-        //         'question delete',
-        //     ]
-        // ],
+        [
+            'group' => 'quiz',
+            'access' => [
+                'quiz view',
+                'quiz create',
+                'quiz edit',
+                'quiz delete',
+            ]
+        ],
+        [
+            'group' => 'quiz category',
+            'access' => [
+                'quiz-category view',
+                'quiz-category create',
+                'quiz-category edit',
+                'quiz-category delete',
+            ]
+        ],
+        [
+            'group' => 'question',
+            'access' => [
+                'question view',
+                'question create',
+                'question edit',
+                'question delete',
+            ]
+        ],
+        [
+            'group' => 'user remaja',
+            'access' => [
+                'user-remaja view',
+            ]
+        ],
+        [
+            'group' => 'dashboard admin',
+            'access' => [
+                'dashboard-admin',
+            ]
+        ],
         // [
         //     'group' => 'tests',
         //     'access' => [

@@ -25,10 +25,6 @@
 
             @can('question create')
                 <div class="d-flex justify-content-end">
-                    {{-- <a href="{{ route('dashboard.questions.create', $quiz->id) }}" class="btn btn-primary mb-3">
-                <i class="fas fa-plus"></i>
-                {{ __('Create a new question') }}
-            </a> --}}
                     <button id="add-question" class="btn btn-primary mb-3" data-bs-toggle="modal"
                         data-bs-target="#exampleModalScrollable">
                         <i class="fas fa-plus"></i>
@@ -110,15 +106,38 @@
                         <img src="${data}" alt="avatar">
                     </div>`;
                             } else {
-                                return data; // If data is empty or '-', it will show the defaultContent "-"
+                                return data;
                             }
                         }
                     },
                     {
                         data: 'options',
                         name: 'options',
-                        defaultContent: '-'
+                        defaultContent: '-',
+                        render: function(data, type, full, meta) {
+                            if (data) {
+                                try {
+                                    // menyesuaikan format json
+                                    let cleanedData = data.replace(/&quot;/g, '"');
+                                    let parsedData = JSON.parse(cleanedData);
+                                    return parsedData.map(option => {
+                                        let isCorrect = option.is_correct === '1' || option
+                                            .is_correct === true;
+                                        let label = isCorrect ?
+                                            '<span style="color:#198754;"><strong>benar</strong></span>' :
+                                            '<span style="color:#dc3545;"><strong>salah</strong></span>';
+                                        return `&bull; ${option.value} (${label})`;
+                                    }).join('<br>');
+                                } catch (e) {
+                                    console.error(e);
+                                    return data;
+                                }
+                            } else {
+                                return '-';
+                            }
+                        }
                     },
+
                     {
                         data: 'created_at',
                         name: 'created_at',
@@ -136,21 +155,91 @@
                         searchable: false
                     }
                 ],
-                // order: [
-                //     [2,
-                //         'desc'
-                //     ] // mengurutkan berdasarkan kolom ke-2 (graduation_year) secara descending
-                // ],
                 drawCallback: function(settings) {
                     // menghilangkan notifikasi
                     $('.alert').hide();
                 }
             });
 
+            $('#exampleModalScrollable').on('shown.bs.modal', function() {
+                $('#options-container input[type="checkbox"]').prop('checked', false);
+                $('#options-container input[name^="correct_answers"]').val('0');
+                $('#options-container .options-input:first .remove-option').attr('disabled', true);
+            });
+
+            function limitCheckboxBasedOnAnswerType() {
+                let answerType = $('#answerType').val();
+
+                if (answerType === 'single') {
+                    if (this.checked) {
+                        $('input[type="checkbox"]').not(this).prop('checked', false);
+                    }
+                }
+
+                // Jangan lakukan tindakan apa pun jika jenis jawaban adalah "multiple"
+            }
+
+            $('input[type="checkbox"]').change(limitCheckboxBasedOnAnswerType);
+
+            $('#add-option').click(function() {
+                var inputField = `
+        <div class="options-input">
+            <div class="input-group mb-2">
+                <input name="options[]" type="text" class="form-control" placeholder="Insert option">
+                <div class="form-check ms-2 me-2 mt-2">
+                    <input type="hidden" name="correct_answers[]" value="0">
+                    <input type="checkbox" name="correct_answers[]" class="form-check-input" value="1">
+                    <label class="form-check-label">Correct</label>
+                </div>
+                <button type="button" class="btn btn-danger remove-option">Remove</button>
+            </div>
+        </div>`;
+
+                var newOption = $(inputField);
+
+                var index = $('.options-input').length;
+
+                newOption.find('input[name="options[]"]').attr('name', 'options[' + index + ']');
+                newOption.find('input[name^="correct_answers"]').each(function() {
+                    $(this).attr('name', 'correct_answers[' + index + ']');
+                });
+
+                $('#options-container').append(newOption);
+                newOption.find('input[type="checkbox"]').change(limitCheckboxBasedOnAnswerType);
+                newOption.find('.remove-option').removeAttr('disabled');
+
+            });
+
+            $('#answerType').change(function() {
+                if ($(this).val() === 'single') {
+                    $('input[type="checkbox"]').prop('checked', false);
+                } else {
+                    $('input[name^="correct_answers"]').val('0');
+                }
+            });
+
+            $('#options-container').on('change', 'input[type="checkbox"]', function() {
+                $(this).closest('.options-input').find('input[type="hidden"]').val($(this).prop('checked') ?
+                    '1' : '0');
+            });
+
+            $('#options-container').on('click', '.remove-option', function() {
+                $(this).closest('.options-input').remove();
+            });
+
+
 
             $("#save-question").click(function(event) {
                 event.preventDefault();
+
+                $(this).html('Sending... <i class="fa fa-spinner fa-spin"></i>');
+                $(this).prop('disabled', true);
+
                 var formData = new FormData($("#form-question-create")[0]);
+
+                formData.forEach(function(value, key) {
+                    console.log(key + " : " + value);
+                });
                 $.ajax({
                     url: '{{ route('dashboard.questions.store', $question->id) }}',
                     type: 'POST',
@@ -163,14 +252,13 @@
 
                         // Menampilkan notifikasi berhasil
                         if (response.success) {
-
                             alert(response.success);
                         }
 
                         // Reload datatable
                         $('#table-question').DataTable().ajax.reload();
-                        $("#form-question-create").trigger('reset');
-
+                        $("#form-question-create")[0].reset();
+                        $('#options-container .options-input:not(:first)').remove();
                     },
                     error: function(xhr, status, error) {
                         // Menampilkan notifikasi kesalahan
@@ -179,56 +267,26 @@
                             alert(xhr.responseJSON.error);
                             $('#table-question').DataTable().ajax.reload();
                             $("#form-question-create").trigger('reset');
+                            $("#exampleModalScrollable").modal("hide");
+
                         } else {
                             console.log("Terjadi kesalahan: " + error);
                             alert(error);
                             $('#table-question').DataTable().ajax.reload();
                             $("#form-question-create").trigger('reset');
-                        }
-                    }
+                            $("#exampleModalScrollable").modal("hide");
 
+                        }
+                    },
+                    complete: function() {
+                        // Mengembalikan teks dan keadaan tombol ke semula
+                        $("#save-question").html('Save');
+                        $("#save-question").prop('disabled', false);
+                    }
                 });
             });
 
 
-            function updateAddOptionButtonVisibility() {
-                var totalOptions = $('.options-input').length;
-                if (totalOptions >= 2) {
-                    $('#add-option').hide();
-                } else {
-                    $('#add-option').show();
-                }
-            }
-
-            $('#add-option').click(function() {
-                var totalOptions = $('.options-input').length;
-
-                if (totalOptions < 2) {
-                    var inputField = `
-                <div class="options-input">
-                    <div class="input-group mb-2">
-                        <input name="options[]" type="text" class="form-control" placeholder="Insert option">
-                        <div class="form-check ms-2 me-2 mt-2">
-                            <input name="correct_answers[]" type="checkbox" class="form-check-input" value="1">
-                            <label class="form-check-label">Correct</label>
-                        </div>
-                        <input type="hidden" name="correct_answers[]" value="0">
-                        <button type="button" class="btn btn-danger remove-option">Remove</button>
-                    </div>
-                </div>`;
-                    $('#options-container').append(inputField);
-                }
-
-                updateAddOptionButtonVisibility();
-            });
-
-            $('#options-container').on('click', '.remove-option', function() {
-                $(this).closest('.options-input').remove();
-                updateAddOptionButtonVisibility();
-            });
-
-            // Check visibility of the "Add Option" button on page load
-            updateAddOptionButtonVisibility();
         });
     </script>
 @endpush

@@ -51,41 +51,37 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="answerType">{{ __('Type of Answer') }}</label>
+                                <select name="answerType" id="answerType" class="form-control">
+                                    <option value="single">{{ __('Single Choice') }}</option>
+                                    <option value="multiple">{{ __('Multiple Choice') }}</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ __('Options') }}</label>
                                 <div id="options-container">
-                                    @if (!empty($options))
-                                        @foreach ($options as $index => $option)
-                                            <div class="options-input">
-                                                <div class="input-group mb-2">
-                                                    <input name="options[]" type="text" class="form-control"
-                                                        placeholder="Insert option" value="{{ $option['value'] }}">
-                                                    <div class="form-check ms-2 me-2 mt-2">
-                                                        <input name="correct_answers[]" type="checkbox"
-                                                            class="form-check-input" value="1"
-                                                            {{ $option['is_correct'] ? 'checked' : '' }}>
-                                                        <label class="form-check-label">Correct</label>
-                                                    </div>
-                                                    <input type="hidden" name="correct_answers[]" value="0">
 
-                                                    @if ($index > 0)
-                                                        <button type="button"
-                                                            class="btn btn-danger remove-option">Remove</button>
-                                                    @endif
-                                                </div>
+                                    <div class="options-input">
+                                        <div class="input-group mb-2">
+                                            <input name="options[]" type="text" class="form-control"
+                                                placeholder="Insert option">
+                                            <div class="form-check ms-2 me-2 mt-2">
+                                                <input type="hidden" name="correct_answers[]" value="0">
+                                                <input type="checkbox" name="correct_answers[]" class="form-check-input"value="1">
+                                                <label class="form-check-label">Correct</label>
                                             </div>
-                                        @endforeach
-                                    @endif
+                                            <button type="button" class="btn btn-danger remove-option">Remove</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button type="button" id="add-option" class="btn btn-success btn-sm mt-2">Add
                                     Option</button>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -93,7 +89,7 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <button type="button" id="save-question" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                    <button type="button" id="save-question" class="btn btn-primary ml-1">
                         <i class="bx bx-check d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Save</span>
                     </button>

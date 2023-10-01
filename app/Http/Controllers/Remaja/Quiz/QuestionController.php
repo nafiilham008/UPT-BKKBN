@@ -26,19 +26,12 @@ class QuestionController extends Controller
      */
     public function index($id)
     {
-        // $question = Question::with('quiz', 'users')
-        //     ->where('quiz_id', $id)
-        //     ->first();
-
         $question = Quiz::with('users', 'category_quiz')->findOrFail($id);
 
         $questions = Question::with('quiz', 'users')
             ->where('quiz_id', $id)
             ->get();
 
-        // $quiz = Quiz::with('users', 'category_quiz')
-        //     ->where('id', $id)
-        //     ->first();
 
         return view('remaja.question.index', compact('question', 'questions'));
     }
@@ -70,18 +63,47 @@ class QuestionController extends Controller
                 'correct_answers' => 'nullable|array',
                 'correct_answers.*' => 'nullable|boolean',
                 'image' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-                'description' => 'nullable|string',
+                'description' => 'required|string',
             ]);
+
+            if (count($request->options) !== count($request->correct_answers)) {
+                $correctAnswers = array_pad($request->correct_answers, count($request->options), 0);
+            } else {
+                $correctAnswers = $request->correct_answers;
+            }
+
+            $trueCount = 0;
+            $falseCount = 0;
+            if (is_array($correctAnswers)) {
+                foreach ($correctAnswers as $answer) {
+                    if ($answer) {
+                        $trueCount++;
+                    } else {
+                        $falseCount++;
+                    }
+                }
+            }
+
+            if ($trueCount < 1 || $falseCount < 1) {
+                return response()->json([
+                    'error' => 'There must be at least one true and one false answer.',
+                ], 500);
+            }
 
             $optionsData = [];
             foreach ($request->options as $index => $option) {
-                // Menggunakan isset() untuk memeriksa apakah indeks ada dalam array
-                $isCorrect = isset($request->correct_answers[$index]) ? (bool)$request->correct_answers[$index] : false;
+                $isCorrect = isset($correctAnswers[$index]) ? $correctAnswers[$index] : false;
                 $optionsData[] = [
                     'value' => $option,
                     'is_correct' => $isCorrect,
                 ];
             }
+
+            // if ($trueCount < 1 || $falseCount < 1) {
+            //     return response()->json([
+            //         'error' => 'There must be at least one true and one false answer.',
+            //     ], 500);
+            // }
 
             if ($request->hasFile('image')) {
                 // $path = $request->file('image')->store('images/quiz');
@@ -155,6 +177,8 @@ class QuestionController extends Controller
      */
     public function update($id, Request $request, $question_id)
     {
+
+        // dd($request->all());
         $request->validate([
             'question' => 'required|string',
             'options' => 'required|array|min:1',
@@ -162,7 +186,7 @@ class QuestionController extends Controller
             'correct_answers' => 'nullable|array',
             'correct_answers.*' => 'nullable|boolean',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
         ]);
 
         $question = Question::where('id', $question_id)
@@ -173,9 +197,32 @@ class QuestionController extends Controller
             return redirect()->route('dashboard.questions', $id)->with('error', __('Question not found.'));
         }
 
+        if (count($request->options) !== count($request->correct_answers)) {
+            // Isi array correct_answers dengan 0 (false) untuk setiap elemen yang tidak ada
+            $correctAnswers = array_pad($request->correct_answers, count($request->options), 0);
+        } else {
+            $correctAnswers = $request->correct_answers;
+        }
+
+        $trueCount = 0;
+        $falseCount = 0;
+        if (is_array($correctAnswers)) {
+            foreach ($correctAnswers as $answer) {
+                if ($answer) {
+                    $trueCount++;
+                } else {
+                    $falseCount++;
+                }
+            }
+        }
+
+        if ($trueCount < 1 || $falseCount < 1) {
+            return redirect()->route('dashboard.questions', $question->quiz_id)->with('error', __('There must be at least one true and one false answer.'));
+        }
+
         $optionsData = [];
         foreach ($request->options as $index => $option) {
-            $isCorrect = !empty($request->correct_answers[$index]);
+            $isCorrect = isset($correctAnswers[$index]) ? $correctAnswers[$index] : false;
             $optionsData[] = [
                 'value' => $option,
                 'is_correct' => $isCorrect,
@@ -204,6 +251,7 @@ class QuestionController extends Controller
             return redirect()->route('dashboard.questions', $question->quiz_id)->with('error', __('Failed to update the question.'));
         }
     }
+
 
 
 

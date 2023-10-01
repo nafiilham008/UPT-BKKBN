@@ -18,21 +18,34 @@
             <div class="">
                 <div class="px-5 lg:px-0">
                     <h1 class="font-titan text-[40px] text-center text-[#272727]/70 mb-5">Let's Start The Game</h1>
-                    <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-12">Seberapa jauh kamu tau?Ayo mulai main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
+                    <h1 class="font-be-vietnam text-base text-center text-[#272727]/70 mb-12">Seberapa jauh kamu tau?Ayo
+                        mulai main dan pastiin jawabanmu bener ya, Lest’s Play</h1>
                 </div>
-                    
+
                 <div class=" px-5 lg:px-[185px]">
                     <div class="rounded-[24px] flex flex-col justify-between lg:min-h-[600px] bg-white/40"
                         style="box-shadow: 0px 1px 14px 0px rgba(133, 145, 255, 0.30); backdrop-filter: blur(35px);">
                         <div class="px-5 lg:px-44 pt-10 {{ $step === 0 ? '' : 'd-none' }}">
                             @if ($step === 0)
-                                <div class="plyr__video-embed" id="player{{ $step }}"
-                                    style="position: relative;">
-                                    <iframe src="{{ $url }}" frameborder="0" allowfullscreen allowtransparency
-                                        allow="autoplay"
-                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                                </div>
+                                @if (!empty($url))
+                                    @if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false)
+                                        <div class="plyr__video-embed" id="player{{ $step }}"
+                                            style="position: relative;">
+                                            <iframe src="{{ $url }}" frameborder="0" allowfullscreen
+                                                allowtransparency allow="autoplay"
+                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                                        </div>
+                                    @elseif (strpos($url, 'drive.google.com') !== false)
+                                        <iframe src="{{ $url }}" style="width:600px; height:500px;"
+                                            frameborder="0">
+                                        </iframe>
+                                    @else
+                                        <h3>Materi Error</h3>
+                                    @endif
+
+                                @endif
                             @endif
+
                         </div>
 
                         @if (!$currentQuestion)
@@ -47,27 +60,60 @@
                                         {{ $currentQuestion->question }}</h1>
                                     <div class="flex justify-center items-center gap-5 mt-6">
                                         @if ($currentQuestion->image)
-                                            <div class="w-[162px] h-[144px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
+                                            <div class="w-[400px] h-[400px] flex justify-center items-center bg-white rounded-[30px] flex-shrink-0 border border-[#616161]"
                                                 style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
                                                 <img src="{{ asset('storage/' . $currentQuestion->image) }}"
-                                                    alt="">
+                                                    class="max-h-[375px] max-w-full" alt="">
                                             </div>
                                         @endif
                                     </div>
-                                    <div class="flex justify-center items-center gap-5 mt-6">
+                                    <div class="px-10 mt-6">
                                         @foreach (json_decode($currentQuestion->options, true) as $option)
-                                            <label>
-                                                <input type="radio" name="answer[{{ $currentQuestion->id }}]"
-                                                    class="hidden" wire:model="input.{{ $currentQuestion->id }}"
-                                                    value="{{ $option['value'] }}"
-                                                    @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
-                                                <div
-                                                    class="custom-radio bg-[#FAEBBE] w-[129px] h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
-                                                    {{ $option['value'] }}
-                                                </div>
-                                            </label>
+                                            @if (count(array_filter(json_decode($currentQuestion->options, true), function ($opt) {
+                                                        return $opt['is_correct'] == '1';
+                                                    })) > 1)
+                                                <!-- Keterangan untuk multiple choice -->
+                                                @if ($loop->first)
+                                                    <p class="mb-5">Silahkan pilih jawaban yang menurut Anda benar, dapat lebih dari
+                                                        satu pilihan.
+                                                    </p>
+                                                @endif
+
+                                                <!-- Checkbox untuk multiple choice -->
+                                                <label>
+                                                    <input type="checkbox" class="hidden"
+                                                        name="answer[{{ $currentQuestion->id }}][{{ $option['value'] }}]"
+                                                        wire:model="input.{{ $currentQuestion->id }}.{{ $option['value'] }}"
+                                                        value="{{ $option['value'] }}"
+                                                        @if (isset($input[$currentQuestion->id]) &&
+                                                                isset($input[$currentQuestion->id][$option['value']]) &&
+                                                                $input[$currentQuestion->id][$option['value']] === $option['value']
+                                                        ) checked @endif>
+                                                    <div class="custom-checkbox mb-5 bg-[#FAEBBE] text-center w-full px-4 py-2 h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                                                        {{ $option['value'] }}
+                                                    </div>
+                                                </label>
+                                            @else
+                                                <!-- Keterangan untuk single choice -->
+                                                @if ($loop->first)
+                                                    <p class="mb-5">Silahkan pilih satu jawaban yang menurut Anda benar.</p>
+                                                @endif
+
+                                                <!-- Radio untuk single choice -->
+                                                <label>
+                                                    <input type="radio" name="answer[{{ $currentQuestion->id }}]"
+                                                        class="hidden" wire:model="input.{{ $currentQuestion->id }}"
+                                                        value="{{ $option['value'] }}"
+                                                        @if (isset($input[$currentQuestion->id]) && $input[$currentQuestion->id] === $option['value']) checked @endif>
+                                                    <div
+                                                        class="custom-radio mb-5 bg-[#FAEBBE] text-center w-full px-4 py-2 h-[52px] flex justify-center items-center rounded-[12px] text-black font-be-vietnam">
+                                                        {{ $option['value'] }}
+                                                    </div>
+                                                </label>
+                                            @endif
                                         @endforeach
                                     </div>
+
                                 </div>
                             @endif
 
@@ -163,6 +209,19 @@
             });
         });
     </script>
+
+    <script>
+        function toggleCheckbox(checkboxElem) {
+            if (checkboxElem.checked) {
+                const allCheckboxes = document.querySelectorAll(`input[name="${checkboxElem.name}"]`);
+                allCheckboxes.forEach(cb => {
+                    if (cb !== checkboxElem) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        }
+    </script>
 @endpush
 @push('css')
     @livewireStyles
@@ -226,6 +285,14 @@
         }
 
         input[type="radio"]:checked+.custom-radio {
+            background-color: #FFBF00;
+        }
+        .custom-checkbox {
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]:checked+.custom-checkbox {
             background-color: #FFBF00;
         }
     </style>

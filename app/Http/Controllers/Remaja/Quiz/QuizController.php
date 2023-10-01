@@ -64,6 +64,8 @@ class QuizController extends Controller
             'category_quiz_id' => 'required'
         ]);
 
+        // dd($request->all());
+
         $slug_url = Str::slug($validated['title'], '-');
         $slug_url = Str::lower($slug_url);
 
@@ -77,8 +79,8 @@ class QuizController extends Controller
 
         $quizCreate = Quiz::create([
             'title' => $validated['title'],
-            'url' => $validated['url'], 
-            'slug_url' => $slug_url, 
+            'url' => $validated['url'],
+            'slug_url' => $slug_url,
             'image' => $path,
             'description' => $validated['description'],
             'user_id' => auth()->user()->id,
